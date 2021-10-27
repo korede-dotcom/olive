@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olive</title>
+    <link rel="stylesheet" href="styles/auth.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <div class="logo">
+                <h1>logo</h1>
+            </div>
+            <div class="icon">
+                <div class="user">
+                    <img src="/assest/OLIVE/Group-1.png" alt="" srcset="">
+                </div>
+                <a href="/">
+                    <div class="home">
+                        <img src="/assest/OLIVE/Group.png" alt="" srcset="">
+                    </div>
+                </a>
+            </div>
+        </header>
+        <section class="largeImg">
+            <img class="changeImg" src="/assest/OLIVE/woman.png" />
+            <!-- <img src="/assest/OLIVE/guy.png" /> -->
+            <img class="carousel" src="/assest/OLIVE/Group 2.png" />
+        </section>
+        <section class="content">
+            <h4 class="content_header">YOUTH CENTRIC DIGITAL ECOSYSTEM</h4>
+            <p class="content_text">
+                <strong>Olive platform</strong> is a triumvirate and youth-centric digital ecosystem built for creative
+                enthusiasts
+                seeking talent discovery, training, incubation, content production, publicity, audience engagement and
+                market nexus to monetize digital contents in music, movies, fashion, and creative expressions.
+            </p>
+            <div class="youtube">
+                <img src="/assest/OLIVE/ladyYoutube.png" alt="" srcset="">
+                <img class="youtubelogo" src="/assest/OLIVE/fontisto_youtube-play.png">
+            </div>
+            <div class="join">
+
+                <div class="phoneInput">
+                    <h4 class="form content_header">JOIN FREE OR SIGN IN</h4>
+                    <img src="/assest/OLIVE/line 2.png" />
+                    <form id="form">
+                        <div class="flex-form">
+                            <select name="" id="">
+                            </select>
+                            <input type="number" name="" id="">
+                        </div>
+                        <img src="/assest/OLIVE/line 2.png" />
+                        <button class="btn">SIGN IN</button>
+                    </form>
+                </div>
+                <p>*By continuing you accept the Promoflo network and OLIVE Terms and Privacy Policy.</p>
+                <p>or <span>LOG IN</span> with </p>
+            </div>
+            <div class="otp_content">
+                <h4 class="otp content_header">Verify your Phone number</h4>
+                <h5>Enter your OTP code here</h5>
+                <div class="otp">
+                    <input type="number" name="" id="">
+                    <input type="number" name="" id="">
+                    <input type="number" name="" id="">
+                    <input type="number" name="" id="">
+                    <input type="number" name="" id="">
+                </div>
+                <a href="/dashboard">
+
+                    <button class="btn">SIGN IN</button>
+                </a>
+                <h6 class="resend">Resend</h6>
+            </div>
+            <footer>
+                <div class="facebook">
+                    <img src="/assest/OLIVE/Ellipse 2.png" />
+                    <img class="socialicons" src="/assest/OLIVE/brandico_facebook.png" />
+                </div>
+                <div class="google">
+                    <img src="/assest/OLIVE/Ellipse 2.png" />
+                    <img class="socialicons" src="/assest/OLIVE/flat-color-icons_google.png" />
+                </div>
+                <div class="mail">
+                    <img src="/assest/OLIVE/Ellipse 2.png" />
+                    <img class="socialicons" src="/assest/OLIVE/clarity_email-outline-badged.png" />
+                </div>
+            </footer>
+        </section>
+
+        <div class="bottom"></div>
+    </div>
+
+    <script>
+        const otp_content = document.querySelector(".otp_content")
+        const form = document.querySelector("#form");
+        form.addEventListener("submit", (e) => {
+            e.preventDefault()
+            otp_content.style.display = "flex";
+            e.target.parentElement.parentElement.remove()
+        })
+
+
+        const carousel = document.querySelector(".carousel");
+        const changeImg = document.querySelector(".changeImg");
+
+
+        carousel.addEventListener("click", (e) => {
+            console.log(changeImg)
+            changeImg.src = "/assest/OLIVE/guy.png"
+
+
+        })
+
+    </script>
+
+</body>
+
+</html>
