@@ -19,5 +19,5 @@ app.use(router)
 
 
 
-const port = 1200 || process.env.PORT;
+const port = process.env.PORT  || 1200 ;
 app.listen(port , ()=> console.log(`server running on port ${port} `))
