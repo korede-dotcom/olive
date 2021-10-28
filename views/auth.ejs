@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
 </head>
 
 <body>
@@ -31,9 +32,42 @@
             </div>
         </header>
         <section class="largeImg">
-            <img class="changeImg" src="/assest/OLIVE/woman.png" />
-            <!-- <img src="/assest/OLIVE/guy.png" /> -->
-            <img class="carousel" src="/assest/OLIVE/Group 2.png" />
+
+
+            <div class="swiper">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper">
+                    <!-- Slides -->
+                    <div class="swiper-slide">
+                        <img src="/assest/OLIVE/woman.png" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img style="height: 452px; width: 414px;object-fit: cover;" src="/assest/OLIVE/guy.png" />
+                    </div>
+
+                    ...
+                </div>
+                <!-- If we need pagination -->
+                <div class="swiper-pagination"></div>
+
+                <!-- If we need navigation buttons -->
+
+                <div class="swiper-button-prev">
+                    <img class="carousel-l" src="/assest/OLIVE/Group 2.png" />
+                </div>
+                <div class="swiper-button-next">
+                    <img class="carousel" src="/assest/OLIVE/Group 2.png" />
+                </div>
+
+                <!-- If we need scrollbar -->
+                <div class="swiper-scrollbar"></div>
+
+                <!-- 
+                <img src="/assest/OLIVE/guy.png" />
+                <img src="/assest/OLIVE/woman.png" />  -->
+            </div>
+            <!--  -->
+
         </section>
         <section class="content">
             <h4 class="content_header">YOUTH CENTRIC DIGITAL ECOSYSTEM</h4>
@@ -54,9 +88,15 @@
                     <img src="/assest/OLIVE/line 2.png" />
                     <form id="form">
                         <div class="flex-form">
-                            <select name="" id="">
+                            <select class="" name="" id="">
+                                <option value="">
+                                    <img class="flag" src="">
+                                </option>
                             </select>
-                            <input type="number" name="" id="">
+
+                            <!-- <select name="" id="">
+                            </select>
+                            <input type="number" name="" id=""> -->
                         </div>
                         <img src="/assest/OLIVE/line 2.png" />
                         <button class="btn">SIGN IN</button>
@@ -101,27 +141,52 @@
     </div>
 
     <script>
-        const otp_content = document.querySelector(".otp_content")
-        const form = document.querySelector("#form");
-        form.addEventListener("submit", (e) => {
-            e.preventDefault()
-            otp_content.style.display = "flex";
-            e.target.parentElement.parentElement.remove()
-        })
-
-
         const carousel = document.querySelector(".carousel");
         const changeImg = document.querySelector(".changeImg");
+        const slider = document.querySelector(".slider");
 
 
-        carousel.addEventListener("click", (e) => {
-            console.log(changeImg)
-            changeImg.src = "/assest/OLIVE/guy.png"
+        const form = document.querySelector("#form");
 
-
+        form.addEventListener("submit", (e) => {
+            e.preventDefault()
+            const otp_content = document.querySelector(".otp_content")
+            otp_content.style.display = "flex";
+            e.target.parentElement.parentElement.style.display = "none"
         })
 
+
+
+
+
+
+
     </script>
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+    <script>
+        const swiper = new Swiper('.swiper', {
+            // Optional parameters
+
+            loop: true,
+
+            // If we need pagination
+            pagination: {
+                el: '.swiper-pagination',
+            },
+
+            // Navigation arrows
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+
+            // And if we need scrollbar
+            // scrollbar: {
+            //     el: '.swiper-scrollbar',
+            // },
+        });
+    </script>
+
 
 </body>
 

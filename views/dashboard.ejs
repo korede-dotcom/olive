@@ -1,8 +1,36 @@
 <%- include ("./partials/header.ejs") %>
     <section class="largeImg">
-        <img style="height: 400px; Width:414px;object-fit: cover;" class="changeImg" src="/assest/OLIVE/woman.png" />
-        <!-- <img src="/assest/OLIVE/guy.png" /> -->
-        <img class="carousel" src="/assest/OLIVE/Group 2.png" />
+        <div class="swiper">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+                <!-- Slides -->
+                <div class="swiper-slide">
+                    <img src="/assest/OLIVE/woman.png" />
+                </div>
+                <div class="swiper-slide">
+                    <img style="height: 452px; width: 414px;object-fit: cover;" src="/assest/OLIVE/guy.png" />
+                </div>
+            </div>
+            <!-- If we need pagination -->
+            <div class="swiper-pagination"></div>
+
+            <!-- If we need navigation buttons -->
+
+            <div class="swiper-button-prev">
+                <img class="carousel-l" src="/assest/OLIVE/Group 2.png" />
+            </div>
+            <div class="swiper-button-next">
+                <img class="carousel" src="/assest/OLIVE/Group 2.png" />
+            </div>
+
+            <!-- If we need scrollbar -->
+            <div class="swiper-scrollbar"></div>
+
+            <!-- 
+            <img src="/assest/OLIVE/guy.png" />
+            <img src="/assest/OLIVE/woman.png" />  -->
+        </div>
+        <!--  -->
     </section>
     <section class="content">
         <h4 class="content_header">My Dashboard</h4>

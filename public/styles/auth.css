@@ -87,14 +87,72 @@ header{
     height: 24px;
 }
 .largeImg{
+    /* display: flex; */
+    /* min-height: 452px; */
+    /* background-image: url("/assest/OLIVE/woman.png"); */
+    position: relative;
+}
+/* .slider{
+    display: flex;
+    overflow-x: scroll;
+    transition:transform .2s ease-in .1s ;
+    animation: fade;
+}
+.trans{
+    transition: transform .2s ease-in .1s;
+    transform: translateX(414px);
+} */
+/* .x{
+    background-image: url("/assest/OLIVE/woman.png");
+    /* transform: translateX(414px); 
+    height: 452px;
     position: relative;
     bottom: 0;
-    transition: opacity 2s ease-in .5s;
+    transition: opacity .2s ease-in .2s;
+    display: flex;
+    animation: fade 3s both 2 backwards; 
+    background-repeat: no-repeat;
+    background-size: cover ;
+
+} */
+
+/* @keyframes fade{
+    0%{
+
+        background-image: url("/assest/OLIVE/woman.png");
+        transform: translateX(1);
+    }
+    100%{
+        background-image: url("/assest/OLIVE/guy.png");
+        transform: translateX(0);
+    }
+} */
+
+/* .carousel */
+.carousel-l{
+    position: absolute;
+    transform: rotate(180deg);
+    left: 20px;
+    top: 13px;
+    z-index: 900;
 }
-.largeImg img:nth-child(2){
+/* https://countriesnow.space/api/v0.1/countries/flag/unicode */
+.carousel{
    position: absolute;
    right: 20px;
-    top: 193px;
+    top: 13px;
+    z-index: 900;
+}
+.swiper-pagination-bullet{
+    background-color: #FAB42B !important;
+}
+
+.swiper-button-prev {
+    color: transparent !important;
+}
+
+.swiper-button-next {
+    color: transparent !important;
 }
 
 .content{
