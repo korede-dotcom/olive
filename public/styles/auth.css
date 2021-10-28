@@ -145,10 +145,16 @@ header{
 }
 .swiper-pagination-bullet{
     background-color: #FAB42B !important;
+    /* visibility: hidden !important; */
+    outline: none !important;
+    pointer-events: none;
 }
 
 .swiper-button-prev {
+    pointer-events: none;
     color: transparent !important;
+    /* visibility: hidden !important; */
+    outline: none !important;
 }
 
 .swiper-button-next {
