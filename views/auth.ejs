@@ -84,19 +84,15 @@
 
                 <div class="phoneInput">
                     <h4 class="form content_header">JOIN FREE OR SIGN IN</h4>
+                    <hr>
                     <img src="/assest/OLIVE/line 2.png" />
-                    <form id="form">
+                    <form id="form" class="numberform">
                         <div class="flex-form">
+                            <select>
 
-                            <select class="" name="" id="">
-                                <option value="">
-                                    <img class="flag" src="">
-                                </option>
                             </select>
-
-                            <!-- <select name="" id="">
-                            </select>
-                            <input type="number" name="" id=""> -->
+                            <input type="text" name="code" id="code" readonly>
+                            <input type="number" name="phone" id="phoneNumber">
                         </div>
                         <img src="/assest/OLIVE/line 2.png" />
                         <button class="btn">SIGN IN</button>
@@ -146,6 +142,7 @@
         const slider = document.querySelector(".slider");
 
 
+
         const form = document.querySelector("#form");
 
         form.addEventListener("submit", (e) => {
@@ -156,10 +153,25 @@
         })
 
 
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
 
+        // fetch("https://countriesnow.space/api/v0.1/countries/flag/unicode", requestOptions)
+        //     .then(response => response.json())
+        //     .then(result => {
+        //         console.log(result.data)
+        //         select.innerHTML = result.data.forEach(element => {
+        //             return `
+        //                 <option>${element.unicodeFlag}</option>
+        //             `
+        //         });
+        //         console.log(select)
+        //         // select.innerHTML = "hi"
 
-
-
+        //     })
+        //     .catch(error => console.log('error', error));
 
     </script>
     <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
@@ -189,7 +201,7 @@
             // },
         });
     </script>
-
+    <script src="/js/app.js"></script>
 
 </body>
 
