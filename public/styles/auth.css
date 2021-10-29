@@ -252,17 +252,20 @@ form option{
     text-align: center;
 }
 .flex-form #code {
-    border-bottom: 1px solid black;
+    /* border-bottom: 1px solid black;
     border-top: none;
     border-left: none;
-    border-right: none;
+    border-right: none; */
+    border: none;
     width: 50px;
     font-size: 20px;
     outline: none;
     background: none;
+    border-radius: 0px;
 }
 #phoneNumber{
-    background: none;
+    border-radius: 0px;
+    background-color: none;
     outline: none;
     border-top: none;
     border-left: none;
@@ -274,10 +277,12 @@ form option{
 
 .flex-form select{
     -webkit-appearance: none;
-    background: none;
+    /* background: none; */
     outline: none;
+    font-size: 50px;
+    background: none;
     border-radius: 50%;
-   
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Afghanistan.svg");
     border-color: transparent;
 }
 .unicode{

@@ -89,10 +89,10 @@
                     <form id="form" class="numberform">
                         <div class="flex-form">
                             <select>
-
+                                <option class="ng"></option>
                             </select>
-                            <input type="text" name="code" id="code" readonly>
-                            <input type="number" name="phone" id="phoneNumber">
+                            <input type="text" name="code" id="code" readonly value="+234">
+                            <input type="number" name="phone" id="phoneNumber" autocomplete="off">
                         </div>
                         <img src="/assest/OLIVE/line 2.png" />
                         <button class="btn">SIGN IN</button>
@@ -105,11 +105,11 @@
                 <h4 class="otp content_header">Verify your Phone number</h4>
                 <h5>Enter your OTP code here</h5>
                 <div class="otp">
-                    <input type="number" name="" id="">
-                    <input type="number" name="" id="">
-                    <input type="number" name="" id="">
-                    <input type="number" name="" id="">
-                    <input type="number" name="" id="">
+                    <input type="text" name="" id="one" maxlength="1" onkeyup='otpCode(e,"","one","two")'>
+                    <input type="text" name="" id="two" maxlength="1" onkeyup='otpCode(e,"one","two","three")'>
+                    <input type="text" name="" id="three" maxlength="1" onkeyup='otpCode(e,"two","three","four")'>
+                    <input type="text" name="" id="four" maxlength="1" onkeyup='otpCode(e,"three","four","five")'>
+                    <input type="text" name="" id="five" maxlength="1" onkeyup='otpCode(e,"four","five","")'>
                 </div>
                 <a href="/dashboard">
 
@@ -143,6 +143,7 @@
 
 
 
+
         const form = document.querySelector("#form");
 
         form.addEventListener("submit", (e) => {
@@ -172,6 +173,13 @@
 
         //     })
         //     .catch(error => console.log('error', error));
+        function otpCode(e, p, c, n) {
+            const length = document.getElementById(c).value.length;
+            const maxlength = document.getElementById(c).getAttribute("maxlength");
+            if (length == maxlength) {
+                document.getElementById(n).focus()
+            }
+        }
 
     </script>
     <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
