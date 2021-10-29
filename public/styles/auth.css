@@ -223,12 +223,14 @@ header{
 
 
 }
-.phoneInput{
+.phoneInput > *{
     /* display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     gap: 10px; */
+    line-height: 2;
+    
 
 }
 .join span{
@@ -239,10 +241,10 @@ header{
 
 /* form */
 form option{
-    height: 20%;
+    height: 30%;
 }
 .flex-form{
-  
+    
     display: flex;
     gap: 10px;
     justify-content: center;
@@ -270,8 +272,10 @@ form option{
     border-top: none;
     border-left: none;
     border-right: none;
-    border-bottom: 1px solid black;
+    border-bottom: .1px solid black;
     font-size: 20px;
+    text-align: center;
+
 
 }
 
