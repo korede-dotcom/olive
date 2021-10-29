@@ -4,7 +4,13 @@
     padding: 0;
     box-sizing: border-box;
     -ms-overflow-style: none;
+
     
+}
+* input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 a{
     text-decoration: none;
@@ -122,6 +128,12 @@ header{
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+}
+.tools form input{
+    -webkit-appearance: none;
+    background: none;
+    outline: none;
+    border: none;
 }
 
 .record{

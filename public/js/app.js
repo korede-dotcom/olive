@@ -10,7 +10,7 @@
  .then(response => response.json())
  .then(result => {
      ng.innerHTML = result.data[140].unicodeFlag
-     ng.value = result.data[140].name
+     ng.value = result.data[140].unicodeFlag
      
      select.innerHTML += result.data.map((e,i) => `
      <option value=${e.name}>
