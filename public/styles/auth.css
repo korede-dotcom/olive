@@ -224,11 +224,11 @@ header{
 
 }
 .phoneInput{
-    display: flex;
+    /* display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    gap: 10px;
+    gap: 10px; */
 
 }
 .join span{
@@ -245,7 +245,7 @@ form option{
   
     display: flex;
     gap: 10px;
-   
+    justify-content: center;
     align-items: center;
     width: inherit;
     padding: 5px;
