@@ -7,6 +7,10 @@
 
     
 }
+a{
+    text-decoration: none;
+    color: #fff;
+}
 .cameratag_select_prompt,.cameratag_action_icon{
     color: #FFCA00;
 }
