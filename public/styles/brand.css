@@ -7,11 +7,13 @@
 
     
 }
-* input {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
+.cameratag_select_prompt,.cameratag_action_icon{
+    color: #FFCA00;
 }
+.camera_tag{
+    border: none;
+}
+
 a{
     text-decoration: none;
 }
