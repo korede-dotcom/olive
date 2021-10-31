@@ -51,11 +51,24 @@ body{
    
 
 }
-input#phone {
+.numberform{
+    max-width: 414px;
+}
+.iti__flag{
+    
+}
+#forphone{
+    flex: 1;
+   
+}
+
+
+input#phone,.input {
     border: none !important;
     font-size: 30px;
     outline: none !important;
     background: none !important;
+    margin: 0 15px !important;
 }
 header{
     min-height: 64px;
@@ -96,43 +109,7 @@ header{
     /* background-image: url("/assest/OLIVE/woman.png"); */
     position: relative;
 }
-/* .slider{
-    display: flex;
-    overflow-x: scroll;
-    transition:transform .2s ease-in .1s ;
-    animation: fade;
-}
-.trans{
-    transition: transform .2s ease-in .1s;
-    transform: translateX(414px);
-} */
-/* .x{
-    background-image: url("/assest/OLIVE/woman.png");
-    /* transform: translateX(414px); 
-    height: 452px;
-    position: relative;
-    bottom: 0;
-    transition: opacity .2s ease-in .2s;
-    display: flex;
-    animation: fade 3s both 2 backwards; 
-    background-repeat: no-repeat;
-    background-size: cover ;
 
-} */
-
-/* @keyframes fade{
-    0%{
-
-        background-image: url("/assest/OLIVE/woman.png");
-        transform: translateX(1);
-    }
-    100%{
-        background-image: url("/assest/OLIVE/guy.png");
-        transform: translateX(0);
-    }
-} */
-
-/* .carousel */
 .carousel-l{
     position: absolute;
     transform: rotate(180deg);
@@ -252,7 +229,6 @@ form option{
     
     display: flex;
     gap: 10px;
-    justify-content: center;
     align-items: center;
     width: inherit;
     padding: 5px;
@@ -264,7 +240,7 @@ form option{
     border-left: none;
     border-right: none; */
     border: none;
-    width: 50px;
+    
     font-size: 20px;
     outline: none;
     background: none;
