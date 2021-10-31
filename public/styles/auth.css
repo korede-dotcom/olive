@@ -40,7 +40,7 @@ body{
 
 
 .container{
-    width: 414px;
+    width: 414px !important;
     margin: 0 auto ;
     overflow-x: hidden;
     /* border: 1px solid red; */
@@ -49,10 +49,11 @@ body{
     display: flex;
     flex-direction: column;
    
-    
-    
-}
 
+}
+input#phone {
+    border: none !important;
+}
 header{
     min-height: 64px;
     background: #FFCA00;
