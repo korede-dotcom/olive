@@ -15,7 +15,7 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" style="overflow: hidden;">
         <header>
             <div class="logo">
                 <h1>logo</h1>
@@ -31,73 +31,67 @@
                 </a>
             </div>
         </header>
-        <section class="largeImg">
-            <img style="height: 350px; Width:414px;object-fit: cover;" class="changeImg"
-                src="/assest/OLIVE/bbnFull.png" />
-            <!-- <img src="/assest/OLIVE/guy.png" /> -->
-            <!-- <img class="carousel" src="/assest/OLIVE/Group 2.png" /> -->
-        </section>
-        <section class="content brand">
-            <h4 class="content_header">Big Brother Naija 2022</h4>
-            <div class="brand_text">
-                <p>
-                    Big Brother Naija, formerly known as Big Brother Nigeria, is a Nigerian reality competition
-                    television series.
-                </p>
-                <form class="record">
-                    <p>Choose a method below to record</p>
-                    <div class="tools">
-                        <form>
-                            <a href="https://streamyard.com/svff8dbpde" target="_blank">
-                                <div>
-                                    <img src="/assest/OLIVE/recordgold.png" alt="" srcset="">
-                                    <h6>Record a video</h6>
+        <div class="transform" style="transition: transform .3s ease .3s;">
+            <section class="largeImg">
+                <img style="height: 350px; Width:414px;object-fit: cover;" class="changeImg"
+                    src="/assest/OLIVE/bbnFull.png" />
+                <!-- <img src="/assest/OLIVE/guy.png" /> -->
+                <!-- <img class="carousel" src="/assest/OLIVE/Group 2.png" /> -->
+            </section>
+            <section class="content brand">
+                <h4 class="content_header">Big Brother Naija 2022</h4>
+                <div class="brand_text">
+                    <p>
+                        Big Brother Naija, formerly known as Big Brother Nigeria, is a Nigerian reality competition
+                        television series.
+                    </p>
+                    <form class="record">
+                        <p>Choose a method below to record</p>
+                        <div class="tools">
+                            <form>
+                                <div id="recordBtn">
+                                    <a href="https://streamyard.com/gc3vxdzgvm" target="streamyard">
+                                        <img src="/assest/OLIVE/recordgold.png" alt="" srcset="">
+                                        <h6>Record a video</h6>
+                                    </a>
                                 </div>
-                            </a>
-                            <div>
-                                <input type="file" name="" id="upload" hidden>
-                                <label for="upload">
-                                    <img src="/assest/OLIVE/uploadGold.png" alt="" srcset="">
 
-                                    <h6>Upload your video</h6>
-                                </label>
-                            </div>
-                        </form>
-                    </div>
-                    <div style="width:100%;height:0px;position:relative;padding-bottom:56.25%;"><iframe
-                            src="https://embed.streamyard.com/re44ht2xjmpf" width="100%" height="100%" frameborder="0"
-                            allowfullscreen
-                            style="width:100%;height:100%;position:absolute;left:0px;top:0px;overflow:hidden;"></iframe>
-                    </div>
-                    <div class="updateprofile">
-                        <h6 class="content_header">Update Your Profile</h6>
-                        <p>Kindly update your profile </p>
-                    </div>
-                    <button class="btn">Update Your Profile</button>
+                                <div>
+                                    <input type="file" name="" id="upload" hidden>
+                                    <label for="upload">
+                                        <img src="/assest/OLIVE/uploadGold.png" alt="" srcset="">
+
+                                        <h6>Upload your video</h6>
+                                    </label>
+                                </div>
+                            </form>
+                        </div>
+
+                </div>
+                <div class="updateprofile">
+                    <h6 class="content_header">Update Your Profile</h6>
+                    <p>Kindly update your profile </p>
+                </div>
+                <button class="btn">Update Your Profile</button>
                 </form>
-            </div>
-            <!-- <div class="boxs">
-            <div class="bo">
-                <img src="/assest/OLIVE/rccg.png">
-                <h6 class="content_header audition">rccg</h6>
-            </div>
-            <div class="bo">
-                <img src="/assest/OLIVE/bbn.png">
-                <h6 class="content_header audition">bbnaija</h6>
-            </div>
-            <div class="bo">
-                <img src="/assest/OLIVE/headies.png">
-                <h6 class="content_header audition">headies</h6>
-            </div>
-            <div class="bo">
-                <img src="/assest/OLIVE/projectfame.png">
-                <h6 class="content_header audition">projectfame</h6>
-            </div>
-        </div> -->
-
-
-        </section>
+            </section>
+        </div>
+        <div id="forlivevideo"
+            style="min-height: 730px; display: flex; flex-direction: column; transform: translateY(730px);transition: transform .5s ease .5s;  align-items: center; gap: 10px; padding: .55em; background-color: black;">
+            <h4 class="content_header">Big Brother Naija 2022</h4>
+            <iframe src="" frameborder="0" name="streamyard"></iframe>
+        </div>
     </div>
+    <script>
+        const recordBtn = document.getElementById("recordBtn");
+        const tr = document.querySelector(".transform");
+        const forlivevideo = document.querySelector("#forlivevideo");
+        recordBtn.addEventListener("click", (e) => {
+            tr.style.transform = 'translateY(-730px)'
+            forlivevideo.style.transform = 'translateY(-730px)'
+        })
+
+    </script>
 </body>
 
 </html>
