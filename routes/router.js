@@ -14,16 +14,16 @@ router.get("/dashboard",(req,res)=>{
 router.get("/digitalauditionplatform",(req,res)=>{
     res.render("dap")
 })
+
 router.get("/digitalauditionplatform/:name",(req,res)=>{
     axios.get('https://streamyard.com/gc3vxdzgvm')
-//   .then(function (response) {
-    
-//     console.log(response);
-//   })
-//   .catch(function (error) {
-//     // handle error
-//     console.log(error);
-//   })
+  .then(function (response) {
+   
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
     req.params.name === "bbnaija" && res.render("bbn")
   
 })

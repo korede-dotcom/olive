@@ -12,10 +12,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
 
 
+
 </head>
 
 <body>
-    <div class="container" style="overflow: hidden;">
+    <div class="container" style="overflow: hidden; min-height: 777px;">
         <header>
             <div class="logo">
                 <h1>logo</h1>
@@ -50,10 +51,10 @@
                         <div class="tools">
                             <form>
                                 <div id="recordBtn">
-                                    <a href="https://streamyard.com/gc3vxdzgvm" target="streamyard">
-                                        <img src="/assest/OLIVE/recordgold.png" alt="" srcset="">
-                                        <h6>Record a video</h6>
-                                    </a>
+                                    <!-- <a target="restream"> -->
+                                    <img src="/assest/OLIVE/recordgold.png" alt="" srcset="">
+                                    <h6>Record a video</h6>
+                                    <!-- </a> -->
                                 </div>
 
                                 <div>
@@ -79,16 +80,19 @@
         <div id="forlivevideo"
             style="min-height: 730px; display: flex; flex-direction: column; transform: translateY(730px);transition: transform .5s ease .5s;  align-items: center; gap: 10px; padding: .55em; background-color: black;">
             <h4 class="content_header">Big Brother Naija 2022</h4>
-            <iframe src="" frameborder="0" name="streamyard"></iframe>
+            <iframe height="730px" allow="camera; microphone;" width="100%" src="" frameborder="0" name="restream">
+            </iframe>
         </div>
     </div>
     <script>
+
         const recordBtn = document.getElementById("recordBtn");
         const tr = document.querySelector(".transform");
         const forlivevideo = document.querySelector("#forlivevideo");
         recordBtn.addEventListener("click", (e) => {
             tr.style.transform = 'translateY(-730px)'
             forlivevideo.style.transform = 'translateY(-730px)'
+            document.querySelector("iframe").src = "https://studio.restream.io/guest/bDBaNllXa7srZaCHW01LjKxavz4ynEU"
         })
 
     </script>
