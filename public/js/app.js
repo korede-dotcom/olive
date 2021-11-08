@@ -1,50 +1,60 @@
-       
- const select = document.querySelector(".flex-form select");
- const numberform = document.querySelector(".numberform");
- const ccode = document.querySelector("#code");
- const ng = document.querySelector(".ng");
-//  const otp = document.querySelectorAll(".otp input");
-       
-
- fetch("https://countriesnow.space/api/v0.1/countries/flag/unicode", requestOptions)
- .then(response => response.json())
- .then(result => {
-     ng.innerHTML = result.data[140].unicodeFlag
-     ng.value = result.data[140].unicodeFlag
-     
-     select.innerHTML += result.data.map((e,i) => `
-     <option value=${e.name}>
-     ${e.unicodeFlag}
-     </option>
-     `).join("")
-     
-     // select.innerHTML = "hi"
-
- })
- .catch(error => console.log('error', error));
+const carousel = document.querySelector(".carousel");
+const changeImg = document.querySelector(".changeImg");
+const slider = document.querySelector(".slider");
 
 
 
- numberform.addEventListener("change",(e)=>{
-     const selected = e.target.value
-     
 
-     var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-      };
-      
-      fetch("https://countriesnow.space/api/v0.1/countries/codes", requestOptions)
-        .then(response => response.json())
-        .then(result => {
-            const code = result.data.filter((d)=>{
-                return d.name === selected
-            })
-            console.log(code)
-            ccode.value = code[0].dial_code
-            
+const form = document.querySelector("#form");
+
+form.addEventListener("submit", (e) => {
+    e.preventDefault()
+   
+
+    fetch('/', {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            username: e.target.username.value,
+            password: e.target.password.value
         })
-        .catch(error => console.log('error', error));
-     
- })
+    }).then(res => res.json())
+        .then(data => {
+            if(data.status === "true"){
+                 const otp_content = document.querySelector(".otp_content")
+                 otp_content.style.display = "flex";
+                e.target.parentElement.parentElement.style.display = "none"
+            }
+            console.log(data)
+
+    })
+
+})
+
+// otp
+const otp = document.querySelector("#otp");
+
+otp.addEventListener("submit", (e) => {
+    e.preventDefault()
+   
+   const inputOtp = e.target.one.value.concat(e.target.two.value,e.target.three.value,e.target.four.value,e.target.five.value);
+    
+    
+
+    fetch('/otp', {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            otp: inputOtp
+        })
+    }).then(res => res.json())
+        .then(data => {
+            if(data.status === "true"){
+              window.location.href = "/dashboard"
+            }
+            console.log(data)
+
+    })
+
+})
 

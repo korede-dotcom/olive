@@ -105,9 +105,16 @@
                                     <img src="/assest/OLIVE/arrowdown.png" />
                                 </div>
                             </label>
-                            <input type="number" name="" id="" class="input" placeholder="0815 243 5263">
+
+
+                            <input type="number" name="username" id="username" class="input"
+                                placeholder="0815 243 5263">
 
                         </div>
+                        <hr>
+                        <input type="password" class="input p"
+                            style="font-size: smaller; font-weight: lighter; text-transform: uppercase;" name="password"
+                            id="password" placeholder="create a password">
                         <hr>
                         <button class="btn">SIGN IN</button>
                     </form>
@@ -116,19 +123,22 @@
                 <p>or <span>LOG IN</span> with </p>
             </div>
             <div class="otp_content">
-                <h4 class="otp content_header">Verify your Phone number</h4>
-                <h5>Enter your OTP code here</h5>
-                <div class="otp">
-                    <input type="text" name="" id="one" maxlength="1" onkeyup='otpCode(e,"","one","two")'>
-                    <input type="text" name="" id="two" maxlength="1" onkeyup='otpCode(e,"one","two","three")'>
-                    <input type="text" name="" id="three" maxlength="1" onkeyup='otpCode(e,"two","three","four")'>
-                    <input type="text" name="" id="four" maxlength="1" onkeyup='otpCode(e,"three","four","five")'>
-                    <input type="text" name="" id="five" maxlength="1" onkeyup='otpCode(e,"four","five","")'>
-                </div>
-                <a href="/dashboard">
+                <form id="otp">
+                    <h4 class="otp content_header">Verify your Phone number</h4>
+                    <h5>Enter your OTP code here</h5>
+                    <br>
+                    <div class="otp">
+                        <input type="text" name="one" id="one" maxlength="1">
+                        <input type="text" name="two" id="two" maxlength="1">
+                        <input type="text" name="three" id="three" maxlength="1">
+                        <input type="text" name="four" id="four" maxlength="1">
+                        <input type="text" name="five" id="five" maxlength="1">
+                    </div>
 
-                    <button class="btn">SIGN IN</button>
-                </a>
+
+                    <button type="submit" class="btn">SIGN IN</button>
+
+                </form>
                 <h6 class="resend">Resend</h6>
             </div>
             <footer>
@@ -149,53 +159,6 @@
 
         <div class="bottom"></div>
     </div>
-
-    <script>
-        const carousel = document.querySelector(".carousel");
-        const changeImg = document.querySelector(".changeImg");
-        const slider = document.querySelector(".slider");
-
-
-
-
-        const form = document.querySelector("#form");
-
-        form.addEventListener("submit", (e) => {
-            e.preventDefault()
-            const otp_content = document.querySelector(".otp_content")
-            otp_content.style.display = "flex";
-            e.target.parentElement.parentElement.style.display = "none"
-        })
-
-
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
-
-        // fetch("https://countriesnow.space/api/v0.1/countries/flag/unicode", requestOptions)
-        //     .then(response => response.json())
-        //     .then(result => {
-        //         console.log(result.data)
-        //         select.innerHTML = result.data.forEach(element => {
-        //             return `
-        //                 <option>${element.unicodeFlag}</option>
-        //             `
-        //         });
-        //         console.log(select)
-        //         // select.innerHTML = "hi"
-
-        //     })
-        //     .catch(error => console.log('error', error));
-        function otpCode(e, p, c, n) {
-            const length = document.getElementById(c).value.length;
-            const maxlength = document.getElementById(c).getAttribute("maxlength");
-            if (length == maxlength) {
-                document.getElementById(n).focus()
-            }
-        }
-
-    </script>
     <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
     <script>
         const swiper = new Swiper('.swiper', {
@@ -224,18 +187,6 @@
         });
     </script>
     <script src="/js/app.js"></script>
-    <script>
-        var input = document.querySelector("#phone");
-        intlTelInput(input, {
-            initialCountry: "auto",
-            geoIpLookup: function (success, failure) {
-                $.get("https://ipinfo.io", function () { }, "jsonp").always(function (resp) {
-                    var countryCode = (resp && resp.country) ? resp.country : "ng";
-                    success(countryCode);
-                });
-            },
-        });
-    </script>
 
 </body>
 
