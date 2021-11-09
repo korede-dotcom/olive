@@ -50,16 +50,17 @@ provider.post("/",(req,res)=>{
 
 // singup
 provider.get("/signup",(req,res)=>{
-    res.render("provider/signup")
+    res.render("provider/register")
     
 })
 
-provider.post("/signup",upload.single('file'),(req,res)=>{
+provider.post("/signup",(req,res)=>{
     const {name,password} = req.body;
-    console.log(req.file)
-    console.log(req.body)
 
-    res.send("ok")
+    console.log(req.body)
+    res.send("hello")
+
+    
     // try {
     //     Provider.create({
     //         username:name,
