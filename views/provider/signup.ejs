@@ -9,11 +9,44 @@
 </head>
 
 <body>
-    <form action="/provider/signup" method="post">
-        <input type="text" name="mame">
+    <form method="post" enctype="multipart/form-data">
+        <input type="text" name="username">
         <input type="password" name="password">
+        <input type="file" name="file">
         <button type="submit">create</button>
     </form>
+
+
+
+    <script>
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+            formData.append('username', form.username.value);
+            formData.append('password', form.username.password);
+            formData.append('file', form.file.files[0]);
+
+            Array.from(formData.entries()).forEach(function ([key, value]) {
+                console.log(key, value);
+            });
+
+
+            const response = await fetch('signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: formData
+            });
+            const data = await response.json();
+            console.log(data);
+
+
+
+        })
+    </script>
+
 </body>
 
 </html>

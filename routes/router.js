@@ -103,6 +103,35 @@ router.post("/otp",(req,res)=>{
 })
 
 
+// login
+
+router.get("/login",(req,res)=>{
+    res.render("login")
+})
+router.post("/login",(req,res)=>{
+    const {username,password} = req.body
+    try {
+        User.findOne({username},(err,user)=>{
+            if(user){
+                if(user.password === password){
+                    const token = createToken(user._id);
+                    res.cookie("jwt",token,{maxAge:maxAge * 1000});
+                    res.status(200).json({"status":"true"});
+                }else{
+                    res.send({"error":"Password is incorrect"})
+                }
+            }else{
+                res.send({"error":"User does not exist"})
+            }
+        })
+        
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+
+
 
 
 router.get("/dashboard",requireAuth,(req,res)=>{
