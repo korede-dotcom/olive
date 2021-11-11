@@ -124,44 +124,60 @@ provider.post("/signup",(req,res)=>{
 // GET PROFILE
 
 provider.get("/profile",Auth,(req,res)=>{
-        res.render("provider/profile")
-})
-provider.post("/profile",Auth,(req,res)=>{
-    const {username,email,password} = req.body;
+    Provider.findById(req.session.providerId,(err,provider)=>{
+        if(err){    
+            console.log(err)
+        }
+        else{
+            const {username,email,role,roleId} = provider
 
-    // bcrypt.compare(password,req.provider.password,(err,result)=>{
-    //     if(err){    
-    //         console.log(err)
-    //     }
-    //     if(result){
-    //         Provider.findByIdAndUpdate(req.provider._id,{
-    //             username:username,
-    //             email:email,
-    //             password:password,
-    //         },(err,provider)=>{
-    //             if(err){
-    //                 console.log(err)
-    //             }
-    //             else{
-    //                 res.status(200).json({"status":"true"});
-    //             }
-    //         })
-        
-       Provider.updateOne({_id:req.session.providerId},{$set:{
-              username:req.body.username,
-                email:req.body.email,
-                password:req.body.password,
-                role:"provider",
-                roleId:2,
-            }},(err,provider)=>{
-                if(err){
-                    console.log(err)
-                }
-                else{
-                    res.redirect("/provider/profile")
-                }
-            })
+            res.render("provider/profile",{username,email,role,roleId})
+        }
+    })
 })
+
+
+// provider.post("/profile",Auth,(req,res)=>{
+//     const {username,email,password} = req.body;
+
+//     // find provider
+//     // Provider.findById(req.session.providerId,(err,provider)=>{
+//     //     if(err){    
+//     //         console.log(err)
+
+//     // bcrypt.compare(password,req.provider.password,(err,result)=>{
+//     //     if(err){    
+//     //         console.log(err)
+//     //     }
+//     //     if(result){
+//     //         Provider.findByIdAndUpdate(req.provider._id,{
+//     //             username:username,
+//     //             email:email,
+//     //             password:password,
+//     //         },(err,provider)=>{
+//     //             if(err){
+//     //                 console.log(err)
+//     //             }
+//     //             else{
+//     //                 res.status(200).json({"status":"true"});
+//     //             }
+//     //         })
+        
+//     //    Provider.updateOne({_id:req.session.providerId},{$set:{
+//     //           username:req.body.username,
+//     //             email:req.body.email,
+//     //             password:req.body.password,
+//     //             role:"provider",
+//     //             roleId:2,
+//     //         }},(err,provider)=>{
+//     //             if(err){
+//     //                 console.log(err)
+//     //             }
+//     //             else{
+//     //                 res.redirect("/provider/profile")
+//     //             }
+//     //         })
+// })
 // END PROFILE
 
 
@@ -177,13 +193,7 @@ provider.post("/createaudition",Auth,(req,res)=>{
         auditionStartDate,auditionEndDate,auditionCharges,
         auditionLogo,auditionPrice,auditionPattern
     } = req.body
-    let sampleFile;
-    let uploadPath;
-    if (!req.files || Object.keys(req.files).length === 0) {
-        return res.status(400).send('No files were uploaded.');
-      }
-      sampleFile = req.files.sampleFile;
-  uploadPath = __dirname + '/public/uploads/provider' + sampleFile.name;
+    
     console.log(req.body)
     console.log(req.file)
     console.log(req.session.providerId)

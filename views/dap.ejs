@@ -37,18 +37,20 @@
         <h4 class="content_header">Auditions Available</h4>
         <div class="boxs">
             <% auditions.forEach(element=> { %>
-                <div class="bo">
-                    <img width="150px" height="110px" src=<%=element.auditionLogo %>>
-                    <h6 class="content_header audition">
-                        <%= element.auditionName %>
-                    </h6>
-                    <h5>
-                        <%= element.auditionDescription %>
-                    </h5>
-                    <p class="content_header audition">
-                        <%= element.auditionStartDate %> - <%= element.auditionEndDate %>
-                    </p>
-                </div>
+                <a href="/digitalauditionplatform/<%= element._id %> ">
+                    <div class="bo">
+                        <img width="150px" height="110px" src=<%=element.auditionLogo %>>
+                        <h6 class="content_header audition">
+                            <%= element.auditionName %>
+                        </h6>
+                        <h5>
+                            <%= element.auditionDescription %>
+                        </h5>
+                        <p class="content_header audition">
+                            <%= element.auditionStartDate %> - <%= element.auditionEndDate %>
+                        </p>
+                    </div>
+                </a>
 
                 <% }) %>
                     <!-- <a href="/digitalauditionplatform/bbnaija">

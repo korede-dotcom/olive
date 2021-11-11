@@ -152,6 +152,17 @@ router.get("/digitalauditionplatform",requireAuth,(req,res)=>{
     
 })
 
+router.get("/digitalauditionplatform/:id",(req,res)=>{
+    Audition.findById(req.params.id,(err,audition)=>{
+        if(err){
+            return res.render("dap",{audition})
+        }else{
+            res.render("audition",{audition})
+        }
+        
+    })
+})
+
 router.get("/provider/digitalauditionplatform/:name",requireAuth,(req,res)=>{
     if(req.params.name === "bbnaija"){
     res.render("bbn")
