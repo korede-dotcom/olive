@@ -124,60 +124,44 @@ provider.post("/signup",(req,res)=>{
 // GET PROFILE
 
 provider.get("/profile",Auth,(req,res)=>{
-    Provider.findById(req.session.providerId,(err,provider)=>{
-        if(err){    
-            console.log(err)
-        }
-        else{
-            const {username,email,role,roleId} = provider
-
-            res.render("provider/profile",{username,email,role,roleId})
-        }
-    })
+        res.render("provider/profile")
 })
+provider.post("/profile",Auth,(req,res)=>{
+    const {username,email,password} = req.body;
 
-
-// provider.post("/profile",Auth,(req,res)=>{
-//     const {username,email,password} = req.body;
-
-//     // find provider
-//     // Provider.findById(req.session.providerId,(err,provider)=>{
-//     //     if(err){    
-//     //         console.log(err)
-
-//     // bcrypt.compare(password,req.provider.password,(err,result)=>{
-//     //     if(err){    
-//     //         console.log(err)
-//     //     }
-//     //     if(result){
-//     //         Provider.findByIdAndUpdate(req.provider._id,{
-//     //             username:username,
-//     //             email:email,
-//     //             password:password,
-//     //         },(err,provider)=>{
-//     //             if(err){
-//     //                 console.log(err)
-//     //             }
-//     //             else{
-//     //                 res.status(200).json({"status":"true"});
-//     //             }
-//     //         })
+    // bcrypt.compare(password,req.provider.password,(err,result)=>{
+    //     if(err){    
+    //         console.log(err)
+    //     }
+    //     if(result){
+    //         Provider.findByIdAndUpdate(req.provider._id,{
+    //             username:username,
+    //             email:email,
+    //             password:password,
+    //         },(err,provider)=>{
+    //             if(err){
+    //                 console.log(err)
+    //             }
+    //             else{
+    //                 res.status(200).json({"status":"true"});
+    //             }
+    //         })
         
-//     //    Provider.updateOne({_id:req.session.providerId},{$set:{
-//     //           username:req.body.username,
-//     //             email:req.body.email,
-//     //             password:req.body.password,
-//     //             role:"provider",
-//     //             roleId:2,
-//     //         }},(err,provider)=>{
-//     //             if(err){
-//     //                 console.log(err)
-//     //             }
-//     //             else{
-//     //                 res.redirect("/provider/profile")
-//     //             }
-//     //         })
-// })
+       Provider.updateOne({_id:req.session.providerId},{$set:{
+              username:req.body.username,
+                email:req.body.email,
+                password:req.body.password,
+                role:"provider",
+                roleId:2,
+            }},(err,provider)=>{
+                if(err){
+                    console.log(err)
+                }
+                else{
+                    res.redirect("/provider/profile")
+                }
+            })
+})
 // END PROFILE
 
 
@@ -193,7 +177,6 @@ provider.post("/createaudition",Auth,(req,res)=>{
         auditionStartDate,auditionEndDate,auditionCharges,
         auditionLogo,auditionPrice,auditionPattern
     } = req.body
-    
     console.log(req.body)
     console.log(req.file)
     console.log(req.session.providerId)
@@ -210,7 +193,7 @@ provider.post("/createaudition",Auth,(req,res)=>{
                     auditionDescription,
                     auditionStartDate,
                     auditionEndDate,
-                    auditionLogo:uploadPath,
+                    auditionLogo,
                     auditionCharges,
                     auditionPrice,
                     auditionPattern,
@@ -256,14 +239,6 @@ provider.get("/logout",(req,res)=>{
     req.session.destroy();
     res.redirect("/provider")
 })
-
-
-
-
-provider.get("/test",(req,res)=>{
-    res.render("provider/test")
-})
-
 
 module.exports = provider;
 

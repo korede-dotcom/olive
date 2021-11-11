@@ -17,8 +17,8 @@ const auditionSchema = new mongoose.Schema([{
         required: true
     },
     auditionLogo:{
-        type: String,
-        required: true
+        type: Object,
+        
     },
     roleId:{
         type: String,
