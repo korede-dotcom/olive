@@ -115,9 +115,9 @@
                 .then(res => res.json())
                 .then(res => {
                     console.log(res);
-                    if (res.status === "success") {
+                    if (res.status === "true") {
                         alert("Audition Created Successfully");
-                        window.location.href = "/provider/audition";
+                        window.location.href = "/provider/dashboard";
                     } else {
                         alert("Audition Creation Failed");
                     }

@@ -9,7 +9,18 @@ const globals = require('node-global-storage');
 const {Auth} = require("../middleware/middleware");
 const bcrypt = require("bcrypt")
 
+// multer config
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './public/uploads/provider')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname)
+    }
+})
 
+// upload with multer
+const upload = multer({ storage: storage }) 
 
 
 
@@ -184,12 +195,14 @@ provider.post("/profile",Auth,(req,res)=>{
 // END PROFILE
 
 
+// how to upload with multer
+
 //  CREATE AUDITION
 provider.get("/createaudition",Auth,(req,res)=>{
         res.render("provider/createaudition")
 })
 
-provider.post("/createaudition",Auth,(req,res)=>{
+provider.post("/createaudition",Auth,upload.single("auditionLogo"),(req,res)=>{
     const {auditionName,auditionDescription,
         auditionStartDate,auditionEndDate,auditionCharges,
         auditionLogo,auditionPrice,auditionPattern
@@ -220,8 +233,8 @@ provider.post("/createaudition",Auth,(req,res)=>{
                         console.log(err)
                     }
                     else{
+                        res.status(200).json({"status":"true"});
                         
-                        res.send(audition)
                     }
                 })
             }

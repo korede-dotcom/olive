@@ -326,7 +326,10 @@ border-radius: 10px;
     color: #fff;
     font-size: 15px;
 }
-
+.bo img{
+    border-radius: 5px;
+    box-shadow: 2px 1px 2px black;
+}
 .audition{
     font-size: 13px;
     font-weight: bolder;

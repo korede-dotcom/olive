@@ -36,11 +36,22 @@
     <section class="content">
         <h4 class="content_header">Auditions Available</h4>
         <div class="boxs">
-            <div class="bo">
-                <img src="/assest/OLIVE/rccg.png">
-                <h6 class="content_header audition">rccg</h6>
-            </div>
-            <a href="/digitalauditionplatform/bbnaija">
+            <% auditions.forEach(element=> { %>
+                <div class="bo">
+                    <img width="150px" height="110px" src=<%=element.auditionLogo %>>
+                    <h6 class="content_header audition">
+                        <%= element.auditionName %>
+                    </h6>
+                    <h5>
+                        <%= element.auditionDescription %>
+                    </h5>
+                    <p class="content_header audition">
+                        <%= element.auditionStartDate %> - <%= element.auditionEndDate %>
+                    </p>
+                </div>
+
+                <% }) %>
+                    <!-- <a href="/digitalauditionplatform/bbnaija">
                 <div class="bo">
                     <img src="/assest/OLIVE/bbn.png">
                     <h6 class="content_header audition">bbnaija</h6>
@@ -53,7 +64,7 @@
             <div class="bo">
                 <img src="/assest/OLIVE/projectfame.png">
                 <h6 class="content_header audition">projectfame</h6>
-            </div>
+            </div> -->
         </div>
         <!-- <h4 class="content_header">YOUTH CENTRIC DIGITAL ECOSYSTEM</h4>
         <p class="content_text">

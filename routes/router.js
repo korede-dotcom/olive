@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios")
 const User = require("../models/user")
+const Provider = require("../models/provider")
+const Audition = require("../models/audition")
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 const globals = require('node-global-storage');
@@ -18,9 +20,10 @@ function fiveRandomNumbers(){
     return numbers
 }
 
+// maxAge 2hrs
+const maxAge = 7200000;
 
 
-const maxAge = 60;
 const createToken = (id) => {
   return jwt.sign({ id },process.env.JWTSECRET, {
     expiresIn: maxAge
@@ -137,7 +140,16 @@ router.get("/dashboard",requireAuth,(req,res)=>{
     res.render("dashboard")
 })
 router.get("/digitalauditionplatform",requireAuth,(req,res)=>{
-    res.render("dap")
+    // find decending order
+    Audition.find({}).sort({created_at:-1}).exec((err,auditions)=>{
+        if(err){
+            console.log(err)
+        }else{
+            res.render("dap",{auditions})
+        }
+    })
+
+    
 })
 
 router.get("/provider/digitalauditionplatform/:name",requireAuth,(req,res)=>{
