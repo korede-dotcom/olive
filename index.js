@@ -5,11 +5,17 @@ const bodyParser = require("body-parser")
 const cors = require("cors");
 const cookeParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
-const multer = require("multer");
 const path = require("path")
 const router = require("./routes/router");
 const provider = require("./routes/provider");
+const fileUpload = require('express-fileupload');
+
 require("dotenv").config();
+
+
+
+
+
 
 
 const app = express();
@@ -28,6 +34,7 @@ const store = new MongoStore({
 app.use(cors())
 app.use(express.static(path.join(__dirname,"public")))
 app.set("view engine","ejs");
+app.use(fileUpload());
 app.use(session({
     secret: process.env.SS,
     resave: false,

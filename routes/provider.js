@@ -8,24 +8,7 @@ const jwt = require('jsonwebtoken');
 const globals = require('node-global-storage');
 const {Auth} = require("../middleware/middleware");
 const bcrypt = require("bcrypt")
-
-// multer config
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, './public/uploads/provider')
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.originalname)
-    }
-})
-
-// upload with multer
-const upload = multer({ storage: storage }) 
-
-
-
-
-
+var fs = require('fs');
 
 
 saltRounds = 10;
@@ -35,17 +18,6 @@ const createToken = (id) => {
     expiresIn: maxAge
   });
 };
-// const storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//       cb(null, path.join(__dirname, "../public/uploads/"))
-//     },
-//     filename: function (req, file, cb) {
-//       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-//       cb(null, file.fieldname + '-' + uniqueSuffix)
-//     }
-//   })
-  
-//   const upload = multer({ storage: storage })
 
 // login
 provider.get("/",(req,res)=>{
@@ -142,8 +114,6 @@ provider.post("/signup",(req,res)=>{
                 }
             }
         })
-
-     
         
     } catch (error) {
         res.redirect("/signup")   
@@ -202,12 +172,20 @@ provider.get("/createaudition",Auth,(req,res)=>{
         res.render("provider/createaudition")
 })
 
-provider.post("/createaudition",Auth,upload.single("auditionLogo"),(req,res)=>{
+provider.post("/createaudition",Auth,(req,res)=>{
     const {auditionName,auditionDescription,
         auditionStartDate,auditionEndDate,auditionCharges,
         auditionLogo,auditionPrice,auditionPattern
     } = req.body
+    let sampleFile;
+    let uploadPath;
+    if (!req.files || Object.keys(req.files).length === 0) {
+        return res.status(400).send('No files were uploaded.');
+      }
+      sampleFile = req.files.sampleFile;
+  uploadPath = __dirname + '/public/uploads/provider' + sampleFile.name;
     console.log(req.body)
+    console.log(req.file)
     console.log(req.session.providerId)
 
     Provider.findOne({_id:req.session.providerId},(err,provider)=>{
@@ -222,7 +200,7 @@ provider.post("/createaudition",Auth,upload.single("auditionLogo"),(req,res)=>{
                     auditionDescription,
                     auditionStartDate,
                     auditionEndDate,
-                    auditionLogo,
+                    auditionLogo:uploadPath,
                     auditionCharges,
                     auditionPrice,
                     auditionPattern,
@@ -268,6 +246,14 @@ provider.get("/logout",(req,res)=>{
     req.session.destroy();
     res.redirect("/provider")
 })
+
+
+
+
+provider.get("/test",(req,res)=>{
+    res.render("provider/test")
+})
+
 
 module.exports = provider;
 

@@ -17,8 +17,8 @@ const auditionSchema = new mongoose.Schema([{
         required: true
     },
     auditionLogo:{
-        type: Object,
-        // required: true
+        type: String,
+        required: true
     },
     roleId:{
         type: String,
@@ -48,9 +48,14 @@ const auditionSchema = new mongoose.Schema([{
         type: Date,
         default: Date.now
     },
+
+    
     
     
 }]);   
+    // mongoose image schema
+    // image schema
+    
 
 
 module.exports = mongoose.model('Audition', auditionSchema);
