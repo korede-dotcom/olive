@@ -9,6 +9,7 @@ const {requireAuth }= require("../middleware/middleware");
 
 
 
+
 function fiveRandomNumbers(){
     let numbers = []
     for(let i=0;i<5;i++){
@@ -16,6 +17,7 @@ function fiveRandomNumbers(){
     }
     return numbers
 }
+
 
 
 const maxAge = 60;
@@ -81,19 +83,18 @@ router.post("/",(req,res)=>{
 
 
 router.post("/otp",(req,res)=>{
-    const id = globals.get('userId')
-    const otp = parseInt(req.body.otp)
 
     console.log(otp)
-   
+   const id = globals.get('userId', {protected: true});
     User.findById(id,(err,user)=>{
+
         if(err){
             res.send({"error":"Error in finding user"})
         }else{
-            if(user.otp === otp){
+            if(user.otp == otp){
                 const token = createToken(user._id);
                 res.cookie("jwt",token,{maxAge:maxAge * 1000});
-                res.status(200).json({"status":"true"});
+                res.status(200).json({"status":"success"});
             }else{
                 res.send({"error":"OTP is incorrect"})
             }
@@ -131,11 +132,8 @@ router.post("/login",(req,res)=>{
 })
 
 
-
-
-
 router.get("/dashboard",requireAuth,(req,res)=>{
-
+    
     res.render("dashboard")
 })
 router.get("/digitalauditionplatform",requireAuth,(req,res)=>{

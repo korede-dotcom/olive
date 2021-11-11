@@ -1,52 +1,136 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>Olive Provider</title>
+    <!-- Favicon-->
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet"
+        type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap Core Css -->
+    <link href="/assets/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Waves Effect Css -->
+    <link href="/assets/plugins/node-waves/waves.css" rel="stylesheet" />
+
+    <!-- Animation Css -->
+    <link href="/assets/plugins/animate-css/animate.css" rel="stylesheet" />
+
+    <!-- Custom Css -->
+    <link href="/assets/css/style.css" rel="stylesheet">
 </head>
 
-<body>
-    <form method="post" enctype="multipart/form-data">
-        <input type="text" name="username">
-        <input type="password" name="password">
-        <input type="file" name="file">
-        <button type="submit">create</button>
-    </form>
+<body class="signup-page">
+    <div class="signup-box">
+        <div class="logo">
+            <a href="/provider">Olive<b>Provider</b></a>
+            <small>Join Olive as a Provider </small>
+        </div>
+        <div class="card">
+            <div class="body">
+                <form id="sign_up" class="user">
+                    <div class="msg">Register a new membership</div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">person</i>
+                        </span>
+                        <div class="form-line">
+                            <input type="text" class="form-control" name="username" placeholder="Name Surname" required>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">email</i>
+                        </span>
+                        <div class="form-line">
+                            <input type="email" class="form-control" name="email" placeholder="Email Address" required>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">lock</i>
+                        </span>
+                        <div class="form-line">
+                            <input type="password" class="form-control" name="password" minlength="6"
+                                placeholder="Password" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="checkbox" name="terms" id="terms" class="filled-in chk-col-pink">
+                        <label for="terms">I read and agree to the <a href="javascript:void(0);">terms of
+                                usage</a>.</label>
+                    </div>
+
+                    <button class="btn btn-block btn-lg btn-warning waves-effect" type="submit">SIGN UP</button>
+
+                    <div class="m-t-25 m-b--5 align-center">
+                        <a href="/provider">You already have a membership?</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 
+    <!-- Jquery Core Js -->
+    <script src="/assets/plugins/jquery/jquery.min.js"></script>
 
+    <!-- Bootstrap Core Js -->
+    <script src="/assets/plugins/bootstrap/js/bootstrap.js"></script>
+
+    <!-- Waves Effect Plugin Js -->
+    <script src="/assets/plugins/node-waves/waves.js"></script>
+
+    <!-- Validation Plugin Js -->
+    <script src="/assets/plugins/jquery-validation/jquery.validate.js"></script>
+    <!-- Custom Js -->
+    <script src="/assets/js/admin.js"></script>
+    <script src="/assets/js/pages/examples/sign-in.js"></script>
     <script>
-        const form = document.querySelector('form');
+        const form = document.querySelector('.user');
+        console.log(form)
         form.addEventListener('submit', function (e) {
             e.preventDefault();
-            const formData = new FormData(form);
-            formData.append('username', form.username.value);
-            formData.append('password', form.username.password);
-            formData.append('file', form.file.files[0]);
 
-            Array.from(formData.entries()).forEach(function ([key, value]) {
-                console.log(key, value);
-            });
+            const username = form.username.value
+            const email = form.email.value
+            const password = form.password.value
+            const payload = {
+                username: username,
+                email: email,
+                password: password
+            }
+            // formData.append('file', form.file.files[0]);
 
+            console.log(username, email, password)
 
-            const response = await fetch('signup', {
+            fetch('signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: formData
-            });
-            const data = await response.json();
-            console.log(data);
+                body: JSON.stringify(payload)
+            }).then(res => res.json())
+                .then(data => {
+                    if (data.status === 'true') {
+                        window.location.href = '/provider'
+                    } else {
+                        alert(data.message)
+                    }
+                })
+                .catch(e => console.log(e))
 
 
 
         })
     </script>
-
 </body>
 
 </html>

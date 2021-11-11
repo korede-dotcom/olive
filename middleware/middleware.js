@@ -4,7 +4,7 @@ const globals = require('node-global-storage');
 
 
 
-module.exports.requireAuth = (req,res,next)=>{
+module.exports.requireAuth = async (req,res,next)=>{
     const token = req.cookies.jwt;
   if(token){
       jwt.verify(token,process.env.JWTSECRET, async (err,decodedToken) => {
@@ -22,5 +22,18 @@ module.exports.requireAuth = (req,res,next)=>{
       res.redirect("/") 
   }
 }
+
+module.exports.Auth = async (req,res,next)=>{
+    const isAuth = req.session.isLoggedIn;
+  if(isAuth === true){
+    next()
+  }else{
+      res.redirect("/provider") 
+  }
+}
+
+
+
+
 
 

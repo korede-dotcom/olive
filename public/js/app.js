@@ -25,7 +25,7 @@ form.addEventListener("submit", (e) => {
                  otp_content.style.display = "flex";
                 e.target.parentElement.parentElement.style.display = "none"
             }
-            console.log(data)
+          
 
     })
 
@@ -38,7 +38,7 @@ otp.addEventListener("submit", (e) => {
     e.preventDefault()
    
    const inputOtp = e.target.one.value.concat(e.target.two.value,e.target.three.value,e.target.four.value,e.target.five.value);
-    
+    console.log(inputOtp)
     
 
     fetch('/otp', {
@@ -49,8 +49,8 @@ otp.addEventListener("submit", (e) => {
         })
     }).then(res => res.json())
         .then(data => {
-            if(data.status === "true"){
-              window.location.href = "/dashboard"
+            if(data.status === "success"){
+              window.location.href = "/dashboard";
             }
             console.log(data)
 

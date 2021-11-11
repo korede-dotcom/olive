@@ -1,0 +1,133 @@
+<%- include("./partials/header.ejs") %>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        CREATE AUDITION
+                        <small>Fill Audition Details</small>
+                    </h2>
+
+                </div>
+                <div class="body">
+                    <div class="demo-masked-input">
+                        <form class="provider">
+                            <div class="row clearfix">
+                                <div class="col-md-6">
+                                    <b>Name</b>
+                                    <div class="input-group">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" placeholder="audition name"
+                                                name="auditionName">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <b>Audition Description</b>
+                                    <div class="input-group">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" placeholder="audition description"
+                                                name="auditionDescription">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <b>Audition StartDate</b>
+                                    <div class="input-group">
+                                        <div class="form-line">
+                                            <input type="date" class="form-control"
+                                                placeholder="audition start date D/M/Y" name="auditionStartDate">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-12">
+                                    <b>Audition EndDate</b>
+                                    <div class="input-group">
+                                        <div class="form-line">
+                                            <input type="date" class="form-control"
+                                                placeholder="audition end date D/M/Y" name="auditionEndDate">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-12">
+                                    <b>Audition Logo</b>
+                                    <div class="input-group">
+                                        <div class="form-line">
+                                            <input type="file" class="form-control" placeholder="upload a logo"
+                                                name="auditionLogo">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-12">
+                                    <h5>Choose Audition Pattern</h5>
+                                    <select class="form-select" aria-label="Default select example"
+                                        name="auditionPattern">
+                                        <option value="0">Upload</option>
+                                        <option value="1">Live</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 col-sm-12">
+                                    <h5>Choose Audition Charges</h5>
+                                    <select class="form-select" aria-label="Default select example"
+                                        name="auditionCharges">
+                                        <option value="0">Free</option>
+                                        <option value="1">Payment</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 col-sm-12">
+                                    <h5> Audition Price</h5>
+                                    <div class="input-group">
+                                        <div class="form-line">
+                                            <input type="number" class="form-control" placeholder="5000"
+                                                name="auditionPrice">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class=".btn">SUBMIT</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <script>
+        const provider = document.querySelector(".provider");
+        provider.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const formData = new FormData(provider);
+            let data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+                console.log(key, value);
+            });
+            console.log(data);
+            fetch("/provider/createaudition", {
+                method: "POST",
+                body: JSON.stringify(data),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+                .then(res => res.json())
+                .then(res => {
+                    console.log(res);
+                    if (res.status === "success") {
+                        alert("Audition Created Successfully");
+                        window.location.href = "/provider/audition";
+                    } else {
+                        alert("Audition Creation Failed");
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        });
+    </script>
+
+
+
+    <%- include("./partials/footer.ejs") %>
