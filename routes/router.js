@@ -161,7 +161,7 @@ router.get("/digitalauditionplatform/:id",Authenticated,(req,res)=>{
             return res.render("dap",{audition})
         }else{
             if(audition.auditionCharges > 0){
-            var data = JSON.stringify({"tx_ref":`${audition._id}|${audition._id}`,"amount":`${audition.auditionPrice}`,"currency":"NGN","redirect_url":`/paidaudition?audition=${audition._id}&provider=${audition.provider}&user=${req.session.user._id}`,"payment_options":"card","meta":{"consumer_id":`${audition.provider}`,"consumer_mac":`${audition.provider}`},"customer":{'email':`user@gmail.com`,"phonenumber":`${req.session.user.username}`,"name":`${req.session.user._id}`},"customizations":{"title":"Olive Auditions","description":`pay for your ${audition.auditionName} audition`,"logo":"https://assets.piedpiper.com/logo.png"}});
+            var data = JSON.stringify({"tx_ref":`${audition._id}|${audition._id}`,"amount":`${audition.auditionPrice}`,"currency":"NGN","redirect_url":`http://oliveoive.herokuapp.com/paidaudition?audition=${audition._id}&provider=${audition.provider}&user=${req.session.user._id}`,"payment_options":"card","meta":{"consumer_id":`${audition.provider}`,"consumer_mac":`${audition.provider}`},"customer":{'email':`user@gmail.com`,"phonenumber":`${req.session.user.username}`,"name":`${req.session.user._id}`},"customizations":{"title":"Olive Auditions","description":`pay for your ${audition.auditionName} audition`,"logo":"https://assets.piedpiper.com/logo.png"}});
 
                 const config = {
                 method: 'post',
