@@ -4,11 +4,24 @@ const axios = require("axios")
 const User = require("../models/user")
 const Provider = require("../models/provider")
 const Audition = require("../models/audition")
+const Paymment = require("../models/payment")
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 const globals = require('node-global-storage');
 const {Authenticated }= require("../middleware/middleware");
+const uuidv4 = require("uuid").v4;
 
+
+
+
+
+function randomNumbers(){
+    let numbers = []
+    for(let i=0;i<10;i++){
+        numbers.push(Math.floor(Math.random()*20))
+    }
+    return numbers
+}
 
 
 
@@ -161,7 +174,7 @@ router.get("/digitalauditionplatform/:id",Authenticated,(req,res)=>{
             return res.render("dap",{audition})
         }else{
             if(audition.auditionCharges > 0){
-            var data = JSON.stringify({"tx_ref":`${audition._id}|${audition._id}`,"amount":`${audition.auditionPrice}`,"currency":"NGN","redirect_url":`http://oliveoive.herokuapp.com/paidaudition?audition=${audition._id}&provider=${audition.provider}&user=${req.session.user._id}`,"payment_options":"card","meta":{"consumer_id":`${audition.provider}`,"consumer_mac":`${audition.provider}`},"customer":{'email':`user@gmail.com`,"phonenumber":`${req.session.user.username}`,"name":`${req.session.user._id}`},"customizations":{"title":"Olive Auditions","description":`pay for your ${audition.auditionName} audition`,"logo":"https://assets.piedpiper.com/logo.png"}});
+            var data = JSON.stringify({"tx_ref":`${uuidv4()}`,"amount":`${audition.auditionPrice}`,"currency":"NGN","redirect_url":`https://oliveoive.herokuapp.com/paidaudition?audition=${audition._id}&provider=${audition.provider}&user=${req.session.user._id}`,"payment_options":"card","meta":{"consumer_id":`${audition.provider}`,"consumer_mac":`${audition.provider}`},"customer":{'email':`user@gmail.com`,"phonenumber":`${req.session.user.username}`,"name":`${req.session.user._id}`},"customizations":{"title":"Olive Auditions","description":`pay for your ${audition.auditionName} audition`,"logo":"https://assets.piedpiper.com/logo.png"}});
 
                 const config = {
                 method: 'post',
@@ -193,37 +206,35 @@ router.get("/digitalauditionplatform/:id",Authenticated,(req,res)=>{
 })
 
 router.get("/paidaudition",Authenticated,(req,res)=>{
+   
     Audition.findById(req.query.audition,(err,audition)=>{
         if(err){
             console.log(err)
         }else{
-            if(req.query.status == "success"){
-                const newPayment = new Payment({
+            if(req.query.status === "successful"){
+                Paymment.create({
                     user:req.query.user,
                     provider:req.query.provider,
                     amount:audition.auditionPrice,
                     paymentRef:req.query.tx_ref,
                     paymentStatus:req.query.status,
-                })
-                newPayment.save((err,payment)=>{
+                },(err,payment)=>{
                     if(err){
                         console.log(err)
                     }else{
                         res.redirect("/dashboard")
                     }
                 })
-                   
-
-            res.render("audition",{audition})
+                res.render("audition",{audition})
+            }else{
+                res.redirect("/digitalauditionplatform")
+            }
+        }
         
-        }else{
-            res.render("error")  
-
         }
-
-        }
-    })
-    // res.redirect("/dashboard")
+        
+    )
+    
 })
 
 // router.get("/provider/digitalauditionplatform/:name",Authenticated,(req,res)=>{
