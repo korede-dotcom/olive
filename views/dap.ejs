@@ -43,15 +43,18 @@
                         <h6 class="content_header audition">
                             <%= element.auditionName %>
                         </h6>
-                        <h5>
-                            <%= element.auditionDescription %>
-                        </h5>
-                        <p class="content_header audition">
-                            <%= element.auditionStartDate %> - <%= element.auditionEndDate %>
-                        </p>
+                        <% if(element.auditionCharges> 0){ %>
+                            <p class="content_header audition">
+                                &#x20A6; <%= element.auditionPrice %>
+                            </p>
+                            <% } else { %>
+                                <p class="content_header audition">
+                                    Free
+                                </p>
+                                <% } %>
+
                     </div>
                 </a>
-
                 <% }) %>
                     <!-- <a href="/digitalauditionplatform/bbnaija">
                 <div class="bo">

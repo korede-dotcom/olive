@@ -102,6 +102,15 @@ header{
 .icon img{
     height: 24px;
 }
+.d{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+small{
+    font-size: 10px;
+    color: #fff;
+}
 .largeImg{
     background-color: black;
     position: relative;

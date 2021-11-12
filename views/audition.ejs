@@ -25,7 +25,7 @@
                 <div class="user">
                     <img src="/assest/OLIVE/usergold.png" alt="" srcset="">
                 </div>
-                <a href="/">
+                <a href="/dashboard">
                     <div class="home">
                         <img src="/assest/OLIVE/goldHomeIcon.png" alt="" srcset="">
                     </div>
@@ -34,37 +34,65 @@
         </header>
         <div class="transform" style="transition: transform .3s ease .3s;">
             <section class="largeImg">
-                <img style="height: 350px; Width:414px;object-fit: cover; " class="changeImg"
+                <img style="height: 270px; Width:414px;object-fit: cover; " class="changeImg"
                     src="<%= audition.auditionLogo %> " />
                 <!-- <img src="/assest/OLIVE/guy.png" /> -->
                 <!-- <img class="carousel" src="/assest/OLIVE/Group 2.png" /> -->
             </section>
             <section class="content brand">
-                <h4 class="content_header">Big Brother Naija 2022</h4>
+                <h4 class="content_header">
+                    <%= audition.auditionName %>
+                </h4>
                 <div class="brand_text">
                     <p>
-                        Big Brother Naija, formerly known as Big Brother Nigeria, is a Nigerian reality competition
-                        television series.
+                        <%= audition.auditionDescription %>
                     </p>
+                    <small>
+                        Audition Price : <%= audition.auditionPrice %>
+                    </small>
+                    <div class="d">
+                        <span class="content_header">
+                            <%= audition.auditionStartDate %>
+                        </span>
+
+                        <span class="content_header">
+                            <%= audition.auditionEndDate %>
+                        </span>
+                    </div>
+
                     <form class="record">
-                        <p>Choose a method below to record</p>
+
                         <div class="tools">
                             <form>
-                                <div id="recordBtn">
-                                    <!-- <a target="restream"> -->
-                                    <img src="/assest/OLIVE/recordgold.png" alt="" srcset="">
-                                    <h6>Record a video</h6>
-                                    <!-- </a> -->
-                                </div>
+                                <!-- ejs if -->
+                                <% if (audition.auditionPattern==="0" ) { %>
+                                    <div>
+                                        <input type="file" name="" id="upload" hidden>
+                                        <label for="upload">
+                                            <img src="/assest/OLIVE/uploadGold.png" alt="" srcset="">
 
-                                <div>
-                                    <input type="file" name="" id="upload" hidden>
-                                    <label for="upload">
-                                        <img src="/assest/OLIVE/uploadGold.png" alt="" srcset="">
+                                            <h6>Upload your video</h6>
+                                        </label>
+                                    </div>
+                                    <% } %>
+                                        <% if (audition.auditionPattern==="1" ) { %>
+                                            <div id="recordBtn">
+                                                <a target="restream">
+                                                    <img src="/assest/OLIVE/recordgold.png" alt="" srcset="">
+                                                    <h6>Record a video</h6>
+                                                </a>
+                                            </div>
+                                            <% } %>
 
-                                        <h6>Upload your video</h6>
-                                    </label>
-                                </div>
+
+
+                                                <!-- // <div class="audio">
+                                //     <img src="/assest/OLIVE/audio.png" />
+                                //     <p>Audio</p>
+                                // </div>
+                                 -->
+
+
                             </form>
                         </div>
 

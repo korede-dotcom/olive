@@ -31,6 +31,14 @@ module.exports.Auth = async (req,res,next)=>{
       res.redirect("/provider") 
   }
 }
+module.exports.Authenticated = async (req,res,next)=>{
+    const Authenticated = req.session.userIsLoggedIn;
+  if(Authenticated === true){
+    next()
+  }else{
+      res.redirect("/") 
+  }
+}
 
 
 

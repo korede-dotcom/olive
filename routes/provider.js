@@ -9,6 +9,7 @@ const globals = require('node-global-storage');
 const {Auth} = require("../middleware/middleware");
 const bcrypt = require("bcrypt")
 var fs = require('fs');
+const audition = require("../models/audition")
 
 
 saltRounds = 10;
@@ -173,44 +174,45 @@ provider.get("/createaudition",Auth,(req,res)=>{
 })
 
 provider.post("/createaudition",Auth,(req,res)=>{
-    const {auditionName,auditionDescription,
-        auditionStartDate,auditionEndDate,auditionCharges,
-        auditionLogo,auditionPrice,auditionPattern
-    } = req.body
     console.log(req.body)
-    console.log(req.file)
-    console.log(req.session.providerId)
+    // const {auditionName,auditionDescription,
+    //     auditionStartDate,auditionEndDate,auditionCharges,
+    //     auditionLogo,auditionPrice,auditionPattern
+    // } = req.body
+    // console.log(req.body)
+    // console.log(req.files)
+    // console.log(req.session.providerId)
 
-    Provider.findOne({_id:req.session.providerId},(err,provider)=>{
-        if(err){
-            console.log(err)
-        }
-        else{
-            if(provider){
+    // Provider.findOne({_id:req.session.providerId},(err,provider)=>{
+    //     if(err){
+    //         console.log(err)
+    //     }
+    //     else{
+    //         if(provider){
                
-                Audition.create({
-                    auditionName,
-                    auditionDescription,
-                    auditionStartDate,
-                    auditionEndDate,
-                    auditionLogo,
-                    auditionCharges,
-                    auditionPrice,
-                    auditionPattern,
-                    roleId:2,
-                    provider:provider._id
-                },(err,audition)=>{
-                    if(err){
-                        console.log(err)
-                    }
-                    else{
-                        res.status(200).json({"status":"true"});
+    //             Audition.create({
+    //                 auditionName,
+    //                 auditionDescription,
+    //                 auditionStartDate,
+    //                 auditionEndDate,
+    //                 auditionLogo:req.files[0].filename,
+    //                 auditionCharges,
+    //                 auditionPrice,
+    //                 auditionPattern,
+    //                 roleId:2,
+    //                 provider:provider._id
+    //             },(err,audition)=>{
+    //                 if(err){
+    //                     console.log(err)
+    //                 }
+    //                 else{
+    //                     res.status(200).json({"status":"true"});
                         
-                    }
-                })
-            }
-        }
-    })
+    //                 }
+    //             })
+    //         }
+    //     }
+    // })
     
   
 })

@@ -8,8 +8,6 @@ const jwt = require("jsonwebtoken");
 const path = require("path")
 const router = require("./routes/router");
 const provider = require("./routes/provider");
-const fileUpload = require('express-fileupload');
-
 require("dotenv").config();
 
 
@@ -20,6 +18,8 @@ require("dotenv").config();
 
 const app = express();
 require("./models/db")();
+
+
 
 const store = new MongoStore({
     uri:  process.env.MONGO_URI,
@@ -32,9 +32,11 @@ const store = new MongoStore({
 
 
 app.use(cors())
+app.use(bodyParser.urlencoded({extended:true}))
+app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname,"public")))
 app.set("view engine","ejs");
-app.use(fileUpload());
+
 app.use(session({
     secret: process.env.SS,
     resave: false,
@@ -44,9 +46,8 @@ app.use(session({
     },
     store: store
 }));
-app.use(bodyParser.urlencoded({extended:true}))
-app.use(bodyParser.json())
 app.set('views', path.join(__dirname, 'views'));
+
 app.use("/provider",provider)
 app.use(cookeParser())
 app.use(router)
