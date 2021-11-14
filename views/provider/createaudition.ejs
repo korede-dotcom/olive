@@ -1,6 +1,7 @@
 <%- include("./partials/header.ejs") %>
     <section class="content">
 
+
         <div class="container-fluid">
             <div class="card">
                 <div class="header">
@@ -8,7 +9,7 @@
                         CREATE AUDITION
                         <small>Fill Audition Details</small>
                     </h2>
-                    <button type="button" onClick="payWithRave()">Pay Now</button>
+                    <!-- <button type="button" onClick="payWithRave()">Pay Now</button> -->
                 </div>
                 <div class="body">
                     <div class="demo-masked-input">
@@ -85,9 +86,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="button" onClick="payWithRave()">Pay Now</button>
+                            <!-- <button type="button" onClick="payWithRave()">Pay Now</button> -->
 
-                            <button type="submit" class=".btn">SUBMIT</button>
+                            <button type="submit" id="auditionBtn" class="btn padding-10"
+                                style="padding: 5px 8px;">SUBMIT</button>
                         </form>
                     </div>
                 </div>
@@ -98,8 +100,10 @@
 
     <script>
         const provider = document.querySelector(".provider");
+        const auditionBtn = document.querySelector("#auditionBtn");
         provider.addEventListener("submit", async (e) => {
             e.preventDefault();
+            auditionBtn.innerHTML = "Please wait...";
             const formdata = new FormData();
             formdata.append("auditionLogo", e.target.auditionLogo.files[0]);
             formdata.append("auditionDescription", e.target.auditionLogo.value);
@@ -120,8 +124,9 @@
                 .then(response => response.json())
                 .then(result => {
                     if (result.status === "true") {
-                        alert("Audition Created Successfully");
-                        window.location.href = "provider/dashboard";
+                        auditionBtn.innerHTML = "Success";
+                        // alert("Audition Created Successfully");
+                        window.location.href = "/provider/dashboard";
                     } else {
                         alert("Audition Creation Failed");
                     }
@@ -130,37 +135,37 @@
         });
     </script>
     <script>
-        const API_publicKey = "<ADD YOUR PUBLIC KEY HERE>";
+        // const API_publicKey = "<ADD YOUR PUBLIC KEY HERE>";
 
-        function payWithRave() {
-            var x = getpaidSetup({
-                PBFPubKey: API_publicKey,
-                customer_email: "user@example.com",
-                amount: 2000,
-                customer_phone: "234099940409",
-                currency: "NGN",
-                txref: "rave-123456",
-                meta: [{
-                    metaname: "flightID",
-                    metavalue: "AP1234"
-                }],
-                onclose: function () { },
-                callback: function (response) {
-                    var txref = response.data.txRef; // collect txRef returned and pass to a                    server page to complete status check.
-                    console.log("This is the response returned after a charge", response);
-                    if (
-                        response.data.chargeResponseCode == "00" ||
-                        response.data.chargeResponseCode == "0"
-                    ) {
-                        // redirect to a success page
-                    } else {
-                        // redirect to a failure page.
-                    }
+        // function payWithRave() {
+        //     var x = getpaidSetup({
+        //         PBFPubKey: API_publicKey,
+        //         customer_email: "user@example.com",
+        //         amount: 2000,
+        //         customer_phone: "234099940409",
+        //         currency: "NGN",
+        //         txref: "rave-123456",
+        //         meta: [{
+        //             metaname: "flightID",
+        //             metavalue: "AP1234"
+        //         }],
+        //         onclose: function () { },
+        //         callback: function (response) {
+        //             var txref = response.data.txRef; // collect txRef returned and pass to a                    server page to complete status check.
+        //             console.log("This is the response returned after a charge", response);
+        //             if (
+        //                 response.data.chargeResponseCode == "00" ||
+        //                 response.data.chargeResponseCode == "0"
+        //             ) {
+        //                 // redirect to a success page
+        //             } else {
+        //                 // redirect to a failure page.
+        //             }
 
-                    x.close(); // use this to close the modal immediately after payment.
-                }
-            });
-        }
+        //             x.close(); // use this to close the modal immediately after payment.
+        //         }
+        //     });
+        // }
     </script>
 
 

@@ -36,13 +36,15 @@
             <div class="body">
                 <form id="sign_in" class="user">
                     <div class="msg">Sign in to start your session</div>
+                    <div class="err" style="transition: all 1s ease .5s;"></div>
+
                     <div class="input-group">
+                        <br>
                         <span class="input-group-addon">
                             <i class="material-icons">person</i>
                         </span>
                         <div class="form-line">
-                            <input type="text" class="form-control" name="email" placeholder="Username" required
-                                autofocus>
+                            <input type="text" class="form-control" name="email" placeholder="Username" required>
                         </div>
                     </div>
                     <div class="input-group">
@@ -59,7 +61,8 @@
                             <label for="rememberme">Remember Me</label>
                         </div>
                         <div class="col-xs-4">
-                            <button class="btn btn-block btn-warning waves-effect" type="submit">SIGN IN</button>
+                            <button id="loginBtn" class="btn btn-block btn-warning waves-effect" type="submit">SIGN
+                                IN</button>
                         </div>
                     </div>
                     <div class="row m-t-15 m-b--20">
@@ -91,10 +94,14 @@
     <script src="/assets/js/pages/examples/sign-in.js"></script>
     <script>
         const form = document.querySelector('.user');
+        const loginBtn = document.querySelector('#loginBtn');
+        const err = document.querySelector('.err');
         console.log(form)
 
         form.addEventListener('submit', function (e) {
             e.preventDefault();
+            loginBtn.innerHTML = 'Please wait ...';
+            loginBtn.disabled = true;
             const email = form.email.value
             const password = form.password.value
 
@@ -115,9 +122,14 @@
                 .then(data => {
                     console.log(data)
                     if (data.status === 'true') {
+                        loginBtn.innerHTML = 'Success';
                         window.location.href = '/provider/dashboard'
                     } else {
-                        alert(data)
+                        loginBtn.innerHTML = 'Error';
+                        loginBtn.disabled = false;
+                        err.innerHTML = data.error;
+                        err.style.color = 'red';
+                        err.style.textAlign = 'center';
                     }
                 })
                 .catch(e => console.log(e))

@@ -54,6 +54,16 @@
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon">
+                            <i class="material-icons">attach_file</i>
+                        </span>
+                        <div class="form-line">
+                            <label for="logo">Upload a Logo</label>
+                            <input style="display: none;" id="logo" type="file" class="form-control" name="logo"
+                                placeholder="Upload a Logo">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
                             <i class="material-icons">lock</i>
                         </span>
                         <div class="form-line">
@@ -68,10 +78,11 @@
                                 usage</a>.</label>
                     </div>
 
-                    <button class="btn btn-block btn-lg btn-warning waves-effect" type="submit">SIGN UP</button>
+                    <button id="signupBtn" class="btn btn-block btn-lg btn-warning waves-effect" type="submit">SIGN
+                        UP</button>
 
                     <div class="m-t-25 m-b--5 align-center">
-                        <a href="/provider">You already have a membership?</a>
+                        <a href="/provider">You already a Provider?</a>
                     </div>
                 </form>
             </div>
@@ -95,37 +106,68 @@
     <script src="/assets/js/pages/examples/sign-in.js"></script>
     <script>
         const form = document.querySelector('.user');
+        const signupBtn = document.querySelector('#signupBtn');
         console.log(form)
         form.addEventListener('submit', function (e) {
             e.preventDefault();
+            // signupBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i>';
+            signupBtn.innerHTML = 'Please wait...'
+            signupBtn.disabled = true;
+            var formdata = new FormData();
+            formdata.append("username", e.target.username.value);
+            formdata.append("email", e.target.email.value);
+            formdata.append("logo", e.target.logo.files[0]);
+            formdata.append("password", e.target.password.value);
 
-            const username = form.username.value
-            const email = form.email.value
-            const password = form.password.value
-            const payload = {
-                username: username,
-                email: email,
-                password: password
-            }
-            // formData.append('file', form.file.files[0]);
-
-            console.log(username, email, password)
-
-            fetch('signup', {
+            var requestOptions = {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(payload)
-            }).then(res => res.json())
-                .then(data => {
-                    if (data.status === 'true') {
-                        window.location.href = '/provider'
+                body: formdata,
+                redirect: 'follow'
+            };
+
+            fetch("signup", requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    if (result.status === 'true') {
+                        signupBtn.innerHTML = 'Created';
+                        window.location.href = "/provider";
                     } else {
-                        alert(data.message)
+                        signupBtn.innerHTML = 'Error Creating Provider';
+                        window.location.href = "/provider/signup";
+
                     }
                 })
-                .catch(e => console.log(e))
+                .catch(error => console.log('error', error));
+
+            // const username = form.username.value
+            // const email = form.email.value
+            // const password = form.password.value
+            // const logo = form.logo.files[0]
+            // const payload = {
+            //     username: username,
+            //     email: email,
+            //     password: password,
+            //     logo: logo
+            // }
+            // // formData.append('file', form.file.files[0]);
+
+            // console.log(username, email, password)
+
+            // fetch('signup', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     },
+            //     body: JSON.stringify(payload)
+            // }).then(res => res.json())
+            //     .then(data => {
+            //         if (data.status === 'true') {
+            //             window.location.href = '/provider'
+            //         } else {
+            //             alert(data.message)
+            //         }
+            //     })
+            //     .catch(e => console.log(e))
 
 
 

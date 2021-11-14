@@ -73,8 +73,9 @@ provider.get("/signup",(req,res)=>{
     
 })
 
-provider.post("/signup",(req,res)=>{
+provider.post("/signup",upload.single("logo"),async (req,res)=>{
     const {username,email,password} = req.body;
+    const result = await cloudinary.uploader.upload(req.file.path) 
     try {
         Provider.findOne({email:email},(err,provider)=>{
             if(err){
@@ -94,6 +95,7 @@ provider.post("/signup",(req,res)=>{
                                 username:username,
                                 email:email,
                                 password:hash,
+                                logo:result.secure_url,
                                 role:"provider",
                                 roleId:2,
                             },(err,provider)=>{
@@ -102,11 +104,9 @@ provider.post("/signup",(req,res)=>{
                                     console.log(err)
                                 }
                                 else{
-                                    const token = createToken(provider._id);
-                                    res.cookie("providerjwt",token,{maxAge:maxAge * 1000});
+                            
                                     res.status(200).json({"status":"true"});
-                                    
-                                    // res.redirect("/provider")
+                                   
                                 }
                             })
                         }
@@ -176,7 +176,7 @@ provider.get("/createaudition",Auth,(req,res)=>{
 })
 
 
-provider.post("/createaudition",upload.single('auditionLogo'),async (req,res)=>{
+provider.post("/createaudition",Auth,upload.single('auditionLogo'),async (req,res)=>{
     
     const {auditionName,auditionDescription,auditionStartDate,auditionEndDate,auditionCharges,auditionPrice,auditionPattern} = req.body;
  const result = await cloudinary.uploader.upload(req.file.path) 

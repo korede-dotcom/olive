@@ -26,15 +26,12 @@ const providerSchema = new mongoose.Schema({
     },
     logo:{
         type:String,
+        required:true
     },
-    reated_at: {
+    created_at: {
         type: Date,
         default: Date.now
     },
-    end_at: {
-        type: Date,
-        default: Date.now
-    }
 
 })
 

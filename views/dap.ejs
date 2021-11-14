@@ -36,11 +36,13 @@
     <section class="content">
 
         <h4 class="content_header">Auditions Available</h4>
+
         <div class="boxs">
             <% auditions.forEach(element=> { %>
+
                 <a href="/digitalauditionplatform/<%= element._id %> ">
                     <div class="bo">
-                        <img width="150px" height="110px" src=<%=element.auditionLogo %>>
+                        <img width="150px" height="110px" style="border-radius:10px" src=<%=element.auditionLogo %>>
                         <h6 class="content_header audition">
                             <%= element.auditionName %>
                         </h6>
@@ -103,4 +105,9 @@
             <p>or <span>LOG IN</span> with </p>
         </div> -->
     </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelector("#exampleModal").modal('hide');
+        });
+    </script>
     <%- include("./partials/footer.ejs") %>
