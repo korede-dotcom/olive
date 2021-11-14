@@ -21,11 +21,7 @@ const cloudinary = require("../utils/cloudinary")
 
 saltRounds = 10;
 const maxAge = 60 * 60;
-const createToken = (id) => {
-  return jwt.sign({ id },process.env.providerJWTSECRET, {
-    expiresIn: maxAge
-  });
-};
+
 
 // login
 provider.get("/",(req,res)=>{
@@ -53,11 +49,7 @@ provider.post("/",(req,res)=>{
                         console.log(err)
                     }
                     if(result){
-                        req.session.isLoggin = true;
-                        const token = createToken(provider._id)
-                        res.cookie('providerjwt', token, {
-                            maxAge: maxAge * 1000,
-                        })
+                        
                         req.session.isLoggedIn = true;
                         req.session.providerId = provider._id;
                         req.session.providerDetails = provider;
@@ -184,7 +176,7 @@ provider.get("/createaudition",Auth,(req,res)=>{
 })
 
 
-provider.post("/createaudition",Auth,upload.single('auditionLogo'),async (req,res)=>{
+provider.post("/createaudition",upload.single('auditionLogo'),async (req,res)=>{
     
     const {auditionName,auditionDescription,auditionStartDate,auditionEndDate,auditionCharges,auditionPrice,auditionPattern} = req.body;
  const result = await cloudinary.uploader.upload(req.file.path) 

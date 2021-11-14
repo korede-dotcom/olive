@@ -12,17 +12,7 @@ const {Authenticated }= require("../middleware/middleware");
 const uuidv4 = require("uuid").v4;
 
 
-
-
-
-function randomNumbers(){
-    let numbers = []
-    for(let i=0;i<10;i++){
-        numbers.push(Math.floor(Math.random()*20))
-    }
-    return numbers
-}
-
+// 
 
 
 function fiveRandomNumbers(){
@@ -37,14 +27,14 @@ function fiveRandomNumbers(){
 const maxAge = 7200000;
 
 
-const createToken = (id) => {
-  return jwt.sign({ id },process.env.JWTSECRET, {
-    expiresIn: maxAge
-  });
-};
+// const createToken = (id) => {
+//   return jwt.sign({ id },process.env.JWTSECRET, {
+//     expiresIn: maxAge
+//   });
+// };
 
 const otp = fiveRandomNumbers().join("")
-console.log(otp)
+// console.log(otp)
 
 router.get("/",(req,res)=>{
     res.render("auth")

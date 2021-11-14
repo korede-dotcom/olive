@@ -13,10 +13,10 @@ const dotenv = require("dotenv").config()
 
 const app = express();
 require("./models/db")();
-app.use(function (req, res, next) {
-    console.log(req.files); // JSON Object
-    next();
-  });
+// app.use(function (req, res, next) {
+//     console.log(req.files); // JSON Object
+//     next();
+//   });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -58,4 +58,5 @@ app.use(router)
 
 
 const port = process.env.PORT  || 1200 ;
+
 app.listen(port , ()=> console.log(`server running on port ${port} `))
