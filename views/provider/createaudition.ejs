@@ -1,5 +1,6 @@
 <%- include("./partials/header.ejs") %>
     <section class="content">
+
         <div class="container-fluid">
             <div class="card">
                 <div class="header">
@@ -7,11 +8,11 @@
                         CREATE AUDITION
                         <small>Fill Audition Details</small>
                     </h2>
-
+                    <button type="button" onClick="payWithRave()">Pay Now</button>
                 </div>
                 <div class="body">
                     <div class="demo-masked-input">
-                        <form class="provider" enctype="application/x-www-form-urlencoded" name="fileinfo">
+                        <form class="provider" enctype="multipart/form-data" name="fileinfo">
                             <div class="row clearfix">
                                 <div class="col-md-6">
                                     <b>Name</b>
@@ -84,6 +85,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <button type="button" onClick="payWithRave()">Pay Now</button>
 
                             <button type="submit" class=".btn">SUBMIT</button>
                         </form>
@@ -96,34 +98,69 @@
 
     <script>
         const provider = document.querySelector(".provider");
-        provider.addEventListener("submit", (e) => {
+        provider.addEventListener("submit", async (e) => {
             e.preventDefault();
-            const formData = new FormData(provider);
-            let data = {};
-            formData.forEach((value, key) => {
-                data[key] = value;
-                console.log(key, value);
-            });
-            console.log(data);
-            fetch("/provider/createaudition", {
-                method: "POST",
-                body: JSON.stringify(data),
+            const formdata = new FormData();
+            formdata.append("auditionLogo", e.target.auditionLogo.files[0]);
+            formdata.append("auditionDescription", e.target.auditionLogo.value);
+            formdata.append("auditionStartDate", e.target.auditionStartDate.value);
+            formdata.append("auditionEndDate", e.target.auditionEndDate.value);
+            formdata.append("auditionCharges", e.target.auditionCharges.value);
+            formdata.append("auditionPrice", e.target.auditionPrice.value);
+            formdata.append("auditionPattern", e.target.auditionPattern.value);
+            formdata.append("auditionName", e.target.auditionName.value);
 
-            })
-                .then(res => res.json())
-                .then(res => {
-                    console.log(res);
-                    if (res.status === "true") {
+            var requestOptions = {
+                method: 'POST',
+                body: formdata,
+                redirect: 'follow'
+            };
+
+            fetch("createaudition", requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    if (result.status === "true") {
                         alert("Audition Created Successfully");
-                        window.location.href = "/provider/dashboard";
+                        window.location.href = "provider/dashboard";
                     } else {
                         alert("Audition Creation Failed");
                     }
                 })
-                .catch(err => {
-                    console.log(err);
-                });
+                .catch(error => console.log('error', error));
         });
+    </script>
+    <script>
+        const API_publicKey = "<ADD YOUR PUBLIC KEY HERE>";
+
+        function payWithRave() {
+            var x = getpaidSetup({
+                PBFPubKey: API_publicKey,
+                customer_email: "user@example.com",
+                amount: 2000,
+                customer_phone: "234099940409",
+                currency: "NGN",
+                txref: "rave-123456",
+                meta: [{
+                    metaname: "flightID",
+                    metavalue: "AP1234"
+                }],
+                onclose: function () { },
+                callback: function (response) {
+                    var txref = response.data.txRef; // collect txRef returned and pass to a                    server page to complete status check.
+                    console.log("This is the response returned after a charge", response);
+                    if (
+                        response.data.chargeResponseCode == "00" ||
+                        response.data.chargeResponseCode == "0"
+                    ) {
+                        // redirect to a success page
+                    } else {
+                        // redirect to a failure page.
+                    }
+
+                    x.close(); // use this to close the modal immediately after payment.
+                }
+            });
+        }
     </script>
 
 

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
 
 *{
     margin: 0;
@@ -143,7 +144,7 @@ header{
 
 
 .content{
-    background: #fff;
+    background: #F9F9F9;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -163,6 +164,17 @@ header{
     height: 252px;
     font-size: 18px;
     line-height: 36px;
+
+font-family: Lato;
+font-style: normal;
+font-weight: 800;
+font-size: 18px;
+line-height: 36px;
+/* or 200% */
+
+text-align: center;
+
+color: #000000;
 }
 .content_text strong{
     font-weight: bolder !important;

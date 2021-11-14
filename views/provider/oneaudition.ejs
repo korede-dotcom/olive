@@ -1,0 +1,88 @@
+<%- include ("./partials/header.ejs") %>
+
+    <section class="content">
+
+        <div class="container-fluid">
+
+            <div class="col-lg-10 col-md-10 col-sm-8 col-xs-12">
+                <div class="card ">
+                    <div class="header bg-orange">
+                        <h2 class="">
+
+                            <%= auditions.auditionName %> <img alt="img" />
+                        </h2>
+                        <ul class="header-dropdown m-b--5">
+                            <li class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
+                                    role="button" aria-haspopup="true" aria-expanded="false">
+                                    <i class="material-icons">more_vert</i>
+                                </a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Edit</a></li>
+                                    <li><a href="delete/<%= auditions._id %> " class=" waves-effect waves-block">Delete
+                                        </a></li>
+
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="body">
+                        <h5>
+                            <small>Description:</small>
+                            <%= auditions.auditionDescription %>
+
+                        </h5>
+                        <hr>
+                        <div class="row clearfix">
+                            <div class="col-sm-6">
+                                <b>Audition StartDate:</b>
+                                <%=auditions.auditionStartDate %>
+
+                            </div>
+                            <div class="col-sm-6">
+                                <b>Audition EndDate:</b>
+                                <%= auditions.auditionEndDate %>
+                            </div>
+                            <%= auditions.auditionPrice %>
+
+                        </div>
+                        <hr>
+                        <div class="row clearfix">
+                            <div class="col-sm-6">
+                                <b>Audition Charges:</b>
+                                <% if ( auditions.auditionCharges===0) { %>
+                                    Free
+                                    <% } %>
+                                        <% if ( auditions.auditionCharges===1) { %>
+                                            Payment
+                                            <% } %>
+
+                            </div>
+                            <div class="col-sm-6">
+                                <b>Audition Pattern:</b>
+                                <% if ( auditions.auditionPattern==="0" ) { %>
+                                    Upload
+                                    <% } %>
+                                        <% if ( auditions.auditionPattern==="1" ) { %>
+                                            Record
+                                            <% } %>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row clearfix">
+
+                            <div class="col-sm-6">
+                                <b>Provider:</b>
+                                <%= provider.username %>
+                            </div>
+                            <div class="col-sm-6">
+                                <b>Provider Email:</b>
+                                <%= provider.email %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </section>
+
+
+    <%- include ("./partials/footer.ejs") %>

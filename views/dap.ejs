@@ -34,6 +34,7 @@
         <!--  -->
     </section>
     <section class="content">
+
         <h4 class="content_header">Auditions Available</h4>
         <div class="boxs">
             <% auditions.forEach(element=> { %>
@@ -46,6 +47,7 @@
                         <% if(element.auditionCharges> 0){ %>
                             <p class="content_header audition">
                                 &#x20A6; <%= element.auditionPrice %>
+
                             </p>
                             <% } else { %>
                                 <p class="content_header audition">

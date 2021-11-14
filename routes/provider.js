@@ -10,6 +10,13 @@ const {Auth} = require("../middleware/middleware");
 const bcrypt = require("bcrypt")
 var fs = require('fs');
 const audition = require("../models/audition")
+const upload = require("../utils/multer")
+const cloudinary = require("../utils/cloudinary")
+
+
+
+
+
 
 
 saltRounds = 10;
@@ -53,6 +60,7 @@ provider.post("/",(req,res)=>{
                         })
                         req.session.isLoggedIn = true;
                         req.session.providerId = provider._id;
+                        req.session.providerDetails = provider;
                         res.status(200).json({"status":"true"});
                     }
                     else{
@@ -125,7 +133,8 @@ provider.post("/signup",(req,res)=>{
 // GET PROFILE
 
 provider.get("/profile",Auth,(req,res)=>{
-        res.render("provider/profile")
+    let provider = req.session.providerDetails;
+        res.render("provider/profile",{provider})
 })
 provider.post("/profile",Auth,(req,res)=>{
     const {username,email,password} = req.body;
@@ -170,11 +179,55 @@ provider.post("/profile",Auth,(req,res)=>{
 
 //  CREATE AUDITION
 provider.get("/createaudition",Auth,(req,res)=>{
-        res.render("provider/createaudition")
+    let provider = req.session.providerDetails;
+        res.render("provider/createaudition",{provider})
 })
 
-provider.post("/createaudition",Auth,(req,res)=>{
-    console.log(req.body)
+
+provider.post("/createaudition",Auth,upload.single('auditionLogo'),async (req,res)=>{
+    
+    const {auditionName,auditionDescription,auditionStartDate,auditionEndDate,auditionCharges,auditionPrice,auditionPattern} = req.body;
+ const result = await cloudinary.uploader.upload(req.file.path) 
+ let newAudition = new Audition({
+    auditionName,
+    auditionDescription,
+    auditionStartDate,
+    auditionEndDate,
+    auditionLogo:result.secure_url,
+    auditionCharges,
+    auditionPrice,
+    auditionPattern,
+    roleId:2,
+    provider:req.session.providerId,
+ })
+ await newAudition.save((err,audition)=>{
+        if(err){
+            console.log(err)
+        }
+        else{
+          
+            res.send({"status":"true"})
+        }
+ })
+       
+    
+});
+    
+
+            
+
+
+
+
+//    cloudinary.uploader.upload(req.file.path, function(result) {
+//     console.log(result)
+//     res.send(result)
+
+
+
+// provider.post("/createaudition",(req,res)=>{
+    // console.log(req)
+    // res.send(req.body)
     // const {auditionName,auditionDescription,
     //     auditionStartDate,auditionEndDate,auditionCharges,
     //     auditionLogo,auditionPrice,auditionPattern
@@ -183,45 +236,28 @@ provider.post("/createaudition",Auth,(req,res)=>{
     // console.log(req.files)
     // console.log(req.session.providerId)
 
-    // Provider.findOne({_id:req.session.providerId},(err,provider)=>{
-    //     if(err){
-    //         console.log(err)
-    //     }
-    //     else{
-    //         if(provider){
-               
-    //             Audition.create({
-    //                 auditionName,
-    //                 auditionDescription,
-    //                 auditionStartDate,
-    //                 auditionEndDate,
-    //                 auditionLogo:req.files[0].filename,
-    //                 auditionCharges,
-    //                 auditionPrice,
-    //                 auditionPattern,
-    //                 roleId:2,
-    //                 provider:provider._id
-    //             },(err,audition)=>{
-    //                 if(err){
-    //                     console.log(err)
-    //                 }
-    //                 else{
-    //                     res.status(200).json({"status":"true"});
-                        
-    //                 }
-    //             })
-    //         }
-    //     }
-    // })
+   
     
   
-})
+// })
 // END CREATE AUDITION
 
 
 // GET DASHBOARD
 provider.get("/dashboard",Auth,(req,res)=>{
-    res.render("provider/dashboard")
+    // find provider
+   
+    Provider.findOne({_id:req.session.providerId},(err,provider)=>{
+        if(err){
+            console.log(err)
+        }
+        else{
+            if(provider){
+                res.render("provider/dashboard",{provider})
+                
+            }
+        }
+    })
 })
 
 
@@ -230,9 +266,59 @@ provider.get("/dashboard",Auth,(req,res)=>{
 
 
 provider.get("/auditions",Auth,(req,res)=>{
+    let provider = req.session.providerDetails;
+    Audition.find({provider:req.session.providerId},(err,auditions)=>{
+        if(err){
+            console.log(err)
+        }
+        else{
+            res.render("provider/auditions",{auditions,provider})
+        }
+    })
+
 
 })
-provider.get("/audition/delete:id",Auth,(req,res)=>{
+provider.get("/auditions/:id",Auth,(req,res)=>{
+    // find on provider
+    Provider.findOne({_id:req.session.providerId},(err,provider)=>{
+        if(err){
+            console.log(err)
+        }
+        else{
+            if(provider){
+                // find on audition
+                Audition.findOne({_id:req.params.id},(err,auditions)=>{
+                    if(err){
+                        console.log(err)
+                    }
+                    else{
+                        if(audition){
+                            res.render("provider/oneaudition",{auditions,provider})
+                        }
+                    }
+                })
+
+    // find one audition
+            }
+        }
+    }) 
+
+
+})
+provider.get("/auditions/delete/:id",Auth,(req,res)=>{
+    let provider = req.session.providerDetails;
+    // delete one audition
+    // delete one audition
+    Audition.findByIdAndDelete(req.params.id,(err,auditions)=>{
+        if(err){
+            console.log(err)
+        }else{
+            if(auditions){
+                res.render("/provider/auditions")
+            }
+            
+        }
+    })
 
 })
 

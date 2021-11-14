@@ -8,17 +8,18 @@ const jwt = require("jsonwebtoken");
 const path = require("path")
 const router = require("./routes/router");
 const provider = require("./routes/provider");
-require("dotenv").config();
-
-
-
-
-
+const dotenv = require("dotenv").config()
 
 
 const app = express();
 require("./models/db")();
+app.use(function (req, res, next) {
+    console.log(req.files); // JSON Object
+    next();
+  });
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 
 const store = new MongoStore({
@@ -32,11 +33,8 @@ const store = new MongoStore({
 
 
 app.use(cors())
-app.use(bodyParser.urlencoded({extended:true}))
-app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname,"public")))
 app.set("view engine","ejs");
-
 app.use(session({
     secret: process.env.SS,
     resave: false,
@@ -46,8 +44,8 @@ app.use(session({
     },
     store: store
 }));
-app.set('views', path.join(__dirname, 'views'));
 
+app.set('views', path.join(__dirname, 'views'));
 app.use("/provider",provider)
 app.use(cookeParser())
 app.use(router)
