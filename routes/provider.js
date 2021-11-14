@@ -306,7 +306,7 @@ provider.get("/auditions/delete/:id",Auth,(req,res)=>{
             console.log(err)
         }else{
             if(auditions){
-                res.render("/provider/auditions")
+                res.redirect("/provider/auditions")
             }
             
         }

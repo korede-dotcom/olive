@@ -35,14 +35,14 @@ const auditionSchema = new mongoose.Schema([{
     // },
     auditionPrice:{
         type: Number,
-        required:true
+        
     },
     auditionCharges:{
         type: Number,
         required:true
     },
     auditionPattern:{
-        type:String,
+        type:Number,
         required:true
     },
     created_at: {

@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,700&display=swap');
+
 
 *{
     margin: 0;
@@ -154,28 +156,29 @@ header{
     gap: 20px;
 }
 .content_header{
-/* font-weight:900  !important; */
-    color: #801315;
-    line-height: 23px;
-    font-weight: bolder ;
+    font-family: Lato;
+    font-style: normal;
+    font-weight: 900;
     font-size: 18px;
-    font-family: Arial, Helvetica, sans-serif;
-}
-.content_text{
-    height: 252px;
-    font-size: 18px;
-    line-height: 36px;
+    line-height: 22px;
 
+}
+
+.content_text{
+height: 252px;
+font-size: 18px;
+line-height: 36px;
 font-family: Lato;
 font-style: normal;
 font-weight: 800;
 font-size: 18px;
 line-height: 36px;
-/* or 200% */
-
 text-align: center;
-
 color: #000000;
+
+}
+.swiper-scrollbar{
+    display: none;
 }
 .content_text strong{
     font-weight: bolder !important;
@@ -202,18 +205,12 @@ color: #000000;
     padding-bottom: 10px;
 }
 .btn{
-    text-transform: uppercase;
-    background: #801315;
-    width: 366px;
-    border-radius: 5px;
-    padding: 10px;
-    margin-top: 10px;
-    color: #fff;
-    outline: none;
-    box-shadow: none;
-    border:none;
-
-
+width: 366px;
+height: 50px;
+background: #801315;
+border-radius: 5px;
+color: #FFFFFF;
+border: none;
 }
 .phoneInput > *{
     /* display: flex;
@@ -385,7 +382,7 @@ border-radius: 10px;
     margin-top: 50px;
 
     background-color: #801315;
-    height: 10%;
+    height: 8px;
     width: 100%;
     padding: 4px;
 

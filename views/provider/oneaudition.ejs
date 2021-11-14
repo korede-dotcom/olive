@@ -9,9 +9,10 @@
                     <div class="header bg-orange">
                         <h2 class="">
 
-                            <%= auditions.auditionName %> <img alt="img" />
+                            <%= auditions.auditionName %>
                         </h2>
                         <ul class="header-dropdown m-b--5">
+
                             <li class="dropdown">
                                 <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
                                     role="button" aria-haspopup="true" aria-expanded="false">
@@ -27,6 +28,10 @@
                         </ul>
                     </div>
                     <div class="body">
+
+                        <div class="left">
+                            <img style="border: 50%;" alt="img" src="<%= auditions.auditionLogo  %> " />
+                        </div>
                         <h5>
                             <small>Description:</small>
                             <%= auditions.auditionDescription %>
@@ -43,7 +48,11 @@
                                 <b>Audition EndDate:</b>
                                 <%= auditions.auditionEndDate %>
                             </div>
-                            <%= auditions.auditionPrice %>
+                            <!-- <div class="col-sm-6">
+                                <b>Audition EndDate:</b>
+                                <%= auditions.auditionPrice %>
+                            </div> -->
+
 
                         </div>
                         <hr>

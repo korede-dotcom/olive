@@ -106,7 +106,7 @@
             auditionBtn.innerHTML = "Please wait...";
             const formdata = new FormData();
             formdata.append("auditionLogo", e.target.auditionLogo.files[0]);
-            formdata.append("auditionDescription", e.target.auditionLogo.value);
+            formdata.append("auditionDescription", e.target.auditionDescription.value);
             formdata.append("auditionStartDate", e.target.auditionStartDate.value);
             formdata.append("auditionEndDate", e.target.auditionEndDate.value);
             formdata.append("auditionCharges", e.target.auditionCharges.value);

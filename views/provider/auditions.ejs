@@ -418,19 +418,21 @@
                                                 <th>Audition Price</th>
                                                 <th>Audition Charges</th>
                                                 <th>Audition Pattern</th>
-                                                <th>Timestamp</th>
+                                                <th>auditionStartDate</th>
+                                                <th>auditionEndDate</th>
                                             </tr>
                                         </thead>
-                                        <tfoot>
+                                        <!-- <tfoot>
                                             <tr>
                                                 <th>Audition Name</th>
                                                 <th>Audition Description</th>
                                                 <th>Audition Price</th>
                                                 <th>Audition Charges</th>
                                                 <th>Audition Pattern</th>
-                                                <th>Timestamp</th>
+                                                <th>auditionStartDate</th>
+                                                <th>auditionEndDate</th>
                                             </tr>
-                                        </tfoot>
+                                        </tfoot> -->
                                         <tbody class="tbody">
 
                                             <% auditions.forEach(element=> { %>
@@ -446,7 +448,10 @@
                                                             <%= element.auditionDescription %>
                                                         </td>
                                                         <td>
-                                                            <%= element.auditionPrice %>
+                                                            <% if (element.auditionPrice> 0 ) { %>
+                                                                <%= element.auditionPrice %>
+                                                                    <% } %>
+
                                                         </td>
                                                         <td>
                                                             <% if (element.auditionCharges===0 ) { %>
@@ -458,16 +463,19 @@
 
                                                         </td>
                                                         <td>
-                                                            <% if (element.auditionPattern==="0" ) { %>
+                                                            <% if (element.auditionPattern===0 ) { %>
                                                                 <p>Upload</p>
                                                                 <% } %>
-                                                                    <% if (element.auditionPattern==="1" ) { %>
+                                                                    <% if (element.auditionPattern===1 ) { %>
                                                                         <p>Record</p>
                                                                         <% } %>
 
                                                         </td>
                                                         <td>
-                                                            <%= element.created_at %>
+                                                            <%= element.auditionStartDate %>
+                                                        </td>
+                                                        <td>
+                                                            <%= element.auditionEndDate %>
                                                         </td>
 
                                                     </tr>

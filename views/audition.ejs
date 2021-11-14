@@ -63,7 +63,7 @@
                         <div class="tools">
                             <form>
                                 <!-- ejs if -->
-                                <% if (audition.auditionPattern==="0" ) { %>
+                                <% if (audition.auditionPattern===0 ) { %>
                                     <div>
                                         <input type="file" name="" id="upload" hidden>
                                         <label for="upload">
@@ -73,7 +73,7 @@
                                         </label>
                                     </div>
                                     <% } %>
-                                        <% if (audition.auditionPattern==="1" ) { %>
+                                        <% if (audition.auditionPattern===1 ) { %>
                                             <div id="recordBtn">
                                                 <a target="restream">
                                                     <img src="/assest/OLIVE/recordgold.png" alt="" srcset="">

@@ -6,11 +6,12 @@ const slider = document.querySelector(".slider");
 
 
 const form = document.querySelector("#form");
+const join = document.querySelector(".join");
+console.log(form);
 
 form.addEventListener("submit", (e) => {
+    alert("Thank you for your message!");
     e.preventDefault()
-   
-
     fetch('/', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -23,7 +24,7 @@ form.addEventListener("submit", (e) => {
             if(data.status === "true"){
                  const otp_content = document.querySelector(".otp_content")
                  otp_content.style.display = "flex";
-                e.target.parentElement.parentElement.style.display = "none"
+                 join.style.display = "none"
             }
           
 

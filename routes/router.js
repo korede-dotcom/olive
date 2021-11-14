@@ -42,6 +42,7 @@ router.get("/",(req,res)=>{
 
 router.post("/",(req,res)=>{
     const {username,password} = req.body
+    console.log(username,password)
     try {
         User.findOne({username},(err,user)=>{
           
@@ -57,8 +58,8 @@ router.post("/",(req,res)=>{
                 })
                 newUser.save((err,user)=>{
                     console.log(user)
-                    res.locals.userId = user._id
-                    globals.set('userId', user._id, {protected: true});
+                    req.session.user = user
+                    // globals.set('userId', user._id, {protected: true});
                          const config = {
                         method: 'get',
                         url: `https://1960sms.com/api/send/?user=${process.env.textMsgUser}&pass=${process.env.textMsgPass}&to=${user.username}&from=hello&msg=your Olive registration OTP:${user.otp}`,
@@ -91,8 +92,8 @@ router.post("/",(req,res)=>{
 router.post("/otp",(req,res)=>{
 
     console.log(otp)
-   const id = globals.get('userId', {protected: true});
-    User.findById(id,(err,user)=>{
+//    const id = globals.get('userId', {protected: true});
+    User.findById(req.session.user._id,(err,user)=>{
 
         if(err){
             res.send({"error":"Error in finding user"})
@@ -101,7 +102,7 @@ router.post("/otp",(req,res)=>{
                 // const token = createToken(user._id);
                 // res.cookie("jwt",token,{maxAge:maxAge * 1000});
                 req.session.userIsLoggedIn = true;
-                req.session.user = user;
+                // req.session.user = user;
                 res.status(200).json({"status":"success"});
             }else{
                 res.send({"error":"OTP is incorrect"})
