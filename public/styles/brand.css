@@ -311,6 +311,12 @@ text-align: center;
 background-color: #801315;
 
 }
+.checkout{
+    background: none;
+}
+.spinner-container{
+    background: transparent;
+}
 
 /* DASHBOARD STYLES */
 .boxs{
@@ -321,6 +327,10 @@ background-color: #801315;
     
 }
 
+.bo{
+    width: 147px;
+height: 147px;
+}
 
 .box{
     width: 150px;

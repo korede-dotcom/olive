@@ -126,7 +126,7 @@ router.post("/login",(req,res)=>{
                 if(user.password === password){
                     req.session.userIsLoggedIn = true;
                     req.session.user = user;
-                    res.status(200).json({"status":"true"});
+                   res.status(200).json({"status":"true"});
                 }else{
                     res.send({"error":"Password is incorrect"})
                 }
@@ -151,7 +151,7 @@ router.get("/digitalauditionplatform",Authenticated,(req,res)=>{
         if(err){
             console.log(err)
         }else{
-            res.render("dap",{auditions})
+            res.render("dap",{auditions,user:req.session.user})
         }
     })
 
@@ -207,16 +207,18 @@ router.get("/paidaudition",Authenticated,(req,res)=>{
                     user:req.query.user,
                     provider:req.query.provider,
                     amount:audition.auditionPrice,
+                    auditionName:audition.auditionName,
+                    auditionId:audition._id,
                     paymentRef:req.query.tx_ref,
                     paymentStatus:req.query.status,
                 },(err,payment)=>{
                     if(err){
                         console.log(err)
                     }else{
-                        res.redirect("/dashboard")
+                        
+                        res.render("audition",{audition})
                     }
                 })
-                res.render("audition",{audition})
             }else{
                 res.redirect("/digitalauditionplatform")
             }

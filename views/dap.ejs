@@ -40,27 +40,32 @@
         <div class="boxs">
             <% auditions.forEach(element=> { %>
 
-                <a href="/digitalauditionplatform/<%= element._id %> ">
-                    <div class="bo">
-                        <img width="150px" height="110px" style="border-radius:10px" src=<%=element.auditionLogo %>>
-                        <h6 class="content_header audition">
-                            <%= element.auditionName %>
-                        </h6>
-                        <% if(element.auditionCharges> 0){ %>
+                <div class="bo">
+
+                    <img style="border-radius:10px" src=<%=element.auditionLogo %>>
+                    <h6 class="content_header audition" data-id="<%=element._id %>"
+                        data-provider="<%=element.provider %>">
+                        <%= element.auditionName %>
+                    </h6>
+                    <% if(element.auditionCharges> 0){ %>
+                        <p class="content_header audition">
+                            &#x20A6; <span>
+                                <%= element.auditionPrice %>
+                            </span>
+                        </p>
+                        <!-- <button type="button" onClick="makePayment()">Pay Now</button> -->
+                        <% } else { %>
                             <p class="content_header audition">
-                                &#x20A6; <%= element.auditionPrice %>
-
+                                Free
                             </p>
-                            <% } else { %>
-                                <p class="content_header audition">
-                                    Free
-                                </p>
-                                <% } %>
+                            <% } %>
+                </div>
 
-                    </div>
-                </a>
+
                 <% }) %>
-                    <!-- <a href="/digitalauditionplatform/bbnaija">
+        </div>
+
+        <!-- <a href="/digitalauditionplatform/bbnaija">
                 <div class="bo">
                     <img src="/assest/OLIVE/bbn.png">
                     <h6 class="content_header audition">bbnaija</h6>
@@ -74,7 +79,7 @@
                 <img src="/assest/OLIVE/projectfame.png">
                 <h6 class="content_header audition">projectfame</h6>
             </div> -->
-        </div>
+        <!-- </div> -->
         <!-- <h4 class="content_header">YOUTH CENTRIC DIGITAL ECOSYSTEM</h4>
         <p class="content_text">
             <strong>Olive platform</strong> is a triumvirate and youth-centric digital ecosystem built for creative
@@ -104,10 +109,96 @@
             <p>*By continuing you accept the Promoflo network and OLIVE Terms and Privacy Policy.</p>
             <p>or <span>LOG IN</span> with </p>
         </div> -->
+
+
+
     </section>
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            document.querySelector("#exampleModal").modal('hide');
+        const user_id = "<%= user._id %>"
+        const auditions = document.querySelectorAll(".bo");
+        auditions.forEach(element => {
+            element.addEventListener("click", (e) => {
+                const parent = e.target.parentElement;
+                console.log(parent)
+                const id = parent.querySelector('.audition').getAttribute("data-id");
+                const provider = parent.querySelector('.audition').getAttribute("data-provider");
+                const logo = parent.querySelector('img').getAttribute("src");
+                const price = parent.querySelector('span').innerText;
+                console.log(price);
+
+                function makePayment() {
+
+                    FlutterwaveCheckout({
+                        public_key: "FLWPUBK_TEST-4ca1ba86e66042a64f13a6248d694d4e-X",
+                        tx_ref: id,
+                        amount: price,
+                        currency: "NGN",
+                        country: "NG",
+                        payment_options: " ",
+                        redirect_url: // specified redirect URL
+                            `http://localhost:1200/paidaudition?audition=${id}&provider=${provider}&user=${user_id}`,
+                        meta: {
+                            consumer_id: 23,
+                            consumer_mac: "92a3-912ba-1192a",
+                        },
+                        customer: {
+                            email: "cornelius@gmail.com",
+                            phone_number: "<%= user.username %>",
+                            name: "Flutterwave Developers",
+                        },
+                        callback: function (data) {
+                            console.log(data);
+                        },
+                        onclose: function () {
+                            // close modal
+                        },
+                        customizations: {
+                            title: "My store",
+                            description: "Payment for items in cart",
+                            logo: logo,
+                        },
+                    });
+                }
+
+                makePayment()
+
+
+            });
         });
+        console.log(auditions);
+
+
+        // const API_publicKey = "<ADD YOUR PUBLIC KEY HERE>";
+
+        // function payWithRave() {
+        //     var x = getpaidSetup({
+        //         PBFPubKey: API_publicKey,
+        //         customer_email: "user@example.com",
+        //         amount: 2000,
+        //         customer_phone: "234099940409",
+        //         currency: "NGN",
+        //         txref: "rave-123456",
+        //         meta: [{
+        //             metaname: "flightID",
+        //             metavalue: "AP1234"
+        //         }],
+        //         onclose: function () { },
+        //         callback: function (response) {
+        //             var txref = response.data.txRef; // collect txRef returned and pass to a                    server page to complete status check.
+        //             console.log("This is the response returned after a charge", response);
+        //             if (
+        //                 response.data.chargeResponseCode == "00" ||
+        //                 response.data.chargeResponseCode == "0"
+        //             ) {
+        //                 // redirect to a success page
+        //             } else {
+        //                 // redirect to a failure page.
+        //             }
+
+        //             x.close(); // use this to close the modal immediately after payment.
+        //         }
+        //     });
+        // }
     </script>
     <%- include("./partials/footer.ejs") %>
