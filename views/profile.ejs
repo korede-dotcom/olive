@@ -124,7 +124,7 @@
 
 
             fetch('/profile/<%=user.id%>', {
-                method: 'PATCH',
+                method: 'POST',
                 body: formData
             })
                 .then(res => res.json())
@@ -137,7 +137,7 @@
                         alert(data.error);
                     }
                 })
-                .catch(err => console.log(err));
+
         })
     </script>
 

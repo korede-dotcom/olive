@@ -223,20 +223,44 @@ router.get("/profile",Authenticated,(req,res)=>{
 
 // patch
 
-router.patch("/profile/:id",Authenticated,upload.single('logo'),async(req,res)=>{
+router.post("/profile/:id",Authenticated,upload.single('logo'),async(req,res)=>{
     const {username,password,email} = req.body
     
     const id = req.params.id
-    console.log
-    const result = await cloudinary.uploader.upload(req.file.path) 
-    User.findByIdAndUpdate(id,{username,password,email,Image:result.secure_url,},(err,user)=>{
-        if(err){
+    if(req.file){
+        const result = await cloudinary.uploader.upload(req.file.path) 
+
+        try {
+            const user = await User.findByIdAndUpdate(id,{username,password,email,Image:result.secure_url},{new:true})
+            if(user){
+                res.status(200).json({"status":"success"})
+            }
+        } catch (error) {
             res.send({"error":"Error in updating profile"})
-        }else{
-            req.session.user = user
-            res.send({"status":"success"})
+            console.log(error)
         }
-    })
+    }
+    else{
+        try {
+            const user = await User.findByIdAndUpdate(id,{username,password,email},{new:true})
+            if(user){
+                res.status(200).json({"status":"success"})
+            }
+        } catch (error) {
+            res.send({"error":"Error in updating profile"})
+            console.log(error)
+
+        }
+    }
+    
+    // await  User.findByIdAndUpdate(id,{username,password,email,Image:result.secure_url},(err,user)=>{
+    //     if(err){
+    //         res.send({"error":"Error in updating profile"})
+    //     }else{
+    //         req.session.user = user
+    //         res.send({"status":"success"})
+    //     }
+    // })
 })
 
 
@@ -423,6 +447,8 @@ router.post("/paid",Authenticated,(req,res)=>{
 })
 
 // site count
+
+// sucessful payment
 
 
 router.get("/auditionlink",(req,res)=>{
