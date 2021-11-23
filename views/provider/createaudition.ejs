@@ -85,6 +85,24 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-4 col-sm-12">
+                                    <h5>Number of Auditions</h5>
+                                    <select class="form-select" aria-label="Default select example"
+                                        name="auditionCount">
+                                        <option value="-1">Unlimited</option>
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                    </select>
+                                </div>
                             </div>
                             <!-- <button type="button" onClick="payWithRave()">Pay Now</button> -->
 
@@ -113,6 +131,7 @@
             formdata.append("auditionPrice", e.target.auditionPrice.value);
             formdata.append("auditionPattern", e.target.auditionPattern.value);
             formdata.append("auditionName", e.target.auditionName.value);
+            formdata.append("auditionCount", parseInt(e.target.auditionCount.value));
 
             var requestOptions = {
                 method: 'POST',

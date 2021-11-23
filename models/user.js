@@ -3,8 +3,14 @@ const Schema = mongoose.Schema;
 const userSchema = Schema({
     username: {
         type: String,
-        unique: true,
         required: true
+    },
+    email: {
+        type: String,
+        unique: true, 
+    },
+    name: {
+        type: String,
     },
     password: {
         type: String,
@@ -21,6 +27,9 @@ const userSchema = Schema({
     otp: {
         type: Number,
         required: true
+    },
+    Image: {
+        type: String,
     },
     created_at: {
         type: Date,

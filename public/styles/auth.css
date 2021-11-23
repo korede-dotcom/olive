@@ -1,4 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
 
 *{
     margin: 0;
@@ -32,8 +35,8 @@ body{
    background-size: cover;
    background-attachment: fixed;
    margin: auto 0;
-    font-family: Lato;
-    font-style: normal;
+   font-family: 'lato';
+   font-weight: 900;
 
 }
 
@@ -65,10 +68,10 @@ body{
 
 input#phone,.input {
     border: none !important;
-    font-size: 30px;
+
     outline: none !important;
     background: none !important;
-    margin: 0 15px !important;
+    margin: 0 !important;
 }
 header{
     min-height: 64px;
@@ -108,6 +111,7 @@ header{
     /* min-height: 452px; */
     /* background-image: url("/assest/OLIVE/woman.png"); */
     position: relative;
+    
 }
 
 .carousel-l{
@@ -145,7 +149,7 @@ header{
 
 
 .content{
-    background: #F9F9F9;
+    background: #FFF;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -154,22 +158,88 @@ header{
     gap: 20px;
 }
 .content_header{
-/* font-weight:900  !important; */
+    font-family: lato;
+font-weight:900;
+font-size: 18px;
+
+text-transform: uppercase;
+/* identical to box height, or 38px */
+padding: 1em;
+text-align: center;
+color: #801315;
+}
+.register_link {
+    display: flex;
+    flex-direction: column;
+    font-weight: 400;
+    padding:0 .3em;
+    box-sizing: border-box;
+    background-color: #FFF;
+    margin: 0 auto;
+    font-size: 14px;
+   
+    
+}
+.register_link_header{
+    font-weight: 900;
+    font-size: 24px;
+    margin: 20px 0;
+}
+.link_register{
+    background-color: #FFF;
+}
+.register_link > div{
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+    gap: .5em;
+    justify-content: flex-start;
+    margin: 10px 0;
+  
+}
+.register_link > div input{
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 16px;
+    font-weight: 500;
+   
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+.CONGRATULATION{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 40vh;
+    gap: 1.5em;
+
+}
+.CONGRATULATION p{
+    width: 323px;
+height: 75px;
+font-size: 16px;
+line-height: 156.5%;
+}
+.CONGRATULATION P, .CONGRATULATION .btn{
+    font-weight: 400;
+}
+.CONGRATULATION a{
     color: #801315;
-    line-height: 23px;
-    font-weight: bolder ;
-    font-size: 18px;
-    font-family: Arial, Helvetica, sans-serif;
+    
 }
 .content_text{
     height: 252px;
     font-size: 18px;
     line-height: 36px;
 
-font-family: Lato;
-font-style: normal;
-font-weight: 800;
-font-size: 18px;
+
+
+font-weight: 400;
+font-size: 16px;
 line-height: 36px;
 /* or 200% */
 
@@ -198,10 +268,19 @@ color: #000000;
     align-items: center;
     gap: 20px;
 }
+.join p{
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 36px;
+   
+}
+.join a{
+    color: #801315;
+}
 .join > h4{
     padding-bottom: 10px;
 }
-.btn{
+.btn,.pbtn{
     text-transform: uppercase;
     background: #801315;
     width: 366px;
@@ -351,11 +430,14 @@ background-color: #801315;
     place-items: center;
     
 }
-
-.bo{
-    width: 147px;
-height: 147px;
+.boxs a{
+    text-decoration: none;
+    color: #fff;
+  
 }
+
+
+
 .box{
     width: 150px;
 height: 110px;
@@ -392,4 +474,91 @@ border-radius: 10px;
     width: 100%;
     padding: 4px;
 
+}
+.profile-img{
+    background-color: #FFF;
+}
+.img-round h5{
+    font-family: Lato;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 156.5%;
+}
+.user-details{
+    font-family: Lato;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 156.5%;
+    background-color: #fff;
+
+}
+.user-details form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.5em;
+    gap: 10px;
+    
+}
+.user-details form input{
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    box-sizing: border-box;
+    border-radius: 5px;
+    padding: 1em;
+    outline: none;
+}
+.user-details form div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+.abox{
+width: 369px;
+height: 213px;
+background: #F9F9F9;
+box-shadow: 0px 4px 26px rgba(0, 0, 0, 0.15);
+border-radius: 10px;
+display: flex;
+padding: 1em;
+flex-direction: column;
+justify-content: space-between;
+gap: 20px;
+
+
+}
+.abox a{
+    color: #801315;
+    text-align: end;
+}
+.auditiontext{
+    text-align: start;
+    font-weight: 200;
+}
+.auditiontext p {
+    font-size: 14px;
+}
+.abox_content{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-weight: 200;
+}
+.abox_content  p {
+    font-weight: 400;
+}
+.number{
+    position: relative;
+}
+.iti--container {
+  
+    width: 300px;
+    margin: 0 auto;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    margin-top: 600px;
+    
 }

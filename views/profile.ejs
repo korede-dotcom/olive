@@ -1,0 +1,146 @@
+<%- include ("./partials/header.ejs") %>
+
+    <section class="profile-img">
+
+        <div class="img-round"
+            style="display: flex;justify-content: center; align-items: center;height: 416px;flex-direction: column; position: relative;">
+            <img id="userImg" width="267px" height="267px" src="" alt="upload an image" style="border-radius: 50%;">
+            <!-- <label id="lableid" for="logoupload" hidden>
+                <img id=""
+                    src="https://img.icons8.com/ios/50/000000/upload-to-cloud--v1.png" width="30px" height="30px" />
+            </label> -->
+
+
+            <h1>
+                <%= user.name %>
+            </h1>
+            <h5>Member since
+            </h5>
+            <img id="editBtn" src="/assest/OLIVE/edit.png" width="30px" height="30px" alt="" srcset="">
+
+
+        </div>
+
+        <div class="user-details">
+            <form action="" enctype="multipart/form-data">
+                <div>
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" readonly value="<%= user.email %> ">
+                </div>
+                <div>
+                    <label for="number">Phone Number</label>
+                    <input type="text" name="phone" id="number" readonly value="<%=user.username %>">
+
+                </div>
+                <div>
+                    <label id="logoupload" for="logo" style="display: flex;align-items: center; gap: 10px;">
+                        <p>Upload Image</p>
+                        <img id="" src="https://img.icons8.com/ios/50/000000/upload-to-cloud--v1.png" width="30px"
+                            height="30px" />
+                    </label>
+                    <input type="file" name="logo" id="logo" hidden>
+                </div>
+                <div>
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" readonly value="<%= user.password %> ">
+                </div>
+                <div>
+                    <label for="confirm">Confirm Password</label>
+                    <input type="password" name="confirm" id="confirm" readonly value="<%= user.password %> ">
+                </div>
+
+
+                <button disabled class="btn" style="opacity: .5;">updateprofile</button>
+
+            </form>
+        </div>
+    </section>
+    <section>
+        <h4 style="text-align: center;"> <a style="color: #801315;" href="/logout">logout</a></h4>
+        <br>
+        <br>
+    </section>
+
+    <script>
+        if ('<%= user.Image %>') {
+            const imgSrc = document.querySelector("#userImg")
+            imgSrc.src = "<%=user.Image%>";
+        }
+        const date = '<%= user.created_at %>';
+        const date2 = new Date(date);
+        const date3 = date2.getFullYear();
+        document.querySelector('h5').innerHTML += date3;
+
+        const btn = document.querySelector('button');
+        const lableid = document.querySelector('#logoupload');
+        lableid.style.display = 'none';
+
+        const editBtn = document.querySelector('#editBtn');
+        editBtn.addEventListener('click', () => {
+            const email = document.querySelector('#email');
+            const number = document.querySelector('#number');
+            const password = document.querySelector('#password');
+            const confirm = document.querySelector('#confirm');
+            const logo = document.querySelector('#logoupload');
+
+            confirm.removeAttribute('readonly');
+
+
+            email.removeAttribute('readonly');
+            number.removeAttribute('readonly');
+            password.removeAttribute('readonly');
+            // email.setAttribute('contenteditable', 'true');
+            // number.setAttribute('contenteditable', 'true');
+            // password.setAttribute('contenteditable', 'true');
+
+            lableid.style.display = 'flex';
+
+            btn.removeAttribute('disabled');
+            btn.style.opacity = '1';
+
+
+        })
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            btn.setAttribute('disabled', 'true');
+            btn.innerHTML = 'Updating...';
+            const email = document.querySelector('#email');
+            const number = document.querySelector('#number');
+            const password = document.querySelector('#password');
+            const confirm = document.querySelector('#confirm');
+            const logo = document.querySelector('#logo');
+            if (password.value !== confirm.value) {
+                alert('password does not match');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('email', email.value);
+            formData.append('phone', number.value);
+            formData.append('password', password.value);
+            formData.append('logo', logo.files[0]);
+
+
+
+            fetch('/profile/<%=user.id%>', {
+                method: 'PATCH',
+                body: formData
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.status === "success") {
+                        btn.innerHTML = 'Updated';
+                        window.location.assign('/profile');
+                    } else {
+                        alert(data.error);
+                    }
+                })
+                .catch(err => console.log(err));
+        })
+    </script>
+
+
+
+
+    <%- include ("./partials/footer.ejs") %>

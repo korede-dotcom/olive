@@ -1,0 +1,139 @@
+<%- include ("./partials/header.ejs") %>
+
+    <section class="largeImg">
+        <div class="swiper">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+                <!-- Slides -->
+                <div class="swiper-slide">
+                    <img src="/assest/OLIVE/woman.png" />
+                </div>
+                <div class="swiper-slide">
+                    <img style="height: 452px; width: 414px;object-fit: cover;" src="/assest/OLIVE/guy.png" />
+                </div>
+            </div>
+            <!-- If we need pagination -->
+            <div class="swiper-pagination"></div>
+
+            <!-- If we need navigation buttons -->
+
+            <div class="swiper-button-prev">
+                <img class="carousel-l" src="/assest/OLIVE/Group 2.png" />
+            </div>
+            <div class="swiper-button-next">
+                <img class="carousel" src="/assest/OLIVE/Group 2.png" />
+            </div>
+
+            <!-- If we need scrollbar -->
+            <div class="swiper-scrollbar"></div>
+
+            <!-- 
+            <img src="/assest/OLIVE/guy.png" />
+            <img src="/assest/OLIVE/woman.png" />  -->
+        </div>
+        <!--  -->
+    </section>
+    <section class="content link_register">
+        <br>
+        <br>
+        <div class="CONGRATULATION">
+            <img width="50px" height="50px" src="/assest/OLIVE/check.png" alt="" srcset="">
+            <h4>CONGRATULATION</h4>
+            <P>Your Registration is successful. Welcome to OLIVE, a platform where individuals showcase their talent.
+            </P>
+            <div class="await"></div>
+            <br>
+            <button class="btn" onClick="makePayment()">PROCEED TO MAKE PAYMENT</button>
+            <h5>
+                <script src="https://checkout.flutterwave.com/v3.js"></script>
+                <a href="/dashbaord">GO TO DASHBOARD </a>
+            </h5>
+
+        </div>
+
+
+    </section>
+    <section class="last">
+        <div></div>
+    </section>
+    <!-- 
+    <form>
+       
+        <button type="button">Pay Now</button>
+    </form> -->
+
+    <script>
+        const congratulations = document.querySelector('.CONGRATULATION');
+        const btn = document.querySelector('.btn');
+        const img = document.querySelector('.CONGRATULATION img');
+        const para = document.querySelector('.CONGRATULATION p');
+        const awat = document.querySelector('.await');
+
+        function makePayment() {
+            FlutterwaveCheckout({
+                public_key: "FLWPUBK_TEST-ee16b8429467881fb5912f6e31e72a52-X",
+                tx_ref: `<%=audition._id%>${Date.now()}`,
+                amount: "<%=audition.auditionPrice %>",
+                currency: "NGN",
+                country: "NG",
+                payment_options: " ",
+
+                meta: {
+                    consumer_id: '<%= user._id %>',
+                    consumer_mac: "92a3-912ba-1192a",
+                },
+                customer: {
+                    email: '<%= user.email %>',
+                    phone_number: "<%= user.username%>",
+                    name: "<%= user.username %>",
+                },
+                callback: function (data) {
+                    console.log(data);
+                    fetch("/paid", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            data: data,
+                            user: '<%=user._id%>',
+                            audition: '<%=audition._id%>',
+
+                        })
+                    }).then(res => res.json())
+                        .then(data => {
+                            console.log(data);
+                            if (data.status.success) {
+                                img.src = "/assest/OLIVE/confirm.png";
+                                para.innerHTML = "Your payment was successful";
+                                btn.removeAttribute("onClick");
+                                btn.style.display = "none";
+
+                                document.querySelector("iframe").remove();
+                                const a = document.createElement('a');
+                                const h5 = document.querySelector('h5');
+                                a.innerHTML = " | GO TO AUDITION";
+                                a.href = `/paidaudition?audition=<%=audition._id%>&provider=<%=audition.provider%>&user=<%=user._id%>&txref=${data.status.success}`
+                                h5.appendChild(a);
+                                awat.appendChild(h5);
+
+                            } else {
+                                alert("Payment Failed");
+                                window.location.assign("/dashboard")
+                            }
+                        })
+                },
+                onclose: function () {
+                    // close modal
+                    window.location.assign("/dashboard")
+
+                },
+                customizations: {
+                    title: "<%=audition.auditionName %>",
+                    description: "Olive Tution for <%=audition.auditionName %>",
+                    logo: "<%=audition.auditionLogo %>",
+                },
+            });
+        }
+    </script>
+    <%- include ("./partials/footer.ejs") %>

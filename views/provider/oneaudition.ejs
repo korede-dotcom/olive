@@ -89,9 +89,77 @@
                                 <%= provider.email %>
                             </div>
                         </div>
+                        <hr>
+                        <div class="row clearfix">
+
+                            <div class="col-sm-12 col-lg-12">
+                                <!-- <b>Audition Link:</b> -->
+                                <% if (auditions.auditionLink) { %>
+                                    <button style="background-color: none;" id="copyLink"
+                                        data-auditionLink="<%=auditions.auditionLink%>">
+                                        copy link
+                                    </button>
+                                    <% } %>
+                                        <% if (!auditions.auditionLink) { %>
+                                            No Link Provided
+                                            <% } %>
+
+                            </div>
+                            <% if (!auditions.auditionLink) { %>
+                                <div class="col-sm-6">
+                                    <form id="getlink">
+                                        <button class="getlinkBtn" type="submit"
+                                            data-auditionId="<%=auditions._id%>">Generate Link</button>
+                                    </form>
+                                </div>
+                                <% } %>
+
+
+                        </div>
                     </div>
                 </div>
     </section>
 
+    <script>
+        const copyLink = document.querySelector("#copyLink");
+        console.log(copyLink)
+        if (copyLink) {
+            copyLink.addEventListener("click", (e) => {
+
+                const copyLin = document.querySelector("#copyLink").getAttribute("data-auditionLink");
+                console.log(copyLin)
+                navigator.clipboard.writeText(copyLin).then(() => {
+                    // alert("Link Copied");
+                    copyLink.innerHTML = "Link Copied";
+                })
+            });
+
+        }
+
+
+        const getlink = document.querySelector("form");
+        getlink.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const getlinkBtn = getlink.querySelector(".getlinkBtn").getAttribute("data-auditionId");
+            console.log(getlinkBtn)
+            fetch("/provider/getlink", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    auditionId: getlinkBtn
+                })
+            }).then(res => res.json()).then(data => {
+                console.log(data);
+                if (data.status === "true") {
+                    alert("Link Generated");
+                    window.location.reload();
+                }
+            })
+        });
+        // click and copy link
+
+    </script>
 
     <%- include ("./partials/footer.ejs") %>

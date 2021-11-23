@@ -45,6 +45,13 @@ const auditionSchema = new mongoose.Schema([{
         type:Number,
         required:true
     },
+    auditionLink:{
+        type:String
+    },
+    auditionCount:{
+        type:Number,
+        required:true
+    },
     created_at: {
         type: Date,
         default: Date.now

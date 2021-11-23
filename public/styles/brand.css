@@ -324,10 +324,18 @@ background-color: #801315;
     grid-template-columns: 1fr 1fr;
     grid-gap: 20px;
     place-items: center;
-    
+}
+.swiper-scrollbar{
+    display: none;
 }
 
 .bo{
+    width: 147px;
+    height: 147px;
+    display: flex;
+}
+
+.bo img{
     width: 147px;
 height: 147px;
 }

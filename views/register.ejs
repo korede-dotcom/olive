@@ -1,0 +1,207 @@
+<%- include ("./partials/header.ejs") %>
+
+    <section class="largeImg">
+        <div class="swiper">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+                <!-- Slides -->
+                <div class="swiper-slide">
+                    <img src="/assest/OLIVE/woman.png" />
+                </div>
+                <div class="swiper-slide">
+                    <img style="height: 452px; width: 414px;object-fit: cover;" src="/assest/OLIVE/guy.png" />
+                </div>
+            </div>
+            <!-- If we need pagination -->
+            <div class="swiper-pagination"></div>
+
+            <!-- If we need navigation buttons -->
+
+            <div class="swiper-button-prev">
+                <img class="carousel-l" src="/assest/OLIVE/Group 2.png" />
+            </div>
+            <div class="swiper-button-next">
+                <img class="carousel" src="/assest/OLIVE/Group 2.png" />
+            </div>
+
+            <!-- If we need scrollbar -->
+            <div class="swiper-scrollbar"></div>
+
+            <!-- 
+            <img src="/assest/OLIVE/guy.png" />
+            <img src="/assest/OLIVE/woman.png" />  -->
+        </div>
+        <!--  -->
+    </section>
+    <section class="content link_register">
+
+        <b class="content_header register_link_header">JOIN OLIVE FOR FREE </b>
+        <form class="register_link" id="register">
+            <div class="number">
+                <label for="number">Please enter your phone number</label>
+                <!-- <input type="number" name="username" required> -->
+                <input id="phone" name="username" type="tel">
+
+                <img src="/assest/OLIVE/Line 2.png" alt="">
+            </div>
+            <div class="number">
+                <label for="email">Enter your email address </label>
+                <input type="email" name="email" required>
+                <img src="/assest/OLIVE/Line 2.png" alt="">
+            </div>
+            <div class="number">
+                <label for="name">Enter your full name</label>
+                <input type="text" name="name">
+                <img src="/assest/OLIVE/Line 2.png" alt="" required>
+            </div>
+            <div class="number">
+                <label for="password">Password</label>
+                <input type="password" id="password" required name="password">
+                <img src="/assest/OLIVE/Line 2.png" alt="">
+            </div>
+            <div class="number">
+                <label for="confirm_password">Confirm password</label>
+                <input type="password" name="" id="confirm_password" required>
+                <img src="/assest/OLIVE/Line 2.png" alt="">
+            </div>
+            <!-- <div class="number">
+                <label for="p2">Upload Picture</label>
+                <input type="file" name="logo" id="p2">
+                <img src="/assest/OLIVE/Line 2.png" alt="">
+            </div> -->
+            <button class="btn" id="submitBtn" type="submit">REGISTER</button>
+        </form>
+
+        <h6 class="resend">
+            <a href="/login" style="color: #801315;">Already a Member Login</a>
+        </h6>
+
+        <footer>
+            <div class="facebook">
+                <img src="/assest/OLIVE/Ellipse 2.png" />
+                <img class="socialicons" src="/assest/OLIVE/brandico_facebook.png" />
+            </div>
+            <div class="google">
+                <img src="/assest/OLIVE/Ellipse 2.png" />
+                <img class="socialicons" src="/assest/OLIVE/flat-color-icons_google.png" />
+            </div>
+            <div class="mail">
+                <img src="/assest/OLIVE/Ellipse 2.png" />
+                <img class="socialicons" src="/assest/OLIVE/clarity_email-outline-badged.png" />
+            </div>
+
+        </footer>
+
+
+    </section>
+
+
+
+
+    <script>
+
+        var input = document.querySelector("#phone");
+        window.intlTelInput(input, {
+            initialCountry: "NG",
+            autoHideDialCode: false,
+
+
+            // geoIpLookup: function (success) {
+            //     // Get your api-key at https://ipdata.co/
+            //     fetch("https://api.ipdata.co/?api-key=test")
+            //         .then(function (response) {
+            //             if (!response.ok) return success("");
+            //             return response.json();
+            //         })
+            //         .then(function (ipdata) {
+            //             success(ipdata.country_code);
+            //         });
+            // },
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/utils.min.js",
+        });
+
+        input.addEventListener("open:countrydropdown", function (e) {
+            e.target.setAttribute("placeholder", "Select Country");
+            e.target.style.width = "40px !important";
+        });
+
+
+        // form validation
+        // function validateForm() {
+        //     var x = document.forms["myForm"]["fname"].value;
+        //     if (x == "") {
+        //         alert("Name must be filled out");
+        //         return false;
+        //     }
+        // }
+        // post fecth / create
+        const formed = document.querySelector(".register_link");
+        const submitBtn = document.querySelector("#submitBtn");
+        const password = document.querySelector("#password");
+        const confirm = document.querySelector("#confirm_password");
+        // const continueBtn = document.querySelector(".continue");
+
+
+        formed.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            if (password.value !== confirm.value) {
+                alert("password does not match");
+                return false;
+
+            }
+
+            submitBtn.innerHTML = "Registering...";
+            submitBtn.disabled = true;
+
+
+
+            // location query
+            const location = window.location;
+            const url = new URL(location);
+            const params = url.searchParams;
+            const auditionId = params.get("auditionId");
+
+            const payload = {
+                "username": input.value,
+                "email": e.target.email.value,
+                "password": e.target.password.value,
+                "name": e.target.name.value,
+                "auditionId": auditionId
+            };
+            console.log(payload);
+
+            fetch("/auditionlink", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    submitBtn.innerHTML = "Sucess";
+                    // form.style.display = "none";
+                    console.log(data);
+                    if (data.pay) {
+
+                        // window.location.href = ``;
+                        window.location.assign(`/auditionlink/payment/?auditionId=${auditionId}&user=${data.pay.user}`);
+                    } else {
+                        alert("registration not complete");
+                        // continueBtn.style.display = "block";
+                        // continueBtn.innerHTML += " with audition";
+                        window.location.assign(`/digitalauditionplatform/${auditionId}`)
+                    }
+                })
+                .catch(err => console.log(err));
+        });
+
+        // bouncing text
+
+
+
+
+    </script>
+
+    <%- include ("./partials/footer.ejs") %>

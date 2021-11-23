@@ -38,80 +38,56 @@
         <h4 class="content_header">Auditions Available</h4>
 
         <div class="boxs">
-            <% auditions.forEach(element=> { %>
+            <% if (auditions) { %>
 
-                <div class="bo">
+                <% auditions.forEach(element=> { %>
 
-                    <img style="border-radius:10px" src=<%=element.auditionLogo %>>
-                    <h6 class="content_header audition" data-id="<%=element._id %>"
-                        data-provider="<%=element.provider %>">
-                        <%= element.auditionName %>
-                    </h6>
-                    <% if(element.auditionCharges> 0){ %>
-                        <p class="content_header audition">
-                            &#x20A6; <span>
-                                <%= element.auditionPrice %>
-                            </span>
-                        </p>
-                        <!-- <button type="button" onClick="makePayment()">Pay Now</button> -->
-                        <% } else { %>
-                            <p class="content_header audition">
-                                Free
+                    <div class="bo" style="position: relative; cursor: pointer;">
+
+                        <img width="147px" height="147px" style="border-radius:12px" src=<%=element.auditionLogo %>>
+
+                        <h6 class="content_header audition" data-id="<%=element._id %>"
+                            data-provider="<%=element.provider %>">
+                            <%= element.auditionName %>
+                        </h6>
+                        <% if(element.auditionPrice> 0){ %>
+                            <p class="content_header audition" hidden>
+                                &#x20A6; <span>
+                                    <%= element.auditionPrice %>
+                                </span>
                             </p>
-                            <% } %>
-                </div>
+                            <div class="detect" style="position: relative; bottom: 67px; right: -56px;">
+                                <img src="/assest/OLIVE/Rectangle 43.png" alt="" srcset="">
+                                <small style="position: absolute;right: 60px;top: 2px; color: #DF465E
+                                ;font-size: smaller;">Paid</small>
+                            </div>
 
-
-                <% }) %>
-        </div>
-
-        <!-- <a href="/digitalauditionplatform/bbnaija">
-                <div class="bo">
-                    <img src="/assest/OLIVE/bbn.png">
-                    <h6 class="content_header audition">bbnaija</h6>
-                </div>
-            </a>
-            <div class="bo">
-                <img src="/assest/OLIVE/headies.png">
-                <h6 class="content_header audition">headies</h6>
-            </div>
-            <div class="bo">
-                <img src="/assest/OLIVE/projectfame.png">
-                <h6 class="content_header audition">projectfame</h6>
-            </div> -->
-        <!-- </div> -->
-        <!-- <h4 class="content_header">YOUTH CENTRIC DIGITAL ECOSYSTEM</h4>
-        <p class="content_text">
-            <strong>Olive platform</strong> is a triumvirate and youth-centric digital ecosystem built for creative
-            enthusiasts
-            seeking talent discovery, training, incubation, content production, publicity, audience engagement and
-            market nexus to monetize digital contents in music, movies, fashion, and creative expressions.
-        </p>
-        <div class="youtube">
-            <img src="/assest/OLIVE/ladyYoutube.png" alt="" srcset="">
-            <img class="youtubelogo" src="/assest/OLIVE/fontisto_youtube-play.png">
-        </div>
-        <div class="join">
-
-            <div class="phoneInput">
-                <h4 class="form content_header">JOIN FREE OR SIGN IN</h4>
-                <img src="/assest/OLIVE/line 2.png" />
-                <form id="form">
-                    <div class="flex-form">
-                        <select name="" id="">
-                        </select>
-                        <input type="number" name="" id="">
+                            <!-- <button type="button" onClick="makePayment()">Pay Now</button> -->
+                            <% } else { %>
+                                <p class="content_header audition" hidden>
+                                    <span>
+                                        <%= element.auditionPrice - element.auditionPrice %>
+                                    </span>
+                                </p>
+                                <div class="detect" style="position: relative; bottom: 67px; right: -56px;">
+                                    <img src="/assest/OLIVE/Rectangle 43.png" alt="" srcset="">
+                                    <small
+                                        style="position: absolute;right: 60px;top: 2px;color: #DF465E;font-size: smaller;">Free</small>
+                                </div>
+                                <% } %>
                     </div>
-                    <img src="/assest/OLIVE/line 2.png" />
-                    <button class="btn">SIGN IN</button>
-                </form>
-            </div>
-            <p>*By continuing you accept the Promoflo network and OLIVE Terms and Privacy Policy.</p>
-            <p>or <span>LOG IN</span> with </p>
-        </div> -->
+
+
+                    <% }) %>
+                        <% } %>
+        </div>
 
 
 
+
+    </section>
+    <section class="last">
+        <div></div>
     </section>
     <script src="https://checkout.flutterwave.com/v3.js"></script>
     <script>
@@ -124,49 +100,91 @@
                 const id = parent.querySelector('.audition').getAttribute("data-id");
                 const provider = parent.querySelector('.audition').getAttribute("data-provider");
                 const logo = parent.querySelector('img').getAttribute("src");
-                const price = parent.querySelector('span').innerText;
-                console.log(price);
+                const price = parent.querySelector('span').innerHTML;
 
-                function makePayment() {
 
-                    FlutterwaveCheckout({
-                        public_key: "FLWPUBK_TEST-4ca1ba86e66042a64f13a6248d694d4e-X",
-                        tx_ref: id,
-                        amount: price,
-                        currency: "NGN",
-                        country: "NG",
-                        payment_options: " ",
-                        redirect_url: // specified redirect URL
-                            `http://localhost:1200/paidaudition?audition=${id}&provider=${provider}&user=${user_id}`,
-                        meta: {
-                            consumer_id: 23,
-                            consumer_mac: "92a3-912ba-1192a",
-                        },
-                        customer: {
-                            email: "cornelius@gmail.com",
-                            phone_number: "<%= user.username %>",
-                            name: "Flutterwave Developers",
-                        },
-                        callback: function (data) {
-                            console.log(data);
-                        },
-                        onclose: function () {
-                            // close modal
-                        },
-                        customizations: {
-                            title: "My store",
-                            description: "Payment for items in cart",
-                            logo: logo,
-                        },
-                    });
-                }
+                fetch("/check", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        id: id,
+                    })
+                }).then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        if (data.status === "paid") {
+                            function makePayment() {
 
-                makePayment()
+                                FlutterwaveCheckout({
+                                    public_key: "FLWPUBK_TEST-ee16b8429467881fb5912f6e31e72a52-X",
+                                    tx_ref: `${id}${Date.now()}`,
+                                    amount: price,
+                                    currency: "NGN",
+                                    country: "NG",
+                                    payment_options: " ",
+                                    // redirect_url: // specified redirect URL
+                                    //     `http://localhost:1200/paidaudition?audition=${id}&provider=${provider}&user=${user_id}`,
+                                    meta: {
+                                        consumer_id: 23,
+                                        consumer_mac: "92a3-912ba-1192a",
+                                    },
+                                    customer: {
+                                        email: "koredebada@gmail.com",
+                                        phone_number: "<%= user.username %>",
+                                        name: "Olive tution",
+                                    },
+                                    callback: function (datas) {
+                                        fetch("/paid", {
+                                            method: "POST",
+                                            headers: {
+                                                "Content-Type": "application/json",
+                                            },
+                                            body: JSON.stringify({
+                                                data: datas,
+                                                user: '<%=user._id%>',
+                                                audition: id,
+
+
+                                            })
+                                        }).then(res => res.json())
+                                            .then(data => {
+                                                console.log(data);
+                                                if (data.status) {
+                                                    window.location.assign(`
+                                                        /paidaudition?audition=${id}&provider=${provider}&user=${user_id}&txref=${datas.tx_ref}`
+                                                    );
+                                                } else {
+                                                    window.location.assign("/digitalauditionplatform")
+                                                }
+                                            })
+                                    },
+                                    onclose: function () {
+                                        window.location.assign("/digitalauditionplatform")
+                                    },
+                                    customizations: {
+                                        title: "Olive",
+                                        description: "Olive tution fot <%=auditions.auditionName%>",
+                                        logo: logo,
+                                    },
+                                });
+                            }
+
+                            makePayment()
+                        }
+                        else {
+                            window.location.href = `/digitalauditionplatform/${data.status}`
+                        }
+                    })
+
+
+
 
 
             });
         });
-        console.log(auditions);
+
 
 
         // const API_publicKey = "<ADD YOUR PUBLIC KEY HERE>";

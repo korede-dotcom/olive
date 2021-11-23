@@ -14,10 +14,6 @@ const paymentSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    auditionName: {
-        type: String,
-        required: true
-    },
     auditionId: {
         type: mongoose.Types.ObjectId,
         required: true
