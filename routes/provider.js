@@ -359,7 +359,7 @@ provider.get("/dashboard",Auth, async (req,res)=>{
                     res.render("provider/dashboard",{todayPaymentAmount,totalPaymentAmount,totalAuditionCountAmount,totalUserAmount,topAuditions:[],provider,auditions,auditionsEarnings})
                 }else{
 
-                    res.render("provider/dashboard",{todayPaymentAmount,totalPaymentAmount:[],totalAuditionCountAmount:totalAuditions.length,totalUserAmount:[],topAuditions:[],provider,auditions,auditionsEarnings:[]})
+                    res.render("provider/dashboard",{todayPaymentAmount:[],totalPaymentAmount:[],totalAuditionCountAmount:totalAuditions.length,totalUserAmount:[],topAuditions:[],provider,auditions,auditionsEarnings:[]})
                 }
             }
         })
