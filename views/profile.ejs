@@ -55,93 +55,101 @@
 
             </form>
         </div>
-    </section>
-    <section>
-        <h4 style="text-align: center;"> <a style="color: #801315;" href="/logout">logout</a></h4>
-        <br>
-        <br>
-    </section>
-
-    <script>
-        if ('<%= user.Image %>') {
-            const imgSrc = document.querySelector("#userImg")
-            imgSrc.src = "<%=user.Image%>";
-        }
-        const date = '<%= user.created_at %>';
-        const date2 = new Date(date);
-        const date3 = date2.getFullYear();
-        document.querySelector('h5').innerHTML += date3;
-
-        const btn = document.querySelector('button');
-        const lableid = document.querySelector('#logoupload');
-        lableid.style.display = 'none';
-
-        const editBtn = document.querySelector('#editBtn');
-        editBtn.addEventListener('click', () => {
-            const email = document.querySelector('#email');
-            const number = document.querySelector('#number');
-            const password = document.querySelector('#password');
-            const confirm = document.querySelector('#confirm');
-            const logo = document.querySelector('#logoupload');
-
-            confirm.removeAttribute('readonly');
 
 
-            email.removeAttribute('readonly');
-            number.removeAttribute('readonly');
-            password.removeAttribute('readonly');
-            // email.setAttribute('contenteditable', 'true');
-            // number.setAttribute('contenteditable', 'true');
-            // password.setAttribute('contenteditable', 'true');
+        <div class="" style="background-color: #fff;">
+            <div class="footer_social">
+                <div>
+                    <p>&copy; 2021 OLIVE</p>
+                </div>
+                <div class="social_icon">
+                    <img src="/assest/OLIVE/fb.png" />
+                    <img src="/assest/OLIVE/instagram.png" />
+                    <img src="/assest/OLIVE/twitter.png" />
+                </div>
+            </div>
+        </div>
 
-            lableid.style.display = 'flex';
-
-            btn.removeAttribute('disabled');
-            btn.style.opacity = '1';
-
-
-        })
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            btn.setAttribute('disabled', 'true');
-            btn.innerHTML = 'Updating...';
-            const email = document.querySelector('#email');
-            const number = document.querySelector('#number');
-            const password = document.querySelector('#password');
-            const confirm = document.querySelector('#confirm');
-            const logo = document.querySelector('#logo');
-            if (password.value !== confirm.value) {
-                alert('password does not match');
-                return;
+        <script>
+            if ('<%= user.Image %>') {
+                const imgSrc = document.querySelector("#userImg")
+                imgSrc.src = "<%=user.Image%>";
             }
+            const date = '<%= user.created_at %>';
+            const date2 = new Date(date);
+            const date3 = date2.getFullYear();
+            document.querySelector('h5').innerHTML += date3;
 
-            const formData = new FormData();
-            formData.append('email', email.value);
-            formData.append('phone', number.value);
-            formData.append('password', password.value);
-            formData.append('logo', logo.files[0]);
+            const btn = document.querySelector('button');
+            const lableid = document.querySelector('#logoupload');
+            lableid.style.display = 'none';
+
+            const editBtn = document.querySelector('#editBtn');
+            editBtn.addEventListener('click', () => {
+                const email = document.querySelector('#email');
+                const number = document.querySelector('#number');
+                const password = document.querySelector('#password');
+                const confirm = document.querySelector('#confirm');
+                const logo = document.querySelector('#logoupload');
+
+                confirm.removeAttribute('readonly');
 
 
+                email.removeAttribute('readonly');
+                number.removeAttribute('readonly');
+                password.removeAttribute('readonly');
+                // email.setAttribute('contenteditable', 'true');
+                // number.setAttribute('contenteditable', 'true');
+                // password.setAttribute('contenteditable', 'true');
 
-            fetch('/profile/<%=user.id%>', {
-                method: 'POST',
-                body: formData
+                lableid.style.display = 'flex';
+
+                btn.removeAttribute('disabled');
+                btn.style.opacity = '1';
+
+
             })
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data);
-                    if (data.status === "success") {
-                        btn.innerHTML = 'Updated';
-                        window.location.assign('/profile');
-                    } else {
-                        alert(data.error);
-                    }
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                btn.setAttribute('disabled', 'true');
+                btn.innerHTML = 'Updating...';
+                const email = document.querySelector('#email');
+                const number = document.querySelector('#number');
+                const password = document.querySelector('#password');
+                const confirm = document.querySelector('#confirm');
+                const logo = document.querySelector('#logo');
+                if (password.value !== confirm.value) {
+                    alert('password does not match');
+                    return;
+                }
+
+                const formData = new FormData();
+                formData.append('email', email.value);
+                formData.append('phone', number.value);
+                formData.append('password', password.value);
+                formData.append('logo', logo.files[0]);
+
+
+
+                fetch('/profile/<%=user.id%>', {
+                    method: 'POST',
+                    body: formData
                 })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        if (data.status === "success") {
+                            btn.innerHTML = 'Updated';
+                            window.location.assign('/profile');
+                        } else {
+                            alert(data.error);
+                        }
+                    })
 
-        })
-    </script>
+            })
+        </script>
 
 
 
 
-    <%- include ("./partials/footer.ejs") %>
+        <%- include ("./partials/footer.ejs") %>

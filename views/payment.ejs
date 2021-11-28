@@ -37,9 +37,12 @@
         <br>
         <br>
         <div class="CONGRATULATION">
-            <img width="50px" height="50px" src="/assest/OLIVE/check.png" alt="" srcset="">
+            <img width="50px" height="50px" src="/assest/OLIVE/confirm.png" alt="" srcset="">
             <h4>CONGRATULATION</h4>
-            <P>Your Registration is successful. Welcome to OLIVE, a platform where individuals showcase their talent.
+            <P>Your Registration for <span style="color: green; text-transform: uppercase;">
+                    <%= audition.auditionName %>
+                </span style="color: green;"> audition is successful. Welcome to OLIVE, a platform where
+                individuals showcase their talent.
             </P>
             <div class="await"></div>
             <br>
@@ -53,8 +56,17 @@
 
 
     </section>
-    <section class="last">
-        <div></div>
+    <section class="">
+        <div style="display: flex;justify-content: space-between;align-items: center;">
+            <div>
+                <p>&copy; 2021 OLIVE</p>
+            </div>
+            <div>
+                <img src="/assest/OLIVE/fb.png" />
+                <img src="/assest/OLIVE/insta.png" />
+                <img src="/assest/OLIVE/twitter.png" />
+            </div>
+        </div>
     </section>
     <!-- 
     <form>
@@ -96,8 +108,8 @@
                         },
                         body: JSON.stringify({
                             data: data,
-                            user: '<%=user._id%>',
-                            audition: '<%=audition._id%>',
+                            user: "<%=user._id%>",
+                            audition: "<%=audition._id%>",
 
                         })
                     }).then(res => res.json())

@@ -1,5 +1,6 @@
 const express = require("express");
 const session = require("express-session");
+require('custom-env').env()
 const MongoStore = require("connect-mongodb-session")(session);
 const bodyParser = require("body-parser") 
 const cors = require("cors");
@@ -8,7 +9,8 @@ const jwt = require("jsonwebtoken");
 const path = require("path")
 const router = require("./routes/router");
 const provider = require("./routes/provider");
-const dotenv = require("dotenv").config()
+
+
 
 
 const app = express();
@@ -21,6 +23,7 @@ const store = new MongoStore({
     uri:  process.env.MONGO_URI,
     collection: "sessions"
 });
+
 
 
 

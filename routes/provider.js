@@ -14,6 +14,8 @@ const upload = require("../utils/multer")
 const cloudinary = require("../utils/cloudinary")
 const moment = require("moment")
 const Payment = require("../models/payment")
+const mailjet = require ('node-mailjet')
+.connect(process.env.c1, process.env.c2)
 
 
 
@@ -25,21 +27,7 @@ saltRounds = 10;
 const maxAge = 60 * 60;
 
 
-const nodemailer = require("nodemailer");
-const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-        user: "koredebada@gmail.com",
-        pass: "Sulaimon4896"
-    }
-});
-transporter.verify((error, success) => {
-    if (error) {
-        console.log(error);
-    } else {
-        console.log("Server is ready to take messages");
-    }
-});
+
 
 
 // login
@@ -119,18 +107,35 @@ provider.post("/signup",upload.single("logo"),async (req,res)=>{
                                 roleId:2,
                             },(err,provider)=>{
                                 req.session.isLoggedIn = true;
-                                transporter.sendMail({
-                                    from: "koredebada@gmail.com",
-                                    to: email,
-                                    subject: "Welcome to Olive",
-                                    text: `Hi ${username},\n\nWelcome to Olive Provider.\n\nYour Registration was Sucessful.\n\nThank you for choosing Olive.\n\nRegards,\nOlive Team`
+                                const request = mailjet
+                                .post("send", {'version': 'v3.1'})
+                                .request({
+                                  "Messages":[
+                                    {
+                                      "From": {
+                                        "Email": "koredebada@gmail.com",
+                                        "Name": "Olive Team"
+                                      },
+                                      "To": [
+                                        {
+                                          "Email": email,
+                                          "Name": username
+                                        }
+                                      ],
+                                      "Subject": "Welcome to Olive Provider",
+                                      "TextPart": `Hi ${username}\n,Welcome to Olive Provider your Registration was Sucessful \n Thanks for Joining Olive\n Best regard \n Olive Team`,
+                                    //   "HTMLPart": "<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!",
+                                    //   "CustomID": "AppGettingStartedTest"
+                                    }
+                                  ]
                                 })
-                                .then(()=>{
-                                    console.log("email sent")
-                                })
-                                .catch(err=>{
-                                    console.log(err)
-                                })
+                                request
+                                  .then((result) => {
+                                    console.log(result.body)
+                                  })
+                                  .catch((err) => {
+                                    console.log(err.statusCode)
+                                  })
 
                                 
                                 if(err){
@@ -210,7 +215,6 @@ provider.get("/createaudition",Auth,(req,res)=>{
 
 
 provider.post("/createaudition",Auth,upload.single('auditionLogo'),async (req,res)=>{
-    
     const {auditionName,auditionDescription,auditionStartDate,auditionEndDate,auditionCharges,auditionPrice,auditionPattern,auditionCount} = req.body;
  const result = await cloudinary.uploader.upload(req.file.path) 
  let newAudition = new Audition({
@@ -272,84 +276,99 @@ provider.post("/createaudition",Auth,upload.single('auditionLogo'),async (req,re
 
 
 // GET DASHBOARD
-provider.get("/dashboard",Auth,(req,res)=>{
-    // find provider and agg
-     const agg = [{
-        $lookup: {
-            from: 'payments',
-            localField: '_id',
-            foreignField: 'provider',
-            as: 'myauditions'
-        }
-    }, {
-        $match: {
-            _id: req.session.providerId
-        }
-    }]
-   
-    Provider.aggregate(agg,(err,providers)=>{
-        if(err){
-            console.log(err)
-        }
-        else{
-           if(providers){
-               console.log(providers)
-                let provider = providers[0];
-                const myauditions = provider.myauditions;
-                // calculate total earnings
-                let totalEarnings = 0;
-                myauditions.forEach(audition=>{
-                    totalEarnings += parseInt(audition.amount)
-                })
-            
-                let totalUsers = myauditions.length;
+provider.get("/dashboard",Auth, async (req,res)=>{
+    const provider = await Provider.findById(req.session.providerId)
+     const auditions = await Audition.find({provider:req.session.providerId})
+    try {
 
-
-
-          Audition.find({provider:req.session.providerId},(err,auditions)=>{
-                    if(err){
-                        console.log(err)
-                    }
-                    else{
-                        // const topAuditions = auditions.slice(0,3);
-                        const topAuditions = auditions.map(audition=>{
-                            return audition.auditionPrice > 0 ? audition : null
-                        }).filter(audition=>{
-                            return audition != null
-                        })
-
-                        let totalAuditions = auditions.length
+        Payment.find({provider:req.session.providerId}, async (err,payments)=>{
+            if(err){
+                console.log(err)
+            }
+            else{
+                let totalAuditions = await Audition.find({provider:req.session.providerId})
                 
-
-                       Payment.find({provider:req.session.providerId},(err,payments)=>{
-                            if(err){
-                                console.log(err)
-                            }
-                            else{
-                               const Tpayment = payments.map(payment=>{
-                                    return payment.createdAt === new Date().getDate(payment.createdAt)
-                                })
-                                console.log(Tpayment)
-                                res.render("provider/dashboard",{provider,totalEarnings,totalUsers,totalAuditions,topAuditions})
-                                
-                            }
-                        })
-                       
-
-                        // res.render("provider/dashboard",{provider,totalEarnings,myauditions,totalUsers,totalAuditions,auditions,topAuditions})
-                    }
-                })
+                if(payments.length>0){
+                    let totalPayment = await Payment.aggregate([
+                        {$match:{provider:req.session.providerId}},
+                        {$group:{_id:null,totalPayment:{$sum:"$amount"}}}
+                      
+                    ])
+                  
+                    const totalPaymentAmount = totalPayment[0].totalPayment
+                    // Revenue /////////////// 
+                    console.log(totalPaymentAmount)
+                     let totalAuditionCount = await Audition.aggregate([
+                        {$match:{provider:req.session.providerId}},
+                        {$group:{_id:null,totalAuditionCount:{$sum:1}}}
+                    ])
+                    const totalAuditionCountAmount = totalAuditionCount[0].totalAuditionCount
+                    console.log(totalAuditionCount)
+                    // total Audition //////////////////
                 
-            
+                     let totalUser = await Payment.aggregate([
+                        {$match:{provider:req.session.providerId}},
+                        {$count:"user"}
+                    ])
+                    const totalUserAmount = totalUser[0].user
+                    console.log(totalUser)
+                    // total User //////////////////
+                
+                        let todayPayment = await Payment.aggregate([
+                        {$match:{provider:req.session.providerId}},
+                        {$match:{createdAt:{$gte:new Date(new Date().setHours(0,0,0,0))}}},
+                        {$group:{_id:null,todayPayment:{$sum:"$amount"}}}
+                    ])
+                   
+                    // ternay operator ///////////////
+                    let todayPaymentAmount = todayPayment>0?todayPayment:todayPayment[0].todayPayment
 
+                    // today Payment //////////////////
+                
+                    // get user that paid today
+                    let todayUser = await Payment.aggregate([
+                        {$match:{provider:req.session.providerId}},
+                        {$match:{createdAt:{$gte:new Date(new Date().setHours(0,0,0,0))}}},
+                        {$count:"user"}
+                    ])
+                    console.log(todayUser)
+
+                    // list Auditions and their total earnings
+                    let auditions = await Audition.find({provider:req.session.providerId})
+                    let auditionsEarnings = await Audition.aggregate([
+                        {$match:{provider:req.session.providerId}},
+                        {$group:{_id:"$auditionName",totalEarnings:{$sum:"$auditionPrice"}}},
+                        {$project:{_id:0,auditionName:"$_id",totalEarnings:1,_id:0}},
+                        {$sort:{totalEarnings:-1}},
+                        {$limit:5}
+                        
+
+                    ])
+                    console.log(auditionsEarnings)
+                    // list Auditions and their today earnings
+                    let auditionsTodayEarnings = await Audition.aggregate([
+                        {$match:{provider:req.session.providerId}},
+                        {$match:{createdAt:{$gte:new Date(new Date().setHours(0,0,0,0))}}},
+                        {$group:{_id:"$auditionName",totalEarnings:{$sum:"$auditionPrice"}}},
+                        {$project:{_id:0,auditionName:"$_id",totalEarnings:1,_id:0}},
+                        {$sort:{totalEarnings:-1}},
+                        {$limit:5}
+                    ])
                     
-                
 
-           }
-                               
-            
-        }
-    })
+                    res.render("provider/dashboard",{todayPaymentAmount,totalPaymentAmount,totalAuditionCountAmount,totalUserAmount,topAuditions:[],provider,auditions,auditionsEarnings})
+                }else{
+
+                    res.render("provider/dashboard",{todayPaymentAmount,totalPaymentAmount:[],totalAuditionCountAmount:totalAuditions.length,totalUserAmount:[],topAuditions:[],provider,auditions,auditionsEarnings:[]})
+                }
+            }
+        })
+
+   
+}catch(err){
+    console.log(err.message)
+}
+
 })
 
 

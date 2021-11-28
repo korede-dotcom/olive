@@ -35,32 +35,73 @@
     <section class="content">
         <h4 class="content_header">MY AUDITIONS</h4>
 
-        <div class="auditionBox">
-            <div class="abox">
-                <div class="abox_content">
-                    <img src="/assest/OLIVE/dot.png" style="margin-left: 5px;" />
-                    <div class="auditiontext">
-                        <h4>RCCG Gospel Award</h4>
-                        <p>Organized by RCCG Wordwide for Gospel Artist .</p>
-                    </div>
-                </div>
-                <div class="abox_content">
-                    <img src="/assest/OLIVE/location.png" />
-                    <p>Nigeria</p>
-                </div>
-                <div class="abox_content">
-                    <img src="/assest/OLIVE/wifi.png" />
-                    <p>Monday 12th, November </p>
-                </div>
-                <div class="abox_content">
-                    <img src="/assest/OLIVE/date.png" />
-                    <p>Online Event</p>
-                </div>
-                <a href="">Go to Audition</a>
-            </div>
-        </div>
+        <% if (auditions.length===0) { %>
+            <p class="no_auditions">You have no auditions</p>
+            <% } %>
 
-        <!-- <h4 class="content_header">YOUTH CENTRIC DIGITAL ECOSYSTEM</h4>
+                <div class="auditionBox">
+                    <% if (auditions) { %>
+                        <% auditions.forEach(a=> { %>
+                            <div class="abox">
+                                <div class="abox_content">
+                                    <img src="/assest/OLIVE/dot.png" style="margin-left: 5px;" />
+                                    <div class="auditiontext">
+                                        <h4 style="text-transform: uppercase;">
+                                            <%= a.auditionName %>
+                                        </h4>
+                                        <p>
+                                            <%= a.auditionDescription %>
+                                        </p>
+                                    </div>
+
+                                </div>
+                                <div class="abox_content">
+                                    <img src="/assest/OLIVE/location.png" />
+                                    <p>Nigeria</p>
+                                </div>
+                                <div class="abox_content">
+                                    <img src="/assest/OLIVE/wifi.png" />
+                                    <p class="date">
+                                        <%= a.auditionStartDate %>
+                                    </p>
+                                </div>
+                                <div class="abox_content">
+                                    <img src="/assest/OLIVE/date.png" />
+                                    <p>
+                                        <% if (a.auditionPattern===1) { %>
+
+                                            Live Event
+
+                                            <% } %>
+
+                                                <% if (a.auditionPattern===0) { %>
+                                                    Upload
+                                                    <% } %>
+
+
+
+                                    </p>
+                                </div>
+                                <% if (a.auditionPattern===1) { %>
+                                    <a target="_blank"
+                                        href="https://studio.restream.io/guest/bDBaNllXa7srZaCHW01LjKxavz4ynEU">Go to
+                                        Audition</a>
+                                    <% } %>
+                                        <% if (a.auditionPattern===0) { %>
+                                            <label for="upload">Upload</label>
+                                            <input type="file" name="upload" id="upload" hidden>
+
+                                            <% } %>
+                            </div>
+                            <br>
+
+                            <% }) %>
+                                <% } %>
+
+
+                </div>
+
+                <!-- <h4 class="content_header">YOUTH CENTRIC DIGITAL ECOSYSTEM</h4>
         <p class="content_text">
             <strong>Olive platform</strong> is a triumvirate and youth-centric digital ecosystem built for creative
             enthusiasts
@@ -90,10 +131,34 @@
             <p>or <span>LOG IN</span> with </p>
         </div> -->
     </section>
-    <section class="last">
-        <div></div>
+    <section style="background-color: #fff;">
+        <!-- <h4 style="text-align: center;"> <a style="color: #801315;" href="/logout">logout</a></h4> -->
+        <br>
+        <br>
     </section>
+    <div class="" style="background-color: #fff;">
+        <div class="footer_social">
+            <div>
+                <p>&copy; 2020 OLIVE</p>
+            </div>
+            <div class="social_icon">
+                <img src="/assest/OLIVE/fb.png" />
+                <img src="/assest/OLIVE/instagram.png" />
+                <img src="/assest/OLIVE/twitter.png" />
+            </div>
+        </div>
+    </div>
     <script>
+
+
+        const date = document.querySelector(".date");
+        const setDate = date.innerHTML;
+        // get day
+
+        const day = setDate.slice(0, 2);
+        // get month
+        const month = setDate.slice(3, 5);
+
 
 
     </script>

@@ -10,6 +10,10 @@ const uuidv4 = require("uuid").v4;
 const Participants = require("../models/auditionParticipants")
 const cloudinary = require("../utils/cloudinary")
 const upload = require("../utils/multer")
+const bcrypt = require("bcrypt")
+const mailjet = require ('node-mailjet')
+.connect(process.env.c1, process.env.c2)
+
 
 
 // 
@@ -45,19 +49,15 @@ const otp = fiveRandomNumbers().join("")
 // initialize nodemailer
 const nodemailer = require("nodemailer");
 const transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: 'smtp.gmail.com',
     auth: {
-        user: "koredebada@gmail.com",
-        pass: "Sulaimon4896"
+      user: 'badasulaimon@gmail.com',
+      pass: 'Sulaimon4896'
     }
-});
-transporter.verify((error, success) => {
-    if (error) {
-        console.log(error);
-    } else {
-        console.log("Server is ready to take messages");
-    }
-});
+  });
+
+
+
 
 
 
@@ -74,34 +74,17 @@ router.get("/",(req,res)=>{
 
 router.post("/",(req,res)=>{
     const {username,password,email,name} = req.body
-    // nodeMailer.sendMail({
-    //     from: "koredebda@gmail.com",
-    //     to: email,
-    //     subject: "Welcome to Olive",
-    //     text: `Hi ${name},\n\nWelcome to Olive.\n\nYour OTP is ${otp}.\n\nThank you for choosing Olive.\n\nRegards,\nOlive Team`
-    // })
-    transporter.sendMail({
-        from: "koredebada@gmail.com",
-        to: email,
-        subject: "Welcome to Olive",
-        text: `Hi ${name},\n\nWelcome to Olive.\n\nYour OTP is ${otp}.\n\nThank you for choosing Olive.\n\nRegards,\nOlive Team`
-    })
-    .then(()=>{
-        console.log("email sent")
-    })
-    .catch(err=>{
-        console.log(err)
-    })
-
 
     try {
         User.findOne({username},(err,user)=>{
             if(user){
                 res.send({"error":"User already exists"})
             }else{
+                const hash = bcrypt.hashSync(password,10)
+
                 const newUser = new User({
                     username,
-                    password,
+                    password:hash,
                     email,
                     name,
                     role:"user",
@@ -110,7 +93,36 @@ router.post("/",(req,res)=>{
                 })
                 newUser.save((err,user)=>{
                     req.session.user = user
-                    // globals.set('userId', user._id, {protected: true});
+                    const request = mailjet
+                    .post("send", {'version': 'v3.1'})
+                    .request({
+                      "Messages":[
+                        {
+                          "From": {
+                            "Email": "koredebada@gmail.com",
+                            "Name": "Olive Team"
+                          },
+                          "To": [
+                            {
+                              "Email": email,
+                              "Name": name
+                            }
+                          ],
+                          "Subject": "Welcome to Olive",
+                          "TextPart": `Hi ${name}\n,Welcome to Olive your OTP is ${otp} \n Thanks for Joining Olive\n Best regard \n Olive Team`,
+                        //   "HTMLPart": "<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!",
+                        //   "CustomID": "AppGettingStartedTest"
+                        }
+                      ]
+                    })
+                    request
+                      .then((result) => {
+                        console.log(result.body)
+                      })
+                      .catch((err) => {
+                        console.log(err.statusCode)
+                      })
+
                          const config = {
                         method: 'get',
                         url: `https://1960sms.com/api/send/?user=${process.env.textMsgUser}&pass=${process.env.textMsgPass}&to=${user.username}&from=hello&msg=your Olive registration OTP:${user.otp}`,
@@ -174,7 +186,7 @@ router.post("/login",(req,res)=>{
     try {
         User.findOne({username},(err,user)=>{
             if(user){
-                if(user.password === password){
+                if(bcrypt.compareSync(password,user.password)){
                     req.session.userIsLoggedIn = true;
                     req.session.user = user;
                    res.status(200).json({"status":"true"});
@@ -252,7 +264,7 @@ router.post("/profile/:id",Authenticated,upload.single('logo'),async(req,res)=>{
 
         }
     }
-    
+
     // await  User.findByIdAndUpdate(id,{username,password,email,Image:result.secure_url},(err,user)=>{
     //     if(err){
     //         res.send({"error":"Error in updating profile"})
@@ -266,7 +278,38 @@ router.post("/profile/:id",Authenticated,upload.single('logo'),async(req,res)=>{
 
 router.get("/auditions",Authenticated,(req,res)=>{
     // find user in Payment collection    
-    res.render("userAuditions")
+    Payment.find({user:req.session.user._id},(err,payments)=>{
+        if(err){
+            console.log(err)
+        }else{
+            if(payments){
+                // find audition from payments by auditionId in
+
+
+                Audition.find({_id:{$in:payments.map(payment=>payment.auditionId)}},(err,auditions)=>{
+                    
+                    if(err){
+                        console.log(err)
+                    }else{
+                        if(auditions){
+                            // sort by date
+                          const latest =  auditions.sort((a,b)=>{
+                                return new Date(b.created_at) - new Date(a.created_at)
+                            })
+                                res.render("userAuditions",{auditions:latest})
+                                
+                        }else{
+                            res.send({"error":"No auditions"})
+                        }
+                    }
+                })
+               
+            }else{
+                res.render("userAuditions",{payments:[]})
+            }
+        }
+    })
+   
     
 })
 
@@ -279,14 +322,31 @@ router.post("/digitalauditionplatform",Authenticated,(req,res)=>{
             if(err){
                 console.log(err)
             }else{
-                // push audition to participants auditionDetails array
-                Participants.findOneAndUpdate({user},{$push:{auditionDetails:{auditionId,audition}}},(err,participant)=>{
-                    if(err){
-                        console.log(err)
-                    }else{
-                        res.send({"status":"success"})
-                    }
-                })
+            //   populate audition to user
+            console.log(audition)
+
+               if(audition){
+                   
+                   Payment.create({
+                    user:req.session.user._id,
+                    provider:audition.provider,
+                    amount:audition.auditionPrice,
+                    auditionName:audition.auditionName,
+                    auditionId:audition._id,
+                    paymentRef:req.query.txref,
+                    paymentStatus:"successful",
+                            
+                   },(err,payment)=>{
+                          if(err){
+                            console.log(err)
+                          }else{
+                            if(payment){
+                                 res.status(200).json({"status":"success"})
+                            }
+                          }
+                   })
+               }
+                
             }
         })
         
@@ -337,9 +397,6 @@ router.get("/digitalauditionplatform/:id",Authenticated,(req,res)=>{
 
 router.post("/check",Authenticated,(req,res)=>{
     const {id} = req.body;
-
-    console.log(id)
-
     Audition.findById(id,(err,audition)=>{
         if(err){
             res.send({"status":"error"})
@@ -357,6 +414,7 @@ router.post("/check",Authenticated,(req,res)=>{
 
 router.get("/paidaudition",Authenticated,(req,res)=>{
     const {audition,provider,user} = req.query
+    console.log(audition,provider,user)
     Payment.findOne({user:user},(err,payment)=>{
         if(err){
             console.log("err finding payment ref")
@@ -371,7 +429,18 @@ router.get("/paidaudition",Authenticated,(req,res)=>{
                                                 return res.redirect("/digitalauditionplatform")
                                             }else{
                                                 // audition
-                                                res.render("audition",{audition,user})
+                                                Payment.create({
+                                                        user:req.session.user._id,
+                                                        provider:req.query.provider,
+                                                        amount:audition.auditionPrice,
+                                                        auditionName:audition.auditionName,
+                                                        auditionId:audition._id,
+                                                        paymentRef:req.query.tx_ref,
+                                                        paymentStatus:req.query.status,
+                                                                },(err,payment)=>{
+                                                                    res.render("audition",{audition,user})
+                                                                })
+
                                             }
                                         })
                    
@@ -421,17 +490,21 @@ router.get("/paidaudition",Authenticated,(req,res)=>{
     
 
 
-router.post("/paid",Authenticated,(req,res)=>{
+router.post("/paid",Authenticated,async (req,res)=>{
     const {data,user,audition} = req.body;
-    console.log(data,user,audition)
+   console.log(req.session.user._id)
+   
+    const getAuditionDetails = await Audition.findById(audition)
+    console.log(getAuditionDetails)
+    
     // create payment
     Payment.create({
         user:user,
-        provider:audition,
+        provider:getAuditionDetails.provider,
         amount:data.amount,
         paymentRef:data.tx_ref,
         paymentStatus:data.status,
-        auditionId:audition
+        auditionId:audition,
     },(err,payment)=>{
         if(err){
             console.log(err)
@@ -483,9 +556,10 @@ router.post("/auditionlink",(req,res)=>{
             if(user){
                 res.send({"message":"User already exists"})
             }else{
+                const hash = bcrypt.hashSync(password,10);
                 User.create({
                     username,
-                    password,
+                    password:hash,
                     email,
                     name,
                     role:"user",
@@ -608,8 +682,12 @@ router.get("/logout",(req,res)=>{
 
 
 
+router.get("/test",(req,res)=>{
+    
+   
 
 
+})
 
 
 

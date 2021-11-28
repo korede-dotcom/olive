@@ -86,9 +86,19 @@
 
 
     </section>
-    <section class="last">
-        <div></div>
-    </section>
+
+    <div class="">
+        <div class="footer_social">
+            <div>
+                <p>&copy; 2021 OLIVE</p>
+            </div>
+            <div class="social_icon">
+                <img src="/assest/OLIVE/fb.png" />
+                <img src="/assest/OLIVE/instagram.png" />
+                <img src="/assest/OLIVE/twitter.png" />
+            </div>
+        </div>
+    </div>
     <script src="https://checkout.flutterwave.com/v3.js"></script>
     <script>
         const user_id = "<%= user._id %>"
@@ -131,7 +141,7 @@
                                         consumer_mac: "92a3-912ba-1192a",
                                     },
                                     customer: {
-                                        email: "koredebada@gmail.com",
+                                        email: "<%=user.email%>",
                                         phone_number: "<%= user.username %>",
                                         name: "Olive tution",
                                     },

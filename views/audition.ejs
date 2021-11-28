@@ -129,29 +129,29 @@
         })
 
 
-        window.addEventListener("DOMContentLoaded", (e) => {
+        // window.addEventListener("DOMContentLoaded", (e) => {
 
-            const d = {
-                auditionId: '<%=audition._id%>',
-                user: '<%=user._id%>'
-            }
-            fetch("/digitalauditionplatform", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(d)
-            })
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data);
-                    if (data.success) {
-                        // window.location.href = "/dashboard";
-                        console.log("joined")
-                    }
-                })
+        //     const d = {
+        //         auditionId: '<%=audition._id%>',
+        //         user: '<%=user._id%>'
+        //     }
+        //     fetch("/digitalauditionplatform", {
+        //         method: "POST",
+        //         headers: {
+        //             "Content-Type": "application/json"
+        //         },
+        //         body: JSON.stringify(d)
+        //     })
+        //         .then(res => res.json())
+        //         .then(data => {
+        //             console.log(data);
+        //             if (data.success) {
+        //                 // window.location.href = "/dashboard";
+        //                 console.log("joined")
+        //             }
+        //         })
 
-        })
+        // })
 
 
 

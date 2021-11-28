@@ -99,6 +99,7 @@
                                         data-auditionLink="<%=auditions.auditionLink%>">
                                         copy link
                                     </button>
+                                    <pre>"<%=auditions.auditionLink%>"</pre>
                                     <% } %>
                                         <% if (!auditions.auditionLink) { %>
                                             No Link Provided
@@ -128,6 +129,18 @@
 
                 const copyLin = document.querySelector("#copyLink").getAttribute("data-auditionLink");
                 console.log(copyLin)
+                //  click and copy
+                const el = document.createElement('textarea');
+                el.value = copyLin;
+                el.setAttribute('readonly', '');
+                el.style.position = 'absolute';
+                el.style.left = '-9999px';
+                document.body.appendChild(el);
+                el.select();
+                document.execCommand('copy');
+                document.body.removeChild(el);
+                alert("Copied the text: " + copyLin);
+
                 navigator.clipboard.writeText(copyLin).then(() => {
                     // alert("Link Copied");
                     copyLink.innerHTML = "Link Copied";

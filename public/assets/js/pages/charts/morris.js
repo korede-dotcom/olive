@@ -5,6 +5,15 @@ $(function () {
     getMorris('donut', 'donut_chart');
 });
 
+let auditionsEarnings = "<%=auditionsEarnings%>";
+
+const getAuditionsEarnings = auditionsEarnings.map(function (item) {
+    return {
+        label: item.label,
+        value: item.value
+    }
+});
+
 
 function getMorris(type, element) {
     if (type === 'line') {
@@ -146,19 +155,26 @@ function getMorris(type, element) {
     } else if (type === 'donut') {
         Morris.Donut({
             element: element,
-            data: [{
-                label: 'Jam',
-                value: 25
-            }, {
-                    label: 'Frosted',
-                    value: 40
-                }, {
-                    label: 'Custard',
-                    value: 25
-                }, {
-                    label: 'Sugar',
-                    value: 10
-                }],
+            data:[auditionsEarnings.map(function (item) {
+                return {
+                    label: item.auditionName,
+                    value: item.totalEarnings
+                }
+            })],
+
+            // data: [{
+            //     label: 'Jam',
+            //     value: 25
+            // }, {
+            //         label: 'Frosted',
+            //         value: 40
+            //     }, {
+            //         label: 'Custard',
+            //         value: 25
+            //     }, {
+            //         label: 'Sugar',
+            //         value: 10
+            //     }],
             colors: ['rgb(233, 30, 99)', 'rgb(0, 188, 212)', 'rgb(255, 152, 0)', 'rgb(0, 150, 136)'],
             formatter: function (y) {
                 return y + '%'
