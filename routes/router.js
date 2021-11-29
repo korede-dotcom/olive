@@ -10,7 +10,7 @@ const uuidv4 = require("uuid").v4;
 const Participants = require("../models/auditionParticipants")
 const cloudinary = require("../utils/cloudinary")
 const upload = require("../utils/multer")
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcryptjs")
 const mailjet = require ('node-mailjet')
 .connect(process.env.c1, process.env.c2)
 
@@ -74,17 +74,20 @@ router.get("/",(req,res)=>{
 
 router.post("/",(req,res)=>{
     const {username,password,email,name} = req.body
+    console.log(req.body)
 
     try {
-        User.findOne({username},(err,user)=>{
+        User.findOne({username,email}, async(err,user)=>{
             if(user){
                 res.send({"error":"User already exists"})
             }else{
-                const hash = bcrypt.hashSync(password,10)
-
-                const newUser = new User({
+        //    hash password with bcryptjs
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+        console.log(hashedPassword)
+                let newUser = new User({
                     username,
-                    password:hash,
+                    password:hashedPassword,
                     email,
                     name,
                     role:"user",
@@ -125,7 +128,7 @@ router.post("/",(req,res)=>{
 
                          const config = {
                         method: 'get',
-                        url: `https://1960sms.com/api/send/?user=${process.env.textMsgUser}&pass=${process.env.textMsgPass}&to=${user.username}&from=hello&msg=your Olive registration OTP:${user.otp}`,
+                        url: `https://1960sms.com/api/send/?user=${process.env.textMsgUser}&pass=${process.env.textMsgPass}&to=${username}&from=hello&msg=your Olive registration OTP:${otp}`,
                         headers: { }
                     };
                     
@@ -185,17 +188,22 @@ router.post("/login",(req,res)=>{
     const {username,password} = req.body
     try {
         User.findOne({username},(err,user)=>{
+            if(err){
+                res.send({"error":"User not Exist"})
+            }
             if(user){
-                if(bcrypt.compareSync(password,user.password)){
-                    req.session.userIsLoggedIn = true;
-                    req.session.user = user;
-                   res.status(200).json({"status":"true"});
+                bcrypt.compare(password,user.password,(err,result)=>{
+                    if(err){
+                        res.send({"error":"Password is incorrect"})
+                    }else{
+                        req.session.userIsLoggedIn = true;
+                        req.session.user = user;
+                       res.status(200).json({"status":"true"});
+                    }
+                })
                 }else{
                     res.send({"error":"Password is incorrect"})
                 }
-            }else{
-                res.send({"error":"User does not exist"})
-            }
         })
         
     } catch (error) {

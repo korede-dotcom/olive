@@ -286,7 +286,7 @@ provider.get("/dashboard",Auth, async (req,res)=>{
                 console.log(err)
             }
             else{
-                let totalAuditions = await Audition.find({provider:req.session.providerId})
+             
                 
                 if(payments.length>0){
                     let totalPayment = await Payment.aggregate([
@@ -357,9 +357,15 @@ provider.get("/dashboard",Auth, async (req,res)=>{
                     
 
                     res.render("provider/dashboard",{todayPaymentAmount,totalPaymentAmount,totalAuditionCountAmount,totalUserAmount,topAuditions:[],provider,auditions,auditionsEarnings})
+                    if(payments.length === 0 || []){
+                        res.render("provider/dashboard",{todayPaymentAmount:0,totalPaymentAmount:0,totalAuditionCountAmount:0,totalUserAmount:0,topAuditions:[],provider,auditions,auditionsEarnings})
+                    }
                 }else{
-
-                    res.render("provider/dashboard",{todayPaymentAmount:[],totalPaymentAmount:[],totalAuditionCountAmount:totalAuditions.length,totalUserAmount:[],topAuditions:[],provider,auditions,auditionsEarnings:[]})
+                    // if no payments
+                    if(!payments){
+                    res.render("provider/dashboard",{todayPaymentAmount:0,totalPaymentAmount:0,totalAuditionCountAmount:0,totalUserAmount:0,topAuditions:[],provider,auditions,auditionsEarnings})
+                    }
+                    
                 }
             }
         })

@@ -85,17 +85,17 @@
 
 
         <div class=" otp_content">
-            <form id="otp">
+            <form id="otpform">
                 <h4 class="otp ">Verify your Phone number or Email</h4>
                 <h5>Enter your OTP code here</h5>
                 <br>
                 <br>
 
                 <div class="otp">
-                    <input type="text" name="one" id="one" maxlength="1">
-                    <input type="text" name="two" id="two" maxlength="1">
-                    <input type="text" name="three" id="three" maxlength="1">
-                    <input type="text" name="four" id="four" maxlength="1">
+                    <input type="text" name="one" id="one" maxlength="1" onkeyup="clickEvent(this,'two')">
+                    <input type="text" name="two" id="two" maxlength="1" onkeyup="clickEvent(this,'three')">
+                    <input type="text" name="three" id="three" maxlength="1" onkeyup="clickEvent(this,'four')">
+                    <input type="text" name="four" id="four" maxlength="1" onkeyup="clickEvent(this,'five')">
                     <input type="text" name="five" id="five" maxlength="1">
                 </div>
                 <br>
@@ -150,20 +150,14 @@
             e.target.style.width = "40px !important";
         });
 
-
-        // form validation
-        // function validateForm() {
-        //     var x = document.forms["myForm"]["fname"].value;
-        //     if (x == "") {
-        //         alert("Name must be filled out");
-        //         return false;
-        //     }
-        // }
         // post fecth / create
         const formed = document.querySelector(".register_link");
         const submitBtn = document.querySelector("#submitBtn");
         const password = document.querySelector("#password");
         const confirm = document.querySelector("#confirm_password");
+        const otp_content = document.querySelector(".otp_content")
+        const otp = document.querySelectorAll(".otp input")
+        const otpform = document.querySelector("#otpform")
         // const continueBtn = document.querySelector(".continue");
 
 
@@ -226,9 +220,17 @@
             })
                 .then(res => res.json())
                 .then(data => {
+                    submitBtn.innerHTML = "REGISTER";
                     if (data.status === "true") {
-                        const otp_content = document.querySelector(".otp_content")
+
                         otp_content.style.display = "flex";
+                        otp.forEach((ot, i) => {
+                            ot.addEventListener("keyup", (e) => {
+                                if (e.target.value.length === 1) {
+                                    e.target.nextElementSibling.focus();
+                                }
+                            })
+                        })
                         formed.style.display = "none"
                     } else {
                         submitBtn.innerHTML = "REGISTER";
@@ -238,10 +240,9 @@
 
                 })
         })
-        const otp = document.querySelector("#otp");
 
-        otp.addEventListener("submit", (e) => {
-            e.preventDefault()
+        otpform.addEventListener("submit", (e) => {
+            e.preventDefault();
 
             const inputOtp = e.target.one.value.concat(e.target.two.value, e.target.three.value, e.target.four.value, e.target.five.value);
             console.log(inputOtp)
@@ -258,43 +259,17 @@
                     if (data.status === "success") {
                         window.location.href = "/login";
                     }
-                    console.log(data)
+                    else {
+                        alert(data.error)
+                        otp.forEach((ot, i) => {
+                            ot.value = ""
+                        })
+                    }
+
 
                 })
 
         })
-
-
-            // fetch("/auditionlink", {
-            //     method: "POST",
-            //     headers: {
-            //         "Content-Type": "application/json"
-            //     },
-            //     body: JSON.stringify(payload)
-            // })
-            //     .then(res => res.json())
-            //     .then(data => {
-            //         submitBtn.innerHTML = "Sucess";
-            //         // form.style.display = "none";
-            //         console.log(data);
-            //         if (data.pay) {
-            //             alert("You have been registered for the audition");
-            //             // window.location.href = ``;
-            //             window.location.assign(`/auditionlink/payment/?auditionId=${auditionId}&user=${data.pay.user}`);
-            //         } else {
-
-            //             // continueBtn.style.display = "block";
-            //             // continueBtn.innerHTML += " with audition";
-            //             window.location.assign(`/digitalauditionplatform/${auditionId}`)
-            //         }
-            //     })
-            //     .catch(err => console.log(err));
-
-
-        // bouncing text
-
-
-
 
     </script>
 
