@@ -532,7 +532,7 @@ router.post("/paid",Authenticated,async (req,res)=>{
 // sucessful payment
 
 
-router.get("/auditionlink",(req,res)=>{
+router.get("/auditionlink/",(req,res)=>{
     console.log(req.query.auditionId)
     Audition.findById(req.query.auditionId,(err,audition)=>{
         if(err){
@@ -690,12 +690,6 @@ router.get("/logout",(req,res)=>{
 
 
 
-router.get("/test",(req,res)=>{
-    
-   
-
-
-})
 
 
 

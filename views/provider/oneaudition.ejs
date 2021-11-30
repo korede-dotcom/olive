@@ -95,11 +95,8 @@
                             <div class="col-sm-12 col-lg-12">
                                 <!-- <b>Audition Link:</b> -->
                                 <% if (auditions.auditionLink) { %>
-                                    <button style="background-color: none;" id="copyLink"
-                                        data-auditionLink="<%=auditions.auditionLink%>">
-                                        copy link
-                                    </button>
-                                    <pre>"<%=auditions.auditionLink%>"</pre>
+
+                                    <pre id="copytext">"<%=auditions.auditionLink%>"</pre>
                                     <% } %>
                                         <% if (!auditions.auditionLink) { %>
                                             No Link Provided
@@ -122,32 +119,27 @@
     </section>
 
     <script>
-        const copyLink = document.querySelector("#copyLink");
-        console.log(copyLink)
-        if (copyLink) {
-            copyLink.addEventListener("click", (e) => {
+        const copytext = document.getElementById('copytext');
+        // click on copytext to copy the link
+        // copytext.addEventListener('click', function () {
+        //     copytext.select();
+        //     document.execCommand('copy');
+        // });
 
-                const copyLin = document.querySelector("#copyLink").getAttribute("data-auditionLink");
-                console.log(copyLin)
-                //  click and copy
-                const el = document.createElement('textarea');
-                el.value = copyLin;
-                el.setAttribute('readonly', '');
-                el.style.position = 'absolute';
-                el.style.left = '-9999px';
-                document.body.appendChild(el);
-                el.select();
-                document.execCommand('copy');
-                document.body.removeChild(el);
-                alert("Copied the text: " + copyLin);
+        //  create a text are when click copytext and copy the link
+        copytext.addEventListener('click', function () {
+            var textArea = document.createElement("textarea");
+            textArea.value = copytext.innerText;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand("copy");
+            textArea.remove();
+            // indicate that the link is copied
+            alert("Link Copied");
 
-                navigator.clipboard.writeText(copyLin).then(() => {
-                    // alert("Link Copied");
-                    copyLink.innerHTML = "Link Copied";
-                })
-            });
+        });
 
-        }
+
 
 
         const getlink = document.querySelector("form");

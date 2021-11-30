@@ -216,6 +216,12 @@ provider.get("/createaudition",Auth,(req,res)=>{
 
 provider.post("/createaudition",Auth,upload.single('auditionLogo'),async (req,res)=>{
     const {auditionName,auditionDescription,auditionStartDate,auditionEndDate,auditionCharges,auditionPrice,auditionPattern,auditionCount} = req.body;
+    console.log(req.file)
+    console.log(req.body)
+    // check if req.file is empty
+    if(!req.file){
+    res.send({"error": "please Upload a Logo"})
+    }
  const result = await cloudinary.uploader.upload(req.file.path) 
  let newAudition = new Audition({
     auditionName,
@@ -277,105 +283,222 @@ provider.post("/createaudition",Auth,upload.single('auditionLogo'),async (req,re
 
 // GET DASHBOARD
 provider.get("/dashboard",Auth, async (req,res)=>{
+    let todayPaymentAmount
+    let totalPaymentAmount
+    let totalAuditionCountAmount
+    let totalUserAmount
+    let auditionsEarnings
+    let freeAuditions
+    
+
     const provider = await Provider.findById(req.session.providerId)
      const auditions = await Audition.find({provider:req.session.providerId})
-    try {
+    //  search Providers in Payment Table
+    const payments = await Payment.find({provider:req.session.providerId})
+    if(payments.length === 0){  
+        todayPaymentAmount = 0
+        totalPaymentAmount = 0
+        totalAuditionCountAmount = 0
+        totalUserAmount = 0
+        auditionsEarnings = []
+        mostPaidAudition = 0    
+           res.render("provider/dashboard",{todayPaymentAmount,totalPaymentAmount,totalAuditionCountAmount,totalUserAmount,provider,auditions,auditionsEarnings})
+    }else{
+        totalPaymentAmount = await Payment.aggregate([
+        {$match:{provider:req.session.providerId}},
+        {$group:{_id:null,totalPayment:{$sum:"$amount"}}}                  
+        ])
+        todayPaymentAmount = await Payment.aggregate([
+            {$match:{provider:req.session.providerId,createdAt:{$gte:new Date(new Date().setHours(0,0,0,0))}}},
+            {$group:{_id:null,totalPayment:{$sum:"$amount"}}}
+        ])
+        totalAuditionCountAmount = await Audition.aggregate([
+            {$match:{provider:req.session.providerId}},
+        ])
 
-        Payment.find({provider:req.session.providerId}, async (err,payments)=>{
-            if(err){
-                console.log(err)
-            }
-            else{
-             
+        totalUserAmount = await await Payment.aggregate([
+            {$match:{provider:req.session.providerId}},
+            {$count:"user"}
+        ])
+        auditionsEarnings =await Audition.aggregate([
+            {$match:{provider:req.session.providerId}},
+            {$group:{_id:"$auditionName",totalEarnings:{$sum:"$auditionPrice"}}},
+            {$project:{_id:0,auditionName:"$_id",totalEarnings:1,_id:0}},
+            {$sort:{totalEarnings:-1}},
+            {$limit:5}
+        ])
+        mostPaidAudition = await Payment.aggregate([
+            {$match:{provider:req.session.providerId}},
+            {$group:{_id:"$auditionName",totalEarnings:{$sum:"$amount"}}},
+            {$project:{_id:0,auditionName:"$_id",totalEarnings:1,_id:0}},
+            {$sort:{totalEarnings:-1}},
+            {$limit:5}
+        ])
+        activeAudition = await Audition.aggregate([
+            {$match:{provider:req.session.providerId}},
+            {$group:{_id:"$auditionName",totalEarnings:{$sum:"$auditionPrice"}}},
+            {$project:{_id:0,auditionName:"$_id",totalEarnings:1,_id:0}},
+            {$sort:{totalEarnings:-1}},
+            {$limit:5}
+        ])
+        freeAuditions = await Audition.find({provider:req.session.providerId,auditionPrice:0})
+
+
+        
+
+
+       
+        console.log('auditionEarning',auditionsEarnings)
+        console.log('totalPayment',totalPaymentAmount)
+        console.log('todaypayment',todayPaymentAmount)
+        // console.log('auditoonCount',totalAuditionCountAmount)
+        console.log('participants',totalUserAmount)
+        console.log('freeAuditions',freeAuditions)
+        
+        
+        if(todayPaymentAmount.length === 0){
+            todayPaymentAmount = 0
+        }else{
+            todayPaymentAmount = todayPaymentAmount[0].totalPayment
+        }
+        
+        if(totalPaymentAmount.length === 0){
+            totalPaymentAmount = 0
+        }else{
+            totalPaymentAmount = totalPaymentAmount[0].totalPayment
+        }
+
+        if(totalAuditionCountAmount.length === 0){
+            totalAuditionCountAmount = 0
+        }else{
+            totalAuditionCountAmount = totalAuditionCountAmount.length
+        }
+        if(totalUserAmount.length === 0){
+            totalUserAmount = 0
+        }else{
+            totalUserAmount = totalUserAmount[0].user   
+        }
+        if(mostPaidAudition.length === 0){
+            mostPaidAudition = 0
+        }else{
+            mostPaidAudition = mostPaidAudition[0].auditionName
+        }
+
+        res.render("provider/dashboard",{todayPaymentAmount,totalPaymentAmount,totalAuditionCountAmount,totalUserAmount,provider,auditions,auditionsEarnings,mostPaidAudition})
+        
+        // res.render("provider/dashboard",{todayPaymentAmount,totalPaymentAmount,totalAuditionCountAmount,totalUserAmount,provider,auditions,auditionsEarnings})
+    }
+})
+// provider.get("/dashboard",Auth, async (req,res)=>{
+//     const provider = await Provider.findById(req.session.providerId)
+//      const auditions = await Audition.find({provider:req.session.providerId})
+//     let todayPaymentAmount = 0;
+//     let todayPaymentCount = 0;
+//     let totalPaymentAmount = 0;
+//     let totalPaymentCount = 0;
+//     let auditionsEarnings = 0;
+//     let totalUserAmount = 0;
+//     let totalAuditionCountAmount = 0;   
+
+
+    
+
+//     try {
+
+//         Payment.find({provider:req.session.providerId}, async (err,payments)=>{
+//             if(err){
+//                 console.log(err)
+//             }
+//             else{
+//                 if(payments.length === 0){
+//                     res.render("provider/dashboard",{todayPaymentAmount,totalPaymentAmount,,totalUserAmount,topAuditions:[],provider,auditions,auditionsEarnings})
+//                 }
                 
-                if(payments.length>0){
-                    let totalPayment = await Payment.aggregate([
-                        {$match:{provider:req.session.providerId}},
-                        {$group:{_id:null,totalPayment:{$sum:"$amount"}}}
+                
+//                     let totalPayment = await Payment.aggregate([
+//                         {$match:{provider:req.session.providerId}},
+//                         {$group:{_id:null,totalPayment:{$sum:"$amount"}}}
                       
-                    ])
+//                     ])
                   
-                    const totalPaymentAmount = totalPayment[0].totalPayment
-                    // Revenue /////////////// 
-                    console.log(totalPaymentAmount)
-                     let totalAuditionCount = await Audition.aggregate([
-                        {$match:{provider:req.session.providerId}},
-                        {$group:{_id:null,totalAuditionCount:{$sum:1}}}
-                    ])
-                    const totalAuditionCountAmount = totalAuditionCount[0].totalAuditionCount
-                    console.log(totalAuditionCount)
-                    // total Audition //////////////////
+//                      totalPaymentAmount = totalPayment[0].totalPayment
+//                     // Revenue /////////////// 
+//                     console.log(totalPaymentAmount)
+//                     //  let totalAuditionCount = await Audition.aggregate([
+//                     //     {$match:{provider:req.session.providerId}},
+//                     //     {$group:{_id:null,totalAuditionCount:{$sum:1}}}
+//                     // ])
+//                     // totalAuditionCountAmount = totalAuditionCount[0].totalAuditionCount
+//                     // console.log(totalAuditionCount)
+//                     // total Audition //////////////////
                 
-                     let totalUser = await Payment.aggregate([
-                        {$match:{provider:req.session.providerId}},
-                        {$count:"user"}
-                    ])
-                    const totalUserAmount = totalUser[0].user
-                    console.log(totalUser)
-                    // total User //////////////////
+//                      let totalUser = await Payment.aggregate([
+//                         {$match:{provider:req.session.providerId}},
+//                         {$count:"user"}
+//                     ])
+//                     let totalUserAmount = totalUser[0].user
+//                     console.log(totalUser)
+//                     // total User //////////////////
                 
-                        let todayPayment = await Payment.aggregate([
-                        {$match:{provider:req.session.providerId}},
-                        {$match:{createdAt:{$gte:new Date(new Date().setHours(0,0,0,0))}}},
-                        {$group:{_id:null,todayPayment:{$sum:"$amount"}}}
-                    ])
+//                         let todayPayment = await Payment.aggregate([
+//                         {$match:{provider:req.session.providerId}},
+//                         {$match:{createdAt:{$gte:new Date(new Date().setHours(0,0,0,0))}}},
+//                         {$group:{_id:null,todayPayment:{$sum:"$amount"}}}
+//                     ])
                    
-                    // ternay operator ///////////////
-                    let todayPaymentAmount = todayPayment>0?todayPayment:todayPayment[0].todayPayment
+//                     // ternay operator ///////////////
+//                     let todayPaymentAmount = todayPayment>0?todayPayment:todayPayment[0].todayPayment
 
-                    // today Payment //////////////////
+//                     // today Payment //////////////////
                 
-                    // get user that paid today
-                    let todayUser = await Payment.aggregate([
-                        {$match:{provider:req.session.providerId}},
-                        {$match:{createdAt:{$gte:new Date(new Date().setHours(0,0,0,0))}}},
-                        {$count:"user"}
-                    ])
-                    console.log(todayUser)
+//                     // get user that paid today
+//                     let todayUser = await Payment.aggregate([
+//                         {$match:{provider:req.session.providerId}},
+//                         {$match:{createdAt:{$gte:new Date(new Date().setHours(0,0,0,0))}}},
+//                         {$count:"user"}
+//                     ])
+//                     console.log(todayUser)
 
-                    // list Auditions and their total earnings
-                    let auditions = await Audition.find({provider:req.session.providerId})
-                    let auditionsEarnings = await Audition.aggregate([
-                        {$match:{provider:req.session.providerId}},
-                        {$group:{_id:"$auditionName",totalEarnings:{$sum:"$auditionPrice"}}},
-                        {$project:{_id:0,auditionName:"$_id",totalEarnings:1,_id:0}},
-                        {$sort:{totalEarnings:-1}},
-                        {$limit:5}
+//                     // list Auditions and their total earnings
+//                     let auditions = await Audition.find({provider:req.session.providerId})
+//                     let auditionsEarnings = await Audition.aggregate([
+//                         {$match:{provider:req.session.providerId}},
+//                         {$group:{_id:"$auditionName",totalEarnings:{$sum:"$auditionPrice"}}},
+//                         {$project:{_id:0,auditionName:"$_id",totalEarnings:1,_id:0}},
+//                         {$sort:{totalEarnings:-1}},
+//                         {$limit:5}
                         
 
-                    ])
-                    console.log(auditionsEarnings)
-                    // list Auditions and their today earnings
-                    let auditionsTodayEarnings = await Audition.aggregate([
-                        {$match:{provider:req.session.providerId}},
-                        {$match:{createdAt:{$gte:new Date(new Date().setHours(0,0,0,0))}}},
-                        {$group:{_id:"$auditionName",totalEarnings:{$sum:"$auditionPrice"}}},
-                        {$project:{_id:0,auditionName:"$_id",totalEarnings:1,_id:0}},
-                        {$sort:{totalEarnings:-1}},
-                        {$limit:5}
-                    ])
+//                     ])
+//                     console.log(auditionsEarnings)
+//                     // list Auditions and their today earnings
+//                     let auditionsTodayEarnings = await Audition.aggregate([
+//                         {$match:{provider:req.session.providerId}},
+//                         {$match:{createdAt:{$gte:new Date(new Date().setHours(0,0,0,0))}}},
+//                         {$group:{_id:"$auditionName",totalEarnings:{$sum:"$auditionPrice"}}},
+//                         {$project:{_id:0,auditionName:"$_id",totalEarnings:1,_id:0}},
+//                         {$sort:{totalEarnings:-1}},
+//                         {$limit:5}
+//                     ])
                     
 
-                    res.render("provider/dashboard",{todayPaymentAmount,totalPaymentAmount,totalAuditionCountAmount,totalUserAmount,topAuditions:[],provider,auditions,auditionsEarnings})
-                    if(payments.length === 0 || []){
-                        res.render("provider/dashboard",{todayPaymentAmount:0,totalPaymentAmount:0,totalAuditionCountAmount:0,totalUserAmount:0,topAuditions:[],provider,auditions,auditionsEarnings})
-                    }
-                }else{
-                    // if no payments
-                    if(!payments){
-                    res.render("provider/dashboard",{todayPaymentAmount:0,totalPaymentAmount:0,totalAuditionCountAmount:0,totalUserAmount:0,topAuditions:[],provider,auditions,auditionsEarnings})
-                    }
+//                     res.render("provider/dashboard",{todayPaymentAmount,totalPaymentAmount,totalAuditionCountAmount,totalUserAmount,topAuditions:[],provider,auditions,auditionsEarnings})
+                   
+//                 }else{
+//                     // if no payments
+//                     res.render("provider/dashboard",{todayPaymentAmount,totalPaymentAmount,totalAuditionCountAmount,totalUserAmount,topAuditions:[],provider,auditions,auditionsEarnings})
                     
-                }
-            }
-        })
+//                 }
+            
+//             }
+//         })
 
    
-}catch(err){
-    console.log(err.message)
-}
+// }catch(err){
+//     console.log(err.message)
+// }
 
-})
+// })
 
 
 // count visits

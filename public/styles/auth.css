@@ -515,9 +515,10 @@ border-radius: 10px;
     justify-content: space-between;
 
 }
+.auditionBox
 .abox{
 width: 369px;
-height: 213px;
+height: 220px;
 background: #F9F9F9;
 box-shadow: 0px 4px 26px rgba(0, 0, 0, 0.15);
 border-radius: 10px;

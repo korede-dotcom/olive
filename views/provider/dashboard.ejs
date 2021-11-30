@@ -53,7 +53,7 @@
                             <i class="material-icons">person_add</i>
                         </div>
                         <div class="content">
-                            <div class="text">PARTICIPANTS</div>
+                            <div class="text">TOTAL USER</div>
                             <div class="number count-to" data-from="0" data-to="<%= totalUserAmount %> "
                                 data-speed="1000" data-fresh-interval="20"></div>
                         </div>
@@ -131,7 +131,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                     <div class="card">
-                        <div class="body bg-pink">
+                        <div class="body bg-green">
                             <div class="sparkline" data-type="line" data-spot-Radius="4"
                                 data-highlight-Spot-Color="rgb(233, 30, 99)" data-highlight-Line-Color="#fff"
                                 data-min-Spot-Color="rgb(255,255,255)" data-max-Spot-Color="rgb(255,255,255)"
@@ -141,7 +141,7 @@
 
                             </div>
                             <ul class="dashboard-stat-list">
-                                <h4>REVENUE PER AUDITION</h4>
+                                <h4>ACTIVE AUDITIONS</h4>
                                 <% auditionsEarnings.forEach(e=> { %>
                                     <li>
                                         <%= e.auditionName %>
@@ -332,7 +332,13 @@
                                                     <%=a.auditionName%>
                                                 </td>
                                                 <td><span class="label bg-green">
-                                                        <%= a.auditionPrice %>
+                                                        <% if (a.auditionPrice===null) { %>
+                                                            free
+                                                            <% } %>
+                                                                <% if (a.auditionPrice !==null) { %>
+                                                                    <%=a.auditionPrice%>
+                                                                        <% } %>
+
                                                     </span></td>
                                                 <td>
                                                     <%=provider.username%>
