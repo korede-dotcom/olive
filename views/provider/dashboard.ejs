@@ -169,8 +169,8 @@
 
                             </div>
                             <ul class="dashboard-stat-list">
-                                <h4>REVENUE PER AUDITION</h4>
-                                <% auditionsEarnings.forEach(e=> { %>
+                                <h4>FREE AUDITION</h4>
+                                <% freeAuditions.forEach(e=> { %>
                                     <li>
                                         <%= e.auditionName %>
                                             <span class="pull-right"><b>
@@ -332,10 +332,10 @@
                                                     <%=a.auditionName%>
                                                 </td>
                                                 <td><span class="label bg-green">
-                                                        <% if (a.auditionPrice===null) { %>
+                                                        <% if (a.auditionPrice===0) { %>
                                                             free
                                                             <% } %>
-                                                                <% if (a.auditionPrice !==null) { %>
+                                                                <% if (a.auditionPrice !==0) { %>
                                                                     <%=a.auditionPrice%>
                                                                         <% } %>
 
@@ -392,6 +392,7 @@
     <script>
 
         const getOneAudition = document.querySelectorAll('.getOneAudition')
+        getOneAudition.style.cursor = 'pointer'
         console.log(getOneAudition)
         getOneAudition.forEach(a => {
             a.addEventListener('click', e => {

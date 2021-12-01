@@ -229,6 +229,8 @@ router.get("/digitalauditionplatform",Authenticated,(req,res)=>{
     
 })
 
+
+
 router.get("/profile",Authenticated,(req,res)=>{
     User.findById(req.session.user._id,(err,user)=>{
         if(err){
@@ -530,6 +532,36 @@ router.post("/paid",Authenticated,async (req,res)=>{
 // site count
 
 // sucessful payment
+
+// free
+router.post("/free",Authenticated,(req,res)=>{
+    const {user,audition} = req.body;
+    // find Audition
+    Audition.findById(audition,(err,audition)=>{
+        if(err){
+            console.log(err)
+        }else{
+            // create free payment
+            Payment.create({
+                user:user,
+                provider:audition.provider,
+                amount:0,
+                paymentRef:"free",
+                paymentStatus:"successful",
+                auditionId:audition,
+            },(err,payment)=>{
+                if(err){
+                    console.log(err)
+                }else{
+                    res.send({"status":payment.auditionId})
+                }
+            })
+    }
+
+        })
+
+
+})
 
 
 router.get("/auditionlink/",(req,res)=>{

@@ -30,7 +30,8 @@
                     <div class="body">
 
                         <div class="left">
-                            <img style="border: 50%;" alt="img" src="<%= auditions.auditionLogo  %> " />
+                            <img style="border-radius: 50%;" alt="img" src="<%= auditions.auditionLogo  %>"
+                                height="150px" width="150px" />
                         </div>
                         <h5>
                             <small>Description:</small>
@@ -147,7 +148,7 @@
                     console.log(data);
                     if (data.status === "true") {
                         alert("Link Generated");
-                        // window.location.reload();
+                        window.location.reload();
                     }
                 })
             });

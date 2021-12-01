@@ -14,6 +14,7 @@ const upload = require("../utils/multer")
 const cloudinary = require("../utils/cloudinary")
 const moment = require("moment")
 const Payment = require("../models/payment")
+const User = require("../models/user")
 const mailjet = require ('node-mailjet')
 .connect(process.env.c1, process.env.c2)
 
@@ -303,6 +304,7 @@ provider.get("/dashboard",Auth, async (req,res)=>{
     let totalUserAmount
     let auditionsEarnings
     let freeAuditions
+    let freeAuditionUsers    
     
 
     const provider = await Provider.findById(req.session.providerId)
@@ -315,8 +317,10 @@ provider.get("/dashboard",Auth, async (req,res)=>{
         totalAuditionCountAmount = 0
         totalUserAmount = 0
         auditionsEarnings = []
-        mostPaidAudition = 0    
-           res.render("provider/dashboard",{todayPaymentAmount,totalPaymentAmount,totalAuditionCountAmount,totalUserAmount,provider,auditions,auditionsEarnings})
+        mostPaidAudition = 0
+        freeAuditions = []  
+        freeAuditionUsers = []  
+           res.render("provider/dashboard",{todayPaymentAmount,totalPaymentAmount,totalAuditionCountAmount,totalUserAmount,provider,auditions,auditionsEarnings,freeAuditions,freeAuditionUsers})
     }else{
         totalPaymentAmount = await Payment.aggregate([
         {$match:{provider:req.session.providerId}},
@@ -356,18 +360,28 @@ provider.get("/dashboard",Auth, async (req,res)=>{
             {$limit:5}
         ])
         freeAuditions = await Audition.find({provider:req.session.providerId,auditionPrice:0})
+    //    find users who have paid for free auditions
+        freeAuditionUsers = await Payment.aggregate([
+            {$match:{provider:req.session.providerId,auditionPrice:0}},
+            {$group:{_id:"$user"}},
+            {$count:"user"}
+        ])
+        
+        
+    
+        
 
 
         
 
 
        
-        console.log('auditionEarning',auditionsEarnings)
-        console.log('totalPayment',totalPaymentAmount)
-        console.log('todaypayment',todayPaymentAmount)
-        // console.log('auditoonCount',totalAuditionCountAmount)
-        console.log('participants',totalUserAmount)
-        console.log('freeAuditions',freeAuditions)
+        // console.log('auditionEarning',auditionsEarnings)
+        // console.log('totalPayment',totalPaymentAmount)
+        // console.log('todaypayment',todayPaymentAmount)
+        // // console.log('auditoonCount',totalAuditionCountAmount)
+        // console.log('participants',totalUserAmount)
+        // console.log('freeAuditions',freeAuditions)
         
         
         if(todayPaymentAmount.length === 0){
@@ -398,7 +412,7 @@ provider.get("/dashboard",Auth, async (req,res)=>{
             mostPaidAudition = mostPaidAudition[0].auditionName
         }
 
-        res.render("provider/dashboard",{todayPaymentAmount,totalPaymentAmount,totalAuditionCountAmount,totalUserAmount,provider,auditions,auditionsEarnings,mostPaidAudition})
+        res.render("provider/dashboard",{todayPaymentAmount,totalPaymentAmount,totalAuditionCountAmount,totalUserAmount,provider,auditions,auditionsEarnings,mostPaidAudition,freeAuditions,})
         
         // res.render("provider/dashboard",{todayPaymentAmount,totalPaymentAmount,totalAuditionCountAmount,totalUserAmount,provider,auditions,auditionsEarnings})
     }

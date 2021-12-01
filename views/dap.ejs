@@ -193,7 +193,27 @@
                             makePayment()
                         }
                         else {
-                            window.location.href = `/digitalauditionplatform/${data.status}`
+                            // post all details to the server
+                            fetch("/free", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                                body: JSON.stringify({
+                                    user: '<%=user._id%>',
+                                    audition: id,
+                                })
+                            }).then(res => res.json())
+                                .then(data => {
+                                    console.log(data);
+                                    if (data.status) {
+                                        window.location.assign(`
+                                        /digitalauditionplatform/${data.status}`
+                                        );
+                                    } else {
+                                        window.location.assign("/digitalauditionplatform")
+                                    }
+                                })
                         }
                     })
 
