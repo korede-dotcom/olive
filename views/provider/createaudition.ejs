@@ -65,7 +65,7 @@
                                     <select class="form-select" aria-label="Default select example"
                                         name="auditionPattern">
                                         <option value="0">Upload</option>
-                                        <option value="1">Live</option>
+                                        <option selected value="1">Live</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4 col-sm-12">
@@ -119,8 +119,46 @@
     <script>
         const provider = document.querySelector(".provider");
         const auditionBtn = document.querySelector("#auditionBtn");
+        const logo = document.querySelector("input[name='auditionLogo']");
+        // check if the file is an image
+
+        // check if logo is uploaded
+        // if (logo.files[0].type !== "image/jpeg" && logo.files[0].type !== "image/png") {
+        //     alert("Please upload a valid image file (jpg/png)");
+        //     logo.value = "";
+        //     return false;
+        // }
+        // check if start date is before end date
+
+        // check if audition name is empty
+
+
         provider.addEventListener("submit", async (e) => {
             e.preventDefault();
+
+            if (provider.auditionName.value === "") {
+                alert("Please enter a valid audition name");
+                provider.auditionName.focus();
+                return false;
+            }
+            if (provider.auditionStartDate.value > provider.auditionEndDate.value) {
+                alert("Audition start date cannot be after end date");
+                provider.auditionStartDate.value = "";
+                provider.auditionEndDate.value = "";
+                return false;
+
+            }
+            if (provider.auditionLogo.value == "") {
+                alert("Please upload a valid image file (jpg/png)");
+                provider.auditionLogo.value = "";
+
+                provider.auditionLogo.focus();
+                return false;
+            }
+            // check if the file is an image
+
+
+            auditionBtn.disabled = true;
             auditionBtn.innerHTML = "Please wait...";
             const formdata = new FormData();
             formdata.append("auditionLogo", e.target.auditionLogo.files[0]);
@@ -147,7 +185,9 @@
                         // alert("Audition Created Successfully");
                         window.location.href = "/provider/dashboard";
                     } else {
-                        alert("Audition Creation Failed");
+                        auditionBtn.disabled = false;
+                        alert("Audition Creation Failed please upload a logo");
+                        auditionBtn.innerHTML = "SUBMIT";
                     }
                 })
                 .catch(error => console.log('error', error));

@@ -96,7 +96,7 @@
                                 <!-- <b>Audition Link:</b> -->
                                 <% if (auditions.auditionLink) { %>
 
-                                    <pre id="copytext">"<%=auditions.auditionLink%>"</pre>
+                                    <pre id="copytext"><%=auditions.auditionLink%></pre>
                                     <% } %>
                                         <% if (!auditions.auditionLink) { %>
                                             No Link Provided
@@ -119,7 +119,6 @@
     </section>
 
     <script>
-        const copytext = document.getElementById('copytext');
         // click on copytext to copy the link
         // copytext.addEventListener('click', function () {
         //     copytext.select();
@@ -127,43 +126,53 @@
         // });
 
         //  create a text are when click copytext and copy the link
-        copytext.addEventListener('click', function () {
-            var textArea = document.createElement("textarea");
-            textArea.value = copytext.innerText;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand("copy");
-            textArea.remove();
-            // indicate that the link is copied
-            alert("Link Copied");
-
-        });
 
 
 
 
-        const getlink = document.querySelector("form");
-        getlink.addEventListener("submit", (e) => {
-            e.preventDefault();
-            const getlinkBtn = getlink.querySelector(".getlinkBtn").getAttribute("data-auditionId");
-            console.log(getlinkBtn)
-            fetch("/provider/getlink", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    auditionId: getlinkBtn
+        const getlink = document.querySelector("#getlink");
+        if (getlink) {
+            const getlinkBtn = document.querySelector(".getlinkBtn").getAttribute("data-auditionId");
+            getlink.addEventListener("submit", (e) => {
+                e.preventDefault();
+                fetch("/provider/getlink", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        auditionId: getlinkBtn
+                    })
+                }).then(res => res.json()).then(data => {
+                    console.log(data);
+                    if (data.status === "true") {
+                        alert("Link Generated");
+                        // window.location.reload();
+                    }
                 })
-            }).then(res => res.json()).then(data => {
-                console.log(data);
-                if (data.status === "true") {
-                    alert("Link Generated");
-                    window.location.reload();
-                }
-            })
-        });
-        // click and copy link
+            });
+        } else {
+            // console.log("no link");
+            // click and copy link
+
+            const copytext = document.getElementById('copytext');
+            // remove first and last "
+
+            copytext.addEventListener('click', function () {
+                var textArea = document.createElement("textarea");
+                textArea.value = copytext.innerText;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand("copy");
+                textArea.remove();
+                // indicate that the link is copied
+                alert("Link Copied");
+
+            });
+        }
+
+
+
 
     </script>
 

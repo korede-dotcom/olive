@@ -215,38 +215,52 @@ provider.get("/createaudition",Auth,(req,res)=>{
 
 
 provider.post("/createaudition",Auth,upload.single('auditionLogo'),async (req,res)=>{
-    const {auditionName,auditionDescription,auditionStartDate,auditionEndDate,auditionCharges,auditionPrice,auditionPattern,auditionCount} = req.body;
+    let {auditionName,auditionDescription,auditionStartDate,auditionEndDate,auditionCharges,auditionPrice,auditionPattern,auditionCount} = req.body;
+    if(auditionStartDate>auditionEndDate){
+        res.send({"error":"Start date cannot be greater than end date"})
+    }
+  
+    if(auditionPrice<1||auditionPrice===''){
+        auditionPrice = 0
+    }
     console.log(req.file)
     console.log(req.body)
     // check if req.file is empty
-    if(!req.file){
-    res.send({"error": "please Upload a Logo"})
+    // if(!req.file){
+    // res.send({"error": "please Upload a Logo"})
+    // }
+
+    try{
+        const result = await cloudinary.uploader.upload(req.file.path) 
+        let newAudition = new Audition({
+           auditionName,
+           auditionDescription,
+           auditionStartDate,
+           auditionEndDate,
+           auditionLogo:result.secure_url,
+           auditionCharges,
+           auditionPrice,
+           auditionPattern,
+           auditionCount,
+           roleId:2,
+           auditionLink:"",
+           provider:req.session.providerId,
+        })
+        await newAudition.save((err,audition)=>{
+            console.log(audition)
+               if(err){
+                   console.log(err)
+               }
+               else{
+                 
+                   res.send({"status":"true"})
+               }
+        })
+    }catch(error){
+        console.log(error.message)
+        // res.send({"error":error.message})
     }
- const result = await cloudinary.uploader.upload(req.file.path) 
- let newAudition = new Audition({
-    auditionName,
-    auditionDescription,
-    auditionStartDate,
-    auditionEndDate,
-    auditionLogo:result.secure_url,
-    auditionCharges,
-    auditionPrice,
-    auditionPattern,
-    auditionCount,
-    roleId:2,
-    auditionLink:"",
-    provider:req.session.providerId,
- })
- await newAudition.save((err,audition)=>{
-     console.log(audition)
-        if(err){
-            console.log(err)
-        }
-        else{
-          
-            res.send({"status":"true"})
-        }
- })
+    
        
     
 });
@@ -389,119 +403,7 @@ provider.get("/dashboard",Auth, async (req,res)=>{
         // res.render("provider/dashboard",{todayPaymentAmount,totalPaymentAmount,totalAuditionCountAmount,totalUserAmount,provider,auditions,auditionsEarnings})
     }
 })
-// provider.get("/dashboard",Auth, async (req,res)=>{
-//     const provider = await Provider.findById(req.session.providerId)
-//      const auditions = await Audition.find({provider:req.session.providerId})
-//     let todayPaymentAmount = 0;
-//     let todayPaymentCount = 0;
-//     let totalPaymentAmount = 0;
-//     let totalPaymentCount = 0;
-//     let auditionsEarnings = 0;
-//     let totalUserAmount = 0;
-//     let totalAuditionCountAmount = 0;   
 
-
-    
-
-//     try {
-
-//         Payment.find({provider:req.session.providerId}, async (err,payments)=>{
-//             if(err){
-//                 console.log(err)
-//             }
-//             else{
-//                 if(payments.length === 0){
-//                     res.render("provider/dashboard",{todayPaymentAmount,totalPaymentAmount,,totalUserAmount,topAuditions:[],provider,auditions,auditionsEarnings})
-//                 }
-                
-                
-//                     let totalPayment = await Payment.aggregate([
-//                         {$match:{provider:req.session.providerId}},
-//                         {$group:{_id:null,totalPayment:{$sum:"$amount"}}}
-                      
-//                     ])
-                  
-//                      totalPaymentAmount = totalPayment[0].totalPayment
-//                     // Revenue /////////////// 
-//                     console.log(totalPaymentAmount)
-//                     //  let totalAuditionCount = await Audition.aggregate([
-//                     //     {$match:{provider:req.session.providerId}},
-//                     //     {$group:{_id:null,totalAuditionCount:{$sum:1}}}
-//                     // ])
-//                     // totalAuditionCountAmount = totalAuditionCount[0].totalAuditionCount
-//                     // console.log(totalAuditionCount)
-//                     // total Audition //////////////////
-                
-//                      let totalUser = await Payment.aggregate([
-//                         {$match:{provider:req.session.providerId}},
-//                         {$count:"user"}
-//                     ])
-//                     let totalUserAmount = totalUser[0].user
-//                     console.log(totalUser)
-//                     // total User //////////////////
-                
-//                         let todayPayment = await Payment.aggregate([
-//                         {$match:{provider:req.session.providerId}},
-//                         {$match:{createdAt:{$gte:new Date(new Date().setHours(0,0,0,0))}}},
-//                         {$group:{_id:null,todayPayment:{$sum:"$amount"}}}
-//                     ])
-                   
-//                     // ternay operator ///////////////
-//                     let todayPaymentAmount = todayPayment>0?todayPayment:todayPayment[0].todayPayment
-
-//                     // today Payment //////////////////
-                
-//                     // get user that paid today
-//                     let todayUser = await Payment.aggregate([
-//                         {$match:{provider:req.session.providerId}},
-//                         {$match:{createdAt:{$gte:new Date(new Date().setHours(0,0,0,0))}}},
-//                         {$count:"user"}
-//                     ])
-//                     console.log(todayUser)
-
-//                     // list Auditions and their total earnings
-//                     let auditions = await Audition.find({provider:req.session.providerId})
-//                     let auditionsEarnings = await Audition.aggregate([
-//                         {$match:{provider:req.session.providerId}},
-//                         {$group:{_id:"$auditionName",totalEarnings:{$sum:"$auditionPrice"}}},
-//                         {$project:{_id:0,auditionName:"$_id",totalEarnings:1,_id:0}},
-//                         {$sort:{totalEarnings:-1}},
-//                         {$limit:5}
-                        
-
-//                     ])
-//                     console.log(auditionsEarnings)
-//                     // list Auditions and their today earnings
-//                     let auditionsTodayEarnings = await Audition.aggregate([
-//                         {$match:{provider:req.session.providerId}},
-//                         {$match:{createdAt:{$gte:new Date(new Date().setHours(0,0,0,0))}}},
-//                         {$group:{_id:"$auditionName",totalEarnings:{$sum:"$auditionPrice"}}},
-//                         {$project:{_id:0,auditionName:"$_id",totalEarnings:1,_id:0}},
-//                         {$sort:{totalEarnings:-1}},
-//                         {$limit:5}
-//                     ])
-                    
-
-//                     res.render("provider/dashboard",{todayPaymentAmount,totalPaymentAmount,totalAuditionCountAmount,totalUserAmount,topAuditions:[],provider,auditions,auditionsEarnings})
-                   
-//                 }else{
-//                     // if no payments
-//                     res.render("provider/dashboard",{todayPaymentAmount,totalPaymentAmount,totalAuditionCountAmount,totalUserAmount,topAuditions:[],provider,auditions,auditionsEarnings})
-                    
-//                 }
-            
-//             }
-//         })
-
-   
-// }catch(err){
-//     console.log(err.message)
-// }
-
-// })
-
-
-// count visits
 
 
 // END GET DASHBOARD
@@ -554,6 +456,7 @@ provider.get("/auditions/:id",Auth,(req,res)=>{
 
 provider.post("/getlink",(req,res)=>{
     const {auditionId} = req.body;
+    console.log(auditionId)
     Audition.findByIdAndUpdate({'_id':auditionId.toString()},{auditionLink:`http://localhost:1200/auditionlink/?auditionId=${auditionId}`},(err,audition)=>{
         if(err){
             console.log(err)
@@ -575,14 +478,6 @@ provider.post("/getlink",(req,res)=>{
     //     }
     // })
 
-
-    function generateLink(){
-        let link = "";
-        for(let i=0;i<6;i++){
-            link += Math.floor(Math.random()*10)
-        }
-        return link
-    }
 
     
 })
