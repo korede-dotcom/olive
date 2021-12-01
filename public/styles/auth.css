@@ -235,15 +235,14 @@ line-height: 156.5%;
     height: 252px;
     font-size: 18px;
     line-height: 36px;
-
-
-
+    text-align: center;
+    width: 100%;
 font-weight: 400;
 font-size: 16px;
 line-height: 36px;
 /* or 200% */
 
-text-align: center;
+
 
 color: #000000;
 }

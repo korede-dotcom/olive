@@ -390,19 +390,20 @@
     </section>
 
     <script>
-
         const getOneAudition = document.querySelectorAll('.getOneAudition')
-        getOneAudition.style.cursor = 'pointer'
-        console.log(getOneAudition)
-        getOneAudition.forEach(a => {
-            a.addEventListener('click', e => {
-                const id = e.target.parentElement.dataset.id
-                console.log(id)
-                window.location.href = `/provider/auditions/${id}`
+        if (getOneAudition) {
+
+            console.log(getOneAudition)
+            getOneAudition.forEach(a => {
+                a.style.cursor = 'pointer'
+                a.addEventListener('click', e => {
+                    const id = e.target.parentElement.dataset.id
+                    console.log(id)
+                    window.location.href = `/provider/auditions/${id}`
+                })
             })
-        })
 
-
+        }
     </script>
 
     <%- include("./partials/footer.ejs") %>

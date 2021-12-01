@@ -141,7 +141,7 @@
         const confirm = document.querySelector("#confirm_password");
         // const continueBtn = document.querySelector(".continue");
 
-
+        // ch
         formed.addEventListener("submit", (e) => {
             e.preventDefault();
 
@@ -150,6 +150,19 @@
                 return false;
 
             }
+            // check if the phone number is valid
+            if (input.value.length < 11) {
+                alert("invalid phone number");
+                return false;
+            }
+
+            // check if the email is valid
+            if (formed.email.value.indexOf("@") == -1) {
+                alert("invalid email");
+                return false;
+            }
+
+            // check if the password is valid
 
             submitBtn.innerHTML = "Registering...";
             submitBtn.disabled = true;
