@@ -1,6 +1,6 @@
 const express = require("express");
 const session = require("express-session");
-require('custom-env').env()
+require('custom-env').env(true)
 const MongoStore = require("connect-mongodb-session")(session);
 const bodyParser = require("body-parser") 
 const cors = require("cors");

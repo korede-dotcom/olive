@@ -47,14 +47,7 @@ const otp = fiveRandomNumbers().join("")
 
 
 // initialize nodemailer
-const nodemailer = require("nodemailer");
-const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    auth: {
-      user: 'badasulaimon@gmail.com',
-      pass: 'Sulaimon4896'
-    }
-  });
+
 
 
 
@@ -73,6 +66,7 @@ router.get("/",(req,res)=>{
 
 
 router.post("/",(req,res)=>{
+    const htmlText = fs.readFileSync(path.join(__dirname, '../views/email.html'), 'utf8')
     const {username,password,email,name} = req.body
     console.log(req.body)
 
@@ -113,7 +107,9 @@ router.post("/",(req,res)=>{
                           ],
                           "Subject": "Welcome to Olive",
                           "TextPart": `Hi ${name}\n,Welcome to Olive your OTP is ${otp} \n Thanks for Joining Olive\n Best regard \n Olive Team`,
-                        //   "HTMLPart": "<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!",
+                       
+                     
+                          "HTMLPart": `<`,
                         //   "CustomID": "AppGettingStartedTest"
                         }
                       ]

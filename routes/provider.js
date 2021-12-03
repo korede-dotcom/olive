@@ -361,11 +361,11 @@ provider.get("/dashboard",Auth, async (req,res)=>{
         ])
         freeAuditions = await Audition.find({provider:req.session.providerId,auditionPrice:0})
     //    find users who have paid for free auditions
-        freeAuditionUsers = await Payment.aggregate([
-            {$match:{provider:req.session.providerId,auditionPrice:0}},
-            {$group:{_id:"$user"}},
-            {$count:"user"}
-        ])
+        // freeAuditionUsers = await Payment.aggregate([
+        //     {$match:{provider:req.session.providerId,auditionPrice:0}},
+        //     {$group:{_id:"$user"}},
+        //     {$count:"user"}
+        // ])
         
         
     

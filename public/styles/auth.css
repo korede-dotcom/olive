@@ -75,14 +75,14 @@ input#phone,.input {
 }
 header{
     min-height: 64px;
-    background: #FFCA00;
+    background: #FFFFFF;
     display: flex;
     align-items: center;
     justify-content: space-between;
     position: sticky;
     width: 414px;
     top: 0;
-    z-index: 10000;
+    z-index: 1000;
 
 }
 .logo {
@@ -95,6 +95,7 @@ header{
     
 }
 
+
 .icon{
     display: flex;
     align-items: center;
@@ -105,7 +106,9 @@ header{
 }
 .icon img{
     height: 24px;
+   
 }
+
 .largeImg{
     /* display: flex; */
     /* min-height: 452px; */
@@ -362,7 +365,9 @@ form option{
 .unicode{
    
 }
-
+.user{
+    z-index: 99999;
+}
 
 /* end form */
 
