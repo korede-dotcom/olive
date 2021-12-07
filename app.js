@@ -1,6 +1,6 @@
+require("dotenv").config();
 const express = require("express");
 const session = require("express-session");
-require('custom-env').env(true)
 const MongoStore = require("connect-mongodb-session")(session);
 const bodyParser = require("body-parser") 
 const cors = require("cors");
@@ -9,6 +9,7 @@ const jwt = require("jsonwebtoken");
 const path = require("path")
 const router = require("./routes/router");
 const provider = require("./routes/provider");
+
 
 
 
