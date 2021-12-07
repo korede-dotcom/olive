@@ -7,10 +7,14 @@ const multer = require("multer")
 const jwt = require('jsonwebtoken');
 const globals = require('node-global-storage');
 const {Auth} = require("../middleware/middleware");
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcryptjs")
+
 var fs = require('fs');
 const audition = require("../models/audition")
-const upload = require("../utils/multer")
+const {
+    upload,
+    videoUpload
+} = require("../utils/multer");
 const cloudinary = require("../utils/cloudinary")
 const moment = require("moment")
 const Payment = require("../models/payment")
@@ -143,7 +147,11 @@ provider.post("/signup",upload.single("logo"),async (req,res)=>{
                                     console.log(err)
                                 }
                                 else{
-                            
+                                    // delete the file
+                                    fs.unlink(req.file.path, (err) => {
+                                        if (err) throw err;
+                                        console.log('successfully deleted /tmp/hello');
+                                    });
                                     res.status(200).json({"status":"true"});
                                    
                                 }

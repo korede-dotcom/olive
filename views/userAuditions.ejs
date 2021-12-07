@@ -90,8 +90,11 @@
                                         <% if (a.auditionPattern===0) { %>
                                             <form enctype="multipart/form-data">
                                                 <input type="file" name="upload" id="upload" hidden>
+
                                                 <label for="upload" style="cursor: pointer;">
-                                                    <a class="uploadbtn" style="float: right;">Upload</a>
+                                                    <a class="uploadbtn" style="float: right;"
+                                                        data-audition="<%=a._id%>"
+                                                        data-provider='<%=a.provider%> '="">Upload</a>
                                                 </label>
                                             </form>
 
@@ -164,21 +167,21 @@
         const month = setDate.slice(3, 5);
 
         const upload = document.querySelector("#upload");
-        const form = document.querySelector("#form");
+        const uploadform = document.querySelector("#form");
         const btn = document.querySelector(".btn");
         const uploadbtn = document.querySelector(".uploadbtn");
         // check if file is video then post to server
 
         // check if file is video
-        upload.addEventListener("change", (e) => {
-            const file = e.target.files[0];
-            const fileType = file.type;
-            if (fileType.match(/video.*/)) {
-                btn.style.display = "block";
-            } else {
-                btn.style.display = "none";
-            }
-        });
+        // upload.addEventListener("change", (e) => {
+        //     const file = e.target.files[0];
+        //     const fileType = file.type;
+        //     if (fileType.match(/video.*/)) {
+        //         btn.style.display = "block";
+        //     } else {
+        //         btn.style.display = "none";
+        //     }
+        // });
 
 
         // video duration check and post to server
@@ -195,26 +198,37 @@
                     const duration = video.duration;
                     if (duration > 60) {
                         alert("Video duration cannot be more than 60 seconds");
-                        form.reset();
+                        uploadform.reset();
                     } else {
-                        // auto add submit event to form
-                        form.addEventListener("submit", (e) => {
-                            e.preventDefault();
-                            const formData = new FormData(form);
-                            const xhr = new XMLHttpRequest();
-                            xhr.open("POST", "/uploadvideo");
-                            xhr.send(formData);
-                            xhr.onload = () => {
-                                const response = JSON.parse(xhr.responseText);
-                                if (response.status === "success") {
-                                    alert("Video uploaded successfully");
-                                    form.reset();
+
+                        // immediately post to server
+
+
+
+                        const formData = new FormData(uploadform);
+                        const audition = uploadbtn.getAttribute("data-audition");
+                        const provider = uploadbtn.getAttribute("data-provider");
+                        formData.append("user", '<%=user._id%>');
+                        formData.append("provider", provider);
+                        formData.append("audition", audition);
+                        uploadform.submit();
+                        //  post to server with fecth
+                        fetch("/uploadvideo", {
+                            method: "POST",
+                            body: formData
+                        })
+                            .then((res) => res.json())
+                            .then((data) => {
+                                console.log(data);
+                                if (data.success) {
+                                    alert("uploaded");
+                                    uploadform.reset();
                                     uploadbtn.style.display = "none";
                                 } else {
-                                    alert("Video upload failed");
+                                    alert("error");
                                 }
-                            }
-                        });
+                            });
+
                         // post formdata to server and display success message
 
 

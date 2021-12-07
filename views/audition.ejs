@@ -67,7 +67,7 @@
                                 <!-- ejs if -->
                                 <% if (audition.auditionPattern===0 ) { %>
                                     <div>
-                                        <input type="file" name="" id="upload" hidden>
+                                        <input type="file" name="video" id="upload" hidden>
                                         <label for="upload">
                                             <img height="50px" src="/assest/OLIVE/uploadGold.png" alt="" srcset="">
 
@@ -98,36 +98,126 @@
                         </div>
 
                 </div>
-                <div class="updateprofile">
+                <!-- <div class="updateprofile">
                     <h6 class="content_header">Update Your Profile</h6>
                     <p>Kindly update your profile </p>
-                </div>
-                <button class="btn">Update Your Profile</button>
+                </div> -->
+                <button class="btn" data-audition="<%=audition._id%>" data-provider="<%=audition.provider%>"
+                    data-user="<%=user._id%>">Update Your Profile</button>
                 </form>
             </section>
             <section class="last">
-                <div></div>
+                <div class="" style="background-color: #fff;">
+                    <div class="footer_social">
+                        <div>
+                            <p>&copy; 2021 GhenGhen Live</p>
+                        </div>
+                        <div class="social_icon">
+                            <img src="/assest/OLIVE/fb.png" />
+                            <img src="/assest/OLIVE/instagram.png" />
+                            <img src="/assest/OLIVE/twitter.png" />
+                        </div>
+                    </div>
+                </div>
             </section>
         </div>
-        <div id="forlivevideo"
+        <!-- <div id="forlivevideo"
             style="min-height: 730px; display: flex; flex-direction: column; transform: translateY(730px);transition: transform .5s ease .5s;  align-items: center; gap: 10px; padding: .55em; background-color: black;">
             <h4 class="content_header">Big Brother Naija 2022</h4>
             <iframe allowfullscreen height="730px" allow="camera; microphone;" width="100%" src="" frameborder="0"
                 name="restream">
             </iframe>
-        </div>
+        </div> -->
+
     </div>
     <script>
 
-        const recordBtn = document.getElementById("recordBtn");
-        const tr = document.querySelector(".transform");
-        const forlivevideo = document.querySelector("#forlivevideo");
-        recordBtn.addEventListener("click", (e) => {
-            tr.style.transform = 'translateY(-730px)'
-            forlivevideo.style.transform = 'translateY(-730px)'
-            document.querySelector("iframe").src = "https://studio.restream.io/guest/bDBaNllXa7srZaCHW01LjKxavz4ynEU"
-        })
-        $
+        // const recordBtn = document.getElementById("recordBtn");
+        // const tr = document.querySelector(".transform");
+        // const forlivevideo = document.querySelector("#forlivevideo");
+        // recordBtn.addEventListener("click", (e) => {
+        //     tr.style.transform = 'translateY(-730px)'
+        //     forlivevideo.style.transform = 'translateY(-730px)'
+        //     document.querySelector("iframe").src = "https://studio.restream.io/guest/bDBaNllXa7srZaCHW01LjKxavz4ynEU"
+        // })
+        const btn = document.querySelector(".btn");
+        const upload = document.querySelector("#upload");
+        upload.addEventListener("change", (e) => {
+            const file = e.target.files[0];
+            const fileType = file.type;
+            if (fileType.match(/video.*/)) {
+                const video = document.createElement("video");
+                video.src = URL.createObjectURL(file);
+                video.onloadedmetadata = () => {
+                    const duration = video.duration;
+                    if (duration > 60) {
+                        alert("Video duration cannot be more than 60 seconds");
+
+                    } else {
+                        btn.addEventListener("click", (e) => {
+                            // get attributes
+
+                            const formData = new FormData();
+                            formData.append("file", file);
+                            formData.append("audition", btn.getAttribute("data-audition"));
+                            formData.append("provider", btn.getAttribute("data-provider"));
+                            formData.append("user", btn.getAttribute("data-user"));
+                            // iterate over all form elements
+                            for (const [key, value] of formData.entries()) {
+                                console.log(key, value);
+                            }
+                            fetch("/uploadvideo", {
+                                method: "POST",
+                                body: formData
+                            }).then(res => {
+                                if (res.status === 200) {
+                                    alert("Video uploaded successfully");
+                                    // window.location.href = "/dashboard";
+                                } else {
+                                    alert("Video upload failed");
+                                }
+                            })
+                        })
+
+                        // immediately post to server
+
+
+
+                        // const formData = new FormData(uploadform);
+                        // const audition = uploadbtn.getAttribute("data-audition");
+                        // const provider = uploadbtn.getAttribute("data-provider");
+                        // formData.append("user", '<%=user._id%>');
+                        // formData.append("provider", provider);
+                        // formData.append("audition", audition);
+
+                        // //  post to server with fecth
+                        // fetch("/uploadvideo", {
+                        //     method: "POST",
+                        //     body: formData
+                        // })
+                        //     .then((res) => res.json())
+                        //     .then((data) => {
+                        //         console.log(data);
+                        //         if (data.success) {
+                        //             alert("uploaded");
+                        //             uploadform.reset();
+                        //             uploadbtn.style.display = "none";
+                        //         } else {
+                        //             alert("error");
+                        //         }
+                        //     });
+
+                        // post formdata to server and display success message
+
+
+
+                    }
+                };
+            } else {
+                alert("Please upload a video file");
+                // form.reset();
+            }
+        });
 
         // window.addEventListener("DOMContentLoaded", (e) => {
 

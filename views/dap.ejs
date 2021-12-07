@@ -43,6 +43,55 @@
         <!--  -->
     </section>
     <section class="content">
+        <h4 class="content_header">Auditions Available</h4>
+        <div class="boxs">
+            <% if (auditions) { %>
+
+                <% auditions.forEach(element=> { %>
+
+                    <div class="bo" style="position: relative; cursor: pointer;">
+
+                        <img width="147px" height="147px"
+                            style="border: 2px solid #FFCA00;border-radius: 10px;max-width: 147px; max-height: 147px;"
+                            src=<%=element.auditionLogo %>>
+
+                        <h6 class="content_header audition" data-id="<%=element._id %>"
+                            data-provider="<%=element.provider %>">
+                            <%= element.auditionName %>
+                        </h6>
+                        <% if(element.auditionPrice> 0){ %>
+                            <p class="content_header audition" hidden>
+                                &#x20A6; <span>
+                                    <%= element.auditionPrice %>
+                                </span>
+                            </p>
+                            <div class="detect" style="position: relative; bottom: 67px; right: -56px;">
+                                <img src="/assest/OLIVE/Rectangle 43.png" alt="" srcset="">
+                                <small style="position: absolute;right: 60px;top: 2px; color: #DF465E
+                                ;font-size: smaller;">Paid</small>
+                            </div>
+
+                            <!-- <button type="button" onClick="makePayment()">Pay Now</button> -->
+                            <% } else { %>
+                                <p class="content_header audition" hidden>
+                                    <span>
+                                        <%= element.auditionPrice - element.auditionPrice %>
+                                    </span>
+                                </p>
+                                <div class="detect" style="position: relative; bottom: 67px; right: -56px;">
+                                    <img src="/assest/OLIVE/Rectangle 43.png" alt="" srcset="">
+                                    <small
+                                        style="position: absolute;right: 60px;top: 2px;color: #DF465E;font-size: smaller;">Free</small>
+                                </div>
+                                <% } %>
+                    </div>
+
+
+                    <% }) %>
+                        <% } %>
+        </div>
+    </section>
+    <section class="content">
 
         <h4 class="content_header">Auditions Available</h4>
 

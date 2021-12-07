@@ -9,10 +9,18 @@ const {Authenticated , LinkAuthenticated} = require("../middleware/middleware");
 const uuidv4 = require("uuid").v4;
 const Participants = require("../models/auditionParticipants")
 const cloudinary = require("../utils/cloudinary")
-const upload = require("../utils/multer")
-const bcrypt = require("bcryptjs")
+// axios form data
+// const upload = require("../utils/multer")
+const bcrypt = require("bcryptjs");
+const {
+    upload,
+    videoUpload
+} = require("../utils/multer");
 const mailjet = require ('node-mailjet')
 .connect(process.env.c1, process.env.c2)
+const fs = require("fs")
+const path = require("path")
+const Video = require("../models/videos")
 
 
 
@@ -66,7 +74,7 @@ router.get("/",(req,res)=>{
 
 
 router.post("/",(req,res)=>{
-    const htmlText = fs.readFileSync(path.join(__dirname, '../views/email.html'), 'utf8')
+  
     const {username,password,email,name} = req.body
     console.log(req.body)
 
@@ -109,7 +117,7 @@ router.post("/",(req,res)=>{
                           "TextPart": `Hi ${name}\n,Welcome to Olive your OTP is ${otp} \n Thanks for Joining Olive\n Best regard \n Olive Team`,
                        
                      
-                          "HTMLPart": `<`,
+                          "HTMLPart": ``,
                         //   "CustomID": "AppGettingStartedTest"
                         }
                       ]
@@ -263,6 +271,9 @@ router.post("/profile/:id",Authenticated,upload.single('logo'),async(req,res)=>{
             const user = await User.findByIdAndUpdate(id,{username,password,email},{new:true})
             if(user){
                 res.status(200).json({"status":"success"})
+                // unlink the file
+                fs.unlinkSync(req.file.path)
+
             }
         } catch (error) {
             res.send({"error":"Error in updating profile"})
@@ -302,7 +313,7 @@ router.get("/auditions",Authenticated,(req,res)=>{
                           const latest =  auditions.sort((a,b)=>{
                                 return new Date(b.created_at) - new Date(a.created_at)
                             })
-                                res.render("userAuditions",{auditions:latest})
+                                res.render("userAuditions",{auditions:latest,user:req.session.user})
                                 
                         }else{
                             res.send({"error":"No auditions"})
@@ -706,6 +717,134 @@ router.get("/auditionlink/payment",LinkAuthenticated,(req,res)=>{
 })
 
     // res.send({"status":req.body})
+
+    // upload a video with multer
+    // upload video
+
+router.post("/uploadvideo",Authenticated,videoUpload.single('video'),async(req,res)=>{
+    const {user,audition,videoUrl,provider} = req.body;
+    console.log(req.body)
+})
+    // save url from cloudinary to the database
+    // try{
+    // const url = await cloudinary.uploader.upload(req.file.path) 
+    // console.log(url)
+    // // create new video
+    // Video.create({
+    //     user,
+    //     provider,
+    //     videoUrl:url.url,
+        
+    //     auditionId:audition
+    // },(err,video)=>{
+    //     if(err){
+    //         console.log(err)
+    //     }else{
+    //         if(video){
+    //             res.send({"status":"success"})
+    //         }else{
+    //             res.send({"status":"failed"})
+    //         }
+    //     }
+    // })
+    // }catch(err){
+    //     console.log(err.message)
+    // }
+
+  
+    // remove string from user and audition and replace with object id
+    // const userId = user.replace(/\"/g,"");
+    // const auditionId = audition.replace(/\"/g,"");
+    // const providerId = provider.replace(/\"/g,"");
+
+
+    // check if file 
+    // if(req.file){
+    //     const file = req.file;
+    //     // 
+    // if(req.file.mimetype.split("/")[0] === "video"){
+    //     // upload video to cloudinary
+    //     cloudinary.uploader.upload(file.path,(result)=>{
+    //         if(result){
+    //             // find user and audition and provider
+    //             // create video
+    //             Video.create({
+                    
+    //                 url:result.url,
+                    
+    //             },(err,video)=>{ 
+    //                 if(err){
+    //                     console.log(err)
+    //                 }else{
+    //                     if(video){
+    //                         res.send({"status":"success"})
+    //                         //  delete file from server
+    //                         fs.unlink(file.path,(err)=>{
+    //                             if(err){
+    //                                 console.log(err)
+    //                             }
+    //                         })
+    //                     }else{
+    //                         res.send({"status":"fail"})
+    //                     }
+    //                 }
+    //             })
+    //         }
+    //     })
+    // }else{
+    //     res.send({"status":"fail"})
+    // }
+    // }else{
+    //     res.send({"status":"fail"})
+    // }
+// })
+    // const fileName = `${uuidv4()}.mp4`;
+    // const filePath = `${__dirname}/../../public/uploads/${req.file.filename}`;
+    // const fileStream = fs.createWriteStream(filePath);
+    // fileStream.on('error',(err)=>{
+    //     console.log(err)
+    // })
+    // fileStream.on('finish',()=>{
+    //     // upload to cloudinary
+    //     cloudinary.uploader.upload(filePath,(result)=>{
+    //         if(result){
+    //             // delete file
+    //             fs.unlink(filePath,(err)=>{
+    //                 if(err){
+    //                     console.log(err)
+    //                 }else{
+    //                     // create video
+    //                     Video.create({
+    //                         user,
+    //                         video:result.url,
+    //                         provider,
+    //                         audition
+    //                     },(err,video)=>{
+    //                         if(err){
+    //                             console.log(err)
+    //                         }else{
+    //                             if(video){
+    //                                 res.send({"message":"Video uploaded"})
+    //                             }else{
+    //                                 res.send({"error":"Video not uploaded"})
+    //                             }
+    //                         }
+    //                     })
+    //                 }
+    //             })
+    //         }else{
+    //             res.send({"error":"Video not uploaded"})
+    //         }
+    //     })
+    // })
+    // fileStream.end(file.buffer)
+    // }else{
+    //     res.send({"error":"Invalid file type"})
+    // }
+    // }else{
+    //     res.send({"error":"No file"})
+    // }
+
 
 
 
