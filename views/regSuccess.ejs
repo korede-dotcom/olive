@@ -1,0 +1,106 @@
+<%- include ("./partials/header.ejs") %>
+
+    <section class="largeImg">
+        <div class="swiper">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+                <!-- Slides -->
+                <div class="swiper-slide">
+                    <img src="/assest/OLIVE/woman.png" />
+                </div>
+                <div class="swiper-slide">
+                    <img style="height: 452px; width: 414px;object-fit: cover;" src="/assest/OLIVE/guy.png" />
+                </div>
+            </div>
+            <!-- If we need pagination -->
+            <div class="swiper-pagination"></div>
+
+            <!-- If we need navigation buttons -->
+
+            <div class="swiper-button-prev">
+                <img class="carousel-l" src="/assest/OLIVE/Group 2.png" />
+            </div>
+            <div class="swiper-button-next">
+                <img class="carousel" src="/assest/OLIVE/Group 2.png" />
+            </div>
+
+            <!-- If we need scrollbar -->
+            <div class="swiper-scrollbar"></div>
+
+            <!-- 
+            <img src="/assest/OLIVE/guy.png" />
+            <img src="/assest/OLIVE/woman.png" />  -->
+        </div>
+        <!--  -->
+    </section>
+    <section class="content link_register">
+        <br>
+        <br>
+        <br>
+        <div class="CONGRATULATION">
+            <img width="50px" height="50px" src="/assest/OLIVE/confirm.png" alt="" srcset="">
+            <h4>CONGRATULATION</h4>
+            <P>Your Registration for <span style="color: green;">
+                    <%= audition.auditionName %> audition
+                </span> is successful. Welcome to GhenGhen, a platform where individuals showcase their talent.
+            </P>
+            <button class="btn" data-user="<%= user %>" data-audition="<%=audition._id%>">
+                GO TO AUDITION
+            </button>
+
+            <h5>
+                <script></script>
+                <a href="/dashboard">GO TO DASHBOARD</a>
+            </h5>
+
+        </div>
+
+
+    </section>
+    <br>
+    <br>
+    <br>
+    <section>
+
+        <div class="" style="background-color: #fff;">
+            <div class="footer_social">
+                <div>
+                    <p>&copy; 2021 GhenGhen</p>
+                </div>
+                <div class="social_icon">
+                    <img src="/assest/OLIVE/fb.png" />
+                    <img src="/assest/OLIVE/instagram.png" />
+                    <img src="/assest/OLIVE/twitter.png" />
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 
+    <form>
+       
+        <button type="button">Pay Now</button>
+    </form> -->
+
+    <script>
+        const btn = document.querySelector('.btn');
+        btn.addEventListener('click', () => {
+            window.location.href = `/auditions/${btn.dataset.audition}`;
+        });
+
+        fetch("/free", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user: btn.dataset.user,
+                audition: btn.dataset.audition
+            })
+
+        })
+
+        // free Audition 
+
+
+    </script>
+    <%- include ("./partials/footer.ejs") %>

@@ -43,53 +43,32 @@
         <!--  -->
     </section>
     <section class="content">
-        <h4 class="content_header">Auditions Available</h4>
-        <div class="boxs">
-            <% if (auditions) { %>
+        <h4 class="content_header"">My Auditions</h4>
+        <div class=" boxs" id="">
+            <% if (audition===[]) { %>
+                <p>you have not join any audition</p>
+                <% } %>
+                    <% if (audition) { %>
 
-                <% auditions.forEach(element=> { %>
+                        <% audition.forEach(element=> { %>
 
-                    <div class="bo" style="position: relative; cursor: pointer;">
+                            <div class="bo " id="myaudition" style="position: relative; cursor: pointer;">
 
-                        <img width="147px" height="147px"
-                            style="border: 2px solid #FFCA00;border-radius: 10px;max-width: 147px; max-height: 147px;"
-                            src=<%=element.auditionLogo %>>
+                                <img width="147px" height="147px"
+                                    style="background-color: transparent; border: 3px solid #FFCA00;border-radius: 12px;max-width: 148px; max-height: 148px;"
+                                    src=<%=element.auditionLogo %>>
 
-                        <h6 class="content_header audition" data-id="<%=element._id %>"
-                            data-provider="<%=element.provider %>">
-                            <%= element.auditionName %>
-                        </h6>
-                        <% if(element.auditionPrice> 0){ %>
-                            <p class="content_header audition" hidden>
-                                &#x20A6; <span>
-                                    <%= element.auditionPrice %>
-                                </span>
-                            </p>
-                            <div class="detect" style="position: relative; bottom: 67px; right: -56px;">
-                                <img src="/assest/OLIVE/Rectangle 43.png" alt="" srcset="">
-                                <small style="position: absolute;right: 60px;top: 2px; color: #DF465E
-                                ;font-size: smaller;">Paid</small>
+                                <h6 class="content_header audition " data-id="<%=element._id %>"
+                                    data-provider="<%=element.provider %>">
+                                    <%= element.auditionName %>
+                                </h6>
+
                             </div>
 
-                            <!-- <button type="button" onClick="makePayment()">Pay Now</button> -->
-                            <% } else { %>
-                                <p class="content_header audition" hidden>
-                                    <span>
-                                        <%= element.auditionPrice - element.auditionPrice %>
-                                    </span>
-                                </p>
-                                <div class="detect" style="position: relative; bottom: 67px; right: -56px;">
-                                    <img src="/assest/OLIVE/Rectangle 43.png" alt="" srcset="">
-                                    <small
-                                        style="position: absolute;right: 60px;top: 2px;color: #DF465E;font-size: smaller;">Free</small>
-                                </div>
+
+                            <% }) %>
                                 <% } %>
-                    </div>
-
-
-                    <% }) %>
-                        <% } %>
-        </div>
+                                    </div>
     </section>
     <section class="content">
 
@@ -100,19 +79,19 @@
 
                 <% auditions.forEach(element=> { %>
 
-                    <div class="bo" style="position: relative; cursor: pointer;">
+                    <div class="bo all" id="all" style="position: relative; cursor: pointer;">
 
                         <img width="147px" height="147px"
-                            style="border: 2px solid #FFCA00;border-radius: 10px;max-width: 147px; max-height: 147px;"
+                            style="border: 3px solid #FFCA00;border-radius: 12px;box-sizing: border-box; max-width: 147px; max-height: 148px;min-width: 148px; min-height: 147px;"
                             src=<%=element.auditionLogo %>>
 
-                        <h6 class="content_header audition" data-id="<%=element._id %>"
-                            data-provider="<%=element.provider %>">
+                        <h6 class="content_header audition availableAudition" data-id="<%=element._id %>"
+                            data-provider="<%=element.provider %>" data-price="<%=element.auditionPrice%>">
                             <%= element.auditionName %>
                         </h6>
                         <% if(element.auditionPrice> 0){ %>
                             <p class="content_header audition" hidden>
-                                &#x20A6; <span>
+                                &#x20A6; <span class="price">
                                     <%= element.auditionPrice %>
                                 </span>
                             </p>
@@ -150,7 +129,7 @@
     <div class="">
         <div class="footer_social">
             <div>
-                <p>&copy; 2021 GhenGhen Live</p>
+                <p>&copy; 2021 GhenGhen </p>
             </div>
             <div class="social_icon">
                 <img src="/assest/OLIVE/fb.png" />
@@ -159,10 +138,10 @@
             </div>
         </div>
     </div>
-    <script src="https://checkout.flutterwave.com/v3.js"></script>
+    <script src="https://checkout.flutterwave.com/v3.js" id="flutter"></script>
     <script>
         const user_id = "<%= user._id %>"
-        const auditions = document.querySelectorAll(".bo");
+        const auditions = document.querySelectorAll("#all");
         auditions.forEach(element => {
             element.addEventListener("click", (e) => {
                 const parent = e.target.parentElement;
@@ -170,7 +149,10 @@
                 const id = parent.querySelector('.audition').getAttribute("data-id");
                 const provider = parent.querySelector('.audition').getAttribute("data-provider");
                 const logo = parent.querySelector('img').getAttribute("src");
-                const price = parent.querySelector('span').innerHTML;
+                const price = parent.querySelector('.audition').getAttribute("data-price");
+
+
+
 
 
                 fetch("/check", {
@@ -222,8 +204,7 @@
                                             .then(data => {
                                                 console.log(data);
                                                 if (data.status) {
-                                                    window.location.assign(`
-                                                        /paidaudition?audition=${id}&provider=${provider}&user=${user_id}&txref=${datas.tx_ref}`
+                                                    window.location.assign(`/payment/success`
                                                     );
                                                 } else {
                                                     window.location.assign("/digitalauditionplatform")
@@ -259,7 +240,7 @@
                                     console.log(data);
                                     if (data.status) {
                                         window.location.assign(`
-                                        /digitalauditionplatform/${data.status}`
+                                        /auditions/${data.status}`
                                         );
                                     } else {
                                         window.location.assign("/digitalauditionplatform")
@@ -275,8 +256,30 @@
             });
         });
 
+        const myaudition = document.querySelectorAll("#myaudition");
+        if (myaudition) {
+            myaudition.forEach(element => {
+                // element.addEventListener("click", (e) => {
+                const parent = element.parentElement;
+                console.log(parent)
+                const id = element.querySelector('.audition').getAttribute("data-id");
+                console.log(id)
+                const availableAudition = document.querySelectorAll(".availableAudition");
+                element.addEventListener("click", (e) => {
+                    // remove script from the page
 
+                    window.location.assign(`/auditions/${id}`)
+                })
+                availableAudition.forEach(element => {
+                    if (element.getAttribute("data-id") === id) {
+                        element.parentElement.style.display = "none";
+                    }
+                })
 
+                // });
+            })
+
+        }
         // const API_publicKey = "<ADD YOUR PUBLIC KEY HERE>";
 
         // function payWithRave() {

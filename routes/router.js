@@ -21,6 +21,7 @@ const mailjet = require ('node-mailjet')
 const fs = require("fs")
 const path = require("path")
 const Video = require("../models/videos")
+const DateSelection = require("../models/dateSelection")
 
 
 
@@ -63,7 +64,7 @@ const otp = fiveRandomNumbers().join("")
 
 
 router.get("/",(req,res)=>{
-    res.render("auth")
+    res.render("login")
 })
 
 
@@ -105,7 +106,7 @@ router.post("/",(req,res)=>{
                         {
                           "From": {
                             "Email": "koredebada@gmail.com",
-                            "Name": "Olive Team"
+                            "Name": "Ghenghen Team"
                           },
                           "To": [
                             {
@@ -113,8 +114,8 @@ router.post("/",(req,res)=>{
                               "Name": name
                             }
                           ],
-                          "Subject": "Welcome to Olive",
-                          "TextPart": `Hi ${name}\n,Welcome to Olive your OTP is ${otp} \n Thanks for Joining Olive\n Best regard \n Olive Team`,
+                          "Subject": "Welcome to Ghenghen",
+                          "TextPart": `Hi ${name}\n,Welcome to Ghenghen your OTP is ${otp} \n Thanks for Joining Olive\n Best regard \n Ghenghen Team`,
                        
                      
                           "HTMLPart": ``,
@@ -132,7 +133,7 @@ router.post("/",(req,res)=>{
 
                          const config = {
                         method: 'get',
-                        url: `https://1960sms.com/api/send/?user=${process.env.textMsgUser}&pass=${process.env.textMsgPass}&to=${username}&from=hello&msg=your Olive registration OTP:${otp}`,
+                        url: `https://1960sms.com/api/send/?user=${process.env.textMsgUser}&pass=${process.env.textMsgPass}&to=${username}&from=hello&msg= ${name}your Ghenghen registration OTP:${otp}`,
                         headers: { }
                     };
                     
@@ -185,8 +186,8 @@ router.post("/otp",(req,res)=>{
 
 // login
 
-router.get("/login",(req,res)=>{
-    res.render("login")
+router.get("/signup",(req,res)=>{
+    res.render("auth")
 })
 router.post("/login",(req,res)=>{
     const {username,password} = req.body
@@ -216,19 +217,80 @@ router.post("/login",(req,res)=>{
 })
 
 
-router.get("/dashboard",Authenticated,(req,res)=>{
-    
+router.get("/dashboard",Authenticated,(req,res)=>{ 
     res.render("dashboard")
 })
-router.get("/digitalauditionplatform",Authenticated,(req,res)=>{
-    // find decending order
-    Audition.find({}).sort({created_at:-1}).exec((err,auditions)=>{
-        if(err){
-            console.log(err)
+
+
+
+router.get("/digitalauditionplatform",Authenticated,async(req,res)=>{
+    try{
+        const payments = await Payment.find({user:req.session.user._id})
+        console.log(payments)
+        const user = await User.findById(req.session.user._id)
+        if(payments.length>0){
+            Audition.find({_id:{$in:payments.map(payment=>payment.auditionId)}},(err,audition)=>{
+                if(err){
+                    res.send({"error":"Error in finding audition"})
+                }else{
+                    Audition.find({}).sort({created_at:-1}).exec((err,auditions)=>{
+                        if(err){
+                            res.send({"error":"Error in finding audition"})
+                        }else{
+                            res.render("dap",{auditions,audition,user})
+                        }
+                    })
+                    // res.render("dap",{audition})
+                }
+            })
+                    
         }else{
-            res.render("dap",{auditions,user:req.session.user})
+            Audition.find({}).sort({created_at:-1}).exec((err,auditions)=>{
+                if(err){
+                    res.send({"error":"Error in finding auditions"})
+                }else{
+                    res.render("dap",{auditions,user,audition:[]})
+                }
+            })
+          
         }
-    })
+
+
+    }catch(error){
+        console.log(error)
+    }
+    // find decending order
+    // fina
+    // Audition.find({}).sort({created_at:-1}).exec((err,auditions)=>{
+    //     if(err){
+    //         console.log(err)
+    //     }else{
+    //         // payment by user
+    //         Payment.find({userId:req.session.user._id}).sort({created_at:-1}).exec((err,payments)=>{
+    //             if(err){
+    //                 console.log(err)
+    //             }else{
+                    
+    //                 if(payments.length>0){
+    //                     // find audition by payments.auditionId
+    //                     // find payments.auditionId in audition
+
+    //                     Audition.find({_id:{$in:payments.map(payment=>payment.auditionId)}},(err,audition)=>{
+    //                         if(err){
+    //                             console.log(err)
+    //                         }else{
+    //                             res.render("dap",{auditions,audition,user:req.session.user})
+    //                         }
+    //                     })
+                       
+    //                 }else{
+
+    //                     res.render("dap",{auditions,audition:[],user:req.session.user})
+    //                 }
+    //             }
+    //         })
+    //     }
+    // })
 
     
 })
@@ -293,42 +355,110 @@ router.post("/profile/:id",Authenticated,upload.single('logo'),async(req,res)=>{
 })
 
 
-router.get("/auditions",Authenticated,(req,res)=>{
+router.get("/auditions/:id",Authenticated,(req,res)=>{
     // find user in Payment collection    
+    let video = ""
+    let dateSelection;
     Payment.find({user:req.session.user._id},(err,payments)=>{
         if(err){
             console.log(err)
         }else{
             if(payments){
-                // find audition from payments by auditionId in
-
-
-                Audition.find({_id:{$in:payments.map(payment=>payment.auditionId)}},(err,auditions)=>{
-                    
+                            // find audition from payments by auditionId in
+                Audition.findById(req.params.id,(err,auditions)=>{
                     if(err){
                         console.log(err)
                     }else{
-                        if(auditions){
-                            // sort by date
-                          const latest =  auditions.sort((a,b)=>{
-                                return new Date(b.created_at) - new Date(a.created_at)
-                            })
-                                res.render("userAuditions",{auditions:latest,user:req.session.user})
-                                
+                        if(auditions.auditionPattern === 0){
+                            Video.findOne({audition:req.params.id},(err,video)=>{
+                                if(err){
+                                    console.log(err)
+                                }else{
+                                    if(video){
+                                        console.log(video)
+                                        res.render("userAuditions",{video:video,auditions,payments,user:req.session.user})
+                                    }else{
+                                        res.render("userAuditions",{video:false,auditions,payments,user:req.session.user})
+                                    }
+                                }
+                            })   
                         }else{
-                            res.send({"error":"No auditions"})
+                            DateSelection.findOne({audition:req.params.id},(err,dateSelection)=>{
+                                if(err){
+                                    console.log(err)
+                                }else{
+                                    if(dateSelection){
+                                        console.log(dateSelection)
+                                        res.render("userAuditions",{video,dateSelection:dateSelection,auditions,payments,user:req.session.user})
+                                    }else{
+                                        res.render("userAuditions",{video,dateSelection:false,auditions,payments,user:req.session.user})
+                                        // Video.findOne({audition:req.params.id},(err,video)=>{
+                                        //     if(err){
+                                        //         console.log(err)
+                                        //     }else{
+                                        //         if(video){
+                                        //             console.log(video)
+                                        //             res.render("userAuditions",{video,auditions,payments,user:req.session.user})
+                                        //         }else{
+                                        //             res.render("userAuditions",{auditions,payments,user:req.session.user})
+                                        //         }
+                                        //     }
+                                        // })
+                                        // res.render("userAudition",{auditions,payments,user:req.session.user})
+                                    }
+                                }
+                            })
                         }
+
+                                // res.render("audition",{auditions,payments,dateSelection})
+                        
                     }
                 })
-               
             }else{
-                res.render("userAuditions",{payments:[]})
+                res.redirect("/digitalauditionplatform")
             }
+                              
         }
     })
+})
+    //         if(payments){
+    //             // find audition from payments by auditionId in
+    //             Audition.findById(req.params.id,(err,audition)=>{
+    //                 if(err){
+    //                     console.log(err)
+    //                     }else{
+    //                         if(audition){
+    //                             res.render("userAudition",{audition})
+    //                             }else{
+    //                                 res.send({"error":"Audition not found"})
+    //                                 }
+    //             ))
+
+
+    //             // Audition.find({_id:{$in:payments.map(payment=>payment.auditionId)}},(err,auditions)=>{
+                    
+    //             //     if(err){
+    //             //         console.log(err)
+    //             //     }else{
+    //             //         if(auditions){
+    //             //             // sort by date
+    //             //           const latest =  auditions.sort((a,b)=>{
+    //             //                 return new Date(b.created_at) - new Date(a.created_at)
+    //             //             })
+    //             //                 res.render("userAuditions",{auditions:latest,user:req.session.user})
+                                
+    //             //         }else{
+    //             //             res.send({"error":"No auditions"})
+    //             //         }
+    //             //     }
+    //             // })
+               
+    // } 
+    //     }
+//     })
    
     
-})
+// })
 
 router.post("/digitalauditionplatform",Authenticated,(req,res)=>{
     const {auditionId,user} = req.body
@@ -536,6 +666,31 @@ router.post("/paid",Authenticated,async (req,res)=>{
 
 })
 
+router.get("/payment/success",Authenticated,(req,res)=>{
+    Payment.findOne({user:req.session.user._id},(err,payment)=>{
+        if(err){
+            console.log(err)
+        }else{
+            if(payment){
+                Audition.findById(payment.auditionId,(err,audition)=>{
+                    if(err){
+                        console.log(err)
+                    }else{
+                        if(audition){
+                            res.render("success",{audition,user:req.session.user})
+                        }else{
+                            res.redirect("/digitalauditionplatform")
+                        }
+                    }
+                })
+                
+            }else{
+                res.redirect("/digitalauditionplatform")
+            }
+        }
+    })
+})
+
 // site count
 
 // sucessful payment
@@ -590,7 +745,22 @@ router.get("/auditionlink/",(req,res)=>{
 })
 
 
-
+router.get("/auditionlink/success/",LinkAuthenticated,(req,res)=>{
+    const auditionId = req.query.auditionId;
+    const user = req.session.user._id;
+    console.log(auditionId)
+    Audition.findById(auditionId,(err,audition)=>{
+        if(err){
+            return res.render("error")
+        }else{
+            if(audition){
+                res.render("regSuccess",{audition,user})
+            }else{
+                res.send({"error":"No audition links"})
+            }
+        }
+    })
+})
 
 
 router.post("/auditionlink",(req,res)=>{
@@ -621,18 +791,51 @@ router.post("/auditionlink",(req,res)=>{
                             req.session.LinkAuthenticated = true;
                             req.session.user = user;
                             req.session.userIsLoggedIn = true;
-                            transporter.sendMail({
-                                from: "koredebada@gmail.com",
-                                to: email,
-                                subject: "Welcome to Olive",
-                                text: `Hi ${name},\n\nWelcome to Olive.\n\nYour Registration was successful.\n\nThank you for choosing Olive.\n\nRegards,\nOlive Team`
+                            const request = mailjet
+                            .post("send", {'version': 'v3.1'})
+                            .request({
+                              "Messages":[
+                                {
+                                  "From": {
+                                    "Email": "koredebada@gmail.com",
+                                    "Name": "Ghenghen Team"
+                                  },
+                                  "To": [
+                                    {
+                                      "Email": email,
+                                      "Name": name
+                                    }
+                                  ],
+                                  "Subject": "Welcome to Ghenghen",
+                                  "TextPart": `Hi ${name}\n,Welcome to Ghenghen your OTP is ${otp} \n Thanks for Joining Olive\n Best regard \n Ghenghen Team`,
+                               
+                             
+                                  "HTMLPart": ``,
+                                //   "CustomID": "AppGettingStartedTest"
+                                }
+                              ]
                             })
-                            .then(()=>{
-                                console.log("email sent")
+                            request
+                              .then((result) => {
+                                console.log(result.body)
+                              })
+                              .catch((err) => {
+                                console.log(err.statusCode)
+                              })
+        
+                                 const config = {
+                                method: 'get',
+                                url: `https://1960sms.com/api/send/?user=${process.env.textMsgUser}&pass=${process.env.textMsgPass}&to=${username}&from=hello&msg= ${name}your Ghenghen registration OTP:${otp}`,
+                                headers: { }
+                            };
+                            
+                            axios(config)
+                            .then(function (response) {
+                                console.log(JSON.stringify(response.data));
                             })
-                            .catch(err=>{
-                                console.log(err)
-                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
                             //aync find audition
                             Audition.findById(auditionId,(err,audition)=>{
                                 if(err){
@@ -685,7 +888,7 @@ router.post("/auditionlink",(req,res)=>{
 
 router.get("/auditionlink/payment",LinkAuthenticated,(req,res)=>{
     const {auditionId,user} = req.query;
-    console.log(auditionId,user)
+    // console.log(auditionId,user)
     Audition.findById(auditionId,(err,audition)=>{
         if(err){
             console.log(err)
@@ -700,7 +903,7 @@ router.get("/auditionlink/payment",LinkAuthenticated,(req,res)=>{
                             if(audition.auditionCharges > 0){
                                 res.render("payment",{audition,user})
                             }else{
-                                res.redirect("/digitalauditionplatform/auditionId")
+                                res.redirect(`/auditionlink/success/?auditionId=${auditionId}`)
                             }
                         }else{
                             res.send({"error":"No user"})
@@ -723,8 +926,97 @@ router.get("/auditionlink/payment",LinkAuthenticated,(req,res)=>{
 
 router.post("/uploadvideo",Authenticated,videoUpload.single('video'),async(req,res)=>{
     const {user,audition,videoUrl,provider} = req.body;
-    console.log(req.body)
+    // upload video to cloudinary with try catch
+    console.log(req.file)
+    try{
+        const result = await cloudinary.uploader.upload(req.file.path,{resource_type:"video",overwrite:true,folder:"videos"})
+        // create video
+        console.log(result)
+        Video.create({
+            user,
+            provider,
+            url:result.url,
+            audition
+        },(err,video)=>{
+            if(err){
+                console.log(err)
+            }else{
+                if(video){
+                    res.send({"status":"success"})
+                    fs.unlink(req.file.path,(err)=>{
+                        if(err){
+                            console.log(err)
+                        }else{
+                            console.log("file deleted")
+                        }
+                    })
+                }else{
+                    res.send({"status":"error"})
+                }
+                // delete video from server
+               
+            }
+        })
+    }catch(err){
+        console.log(err)
+    }
 })
+
+router.post("/dateselection",(req,res)=>{
+    const {date,user,audition,provider} = req.body;
+    console.log(req.body)
+    // aggregrate dateSelection limit to 100
+    DateSelection.aggregate([
+        {
+            $match:{
+                date,
+            }
+        },
+        {
+            $group:{
+                _id:{
+                    user:"$user",
+                    provider:"$provider",
+                    audition:"$audition"
+                },
+                count:{
+                    $sum:1
+                }
+            }
+        }
+    ],(err,result)=>{
+        if(err){
+            console.log(err)
+        }else{
+            if(result.length === 1){
+                res.send({"status":"limit"})
+            }else{
+                DateSelection.create({
+                    user,
+                    provider,
+                    audition,
+                    date,
+                    selected:"true"
+                },(err,dateSelection)=>{
+                    if(err){
+                        console.log(err)
+                    }else{
+                        if(dateSelection){
+                            console.log(dateSelection)
+                            res.send({"status":"success"})
+                        }else{
+                            res.send({"status":"error"})
+                        }
+                    }
+                })
+            }
+        }
+    })
+})
+
+   
+    // res.send({"status":"success"})
+
     // save url from cloudinary to the database
     // try{
     // const url = await cloudinary.uploader.upload(req.file.path) 

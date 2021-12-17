@@ -39,20 +39,29 @@
             <h4>CONGRATULATION</h4>
             <P>Your Payment is successful.
             </P>
-            <button class="btn">
-                <a href="/">Back to Home</a>
+            <button class="btn" data-id="<%= audition._id %>">
+                GO TO AUDITION
             </button>
             <h5>
-                <script src="https://checkout.flutterwave.com/v3.js"></script>
-                <a href="/dashbaord">GO TO DASHBOARD</a>
+                <!-- <script src="https://checkout.flutterwave.com/v3.js"></script> -->
+                <a href="/dashboard">GO TO DASHBOARD</a>
             </h5>
         </div>
 
 
     </section>
-    <section class="last">
-        <div></div>
-    </section>
+    <div class="" style="background-color: #fff;">
+        <div class="footer_social">
+            <div>
+                <p>&copy; 2020 GhenGhen Live</p>
+            </div>
+            <div class="social_icon">
+                <img src="/assest/OLIVE/fb.png" />
+                <img src="/assest/OLIVE/instagram.png" />
+                <img src="/assest/OLIVE/twitter.png" />
+            </div>
+        </div>
+    </div>
     <!-- 
     <form>
        
@@ -60,60 +69,11 @@
     </form> -->
 
     <script>
+        const btn = document.querySelector('.btn');
+        btn.addEventListener('click', () => {
+            window.location.href = `/auditions/${btn.dataset.id}`;
+        });
 
-        // function makePayment() {
-        //     FlutterwaveCheckout({
-        //         public_key: "FLWPUBK_TEST-ee16b8429467881fb5912f6e31e72a52-X",
-        //         tx_ref: `<%=audition._id%>${Date.now()}`,
-        //         amount: "<%=audition.auditionPrice %>",
-        //         currency: "NGN",
-        //         country: "NG",
-        //         payment_options: " ",
 
-        //         meta: {
-        //             consumer_id: '<%= user._id %>',
-        //             consumer_mac: "92a3-912ba-1192a",
-        //         },
-        //         customer: {
-        //             email: '<%= user.email %>',
-        //             phone_number: "<%= user.username%>",
-        //             name: "<%= user.username %>",
-        //         },
-        //         callback: function (data) {
-        //             console.log(data);
-        //             fetch("/paid", {
-        //                 method: "POST",
-        //                 headers: {
-        //                     "Content-Type": "application/json",
-        //                 },
-        //                 body: JSON.stringify({
-        //                     data: data,
-        //                     user: '<%=user._id%>',
-        //                     audition: '<%=audition._id%>',
-
-        //                 })
-        //             }).then(res => res.json())
-        //                 .then(data => {
-        //                     console.log(data);
-        //                     if (data.status.success) {
-        //                         window.location.assign(`
-        //                                                 /paidaudition?audition=<%=audition._id%>&provider=<%=audition.provider%>&user=<%=user._id%>&txref=${data.status.success}`
-        //                         );
-        //                     } else {
-        //                         window.location.assign("/")
-        //                     }
-        //                 })
-        //         },
-        //         onclose: function () {
-        //             // close modal
-
-        //         },
-        //         customizations: {
-        //             title: "<%=audition.auditionName %>",
-        //             description: "Olive Tution for <%=audition.auditionName %>",
-        //             logo: "<%=audition.auditionLogo %>",
-        //         },
-        //     });
-        // }
     </script>
     <%- include ("./partials/footer.ejs") %>

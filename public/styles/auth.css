@@ -12,11 +12,14 @@
 }
 a{
     text-decoration: none;
+    color: goldenrod;
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+  background: transparent;
+  
 }
 
 /* Firefox */
@@ -40,6 +43,11 @@ body{
 
 }
 
+/* style input[datetime-local]*/
+input[type=datetime-local]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    display: none;
+}
 
 .container{
     width: 414px !important;
@@ -50,12 +58,13 @@ body{
     position: relative;
     display: flex;
     flex-direction: column;
-    background-color:#F9F9F9 ;
+    background-color:#000000 ;
    
 
 }
 .numberform{
     max-width: 414px;
+    color: #ddd;
 }
 .iti__flag{
     
@@ -152,7 +161,7 @@ header{
 
 
 .content{
-    background: #FFF;
+    background: rgb(0, 0, 0);
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -169,7 +178,7 @@ text-transform: uppercase;
 /* identical to box height, or 38px */
 padding: 1em;
 text-align: center;
-color: #801315;
+color: #ddd;
 }
 .register_link {
     display: flex;
@@ -177,9 +186,10 @@ color: #801315;
     font-weight: 400;
     padding:0 .3em;
     box-sizing: border-box;
-    background-color: #FFF;
+    background-color: rgb(0, 0, 0);
     margin: 0 auto;
     font-size: 14px;
+    color: #ddd;
    
     
 }
@@ -189,7 +199,7 @@ color: #801315;
     margin: 20px 0;
 }
 .link_register{
-    background-color: #FFF;
+    background-color: rgb(2, 2, 2);
 }
 .register_link > div{
     display: flex;
@@ -210,6 +220,7 @@ color: #801315;
     padding: 0;
     margin: 0;
     width: 100%;
+    color: #ddd;
 }
 .CONGRATULATION{
 
@@ -217,8 +228,9 @@ color: #801315;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 40vh;
+    height: auto;
     gap: 1.5em;
+    color: #ddd;
 
 }
 .CONGRATULATION p{
@@ -231,27 +243,27 @@ line-height: 156.5%;
     font-weight: 400;
 }
 .CONGRATULATION a{
-    color: #801315;
+    color: goldenrod;
     
 }
 .content_text{
-    height: 252px;
-    font-size: 18px;
-    line-height: 36px;
-    text-align: center;
-    width: 100%;
-font-weight: 400;
+    
+font-size: 18px;
+text-align: center;
+font-weight: 600;
 font-size: 16px;
-line-height: 36px;
-/* or 200% */
+text-align: left;
+white-space: calc(100% + 1em);
 
 
-
-color: #000000;
+letter-spacing: 2px;
+color: rgba(218, 165, 32, 0.838);
 }
+
 .content_text strong{
     font-weight: bolder !important;
     font-family: Arial, Helvetica, sans-serif;
+    color: #ddd;
 }
 .youtube {
     position: relative;
@@ -277,14 +289,14 @@ color: #000000;
    
 }
 .join a{
-    color: #801315;
+    color: goldenrod;
 }
 .join > h4{
     padding-bottom: 10px;
 }
 .btn,.pbtn{
     text-transform: uppercase;
-    background: #801315;
+    background: goldenrod;
     width: 366px;
     border-radius: 5px;
     padding: 15px;
@@ -422,7 +434,7 @@ text-align: center;
     content: "";
     height: 18px;
     width: 414px;
-background-color: #801315;
+background-color: goldenrod;
 
 }
 
@@ -445,7 +457,7 @@ background-color: #801315;
 .box{
     width: 150px;
 height: 110px;
-background: #801315;
+background: rgb(24, 23, 23);
 border: 6px solid #FAB42B;
 box-sizing: border-box;
 border-radius: 10px;
@@ -473,14 +485,15 @@ border-radius: 10px;
 .last{
  
 
-    background-color: #801315;
+    background-color: goldenrod;
     height: 4px;
     width: 100%;
     padding: 4px;
 
 }
 .profile-img{
-    background-color: #FFF;
+    background-color: #000;
+    color: #ddd;
 }
 .img-round h5{
     font-family: Lato;
@@ -495,7 +508,7 @@ border-radius: 10px;
     font-weight: 400;
     font-size: 16px;
     line-height: 156.5%;
-    background-color: #fff;
+    background-color: #000000;
 
 }
 .user-details form{
@@ -507,11 +520,13 @@ border-radius: 10px;
     
 }
 .user-details form input{
-    border: 1px solid rgba(0, 0, 0, 0.4);
+    border: 1px solid goldenrod;
     box-sizing: border-box;
     border-radius: 5px;
     padding: 1em;
     outline: none;
+    background-color: #000;
+    color: #ddd;
 }
 .user-details form div{
     display: flex;
@@ -519,23 +534,48 @@ border-radius: 10px;
     justify-content: space-between;
 
 }
+#dateandtime{
+background-color: #000;
+color: #ddd;
+border: 1px solid goldenrod;
+outline: none;
+padding: 4px;
+}
+/* input[type="date"] */
+#checkA{
+    border: goldenrod;
+    background: #000;
+    color: goldenrod;
+
+}
+#time{
+    background-color: #000;
+    color: #ddd;
+    border: 1px solid goldenrod;
+    outline: none;
+    width: 100px;
+    
+}
 .auditionBox
 .abox{
 width: 369px;
-height: 220px;
-background: #F9F9F9;
+margin: o auto;
+height: auto;
+background: #0c0c0c;
 box-shadow: 0px 4px 26px rgba(0, 0, 0, 0.15);
-border-radius: 10px;
+border-radius: 5px;
 display: flex;
 padding: 1em;
 flex-direction: column;
-justify-content: space-between;
-gap: 20px;
+color: #ddd;
+border: 1px solid goldenrod;
+
+gap: 30px;
 
 
 }
 .abox a{
-    color: #801315;
+    color: goldenrod;
     text-align: end;
 }
 .auditiontext{
@@ -549,7 +589,7 @@ gap: 20px;
     display: flex;
     align-items: center;
     gap: 15px;
-    font-weight: 200;
+    font-weight: 300;
 }
 .abox_content  p {
     font-weight: 400;
@@ -571,8 +611,8 @@ gap: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color:  #801315;
-    color: #fff;
+    background-color:  #fff;
+    color: #000;
     padding: 5px;
     font-weight: 300;
 }

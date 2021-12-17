@@ -17,7 +17,7 @@ const path = require('path');
 
 const videoStorage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, './public/uploads/videos');
+        cb(null, './public/uploads');
         console.log(file);
     },
     filename: (req, file, cb) => {
@@ -58,10 +58,10 @@ const imageStorage = multer.diskStorage({
 const upload = multer({
     storage: imageStorage,
     limits: {
-      fileSize: 1000000 // 1000000 Bytes = 1 MB
+      fileSize: 2000000 // 1000000 Bytes = 1 MB
     },
     fileFilter(req, file, cb) {
-      if (!file.originalname.match(/\.(png|jpg)$/)) { 
+      if (!file.originalname.match(/\.(png|jpg|jpeg)$/)) { 
          // upload only png and jpg format
          return cb(new Error('Please upload a Image'))
        }

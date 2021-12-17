@@ -97,38 +97,38 @@
                 seeking talent discovery, training, incubation, content production, publicity audience engagement and
                 market nexus to monetize digital contents in music, movies, fashion, and creative expressions.
             </p>
-            <div class="youtube">
+            <!-- <div class="youtube">
                 <img src="/assest/OLIVE/ladyYoutube.png" alt="" srcset="">
                 <img class="youtubelogo" src="/assest/OLIVE/fontisto_youtube-play.png">
-            </div>
+            </div> -->
 
             <b class="content_header register_link_header">JOIN GhenGhen Live FOR FREE </b>
             <form class="register_link">
                 <div class="number">
-                    <label for="number">Please enter your phone number</label>
+                    <!-- <label for="number">Please enter your phone number</label> -->
                     <!-- <input type="number" name="username" required> -->
                     <input id="phone" name="username" type="tel">
 
                     <img src="/assest/OLIVE/Line 2.png" alt="">
                 </div>
                 <div class="number">
-                    <label for="email">Enter your email address </label>
-                    <input type="email" name="email" required>
+                    <!-- <label for="email">Enter your email address </label> -->
+                    <input type="email" name="email" required placeholder="Enter your email address">
                     <img src="/assest/OLIVE/Line 2.png" alt="">
                 </div>
                 <div class="number">
-                    <label for="name">Enter your full name</label>
-                    <input type="text" name="name">
+                    <!-- <label for="name">Enter your full name</label> -->
+                    <input type="text" name="name" placeholder="Enter your full name">
                     <img src="/assest/OLIVE/Line 2.png" alt="" required>
                 </div>
                 <div class="number">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" required name="password">
+                    <!-- <label for="password">Password</label> -->
+                    <input type="password" id="password" required name="password" placeholder="Password">
                     <img src="/assest/OLIVE/Line 2.png" alt="">
                 </div>
                 <div class="number">
-                    <label for="confirm_password">Confirm password</label>
-                    <input type="password" name="" id="confirm_password" required>
+                    <!-- <label for="confirm_password">Confirm password</label> -->
+                    <input type="password" name="" id="confirm_password" required placeholder="Confirm password">
                     <img src="/assest/OLIVE/Line 2.png" alt="">
                 </div>
                 <!-- <div class="number">
@@ -167,7 +167,7 @@
             </div>
 
             <h6 class="resend">
-                <a href="/login" style="color: #801315;">Already a Member Login</a>
+                <a href="/" style="color: goldenrod;">Already a Member Login</a>
             </h6>
 
             <footer>
@@ -187,7 +187,22 @@
             </footer>
 
 
+
+
         </section>
+
+        <div class="" style="background-color: #fff;">
+            <div class="footer_social">
+                <div>
+                    <p>&copy; 2021 GhenGhen Live</p>
+                </div>
+                <div class="social_icon">
+                    <img src="/assest/OLIVE/fb.png" />
+                    <img src="/assest/OLIVE/instagram.png" />
+                    <img src="/assest/OLIVE/twitter.png" />
+                </div>
+            </div>
+        </div>
 
 
 
@@ -313,7 +328,7 @@
                 }).then(res => res.json())
                     .then(data => {
                         if (data.status === "success") {
-                            window.location.href = "/login";
+                            window.location.href = "/";
                         }
                         else {
                             alert(data.error)

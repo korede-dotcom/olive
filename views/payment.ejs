@@ -34,21 +34,22 @@
         <!--  -->
     </section>
     <section class="content link_register">
-        <br>
-        <br>
-        <br>
-        <div class="CONGRATULATION">
+
+        <div class="CONGRATULATION" style="height: auto;">
+            <br>
+            <br>
+            <br>
             <img width="50px" height="50px" src="/assest/OLIVE/confirm.png" alt="" srcset="">
             <h4>CONGRATULATION</h4>
             <P>Your Registration for <span style="color: green; text-transform: uppercase;">
                     <%= audition.auditionName %>
-                </span style="color: green;"> audition is successful. Welcome to GhenGhen Live, a platform where
+                </span style="color: green;"> audition is successful. Welcome to GhenGhen, a platform where
                 individuals showcase their talent.
             </P>
             <div class="await"></div>
 
             <button class="btn" onClick="makePayment()">PROCEED TO MAKE PAYMENT</button>
-            <a href="/dashbaord">GO TO DASHBOARD </a>
+            <a href="/dashboard">GO TO DASHBOARD </a>
             <br>
             <br>
             <h5>
@@ -62,18 +63,17 @@
     </section>
 
 
-    <div class="">
-        <div class="footer_social">
-            <div>
-                <p>&copy; 2021 GhenGhen Live</p>
-            </div>
-            <div class="social_icon">
-                <img src="/assest/OLIVE/fb.png" />
-                <img src="/assest/OLIVE/instagram.png" />
-                <img src="/assest/OLIVE/twitter.png" />
-            </div>
+    <div class="footer_social">
+        <div>
+            <p>&copy; 2021 GhenGhen Live</p>
+        </div>
+        <div class="social_icon">
+            <img src="/assest/OLIVE/fb.png" />
+            <img src="/assest/OLIVE/instagram.png" />
+            <img src="/assest/OLIVE/twitter.png" />
         </div>
     </div>
+
     <!-- 
     <form>
        
@@ -130,8 +130,8 @@
                                 document.querySelector("iframe").remove();
                                 const a = document.createElement('a');
                                 const h5 = document.querySelector('h5');
-                                a.innerHTML = " | GO TO AUDITION";
-                                a.href = `/paidaudition?audition=<%=audition._id%>&provider=<%=audition.provider%>&user=<%=user._id%>&txref=${data.status.success}`
+                                a.innerHTML = " GO TO AUDITION";
+                                a.href = `/auditions/<%=audition._id%>`
                                 h5.appendChild(a);
                                 awat.appendChild(h5);
 

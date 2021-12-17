@@ -21,6 +21,7 @@ const Payment = require("../models/payment")
 const User = require("../models/user")
 const mailjet = require ('node-mailjet')
 .connect(process.env.c1, process.env.c2)
+const Video = require("../models/videos")
 
 
 
@@ -68,13 +69,13 @@ provider.post("/",(req,res)=>{
                         res.status(200).json({"status":"true"});
                     }
                     else{
-                        res.render({"error":"Invalid username or password"})
+                        res.send({"error":"Invalid username or password"})
                     }
                 })
             }
         })   
     } catch (error) {
-        res.render({"error":"Invalid username or password"})
+        res.send({"error":"Invalid username or password"})
     }
     
 })
@@ -167,6 +168,8 @@ provider.post("/signup",upload.single("logo"),async (req,res)=>{
         res.redirect("/signup")   
     }
 })
+
+
 
 
 // GET PROFILE
@@ -427,6 +430,69 @@ provider.get("/dashboard",Auth, async (req,res)=>{
 })
 
 
+// video
+provider.get("/videos",Auth,async (req,res)=>{
+//    get audition pattern 0
+    const auditions = await Audition.find({provider:req.session.providerId,auditionPattern:0})
+    // get provider
+    
+    const provider = await Provider.findById(req.session.providerId)
+// aggregate videos on audition
+    const videos = await Video.aggregate([
+        {$match:{provider:req.session.providerId}},
+        {$group:{_id:"$auditionName",videos:{$push:"$$ROOT"}}},
+        {$project:{_id:0,auditionName:"$_id",videos:1,_id:0}},
+        {$sort:{auditionName:1}}
+    ])
+    console.log('videos',videos)
+    // console.log(videos)
+    // const videos = await Video.find({provider:req.session.providerId})
+    res.render("provider/auditionVideos",{auditions,provider})
+
+})
+
+provider.get("/auditions/videos/:id",(req,res)=>{
+    const provider = Provider.findOne({_id:req.session.providerId},(err,provider)=>{
+        if(err){
+            console.log(err)
+            }else{
+               if(provider){
+                   Video.find({audition:req.params.id},(err,videos)=>{
+                          if(err){
+                                console.log(err)
+                            }else{
+                                console.log(videos)
+                                // aggregate user from video
+                                const users = videos.map(video=>{
+                                    return video.user
+                                })
+                                console.log(users)
+                                User.find({_id:{$in:users}},(err,users)=>{
+                                    if(err){
+                                        console.log(err)
+                                    }else{
+                                        // console.log(users)
+                                        Audition.findById(req.params.id,(err,audition)=>{
+                                            if(err){
+                                                console.log(err)
+                                            }else{
+                                                res.render("provider/videos",{videos,users,audition,provider})
+                                            }
+                                        })
+                                        // res.render("provider/videos",{videos,users,provider})
+                                    }
+                                })
+                    
+               }
+              })
+
+                }
+            }
+        })
+
+})
+
+
 
 // END GET DASHBOARD
 
@@ -445,6 +511,8 @@ provider.get("/auditions",Auth,(req,res)=>{
 
 
 })
+
+
 provider.get("/auditions/:id",Auth,(req,res)=>{
     // find on provider
     Provider.findOne({_id:req.session.providerId},(err,provider)=>{
@@ -514,6 +582,14 @@ provider.get("/auditions/delete/:id",Auth,(req,res)=>{
             console.log(err)
         }else{
             if(auditions){
+                // delete images from cloudinary
+                cloudinary.v2.uploader.destroy(auditions.auditionImage,(err,result)=>{
+                    if(err){
+                        console.log(err)
+                    }else{
+                        console.log(result)
+                    }
+                })
                 res.redirect("/provider/auditions")
             }
             
