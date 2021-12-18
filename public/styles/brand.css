@@ -5,7 +5,7 @@
     padding: 0;
     box-sizing: border-box;
     -ms-overflow-style: none;
-
+    
     
 }
 a{
@@ -133,6 +133,7 @@ small{
     padding: 20px;
     gap: 12px;
     height: 60%;
+    color: #fff;
 }
 .content_header{
 /* font-weight:900  !important; */

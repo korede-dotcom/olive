@@ -126,38 +126,34 @@
                                             </p>
                                             <div class="timeLeft">
                                             </div>
+                                            <a class="readyforaudition" target="_blank"
+                                                href="https://studio.restream.io/guest/bDBaNllXa7srZaCHW01LjKxavz4ynEU">Go
+                                                to
+                                                Audition</a>
                                             <%}%>
                                                 <% } %>
                                                     <!-- <input type="time" name="" id="time" list="appointmentdateslist"> -->
                                                     <!-- select time -->
 
-                                                    <% if (dateSelection) { %>
-                                                        <a class="readyforaudition" target="_blank"
-                                                            href="https://studio.restream.io/guest/bDBaNllXa7srZaCHW01LjKxavz4ynEU">Go
-                                                            to
-                                                            Audition</a>
+
+                                                    <% if (video) { %>
+                                                        <p>Your video has been uploaded</p>
                                                         <% } %>
-                                                            <% if (video) { %>
-                                                                <p>Your video has been uploaded</p>
-                                                                <% } %>
-                                                                    <% if (video===false ) { %>
-                                                                        <form enctype="multipart/form-data">
-                                                                            <input type="file" name="upload" id="upload"
-                                                                                hidden>
+                                                            <% if (video===false ) { %>
+                                                                <form enctype="multipart/form-data">
+                                                                    <input type="file" name="upload" id="upload" hidden>
 
-                                                                            <label for="upload"
-                                                                                style="cursor: pointer;">
-                                                                                <a class="uploadbtn"
-                                                                                    style="float: right;"
-                                                                                    data-audition="<%=auditions._id%>"
-                                                                                    data-provider='<%=auditions.provider%>'
-                                                                                    data-user="<%=user._id%>">Upload</a>
-                                                                            </label>
-                                                                        </form>
+                                                                    <label for="upload" style="cursor: pointer;">
+                                                                        <a class="uploadbtn" style="float: right;"
+                                                                            data-audition="<%=auditions._id%>"
+                                                                            data-provider='<%=auditions.provider%>'
+                                                                            data-user="<%=user._id%>">Upload</a>
+                                                                    </label>
+                                                                </form>
 
-                                                                        <% } else {%>
+                                                                <% } else {%>
 
-                                                                            <% } %>
+                                                                    <% } %>
 
                         </div>
                         <br>
@@ -201,10 +197,11 @@
         </div> -->
     </section>
 
+
     <div class="" style="background-color: #fff;">
         <div class="footer_social">
             <div>
-                <p>&copy; 2021 GhenGhen Live</p>
+                <p><span style="color: #ddd;">&copy; 2021</span> GhenGhen </p>
             </div>
             <div class="social_icon">
                 <img src="/assest/OLIVE/fb.png" />
@@ -230,22 +227,6 @@
         const uploadform = document.querySelector("#form");
         const btn = document.querySelector(".btn");
         const uploadbtn = document.querySelector(".uploadbtn");
-        // check if file is video then post to server
-
-        // check if file is video
-        // upload.addEventListener("change", (e) => {
-        //     const file = e.target.files[0];
-        //     const fileType = file.type;
-        //     if (fileType.match(/video.*/)) {
-        //         btn.style.display = "block";
-        //     } else {
-        //         btn.style.display = "none";
-        //     }
-        // });
-
-
-        // video duration check and post to server
-
 
         // video duration check
         if (upload) {
@@ -307,68 +288,6 @@
                 }
             });
         }
-        // let timeLeftDisplay = document.querySelector(".timeLeft");
-        // let dbDate = document.querySelector(".dbDate");
-
-
-
-
-
-
-
-
-        // display time
-        // timeLeftDisplay.innerHTML = `${days} days ${hours} hours ${minutes} minutes ${seconds} seconds`;
-
-
-        // // parse time left and count down
-        // const timeLeft = ParseInt(timeLeftDisplay.innerHTML);
-        // const timeLeftArray = timeLeft.split(":");
-        // const hours = timeLeftArray[0];
-        // const minutes = timeLeftArray[1];
-        // const seconds = timeLeftArray[2];
-        // const totalSeconds = hours * 3600 + minutes * 60 + seconds;
-        // let timeLeft = totalSeconds;
-        // let interval = setInterval(() => {
-        //     timeLeft--;
-        //     const hours = Math.floor(timeLeft / 3600);
-        //     const minutes = Math.floor((timeLeft % 3600) / 60);
-        //     const seconds = timeLeft % 60;
-        //     timeLeftDisplay.innerHTML = `${hours}:${minutes}:${seconds}`;
-        //     if (timeLeft === 0) {
-        //         clearInterval(interval);
-        //         timeLeftDisplay.innerHTML = "00:00:00";
-        //     }
-        // }, 1000);
-
-        // const currentDateTime = new Date().getTime();
-        // const countDown = setInterval(() => {
-        //                         // check if time left is less than 0
-        //                         if (timeLeft >= currentDateTime) {
-        //                             // clear interval
-        //                             clearInterval(countDown);
-        //                             // display time left
-        //                             timeLeftDisplay.innerHTML = "Time is up";
-
-        //                         } else {
-        //                             // convert time left to Date object
-        //                             let dateTimeNumber = new Date(dateTime).getTime();
-        //                             let timeLeft = parseInt(dateTimeNumber) - parseInt(currentDateTime);
-        //                             let timeLeftDate = new Date(timeLeft);
-        //                             // get hours, minutes and seconds
-        //                             let days = timeLeftDate.getDate() - 1;
-        //                             let hours = timeLeftDate.getHours();
-        //                             let minutes = timeLeftDate.getMinutes();
-        //                             let seconds = timeLeftDate.getSeconds();
-
-        //                             // display time left
-        //                             timeLeftDisplay.innerHTML = `${days} : ${hours} : ${minutes} : ${seconds} `;
-        //                             // reduce time left by 1 second
-        //                             timeLeft -= 1000;
-        //                         }
-        //                     }, 1000);
-        // }
-
         const dateSelection = document.querySelector("#dateSelection");
         if (dateSelection) {
             dateSelection.addEventListener("submit", (e) => {
@@ -408,118 +327,11 @@
 
                             }
                         })
-                    // console.log(selectedDateAndTime.getDate());
-                    // console.log(selectedDateAndTime.getTime().toLocaleString());
-                    // let dateTimeLeft = new Date(dateTime).toLocaleString();
-                    // // turn date and time to number and calculate time left
-                    // let dateTimeNumber = new Date(dateTime).getTime();
-                    // let currentDateTime = new Date().getTime();
-                    // let timeLeft = parseInt(dateTimeNumber) - parseInt(currentDateTime);
-                    // // convert time left to Date object
-                    // let timeLeftDate = new Date(timeLeft);
-                    // // get hours, minutes and seconds
-                    // let hours = timeLeftDate.getHours();
-                    // let minutes = timeLeftDate.getMinutes();
-                    // let seconds = timeLeftDate.getSeconds();
 
-                    // let days = timeLeftDate.getDate() - 1;
-                    // // const formData = new FormData();
-                    // // formData.append("date", dateTime);
-                    // // formData.append("user", "<%=user._id%>");
-                    // // formData.append("provider", "<%=auditions.provider%>");
-                    // // formData.append("audition", "<%=auditions._id%>");
-                    // // // get all form data
-                    // let payload = {
-                    //     date: dateTime,
-                    //     user: "<%=user._id%>",
-                    //     provider: "<%=auditions.provider%>",
-                    //     audition: "<%=auditions._id%>"
-                    // }
-                    // console.log(payload);
-
-
-
-                    // post to server
-                    // fetch("/dateselection", {
-                    //     method: "POST",
-                    //     headers: {
-                    //         "Content-Type": "application/json"
-                    //     },
-                    //     body: JSON.stringify(payload),
-                    // })
-                    //     .then((res) => res.json())
-                    //     .then((data) => {
-                    //         console.log(data);
-                    //         if (data.status) {
-                    //             alert("Date set");
-                    //             dateSelection.reset();
-                    // const countDown = setInterval(() => {
-                    //     // check if time left is less than 0
-                    //     if (timeLeft >= currentDateTime) {
-                    //         // clear interval
-                    //         clearInterval(countDown);
-                    //         // display time left
-                    //         timeLeftDisplay.innerHTML = "Time is up";
-
-                    //     } else {
-                    //         // convert time left to Date object
-                    //         let timeLeftDate = new Date(timeLeft);
-                    //         // get hours, minutes and seconds
-                    //         let hours = timeLeftDate.getHours();
-                    //         let minutes = timeLeftDate.getMinutes();
-                    //         let seconds = timeLeftDate.getSeconds();
-
-                    //         // display time left
-                    //         dateSelection.innerHTML = `${days} : ${hours} : ${minutes} : ${seconds} `;
-                    //         // reduce time left by 1 second
-                    //         timeLeft -= 1000;
-                    //     }
-                    // }, 1000);
-
-                    //             // document.querySelector(".date").innerHTML = dateTimeLeft;
-                    //             // document.querySelector(".time").innerHTML = `${hours}:${minutes}:${seconds}`;
-                    //             // document.querySelector(".days").innerHTML = `${days} days`;
-                    //         } else {
-                    //             alert("error");
-                    //         }
-                    //     });
 
                     // display time left
                     let timeLeftDisplay = document.querySelector(".timeLeft");
-                    // count down timer
 
-                    // timeLeftDisplay.innerHTML = `d${days} ${hours}h ${minutes}m ${seconds}s`;
-                    // const timeLeftTime = new Date(timeLeft).toISOString().substr(11, 8);
-                    // console.log(timeLeftTime);
-                    // const timeLeftInMinutes = timeLeft / 60000;
-                    // const timeLeftInHours = timeLeftInMinutes / 60;
-                    // const timeLeftInDays = timeLeftInHours / 24;
-                    // const timeLeftInWeeks = timeLeftInDays / 7;
-                    // const timeLeftInMonths = timeLeftInWeeks / 4;
-                    // const timeLeftInYears = timeLeftInMonths / 12;
-                    // console.log(timeLeftInYears, timeLeftInMonths, timeLeftInWeeks, timeLeftInDays, timeLeftInHours, timeLeftInMinutes,);
-
-                    // const dateTimeNow = new Date().toLocaleString();
-                    // const timeLeft = new Date(dateTimeLeft).getTime() - new Date(dateTimeNow).getTime();
-                    // // const timeLeftInMinutes = timeLeft / 60000;
-                    // console.log(timeLeft);
-                    // // console.log(timeLeftInMinutes);
-                    // console.log(dateTimeLeft);
-                    // post to server
-                    // fetch("/dateSelection", {
-                    //     method: "POST",
-                    //     body: formData
-                    // })
-                    //     .then((res) => res.json())
-                    //     .then((data) => {
-                    //         console.log(data);
-                    //         if (data.success) {
-                    //             alert("Date and time selected");
-                    //             dateSelection.reset();
-                    //         } else {
-                    //             alert("error");
-                    //         }
-                    //     });
                 } else {
                     err.innerHTML = "Please select a date and time";
                     // alert("Please select date and time");
@@ -579,29 +391,6 @@
             }, 1000);
 
         }
-        // select a date option from datetime-local
-
-        // const getDate = document.querySelector("#dateandtime")
-        // getDate.addEventListener("change", (e) => {
-        //     const date = e.target.value;
-        //     const day = date.slice(0, 2);
-        //     const month = date.slice(3, 5);
-        //     const year = date.slice(6, 10);
-        //     const hour = date.slice(11, 13);
-        //     const min = date.slice(14, 16);
-        //     const sec = date.slice(17, 19);
-        //     const dateTime = year + "-" + month + "-" + day + " " + hour + ":" + min + ":" + sec;
-        //     console.log(dateTime);
-
-        // })
-        // const forDate = document.querySelector("#forDate");
-
-
-        // set options
-
-
-
-
 
 
     </script>
