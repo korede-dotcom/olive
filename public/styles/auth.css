@@ -11,6 +11,9 @@
     
     
 }
+* input{
+    font-size: 16px;
+}
 a{
     text-decoration: none;
     color: goldenrod;
@@ -85,7 +88,7 @@ input#phone,.input {
 }
 header{
     min-height: 64px;
-    background: #000;
+    background: rgb(16, 16, 16);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -118,12 +121,26 @@ header{
     height: 24px;
    
 }
+.styledform{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+}
+.styledform input{
+    width: 400px;
+}
+.styledform img{
+    height: 16px;
+    
+}
 
 .largeImg{
     /* display: flex; */
     /* min-height: 452px; */
     /* background-image: url("/assest/OLIVE/woman.png"); */
     position: relative;
+    object-fit: cover;
     
 }
 
@@ -167,7 +184,7 @@ header{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    padding: 20px;
+    padding:0px 20px;
     gap: 20px;
 }
 .content_header{
@@ -197,7 +214,7 @@ color: #ddd;
 .register_link_header{
     font-weight: 900;
     font-size: 24px;
-    margin: 20px 0;
+    margin: -10px 0;
 }
 .link_register{
     background-color: rgb(2, 2, 2);
@@ -220,7 +237,7 @@ color: #ddd;
    
     padding: 0;
     margin: 0;
-    width: 100%;
+    width: 300px;
     color: #ddd;
 }
 .CONGRATULATION{
@@ -247,6 +264,9 @@ line-height: 156.5%;
     color: goldenrod;
     
 }
+.jointext{
+    margin-bottom: -10px;
+}
 .content_text{
     
 font-size: 18px;
@@ -258,13 +278,13 @@ white-space: calc(100% + 1em);
 
 
 letter-spacing: 2px;
-color: goldenrod;
+color: #ddd;
 }
 
 .content_text strong{
     font-weight: bolder !important;
     font-family: Arial, Helvetica, sans-serif;
-    color: #ddd;
+    color: goldenrod;
 }
 .youtube {
     position: relative;
@@ -414,6 +434,7 @@ footer{
     justify-content: space-around;
     align-items: center;
     gap: 10px;
+    color: #ddd;
 }
 .otp input{
     width: 50px;
@@ -421,7 +442,7 @@ height: 50px;
 left: 29px;
 top: 1317px;
 
-border: 1px solid #333232;
+border: 1px solid goldenrod;
 box-sizing: border-box;
 border-radius: 5px;
 font-size: 30px;
@@ -556,7 +577,9 @@ color: #ddd;
 border: 1px solid goldenrod;
 outline: none;
 padding: 4px;
+width: 160px;
 }
+
 /* input[type="date"] */
 #checkA{
     border: goldenrod;
@@ -579,12 +602,13 @@ margin: o auto;
 height: auto;
 background: #0c0c0c;
 box-shadow: 0px 4px 26px rgba(0, 0, 0, 0.15);
-border-radius: 5px;
+border-radius:10px;
 display: flex;
 padding: 1em;
 flex-direction: column;
 color: #ddd;
-border: 1px solid goldenrod;
+border: 1.5px solid goldenrod;
+
 
 gap: 30px;
 
@@ -627,14 +651,52 @@ gap: 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color:  #000;
+    background-color:  rgb(16, 16, 16);
     color: goldenrod;
     padding: 5px;
     font-weight: 300;
+    margin-top: 20px;
 }
+
 .social_icon{
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 10px;
+}
+.fade,.hide{
+    display: none;
+   animation: fade 1s;
+}
+@keyframes fade{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+#dateandtime{
+    text-align: center;
+    
+}
+::-webkit-calendar-picker-indicator {
+    background:rgb(2, 2, 2) url('/assest/OLIVE/date.png')  97% 50% no-repeat !important ;
+}
+#dateSelection div:nth-of-type(2){
+    display: flex;
+    gap: 6px;
+    align-items: center;
+   
+}
+.active {
+    display: block;
+    opacity: 1;
+    transition: opacity .25s ease;
+}
+.err{
+    color: goldenrod;
+    font-size: 12px;
+    width: 100%;
+    margin: 0 auto;
 }

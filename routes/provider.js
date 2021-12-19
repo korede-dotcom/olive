@@ -581,19 +581,9 @@ provider.get("/auditions/delete/:id",Auth,(req,res)=>{
         if(err){
             console.log(err)
         }else{
-            if(auditions){
-                // delete images from cloudinary
-                cloudinary.v2.uploader.destroy(auditions.auditionImage,(err,result)=>{
-                    if(err){
-                        console.log(err)
-                    }else{
-                        console.log(result)
-                    }
-                })
+            
                 res.redirect("/provider/auditions")
             }
-            
-        }
     })
 
 })

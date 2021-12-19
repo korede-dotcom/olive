@@ -91,6 +91,7 @@
             <b style="margin-top: 10px;" class="content_header register_link_header">SIGN IN TO <span
                     style="color: goldenrod;">GhenGhen</span> </b>
             <form style="margin-bottom: 20px;" class="register_link" id="form">
+                <div class="err" style="color:goldenrod;text-align: center;"></div>
                 <div class="number">
                     <!-- <label for="number">Please enter your phone number</label> -->
                     <!-- <input type="number" name="username" required> -->
@@ -174,7 +175,8 @@
 
 
         </section>
-        <div class="" style="background-color: #fff;">
+        <div class="" style="background-color: #000;">
+
             <div class="footer_social">
                 <div>
                     <p><span style="color: #ddd;">&copy; 2021</span> GhenGhen </p>
@@ -185,6 +187,7 @@
                     <img src="/assest/OLIVE/twitter.png" />
                 </div>
             </div>
+            <div class="bt"></div>
         </div>
 
 
@@ -232,6 +235,7 @@
 
         const form = document.querySelector("#form");
         const btn = document.querySelector(".btn");
+        const err = document.querySelector(".err")
 
         form.addEventListener("submit", (e) => {
             e.preventDefault()
@@ -254,7 +258,7 @@
                     } else {
                         btn.disabled = false;
                         btn.innerHTML = "SIGN IN";
-                        alert("Wrong username or password")
+                        err.innerHTML = "Wrong username or password";
 
                     }
 

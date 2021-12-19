@@ -376,9 +376,9 @@ router.get("/auditions/:id",Authenticated,(req,res)=>{
                                 }else{
                                     if(video){
                                         console.log(video)
-                                        res.render("userAuditions",{video:video,auditions,payments,user:req.session.user})
+                                        res.render("userAuditions",{dateSelection:false,video:video,auditions,payments,user:req.session.user})
                                     }else{
-                                        res.render("userAuditions",{video:false,auditions,payments,user:req.session.user})
+                                        res.render("userAuditions",{dateSelection:false,video:false,auditions,payments,user:req.session.user})
                                     }
                                 }
                             })   
@@ -765,13 +765,17 @@ router.get("/auditionlink/success/",LinkAuthenticated,(req,res)=>{
 
 router.post("/auditionlink",(req,res)=>{
     const {username,email,password,auditionId,name} = req.body;
-    console.log(password)
+   
     User.findOne({username},(err,user)=>{
         if(err){
-            console.log(err)
+            console.log(err.message.code)
         }else{
             if(user){
-                res.send({"message":"User already exists"})
+                if(user.email === email){
+                 return res.send({"message":"User already exists"})
+                }else{
+                   return res.send({"message":"User already exists"})
+                }
             }else{
                 const hash = bcrypt.hashSync(password,10);
                 User.create({
@@ -785,7 +789,11 @@ router.post("/auditionlink",(req,res)=>{
                 },(err,user)=>{
 
                     if(err){
-                        console.log(err)
+                        console.log(err.message)
+                        // get the error code
+                        if(err.code === 11000){
+                            return res.send({"message":"User already exists"})
+                        }
                     }else{
                         if(user){
                             req.session.LinkAuthenticated = true;

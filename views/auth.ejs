@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1 user-scalable=0">
     <title>GhenGhen </title>
     <link rel="stylesheet" href="/styles/auth.css">
+    <link rel="icon" href="/assest/OLIVE/logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet"> -->
@@ -102,8 +103,11 @@
                 <img class="youtubelogo" src="/assest/OLIVE/fontisto_youtube-play.png">
             </div> -->
 
-            <b class="content_header register_link_header">JOIN GhenGhen Live FOR FREE </b>
+            <b class="content_header register_link_header jointext">JOIN <span style="color: goldenrod;">GhenGhen</span>
+                FOR FREE
+            </b>
             <form class="register_link">
+                <div class="err" style="color:goldenrod;text-align: center;"></div>
                 <div class="number">
                     <!-- <label for="number">Please enter your phone number</label> -->
                     <!-- <input type="number" name="username" required> -->
@@ -113,22 +117,36 @@
                 </div>
                 <div class="number">
                     <!-- <label for="email">Enter your email address </label> -->
-                    <input type="email" name="email" required placeholder="Enter your email address">
+                    <div class="styledform">
+                        <img src="/assest/OLIVE/mail.png" alt="">
+                        <input type="email" name="email" required placeholder="Enter your email address">
+
+                    </div>
                     <img src="/assest/OLIVE/Line 2.png" alt="">
                 </div>
                 <div class="number">
                     <!-- <label for="name">Enter your full name</label> -->
-                    <input type="text" name="name" placeholder="Enter your full name">
+                    <div class="styledform">
+                        <img src="/assest/OLIVE/name.png" alt="" required>
+                        <input type="text" name="name" placeholder="Enter your full name">
+                    </div>
                     <img src="/assest/OLIVE/Line 2.png" alt="" required>
                 </div>
                 <div class="number">
                     <!-- <label for="password">Password</label> -->
-                    <input type="password" id="password" required name="password" placeholder="Password">
+                    <div class="styledform">
+                        <img src="/assest/OLIVE/lock.png" alt="" required>
+                        <input type="password" id="password" required name="password" placeholder="Password">
+                    </div>
+
                     <img src="/assest/OLIVE/Line 2.png" alt="">
                 </div>
                 <div class="number">
                     <!-- <label for="confirm_password">Confirm password</label> -->
-                    <input type="password" name="" id="confirm_password" required placeholder="Confirm password">
+                    <div class="styledform">
+                        <img src="/assest/OLIVE/lock.png" alt="" required>
+                        <input type="password" name="" id="confirm_password" required placeholder="Confirm password">
+                    </div>
                     <img src="/assest/OLIVE/Line 2.png" alt="">
                 </div>
                 <!-- <div class="number">
@@ -192,7 +210,7 @@
         </section>
 
 
-        <div class="" style="background-color: #fff;">
+        <div class="" style="background-color: rgb(0, 0, 0);">
             <div class="footer_social">
                 <div>
                     <p><span style="color: #ddd;">&copy; 2021</span> GhenGhen </p>
@@ -203,6 +221,7 @@
                     <img src="/assest/OLIVE/twitter.png" />
                 </div>
             </div>
+            <div class="bt"></div>
         </div>
 
 
@@ -230,6 +249,7 @@
             const otp_content = document.querySelector(".otp_content")
             const otp = document.querySelectorAll(".otp input")
             const otpform = document.querySelector("#otpform")
+            const err = document.querySelector(".err")
             // const continueBtn = document.querySelector(".continue");
 
 
@@ -237,7 +257,8 @@
                 e.preventDefault();
 
                 if (password.value !== confirm.value) {
-                    alert("password does not match");
+
+                    err.innerHTML = "password does not match"
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = "REGISTER";
                     return false;
@@ -246,7 +267,7 @@
 
                 // password validation
                 if (password.value.length < 8) {
-                    alert("password must be at least 8 characters");
+                    err.innerHTML = "password must be at least 8 characters";
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = "REGISTER";
                     return false;
@@ -257,7 +278,7 @@
 
                 // validate number with regex
                 if (!input.value.match(/^[0-9]{11}$/)) {
-                    alert("number must be 11 digits");
+                    err.innerHTML = "number must be 11 digits";
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = "REGISTER";
                     return false;
@@ -265,7 +286,7 @@
 
                 // validate email
                 if (formed.email.value.indexOf("@") == -1) {
-                    alert("invalid email");
+                    err.innerHTML = "invalid email";
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = "REGISTER";
                     return false;
