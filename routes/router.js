@@ -21,7 +21,7 @@ const mailjet = require ('node-mailjet')
 const fs = require("fs")
 const path = require("path")
 const Video = require("../models/videos")
-const DateSelection = require("../models/dateSelection")
+const DateSelection = require("../models/DateSelection")
 
 
 
