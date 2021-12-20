@@ -1,140 +1,208 @@
-<%- include ("./partials/header.ejs") %>
-    <section class="largeImg">
-        <img height="200px" width="100%" src="<%=auditions.auditionLogo%>" alt="" srcset="">
+<!DOCTYPE html>
+<html lang="en">
 
-        <!--  -->
-    </section>
-    <section class="content">
-        <h4 class="content_header">MY AUDITION</h4>
-
-        <% if (auditions.length===0) { %>
-            <p class="no_auditions">You have no auditions</p>
-            <% } %>
-
-                <div class="auditionBox">
-                    <% if (auditions) { %>
-
-                        <div class="abox" style="grid-gap: 18px;">
-                            <p class="err"></p>
-                            <div class="abox_content">
-                                <img width="5px" src="/assest/OLIVE/detailsicon.png" style="margin-left: 5px;" />
-                                <div class="auditiontext">
-                                    <h4 style="text-transform: uppercase;">
-                                        <%= auditions.auditionName %>
-                                    </h4>
-                                    <p>
-                                        <%= auditions.auditionDescription %>
-                                    </p>
-                                </div>
-
-                            </div>
-                            <div class="abox_content">
-                                <img src="/assest/OLIVE/location.png" />
-                                <p>Nigeria</p>
-                            </div>
-                            <div class="abox_content">
-                                <img src="/assest/OLIVE/date.png" />
-                                <p class="date">
-                                    <%= auditions.auditionStartDate %> - <%= auditions.auditionEndDate %>
-                                </p>
-                            </div>
-                            <div class="abox_content">
-                                <img width="20px" src="/assest/OLIVE/videoicon.png" />
-                                <p>
-                                    <% if (auditions.auditionPattern===1) { %>
-
-                                        Live Event
-
-                                        <% } %>
-
-                                            <% if (auditions.auditionPattern===0) { %>
-                                                Upload
-                                                <% } %>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1 user-scalable=0">
+    <title>GhenGhen </title>
+    <link rel="icon" href="/assest/OLIVE/logo.png">
+    <link rel=" stylesheet" href="/styles/auth.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://www.dafontfree.net/embed/bGF0by1ib2xkJmRhdGEvNDYvbC82MzM2MS9MYXRvLUJvbGQudHRm" rel="stylesheet"
+        type="text/css" />
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;1,900&display=swap" rel="stylesheet"> -->
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+        crossorigin="anonymous"></script>
 
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" />
 
-                                </p>
-                            </div>
-                            <!-- flex div -->
-                            <% if (auditions.auditionPattern===1) { %>
-                                <% if (dateSelection===false) { %>
-                                    <div class="abox_content" id="selection">
-                                        <img width="20px" src="/assest/OLIVE/dateandtime.png" id="fordateandtime" />
-                                        <p class="infotext">Select date and time for Auditioning</p>
-                                        <form id="dateSelection" class="fade">
-                                            <div class="timeLeft"></div>
+    <!-- <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script> -->
 
-                                            <div class="dateicon">
-                                                <!-- <label id="forDate" for="dateandtime"> <img src="/assest/OLIVE/date.png" /></label> -->
-                                                <input name="date" id="dateandtime" type="date"
-                                                    min="<%=auditions.auditionStartDate%>"
-                                                    max="<%=auditions.auditionEndDate%>" placeholder="Select Day">
-                                                <p>
-                                                    <select name="time" id="time" style="padding: 7.5px;width: 70px;">
-                                                        <option value="">Time</option>
-                                                        <option value="9:00">9:00 am - 11:00 am</option>
-                                                        <option value="14:00">2:00 pm - 4:00 pm</option>
-                                                        <option value="18:00">6:00 pm - 8:00 pm</option>
+    <style>
+        body {
+            font-family: lato;
+            font-weight: 300 !important;
 
-                                                    </select>
-                                                </p>
+        }
 
-                                                <button id="checkA" type="submit" style="padding: .5px;">
-                                                    Submit
-                                                </button>
-                                            </div>
-                                        </form>
+        .content>* {
+            font-family: lato;
+            font-weight: 300 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" style="height: 100vh; overflow: hidden;">
+        <header style="height: 10vh;">
+            <div class="logo">
+                <a href="/dashboard">
+
+                    <img src="/assest/OLIVE/logo.png" alt="">
+                </a>
+            </div>
+            <div class="icon">
+                <div class="user">
+                    <a href="/profile">
+                        <img class="imgicon" src="/assest/OLIVE/usergold.png" alt="" srcset="">
+                    </a>
+                </div>
+                <a href="/dashboard">
+                    <div class="home">
+                        <img src="/assest/OLIVE/dashboard.png" alt="" srcset="">
+                    </div>
+                </a>
+            </div>
+        </header>
+        <section class="largeImg" style="height: 30vh;">
+            <img width="100%" height="100%" src="<%=auditions.auditionLogo%>" alt="" srcset="">
+
+            <!--  -->
+        </section>
+        <section class="content" style="height: 60vh; justify-content: unset;gap: 0px;">
+            <p class="content_header">MY AUDITION</p>
+
+            <% if (auditions.length===0) { %>
+                <p class="no_auditions">You have no auditions</p>
+                <% } %>
+
+                    <div class="auditionBox">
+                        <% if (auditions) { %>
+
+                            <div class="abox" style="grid-gap: 18px;">
+                                <p class="err"></p>
+                                <div class="abox_content">
+                                    <img width="5px" src="/assest/OLIVE/detailsicon.png" style="margin-left: 5px;" />
+                                    <div class="auditiontext">
+                                        <h4 style="text-transform: uppercase;">
+                                            <%= auditions.auditionName %>
+                                        </h4>
+                                        <p>
+                                            <%= auditions.auditionDescription %>
+                                        </p>
                                     </div>
 
-                                    <% } %>
-                                        <% if (dateSelection) { %>
-                                            <p class="timedetails">Your audition link will be available in</p>
-                                            <p style="color: goldenrod;" class="timeLeft">
-                                                <img src="/assest/OLIVE/tik.png" />
-                                            </p>
-                                            <p class="dbDate">
-                                            </p>
-                                            <a class="readyforaudition" target="_blank"
-                                                href="https://studio.restream.io/guest/bDBaNllXa7srZaCHW01LjKxavz4ynEU">Go
-                                                to
-                                                Audition</a>
-                                            <%}%>
-                                                <% } %>
-                                                    <!-- <input type="time" name="" id="time" list="appointmentdateslist"> -->
-                                                    <!-- select time -->
+                                </div>
+                                <div class="abox_content">
+                                    <img src="/assest/OLIVE/location.png" />
+                                    <p>Nigeria</p>
+                                </div>
+                                <div class="abox_content">
+                                    <img src="/assest/OLIVE/date.png" />
+                                    <p class="date">
+                                        <%= auditions.auditionStartDate %> - <%= auditions.auditionEndDate %>
+                                    </p>
+                                </div>
+                                <div class="abox_content">
+                                    <img width="20px" src="/assest/OLIVE/videoicon.png" />
+                                    <p>
+                                        <% if (auditions.auditionPattern===1) { %>
 
+                                            Live Event
 
-                                                    <% if (video) { %>
-                                                        <p>Your video has been uploaded</p>
-                                                        <% } %>
-                                                            <% if (video===false ) { %>
-                                                                <form enctype="multipart/form-data">
-                                                                    <input type="file" name="upload" id="upload" hidden>
+                                            <% } %>
 
-                                                                    <label for="upload" style="cursor: pointer;">
-                                                                        <a class="uploadbtn" style="float: right;"
-                                                                            data-audition="<%=auditions._id%>"
-                                                                            data-provider='<%=auditions.provider%>'
-                                                                            data-user="<%=user._id%>">Upload</a>
-                                                                    </label>
-                                                                </form>
-
-                                                                <% } else {%>
-
-                                                                    <% } %>
-
-                        </div>
-                        <br>
-
-                        <% } %>
+                                                <% if (auditions.auditionPattern===0) { %>
+                                                    Upload
+                                                    <% } %>
 
 
 
+                                    </p>
+                                </div>
+                                <!-- flex div -->
+                                <% if (auditions.auditionPattern===1) { %>
+                                    <% if (dateSelection===false) { %>
+                                        <div class="abox_content" id="selection">
+                                            <img width="20px" src="/assest/OLIVE/dateandtime.png" id="fordateandtime" />
+                                            <p class="infotext">Select date and time for Auditioning</p>
+                                            <form id="dateSelection" class="fade">
+                                                <div class="timeLeft"></div>
+
+                                                <div class="dateicon">
+                                                    <!-- <label id="forDate" for="dateandtime"> <img src="/assest/OLIVE/date.png" /></label> -->
+                                                    <input name="date" id="dateandtime" type="date"
+                                                        min="<%=auditions.auditionStartDate%>"
+                                                        max="<%=auditions.auditionEndDate%>" placeholder="Select Day">
+                                                    <p>
+                                                        <select name="time" id="time"
+                                                            style="padding: 7.5px;width: 70px;">
+                                                            <option value="">Time</option>
+                                                            <option value="9:00">9:00 am - 11:00 am</option>
+                                                            <option value="14:00">2:00 pm - 4:00 pm</option>
+                                                            <option value="18:00">6:00 pm - 8:00 pm</option>
+
+                                                        </select>
+                                                    </p>
+
+                                                    <button id="checkA" type="submit" style="padding: .5px;">
+                                                        Submit
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                        <% } %>
+                                            <% if (dateSelection) { %>
+                                                <p class="timedetails">Your audition link will be available in</p>
+                                                <p style="color: goldenrod;" class="timeLeft">
+                                                    <img src="/assest/OLIVE/tik.png" />
+                                                </p>
+                                                <p class="dbDate">
+                                                </p>
+                                                <a class="readyforaudition" target="_blank"
+                                                    href="https://studio.restream.io/guest/bDBaNllXa7srZaCHW01LjKxavz4ynEU">Go
+                                                    to
+                                                    Audition</a>
+                                                <%}%>
+                                                    <% } %>
+                                                        <!-- <input type="time" name="" id="time" list="appointmentdateslist"> -->
+                                                        <!-- select time -->
 
 
-                </div>
+                                                        <% if (video) { %>
+                                                            <p>Your video has been uploaded</p>
+                                                            <% } %>
+                                                                <% if (video===false ) { %>
+                                                                    <form enctype="multipart/form-data">
+                                                                        <input type="file" name="upload" id="upload"
+                                                                            hidden>
 
-                <!-- <h4 class="content_header">YOUTH CENTRIC DIGITAL ECOSYSTEM</h4>
+                                                                        <label for="upload" style="cursor: pointer;">
+                                                                            <a class="uploadbtn" style="float: right;"
+                                                                                data-audition="<%=auditions._id%>"
+                                                                                data-provider='<%=auditions.provider%>'
+                                                                                data-user="<%=user._id%>">Upload</a>
+                                                                        </label>
+                                                                    </form>
+
+                                                                    <% } else {%>
+
+                                                                        <% } %>
+
+                            </div>
+                            <br>
+
+                            <% } %>
+
+
+
+
+
+                    </div>
+
+                    <!-- <h4 class="content_header">YOUTH CENTRIC DIGITAL ECOSYSTEM</h4>
         <p class="content_text">
             <strong>Olive platform</strong> is a triumvirate and youth-centric digital ecosystem built for creative
             enthusiasts
@@ -163,332 +231,332 @@
             <p>*By continuing you accept the Promoflo network and OLIVE Terms and Privacy Policy.</p>
             <p>or <span>LOG IN</span> with </p>
         </div> -->
-    </section>
+        </section>
 
 
-    <div class="" style="background-color: #000;">
-        <div class="footer_social">
-            <div>
-                <p><span style="color: #ddd;">&copy; 2021</span> GhenGhen </p>
+        <div class="" style="background-color: #000;" style="margin: 0px;height: 5vh;">
+            <div class="footer_social" style="margin: 0px;">
+                <div>
+                    <p><span style="color: #ddd;">&copy; 2021</span> GhenGhen </p>
+                </div>
+                <div class="social_icon">
+                    <img src="/assest/OLIVE/fb.png" />
+                    <img src="/assest/OLIVE/instagram.png" />
+                    <img src="/assest/OLIVE/twitter.png" />
+                </div>
             </div>
-            <div class="social_icon">
-                <img src="/assest/OLIVE/fb.png" />
-                <img src="/assest/OLIVE/instagram.png" />
-                <img src="/assest/OLIVE/twitter.png" />
-            </div>
+            <div class="bt"></div>
         </div>
-        <div class="bt"></div>
-    </div>
-    <script>
+        <script>
 
-        const err = document.querySelector('.err');
+            const err = document.querySelector('.err');
 
-        const date = document.querySelector(".date");
-        const readyforaudition = document.querySelector(".readyforaudition");
-        const setDate = date.innerHTML;
-        // get day
+            const date = document.querySelector(".date");
+            const readyforaudition = document.querySelector(".readyforaudition");
+            const setDate = date.innerHTML;
+            // get day
 
-        const day = setDate.slice(0, 2);
-        // get month
-        const month = setDate.slice(3, 5);
+            const day = setDate.slice(0, 2);
+            // get month
+            const month = setDate.slice(3, 5);
 
-        const upload = document.querySelector("#upload");
-        const uploadform = document.querySelector("#form");
-        const btn = document.querySelector(".btn");
-        const uploadbtn = document.querySelector(".uploadbtn");
+            const upload = document.querySelector("#upload");
+            const uploadform = document.querySelector("#form");
+            const btn = document.querySelector(".btn");
+            const uploadbtn = document.querySelector(".uploadbtn");
 
-        // video duration check
-        if (upload) {
-            upload.addEventListener("change", (e) => {
-                const file = e.target.files[0];
-                const fileType = file.type;
-                if (fileType.match(/video.*/)) {
-                    const video = document.createElement("video");
-                    video.src = URL.createObjectURL(file);
-                    video.onloadedmetadata = () => {
-                        const duration = video.duration;
-                        if (duration > 60) {
-                            err.innerHTML = "Video duration should be 1 minute or less";
-                            err.style.color = "goldenrod";
-                            return false
-                        } else {
-                            uploadbtn.innerHTML = "Please wait...";
+            // video duration check
+            if (upload) {
+                upload.addEventListener("change", (e) => {
+                    const file = e.target.files[0];
+                    const fileType = file.type;
+                    if (fileType.match(/video.*/)) {
+                        const video = document.createElement("video");
+                        video.src = URL.createObjectURL(file);
+                        video.onloadedmetadata = () => {
+                            const duration = video.duration;
+                            if (duration > 60) {
+                                err.innerHTML = "Video duration should be 1 minute or less";
+                                err.style.color = "goldenrod";
+                                return false
+                            } else {
+                                uploadbtn.innerHTML = "Please wait...";
 
-                            // immediately post to server
+                                // immediately post to server
 
 
 
-                            const formData = new FormData();
-                            const audition = uploadbtn.getAttribute("data-audition");
-                            const provider = uploadbtn.getAttribute("data-provider");
-                            const user = uploadbtn.getAttribute("data-user");
-                            formData.append("user", user);
-                            formData.append("provider", provider);
-                            formData.append("audition", audition);
-                            formData.append("video", file);
+                                const formData = new FormData();
+                                const audition = uploadbtn.getAttribute("data-audition");
+                                const provider = uploadbtn.getAttribute("data-provider");
+                                const user = uploadbtn.getAttribute("data-user");
+                                formData.append("user", user);
+                                formData.append("provider", provider);
+                                formData.append("audition", audition);
+                                formData.append("video", file);
 
-                            //  post to server with fecth
-                            fetch("/uploadvideo", {
-                                method: "POST",
-                                body: formData
+                                //  post to server with fecth
+                                fetch("/uploadvideo", {
+                                    method: "POST",
+                                    body: formData
+                                })
+                                    .then((res) => res.json())
+                                    .then((data) => {
+                                        console.log(data);
+                                        if (data.status === "success") {
+                                            err.innerHTML = "video uploaded";
+                                            window.location.reload();
+                                            // uploadform.reset();
+                                            uploadbtn.innerHTML = "Uploaded";
+                                        } else {
+                                            err.innerHTML = "error uploading video";
+                                        }
+                                    });
+
+                                // post formdata to server and display success message
+
+
+
+                            }
+                        };
+                    } else {
+                        alert("Please upload a video file");
+
+                    }
+                });
+            }
+            const fordateandtime = document.querySelector("#fordateandtime");
+            const dateSelection = document.querySelector("#dateSelection");
+            const selection = document.querySelector("#selection");
+            const dateandtime = document.querySelector("#dateandtime");
+            const dbDate = document.querySelector("#dbDate");
+            if (dbDate) {
+                // format dbDate
+
+
+            }
+
+
+            const infotext = document.querySelector(".infotext");
+
+            // Array.from(dateSelection.children).forEach((item) => {
+            //     item.addEventListener("click", (e) => {
+            //         const date = e.target.innerHTML;
+            //         const month = date.slice(0, 2);
+            //         const day = date.slice(3, 5);
+            //         const year = date.slice(6, 10);
+            //         const time = date.slice(11, 16);
+            //         const dateandtime = `${month}/${day}/${year} ${time}`;
+            //         fordateandtime.innerHTML = dateandtime;
+            //         infotext.innerHTML = "";
+            //     });
+            if (fordateandtime) {
+                fordateandtime.addEventListener("click", (e) => {
+                    // toggle class
+                    infotext.classList.toggle("hide");
+                    dateSelection.classList.toggle("active");
+                    // e.target.classList.toggle("active");
+                });
+
+            }
+            if (infotext) {
+                infotext.addEventListener("click", (e) => {
+                    // toggle class
+                    infotext.classList.toggle("hide");
+                    dateSelection.classList.toggle("active");
+                    // e.target.classList.toggle("active");
+                });
+            }
+
+            if (dateSelection) {
+                dateSelection.addEventListener("submit", (e) => {
+                    e.preventDefault();
+                    // const dateTimeLeft = new Date(dateTime).toLocaleString();
+                    // console.log(dateTime);
+                    if (dateSelection.date.value && dateSelection.time.value) {
+                        const date = dateSelection.date.value
+                        const time = dateSelection.time.value
+
+                        const dateTime = `${date}:${time}`
+
+                        const selectedDateAndTime = new Date(dateTime);
+                        // const currentDateAndTime = new Date().getTime();
+                        // const timeLeft = selectedDateAndTime - currentDateAndTime;
+                        // console.log(timeLeft);
+                        // post to server
+                        let payload = {
+                            date: selectedDateAndTimers,
+                            user: "<%=user._id%>",
+                            provider: "<%=auditions.provider%>",
+                            audition: "<%=auditions._id%>"
+                        }
+                        fetch("/dateselection", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify(payload)
+                        }).then(res => res.json())
+                            .then(data => {
+                                console.log(data);
+                                if (data.status === "success") {
+                                    err.innerHTML = "Date and time selected";
+                                    window.location.reload();
+                                } else if (data.status === "limit") {
+                                    err.innerHTML = "Date and time already selected";
+                                }
+                                else {
+                                    err.innerHTML = "error selecting date and time";
+
+                                }
                             })
-                                .then((res) => res.json())
-                                .then((data) => {
-                                    console.log(data);
-                                    if (data.status === "success") {
-                                        err.innerHTML = "video uploaded";
-                                        window.location.reload();
-                                        // uploadform.reset();
-                                        uploadbtn.innerHTML = "Uploaded";
-                                    } else {
-                                        err.innerHTML = "error uploading video";
-                                    }
-                                });
 
-                            // post formdata to server and display success message
 
+                        // display time left
+                        let timeLeftDisplay = document.querySelector(".timeLeft");
+
+                    } else {
+                        err.innerHTML = "Please select a date and time";
+                        // alert("Please select date and time");
+                    }
+                    // get data from formdata
+
+                })
+
+            } else {
+                let readyforaudition = document.querySelector(".readyforaudition");
+                let timeLeftDisplay = document.querySelector(".timeLeft");
+                const timedetails = document.querySelector(".timedetails");
+                let dbDate = '<%=dateSelection.date%>'
+                let date = new Date(dbDate);
+                let currentDate = new Date();
+                date = date.getTime();
+                currentDate = currentDate.getTime();
+                console.log(date);
+                console.log(currentDate);
+
+                // if
+
+                if (currentDate >= date) {
+                    readyforaudition.style.display = "block";
+                    timeLeftDisplay.innerHTML = "";
+                    timedetails.innerHTML = "Your audition link is available";
+                }
+                else {
+                    readyforaudition.style.display = "none";
+
+                    let timeLeft = date - currentDate;
+                    // get days left if timeLeft > 24 hours
+                    let daysLeft = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                    // get hours left if timeLeft > 1 day
+                    let hoursLeft = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    // get minutes left if timeLeft > 1 hour
+                    let minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                    // get seconds left if timeLeft > 1 minute
+                    let secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                    // display time left
+                    // timeLeftDisplay.innerHTML = `${daysLeft} days, ${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
+                    setInterval(() => {
+
+                        timeLeftDisplay.innerHTML = `${daysLeft} days, ${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
+                        timeLeft -= 1000;
+                        daysLeft = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                        hoursLeft = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                        secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                        // day is 0 and time left is less than 24 hours
+                        if (daysLeft === 0 && hoursLeft === 0) {
+                            timeLeftDisplay.innerHTML = ` ${minutesLeft} minutes, ${secondsLeft} seconds`;
+                        }
+                        if (daysLeft === 0 && hoursLeft === 0 && minutesLeft === 0 && secondsLeft === 0) {
+
+
+
+                            clearInterval(timeLeftDisplay);
 
 
                         }
-                    };
-                } else {
-                    alert("Please upload a video file");
-
+                    }, 1000);
                 }
-            });
-        }
-        const fordateandtime = document.querySelector("#fordateandtime");
-        const dateSelection = document.querySelector("#dateSelection");
-        const selection = document.querySelector("#selection");
-        const dateandtime = document.querySelector("#dateandtime");
-        const dbDate = document.querySelector("#dbDate");
-        if (dbDate) {
-            // format dbDate
+
+                console.log(date);
+                console.log(currentDate);
 
 
-        }
-
-
-        const infotext = document.querySelector(".infotext");
-
-        // Array.from(dateSelection.children).forEach((item) => {
-        //     item.addEventListener("click", (e) => {
-        //         const date = e.target.innerHTML;
-        //         const month = date.slice(0, 2);
-        //         const day = date.slice(3, 5);
-        //         const year = date.slice(6, 10);
-        //         const time = date.slice(11, 16);
-        //         const dateandtime = `${month}/${day}/${year} ${time}`;
-        //         fordateandtime.innerHTML = dateandtime;
-        //         infotext.innerHTML = "";
-        //     });
-        if (fordateandtime) {
-            fordateandtime.addEventListener("click", (e) => {
-                // toggle class
-                infotext.classList.toggle("hide");
-                dateSelection.classList.toggle("active");
-                // e.target.classList.toggle("active");
-            });
-
-        }
-        if (infotext) {
-            infotext.addEventListener("click", (e) => {
-                // toggle class
-                infotext.classList.toggle("hide");
-                dateSelection.classList.toggle("active");
-                // e.target.classList.toggle("active");
-            });
-        }
-
-        if (dateSelection) {
-            dateSelection.addEventListener("submit", (e) => {
-                e.preventDefault();
-                // const dateTimeLeft = new Date(dateTime).toLocaleString();
-                // console.log(dateTime);
-                if (dateSelection.date.value && dateSelection.time.value) {
-                    const date = dateSelection.date.value
-                    const time = dateSelection.time.value
-
-                    const dateTime = `${date}:${time}`
-
-                    const selectedDateAndTime = new Date(dateTime);
-                    // const currentDateAndTime = new Date().getTime();
-                    // const timeLeft = selectedDateAndTime - currentDateAndTime;
-                    // console.log(timeLeft);
-                    // post to server
-                    let payload = {
-                        date: selectedDateAndTimers,
-                        user: "<%=user._id%>",
-                        provider: "<%=auditions.provider%>",
-                        audition: "<%=auditions._id%>"
-                    }
-                    fetch("/dateselection", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify(payload)
-                    }).then(res => res.json())
-                        .then(data => {
-                            console.log(data);
-                            if (data.status === "success") {
-                                err.innerHTML = "Date and time selected";
-                                window.location.reload();
-                            } else if (data.status === "limit") {
-                                err.innerHTML = "Date and time already selected";
-                            }
-                            else {
-                                err.innerHTML = "error selecting date and time";
-
-                            }
-                        })
-
-
-                    // display time left
-                    let timeLeftDisplay = document.querySelector(".timeLeft");
-
-                } else {
-                    err.innerHTML = "Please select a date and time";
-                    // alert("Please select date and time");
-                }
-                // get data from formdata
-
-            })
-
-        } else {
-            let readyforaudition = document.querySelector(".readyforaudition");
-            let timeLeftDisplay = document.querySelector(".timeLeft");
-            const timedetails = document.querySelector(".timedetails");
-            let dbDate = '<%=dateSelection.date%>'
-            let date = new Date(dbDate);
-            let currentDate = new Date();
-            date = date.getTime();
-            currentDate = currentDate.getTime();
-            console.log(date);
-            console.log(currentDate);
-
-            // if
-
-            if (currentDate >= date) {
-                readyforaudition.style.display = "block";
-                timeLeftDisplay.innerHTML = "";
-                timedetails.innerHTML = "Your audition link is available";
-            }
-            else {
-                readyforaudition.style.display = "none";
-
-                let timeLeft = date - currentDate;
-                // get days left if timeLeft > 24 hours
-                let daysLeft = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-                // get hours left if timeLeft > 1 day
-                let hoursLeft = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                // get minutes left if timeLeft > 1 hour
-                let minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-                // get seconds left if timeLeft > 1 minute
-                let secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
-                // display time left
-                // timeLeftDisplay.innerHTML = `${daysLeft} days, ${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
-                setInterval(() => {
-
-                    timeLeftDisplay.innerHTML = `${daysLeft} days, ${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
-                    timeLeft -= 1000;
-                    daysLeft = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-                    hoursLeft = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-                    secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
-                    // day is 0 and time left is less than 24 hours
-                    if (daysLeft === 0 && hoursLeft === 0) {
-                        timeLeftDisplay.innerHTML = ` ${minutesLeft} minutes, ${secondsLeft} seconds`;
-                    }
-                    if (daysLeft === 0 && hoursLeft === 0 && minutesLeft === 0 && secondsLeft === 0) {
+                // if (currentDate >= date) {
+                //     readyforaudition.innerHTML = "Audition is over";
+                //     timeLeftDisplay.innerHTML = "";
+                // }
+                // else {
+                //     const timeLeft = date - currentDate;
+                //     const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                //     const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                //     const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                //     const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                //     timeLeftDisplay.innerHTML = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+                // }
 
 
 
-                        clearInterval(timeLeftDisplay);
 
 
-                    }
-                }, 1000);
+                // let newDate = new Date();
+                // let dbDateTime = new Date(dbDate.innerHTML).toTimeString();
+                // console.log(dbDateTime);
+                // let timeLeft = dbDateTime - newDate.toLocaleDateString();
+                // console.log(timeLeft);
+
+
+
+
+                // schedule audition by dbDate and current date
+                // let newDate = new Date(dbDate.innerHTML);
+                // let dateTime = newDate
+                // let currentDateTime = new Date().getTime();
+                // let timeLeft = newDate.getTime() - currentDateTime;
+                // let timeLeftDate = new Date(timeLeft);
+                // let hours = timeLeftDate.getHours();
+                // let minutes = timeLeftDate.getMinutes();
+                // let seconds = timeLeftDate.getSeconds();
+                // let days = timeLeftDate.getDay() - 1;
+
+                // const countDown = setInterval(() => {
+                //     // check if time left is less than 0
+                //     if (timeLeft == currentDateTime) {
+                //         // clear interval
+                //         clearInterval(countDown);
+                //         // display time left
+                //         timeLeftDisplay.innerHTML = "Time is up";
+                //         readyforaudition.style.display = "block";
+
+
+                //     } else {
+                //         readyforaudition.style.display = "none";
+                //         // convert time left to Date object
+                //         let timeLeftDate = new Date(timeLeft);
+                //         // get hours, minutes and seconds
+                //         let hours = timeLeftDate.getHours();
+                //         let minutes = timeLeftDate.getMinutes();
+                //         let seconds = timeLeftDate.getSeconds();
+
+
+
+                //         // // display time left
+                //         // if (days > 0) {
+                //         //     timeLeftDisplay.innerHTML = `${days} days : ${hours} : ${minutes} : ${seconds} `;
+                //         // } else {
+                //         //     timeLeftDisplay.innerHTML = `${hours} : ${minutes} : ${seconds} `;
+                //         // }
+                //         timeLeftDisplay.innerHTML = `${days} : ${hours} : ${minutes} : ${seconds} `;
+                //         timeLeftDisplay.style.color = 'goldenrod'
+                //         // reduce time left by 1 second
+                //         timeLeft -= 1000;
+                //     }
+                // }, 1000);
+
             }
 
-            console.log(date);
-            console.log(currentDate);
 
+        </script>
 
-            // if (currentDate >= date) {
-            //     readyforaudition.innerHTML = "Audition is over";
-            //     timeLeftDisplay.innerHTML = "";
-            // }
-            // else {
-            //     const timeLeft = date - currentDate;
-            //     const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-            //     const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            //     const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-            //     const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-            //     timeLeftDisplay.innerHTML = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
-            // }
-
-
-
-
-
-            // let newDate = new Date();
-            // let dbDateTime = new Date(dbDate.innerHTML).toTimeString();
-            // console.log(dbDateTime);
-            // let timeLeft = dbDateTime - newDate.toLocaleDateString();
-            // console.log(timeLeft);
-
-
-
-
-            // schedule audition by dbDate and current date
-            // let newDate = new Date(dbDate.innerHTML);
-            // let dateTime = newDate
-            // let currentDateTime = new Date().getTime();
-            // let timeLeft = newDate.getTime() - currentDateTime;
-            // let timeLeftDate = new Date(timeLeft);
-            // let hours = timeLeftDate.getHours();
-            // let minutes = timeLeftDate.getMinutes();
-            // let seconds = timeLeftDate.getSeconds();
-            // let days = timeLeftDate.getDay() - 1;
-
-            // const countDown = setInterval(() => {
-            //     // check if time left is less than 0
-            //     if (timeLeft == currentDateTime) {
-            //         // clear interval
-            //         clearInterval(countDown);
-            //         // display time left
-            //         timeLeftDisplay.innerHTML = "Time is up";
-            //         readyforaudition.style.display = "block";
-
-
-            //     } else {
-            //         readyforaudition.style.display = "none";
-            //         // convert time left to Date object
-            //         let timeLeftDate = new Date(timeLeft);
-            //         // get hours, minutes and seconds
-            //         let hours = timeLeftDate.getHours();
-            //         let minutes = timeLeftDate.getMinutes();
-            //         let seconds = timeLeftDate.getSeconds();
-
-
-
-            //         // // display time left
-            //         // if (days > 0) {
-            //         //     timeLeftDisplay.innerHTML = `${days} days : ${hours} : ${minutes} : ${seconds} `;
-            //         // } else {
-            //         //     timeLeftDisplay.innerHTML = `${hours} : ${minutes} : ${seconds} `;
-            //         // }
-            //         timeLeftDisplay.innerHTML = `${days} : ${hours} : ${minutes} : ${seconds} `;
-            //         timeLeftDisplay.style.color = 'goldenrod'
-            //         // reduce time left by 1 second
-            //         timeLeft -= 1000;
-            //     }
-            // }, 1000);
-
-        }
-
-
-    </script>
-
-    <%- include("./partials/footer.ejs") %>
+        <%- include("./partials/footer.ejs") %>

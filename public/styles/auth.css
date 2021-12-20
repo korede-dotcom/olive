@@ -8,6 +8,7 @@
     padding: 0;
     box-sizing: border-box;
     -ms-overflow-style: none;
+    font-weight: 300 !important;
     
     
 }
@@ -43,7 +44,7 @@ body{
    background-attachment: fixed;
    margin: auto 0;
    font-family: 'lato';
-   font-weight: 900;
+   font-weight: 300 !important;
 
 }
 b{
@@ -194,7 +195,7 @@ header{
 }
 .content_header{
     font-family: lato;
-font-weight:900;
+font-weight:300;
 font-size: 18px;
 
 text-transform: uppercase;
@@ -217,7 +218,7 @@ color: #ddd;
     
 }
 .register_link_header{
-    font-weight: 900;
+    font-weight: 300;
     font-size: 24px;
     margin: -10px 0;
 }
@@ -238,7 +239,7 @@ color: #ddd;
     outline: none;
     background: none;
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 300;
    
     padding: 0;
     margin: 0;
@@ -263,7 +264,7 @@ font-size: 16px;
 line-height: 156.5%;
 }
 .CONGRATULATION P, .CONGRATULATION .btn{
-    font-weight: 400;
+    font-weight: 300;
 }
 .CONGRATULATION a{
     color: goldenrod;
@@ -605,7 +606,6 @@ width: 160px;
 .abox{
 width: 369px;
 margin: o auto;
-height: auto;
 background: #0c0c0c;
 box-shadow: 0px 4px 26px rgba(0, 0, 0, 0.15);
 border-radius:10px;
@@ -613,7 +613,7 @@ display: flex;
 padding: 1em;
 flex-direction: column;
 color: #ddd;
-border: 1.5px solid goldenrod;
+border:1.5px solid #62615d;
 
 
 gap: 30px;
