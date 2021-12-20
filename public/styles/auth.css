@@ -415,6 +415,7 @@ footer{
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    padding: 1.5em;
    
 
 }
@@ -602,6 +603,9 @@ width: 160px;
     width: 100px;
     
 }
+.auditionBox{
+    height: 100%;
+}
 .auditionBox
 .abox{
 width: 369px;
@@ -611,6 +615,7 @@ box-shadow: 0px 4px 26px rgba(0, 0, 0, 0.15);
 border-radius:10px;
 display: flex;
 padding: 1em;
+
 flex-direction: column;
 color: #ddd;
 border:1.5px solid #62615d;
