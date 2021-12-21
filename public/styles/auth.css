@@ -104,6 +104,47 @@ header{
     z-index: 1000;
 
 }
+.navlink{
+    position: absolute;
+    top: 8.7vh;
+    width:100%;
+    right:0;
+    background:rgba(218, 165, 32, 0.898);
+    color: #fff;
+ 
+    
+    transition: all 0.5s ease-in-out;
+    display: flex;
+    justify-content: center;
+   
+    gap: 5px;
+    padding: 10px;
+    visibility: hidden;
+    /* transition */
+    opacity: 0;
+    z-index: -1;
+
+    transition: all 0.5s ease-in-out;
+
+    
+
+
+
+}
+.navlink:hover{
+    cursor: pointer;
+}
+.navlink a{
+ padding: 2px;
+ text-transform: capitalize;
+ text-decoration: double;
+ color: #000;
+   
+}
+.navlink a:hover{
+    background: rgb(32, 6, 32);
+    color:goldenrod;
+}
 .logo {
     flex: .65;
     /* border: 1px solid red; */
@@ -704,6 +745,13 @@ gap: 30px;
     display: block;
     opacity: 1;
     transition: opacity .25s ease;
+}
+.shownav{
+    transform: translateY(0px);
+    /* transition fade */
+    transition: opacity .5s ease;
+    opacity: 1;
+    visibility: visible;
 }
 .err{
     color: goldenrod;

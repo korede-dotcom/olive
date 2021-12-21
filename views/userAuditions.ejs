@@ -54,24 +54,34 @@
             </div>
             <div class="icon">
                 <div class="user">
-                    <a href="/profile">
+                    <!-- <a href="/profile">
                         <img class="imgicon" src="/assest/OLIVE/usergold.png" alt="" srcset="">
-                    </a>
+                    </a> -->
                 </div>
-                <a href="/dashboard">
+                <div id="nav">
                     <div class="home">
-                        <img src="/assest/OLIVE/dashboard.png" alt="" srcset="">
+                        <img class="menubar" src="/assest/OLIVE/dashboard.png" alt="" srcset="">
                     </div>
-                </a>
+                </div>
+
+            </div>
+            <div class="navlink">
+                <a href="/profile">profile</a>|
+                <a href="/dashboard">dasboard</a>|
+                <a href="/digitalauditionplatform">digitalauditionplatform</a>|
+                <a href="/logout">logout</a>
+
             </div>
         </header>
-        <section class="largeImg" style="height: 35vh;">
+        <section class="largeImg" style="height: 38vh;">
             <img width="100%" height="100%" src="<%=auditions.auditionLogo%>" alt="" srcset="">
 
             <!--  -->
         </section>
         <section class="content" style="height: 50vh; justify-content: unset;gap: 0px;">
-            <p class="content_header">MY AUDITION</p>
+            <p class="content_header" style="font-size: 16px;">
+                <%=auditions.auditionName%>
+            </p>
 
             <% if (auditions.length===0) { %>
                 <p class="no_auditions">You have no auditions</p>
@@ -80,7 +90,7 @@
                     <div class="auditionBox">
                         <% if (auditions) { %>
 
-                            <div class="abox" style="grid-gap: 20px;">
+                            <div class="abox" style="grid-gap: 15px;">
                                 <p class="err"></p>
                                 <div class="abox_content">
                                     <img width="5px" src="/assest/OLIVE/detailsicon.png" style="margin-left: 5px;" />
@@ -95,7 +105,7 @@
 
                                 </div>
                                 <div class="abox_content">
-                                    <img src="/assest/OLIVE/location.png" />
+                                    <img width="15px" src="/assest/OLIVE/location.png" />
                                     <p>Nigeria</p>
                                 </div>
                                 <div class="abox_content">
@@ -234,8 +244,8 @@
         </section>
 
 
-        <div class="" style="background-color: #000;" style="margin-bottom: 0px;height: 10vh; margin-top: 10px;">
-            <div class="footer_social" style="margin: 0px;">
+        <div class="" style="background-color: #000;" style="margin-top: 7px;height: 7vh; ">
+            <div class="footer_social" style="margin: 0px;padding: 10px;">
                 <div>
                     <p><span style="color: #ddd;">&copy; 2021</span> GhenGhen </p>
                 </div>
@@ -245,7 +255,7 @@
                     <img src="/assest/OLIVE/twitter.png" />
                 </div>
             </div>
-            <div class="bt"></div>
+
         </div>
         <script>
 
@@ -330,8 +340,22 @@
             const selection = document.querySelector("#selection");
             const dateandtime = document.querySelector("#dateandtime");
             const dbDate = document.querySelector("#dbDate");
+            const formatDate = document.querySelector(".date")
+            const formatStartDate = new Date('<%=auditions.auditionStartDate%>')
+            const formatEndDate = new Date('<%=auditions.auditionEndDate %>')
+            // remove time and ser to date
+            const formatStartDateString = formatStartDate.toDateString();
+            const formatEndDateString = formatEndDate.toDateString();
+            formatDate.innerHTML = `${formatStartDateString} - ${formatEndDateString}`;
             if (dbDate) {
                 // format dbDate
+                // const formatDate = document.querySelector(".date").textContent;
+                // const formatStartDate = new Date('<%=auditions.auditionStartDate%>')
+                // const formatEndDate = new Date('<%=auditions.auditionStartDate %>')
+                // // remove time and ser to date
+                // const formatStartDateString = formatStartDate.toDateString();
+                // const formatEndDateString = formatEndDate.toDateString();
+                // formatDate.innerHTML = `${formatStartDateString} - ${formatEndDateString}`;
 
 
             }
@@ -443,118 +467,73 @@
                     timedetails.innerHTML = "Your audition link is available";
                 }
                 else {
-                    readyforaudition.style.display = "none";
+                    if (readyforaudition) {
+                        readyforaudition.style.display = "none";
 
-                    let timeLeft = date - currentDate;
-                    // get days left if timeLeft > 24 hours
-                    let daysLeft = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-                    // get hours left if timeLeft > 1 day
-                    let hoursLeft = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    // get minutes left if timeLeft > 1 hour
-                    let minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-                    // get seconds left if timeLeft > 1 minute
-                    let secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
-                    // display time left
-                    // timeLeftDisplay.innerHTML = `${daysLeft} days, ${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
-                    setInterval(() => {
+                        // readyforaudition.style.display = "none";
 
-                        timeLeftDisplay.innerHTML = `${daysLeft} days, ${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
-                        timeLeft -= 1000;
-                        daysLeft = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-                        hoursLeft = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                        minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-                        secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
-                        // day is 0 and time left is less than 24 hours
-                        if (daysLeft === 0 && hoursLeft === 0) {
-                            timeLeftDisplay.innerHTML = ` ${minutesLeft} minutes, ${secondsLeft} seconds`;
-                        }
-                        if (daysLeft === 0 && hoursLeft === 0 && minutesLeft === 0 && secondsLeft === 0) {
+                        let timeLeft = date - currentDate;
+                        // get days left if timeLeft > 24 hours
+                        let daysLeft = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                        // get hours left if timeLeft > 1 day
+                        let hoursLeft = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        // get minutes left if timeLeft > 1 hour
+                        let minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                        // get seconds left if timeLeft > 1 minute
+                        let secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                        // display time left
+                        // timeLeftDisplay.innerHTML = `${daysLeft} days, ${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
+                        setInterval(() => {
 
-
-
-                            clearInterval(timeLeftDisplay);
+                            timeLeftDisplay.innerHTML = `${daysLeft} days, ${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
+                            timeLeft -= 1000;
+                            daysLeft = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                            hoursLeft = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                            minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                            secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                            // day is 0 and time left is less than 24 hours
+                            if (daysLeft === 0 && hoursLeft === 0) {
+                                timeLeftDisplay.innerHTML = ` ${minutesLeft} minutes, ${secondsLeft} seconds`;
+                            }
+                            if (daysLeft === 0 && hoursLeft === 0 && minutesLeft === 0 && secondsLeft === 0) {
 
 
-                        }
-                    }, 1000);
+
+                                clearInterval(timeLeftDisplay);
+
+
+                            }
+                        }, 1000);
+                    }
                 }
 
-                console.log(date);
-                console.log(currentDate);
 
 
-                // if (currentDate >= date) {
-                //     readyforaudition.innerHTML = "Audition is over";
-                //     timeLeftDisplay.innerHTML = "";
-                // }
-                // else {
-                //     const timeLeft = date - currentDate;
-                //     const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-                //     const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                //     const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-                //     const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-                //     timeLeftDisplay.innerHTML = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
-                // }
+                // get date from formatDate
 
 
 
 
-
-                // let newDate = new Date();
-                // let dbDateTime = new Date(dbDate.innerHTML).toTimeString();
-                // console.log(dbDateTime);
-                // let timeLeft = dbDateTime - newDate.toLocaleDateString();
-                // console.log(timeLeft);
-
-
-
-
-                // schedule audition by dbDate and current date
-                // let newDate = new Date(dbDate.innerHTML);
-                // let dateTime = newDate
-                // let currentDateTime = new Date().getTime();
-                // let timeLeft = newDate.getTime() - currentDateTime;
-                // let timeLeftDate = new Date(timeLeft);
-                // let hours = timeLeftDate.getHours();
-                // let minutes = timeLeftDate.getMinutes();
-                // let seconds = timeLeftDate.getSeconds();
-                // let days = timeLeftDate.getDay() - 1;
-
-                // const countDown = setInterval(() => {
-                //     // check if time left is less than 0
-                //     if (timeLeft == currentDateTime) {
-                //         // clear interval
-                //         clearInterval(countDown);
-                //         // display time left
-                //         timeLeftDisplay.innerHTML = "Time is up";
-                //         readyforaudition.style.display = "block";
-
-
-                //     } else {
-                //         readyforaudition.style.display = "none";
-                //         // convert time left to Date object
-                //         let timeLeftDate = new Date(timeLeft);
-                //         // get hours, minutes and seconds
-                //         let hours = timeLeftDate.getHours();
-                //         let minutes = timeLeftDate.getMinutes();
-                //         let seconds = timeLeftDate.getSeconds();
-
-
-
-                //         // // display time left
-                //         // if (days > 0) {
-                //         //     timeLeftDisplay.innerHTML = `${days} days : ${hours} : ${minutes} : ${seconds} `;
-                //         // } else {
-                //         //     timeLeftDisplay.innerHTML = `${hours} : ${minutes} : ${seconds} `;
-                //         // }
-                //         timeLeftDisplay.innerHTML = `${days} : ${hours} : ${minutes} : ${seconds} `;
-                //         timeLeftDisplay.style.color = 'goldenrod'
-                //         // reduce time left by 1 second
-                //         timeLeft -= 1000;
-                //     }
-                // }, 1000);
 
             }
+
+
+        </script>
+        <script>
+            const home = document.querySelector('.home');
+            const navlink = document.querySelector('.navlink');
+            home.addEventListener('click', () => {
+                navlink.classList.toggle('shownav');
+                if (navlink.classList.contains('shownav')) {
+                    home.querySelector("img").src = '/assest/OLIVE/close.png';
+                } else {
+                    home.querySelector("img").src = '/assest/OLIVE/dashboard.png';
+                }
+
+
+            });
+
+
 
 
         </script>
