@@ -59,7 +59,7 @@ input[type=datetime-local]::-webkit-inner-spin-button {
 }
 
 .container{
-    width: 414px !important;
+    width: 414px ;
     margin: 0 auto ;
     overflow-x: hidden;
     /* border: 1px solid red; */
@@ -71,6 +71,8 @@ input[type=datetime-local]::-webkit-inner-spin-button {
    
 
 }
+
+
 
 .numberform{
     max-width: 414px;
@@ -99,7 +101,7 @@ header{
     align-items: center;
     justify-content: space-between;
     position: sticky;
-    width: 414px;
+    
     top: 0;
     z-index: 1000;
 
@@ -758,4 +760,39 @@ gap: 30px;
     font-size: 12px;
     width: 100%;
     margin: 0 auto;
+}
+
+
+/* media query */
+@media screen and (max-width:400px) {
+    .container{
+        width: 380px;
+
+    }
+    header{
+        width: auto;
+        justify-content: space-around;
+    }
+    .boxs{
+      grid-gap: 15px;
+    }
+    
+}
+@media screen and (max-width:350px) {
+    .container{
+        width: 300px;
+    }
+    header{
+        
+        justify-content: space-around;
+        width: 300px;
+        
+    }
+    .boxs{
+        grid-template-columns:1fr;
+      grid-gap: 15px;
+    }
+    .bo > img{
+        width: 130px !important;
+    }
 }

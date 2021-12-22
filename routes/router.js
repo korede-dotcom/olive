@@ -370,7 +370,7 @@ router.get("/auditions/:id",Authenticated,(req,res)=>{
                         console.log(err)
                     }else{
                         if(auditions.auditionPattern === 0){
-                            Video.findOne({audition:req.params.id},(err,video)=>{
+                            Video.findOne({user:req.session.user},(err,video)=>{
                                 if(err){
                                     console.log(err)
                                 }else{
@@ -383,12 +383,12 @@ router.get("/auditions/:id",Authenticated,(req,res)=>{
                                 }
                             })   
                         }else{
-                            DateSelection.findOne({audition:req.params.id},(err,dateSelection)=>{
+                            DateSelection.findOne({user:req.session.user},(err,dateSelection)=>{
                                 if(err){
                                     console.log(err)
                                 }else{
                                     if(dateSelection){
-                                        console.log(dateSelection)
+                                       
                                         res.render("userAuditions",{video,dateSelection:dateSelection,auditions,payments,user:req.session.user})
                                     }else{
                                         res.render("userAuditions",{video,dateSelection:false,auditions,payments,user:req.session.user})
@@ -792,7 +792,7 @@ router.post("/auditionlink",(req,res)=>{
                         console.log(err.message)
                         // get the error code
                         if(err.code === 11000){
-                            return res.send({"message":"User already exists"})
+                             res.send({"message":"User already exists"})
                         }
                     }else{
                         if(user){
@@ -996,7 +996,8 @@ router.post("/dateselection",(req,res)=>{
         if(err){
             console.log(err)
         }else{
-            if(result.length === 1){
+            console.log(result)
+            if(result.length === 100){
                 res.send({"status":"limit"})
             }else{
                 DateSelection.create({

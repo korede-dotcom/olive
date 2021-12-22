@@ -167,7 +167,7 @@
                                             <% if (dateSelection) { %>
                                                 <p class="timedetails">Your audition link will be available in</p>
                                                 <p style="color: goldenrod;" class="timeLeft">
-                                                    <img src="/assest/OLIVE/tik.png" />
+                                                    <!-- <img src="/assest/OLIVE/tik.gif" /> -->
                                                 </p>
                                                 <p class="dbDate">
                                                 </p>
@@ -409,7 +409,7 @@
                         // console.log(timeLeft);
                         // post to server
                         let payload = {
-                            date: selectedDateAndTimers,
+                            date: selectedDateAndTime,
                             user: "<%=user._id%>",
                             provider: "<%=auditions.provider%>",
                             audition: "<%=auditions._id%>"
