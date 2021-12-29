@@ -59,13 +59,14 @@
         <div class="user-details" style="height: 90vh;">
             <form action="" enctype="multipart/form-data" id="form">
                 <p style="color: #ddd;text-transform: uppercase;text-align: center;">Password recovery</p>
+                <span class="msg" style="color: goldenrod;">Please provide your name and email </span>
                 <div>
 
                     <input type="text" name="name" id="name" placeholder="Enter your name" required>
                 </div>
                 <div>
-                    input your email
-                    <input type="email" name="email" id="email" placeholder="Enter your email or Phone Number" required>
+
+                    <input type="email" name="email" id="email" placeholder="Enter your email" required>
 
 
                 </div>
@@ -98,8 +99,11 @@
         <script>
             //    form
             const form = document.querySelector('#form');
+            const msg = document.querySelector('.msg');
+            const btn = document.querySelector('.btn');
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
+                btn.innerHTML = 'Please wait...';
                 const name = document.querySelector('#name').value;
                 const email = document.querySelector('#email').value;
 
@@ -115,11 +119,24 @@
                 }).then(res => res.json())
                     .then(data => {
                         console.log(data);
-                        if (data.status === 'success') {
-                            alert('check your email');
-                            window.location.href = '/login';
+                        if (data.status == 'success') {
+                            // hide inputs
+                            document.querySelector('#name').style.display = 'none';
+                            document.querySelector('#email').style.display = 'none';
+                            msg.innerHTML = `Link to reset your password has been sent to your email`;
+                            //    onclick btn to home
+                            btn.innerHTML = 'Go to home';
+                            btn.addEventListener('click', () => {
+                                window.location.href = '/';
+                            })
                         } else {
-                            alert('error');
+                            document.querySelector('#name').style.display = 'none';
+                            document.querySelector('#email').style.display = 'none';
+                            msg.innerHTML = `No user found`;
+                            btn.innerHTML = 'Go Home'
+                            btn.addEventListener('click', () => {
+                                window.location.href = '/';
+                            })
                         }
                     })
                     .catch(err => console.log(err));

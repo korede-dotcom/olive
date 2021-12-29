@@ -1230,10 +1230,12 @@ router.post("/recovery",(req,res)=>{
                             "HTMLPart": `<h3>Reset your password with the link below <a style="background-color:"goldenrod" href=${link}>reset password</a></h3>`,
                         }]
                     }) .then((result) => {
+                        res.send({"status":"success"})
                         console.log(result.body)
                     })
                     .catch((err) => {
                         console.log(err.statusCode)
+                        res.send({"status":"fail"})
                     })
                                 
         }else{

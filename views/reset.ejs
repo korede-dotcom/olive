@@ -106,11 +106,14 @@
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
                 btn.innerHTML = 'Please wait...';
+                btn.disabled = true;
                 const p1 = document.getElementById('p1').value;
                 const p2 = document.getElementById('p2').value;
                 // pssword length
                 if (p1.length < 8) {
                     err.innerHTML = 'Password must be at least 8 characters';
+                    btn.innerHTML = 'Update Password';
+                    btn.disabled = false;
                     return false;
                 }
                 if (p1 === p2) {
@@ -129,14 +132,26 @@
                         .then(data => {
                             console.log(data);
                             if (data.status === 'success') {
-                                window.location.assign('/');
+                                err.innerHTML = 'Password updated successfully';
+                                btn.innerHTML = 'Go to login';
+                                btn.disabled = false;
+                                btn.addEventListener('click', () => {
+                                    window.location.href = '/login';
+                                })
                             } else {
-                                err.innerHTML = data.message;
+                                p1.value = '';
+                                p2.value = '';
+                                err.innerHTML = 'Something went wrong';
+                                btn.innerHTML = 'Update Password';
+                                btn.disabled = false;
                             }
                         })
                         .catch(err => console.log(err));
                 } else {
                     err.innerHTML = 'Passwords do not match';
+                    btn.innerHTML = 'Update Password';
+                    btn.disabled = false;
+
                 }
             });
         </script>

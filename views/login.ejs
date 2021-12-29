@@ -290,10 +290,11 @@
                         btn.innerHTML = "SIGN IN";
                         err.innerHTML = "Wrong username or password";
                         localStorage.setItem("numberOftries", noc++)
-                        if (noc >= 3) {
-                            err.innerHTML = "You have exceeded the number of tries";
-                            password.disabled = true;
-                            phone.disabled = true;
+                        if (noc >= 4) {
+                            err.innerHTML = "You have exceeded the number of tries Reset your password";
+                            document.querySelectorAll(".number").forEach(e => {
+                                e.style.display = "none";
+                            })
                             btn.disabled = false;
                             btn.innerHTML = "Reset Password";
                             btn.addEventListener("click", (e) => {
