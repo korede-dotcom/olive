@@ -22,6 +22,7 @@ const fs = require("fs")
 const path = require("path")
 const Video = require("../models/videos")
 const DateSelection = require("../models/DateSelection")
+const jwt = require("jsonwebtoken");
 
 
 
@@ -115,7 +116,7 @@ router.post("/",(req,res)=>{
                             }
                           ],
                           "Subject": "Welcome to Ghenghen",
-                          "TextPart": `Hi ${name}\n,Welcome to Ghenghen your OTP is ${otp} \n Thanks for Joining Olive\n Best regard \n Ghenghen Team`,
+                          "TextPart": `Hi ${name}\n,Welcome to Ghenghen your OTP is ${otp} \n Thanks for Joining Ghenghen\n Best regard \n Ghenghen Team`,
                        
                      
                           "HTMLPart": ``,
@@ -197,18 +198,19 @@ router.post("/login",(req,res)=>{
                 res.send({"error":"User not Exist"})
             }
             if(user){
-                bcrypt.compare(password,user.password,(err,result)=>{
-                    if(err){
-                        res.send({"error":"Password is incorrect"})
-                    }else{
+                // compare password
+                bcrypt.compare(password, user.password, (err, result) => {
+                    if (result) {
                         req.session.userIsLoggedIn = true;
-                        req.session.user = user;
-                       res.status(200).json({"status":"true"});
+                                req.session.user = user;
+                               res.status(200).json({"status":"true"});
+                    } else {
+                        res.send({"error":"Password is incorrect"})
                     }
-                })
-                }else{
-                    res.send({"error":"Password is incorrect"})
-                }
+                });
+            }else{
+                res.send({"error":"User not Exist"})
+            }
         })
         
     } catch (error) {
@@ -819,7 +821,7 @@ router.post("/auditionlink",(req,res)=>{
                                
                              
                                   "HTMLPart": ``,
-                                //   "CustomID": "AppGettingStartedTest"
+                                  "CustomID": "AppGettingStartedTest"
                                 }
                               ]
                             })
@@ -1147,6 +1149,43 @@ router.post("/dateselection",(req,res)=>{
     // }
 
 
+    router.get("/testemail",(req,res)=>{
+        
+        const request = mailjet
+        .post("send", {'version': 'v3.1'})
+        .request({
+          "Messages":[
+            {
+              "From": {
+                "Email": "badasulaimon@gmail.com",
+                "Name": "Ghenghen Team"
+              },
+              "To": [
+                {
+                  "Email": 'koredebada@gmail.com',
+                  
+                }
+              ],
+              "Subject": "Welcome to Ghenghen",
+              "TextPart": `Hi hi \n,Welcome to Ghenghen your OTP is  \n Thanks for Joining Olive\n Best regard \n Ghenghen Team`,
+           
+         
+              "HTMLPart": `
+                
+              `,
+            //   "CustomID": "AppGettingStartedTest"
+            }
+          ]
+        })
+        request
+          .then((result) => {
+            console.log(result.body)
+          })
+          .catch((err) => {
+            console.log(err.statusCode)
+          })
+          res.send({"status":"success"})
+    })
 
 
 // router logout
@@ -1154,6 +1193,101 @@ router.post("/dateselection",(req,res)=>{
 router.get("/logout",(req,res)=>{
     req.session.destroy();
     res.redirect("/")
+})
+
+router.get("/recovery",(req,res)=>{
+    res.render("recover")
+})
+router.post("/recovery",(req,res)=>{
+    const {name,email} = req.body;
+    User.findOne({email},(err,user)=>{
+        // send link to reset user password to mailjet
+        if(err){
+            console.log(err)
+        }
+        if(user){
+            const token = jwt.sign({
+                name,
+                email
+            },"secret",{expiresIn:"1h"})
+            console.log(token)
+            const link = `http://localhost:1200/reset/${token}`
+            const request = mailjet.post("send", {'version': 'v3.1'})
+            .request({
+                "Messages":[
+                    {
+                        "From": {
+                            "Email": "koredebada@gmail.com",
+                            "Name": "Ghenghen Team"
+                        },
+                        "To": [
+                            {
+                                "Email": email,
+                                "Name": "Ghenghen Team"
+                            }],
+                            "Subject": "Reset your Password",
+                            "TextPart": "Reset your password with the link below",
+                            "HTMLPart": `<h3>Reset your password with the link below <a style="background-color:"goldenrod" href=${link}>reset password</a></h3>`,
+                        }]
+                    }) .then((result) => {
+                        console.log(result.body)
+                    })
+                    .catch((err) => {
+                        console.log(err.statusCode)
+                    })
+                                
+        }else{
+            res.send({"status":"fail"})
+        }
+    })
+})
+
+// router for reset password
+router.get("/reset/:token",(req,res)=>{
+    const {token} = req.params;
+    jwt.verify(token,"secret",(err,decoded)=>{
+        if(err){
+            console.log(err)
+        }else{
+            console.log(decoded)
+            // set token to session
+            req.session.token = token;
+            res.render("reset",{token})
+        }
+    })
+})
+
+
+// router reset password
+router.post("/reset/:token",(req,res)=>{
+    const {token} = req.params;
+    const {password} = req.body;
+    jwt.verify(token,"secret",(err,decoded)=>{
+        if(err){
+            res.send({"status":"fail"})
+        }else{
+            const {name,email} = decoded;
+            // find by email and update password and hash and remove token
+            const hash = bcrypt.hashSync(password,10);
+            User.findOneAndUpdate({email},{password:hash},(err,user)=>{
+                if(err){
+                    console.log(err)
+                }else{
+                    if(user){
+                        res.send({"status":"success"})
+                        // delete token from session
+                        req.session.token = null;
+                        
+                    }else{
+                        res.send({"status":"fail"})
+                    }
+                }
+            })
+            
+            
+
+        }
+    })
 })
 
 

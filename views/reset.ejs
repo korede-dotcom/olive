@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1 user-scalable=0">
+    <title>GhenGhen </title>
+    <link rel="icon" href="/assest/OLIVE/logo.png">
+    <link rel=" stylesheet" href="/styles/auth.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://www.dafontfree.net/embed/bGF0by1ib2xkJmRhdGEvNDYvbC82MzM2MS9MYXRvLUJvbGQudHRm" rel="stylesheet"
+        type="text/css" />
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;1,900&display=swap" rel="stylesheet"> -->
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+        crossorigin="anonymous"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" />
+
+    <!-- <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script> -->
+
+    <!-- link fontasweson -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;1,900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: lato;
+            font-weight: 300 !important;
+
+        }
+
+        .content>* {
+            font-family: lato;
+            font-weight: 300 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" style="height: 100vh; overflow: hidden;">
+        <header style="height: 5vh;">
+            <div class="logo">
+                <a href="/dashboard">
+
+                    <img src="/assest/OLIVE/logo.png" alt="">
+                </a>
+            </div>
+
+
+        </header>
+
+        <div class="user-details" style="height: 90vh;">
+            <form action="" enctype="multipart/form-data" id="form">
+                <p style="color: #ddd;text-transform: uppercase;text-align: center;">Set New Password</p>
+                <p style="color: goldenrod;text-align: center;" class="err"></p>
+                <div>
+
+                    <input type="password" name="p1" id="p1" placeholder="Enter your new Password" required>
+                </div>
+                <div>
+
+                    <input type="password" name="p2" id="p2" placeholder="Confirm Password" required>
+
+
+                </div>
+
+
+
+                <button class="btn" style="">Update Password</button>
+
+            </form>
+        </div>
+
+
+        <div class="" style="background-color: #000;" style="margin-top: 7px;height: 7vh; ">
+            <div class="footer_social" style="margin: 0px;padding-bottom: 15px;">
+                <div>
+                    <p><span style="color: #ddd;">&copy; 2021</span> GhenGhen </p>
+                </div>
+                <div class="social_icon">
+                    <img src="/assest/OLIVE/fb.png" />
+                    <img src="/assest/OLIVE/instagram.png" />
+                    <img src="/assest/OLIVE/twitter.png" />
+                </div>
+            </div>
+
+        </div>
+
+
+        <script>
+            // confirm password
+            // submit form
+            const form = document.getElementById('form');
+            const err = document.querySelector('.err');
+            const btn = document.querySelector('.btn');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                btn.innerHTML = 'Please wait...';
+                const p1 = document.getElementById('p1').value;
+                const p2 = document.getElementById('p2').value;
+                // pssword length
+                if (p1.length < 8) {
+                    err.innerHTML = 'Password must be at least 8 characters';
+                    return false;
+                }
+                if (p1 === p2) {
+                    //    post to /reset
+                    fetch('/reset/<%=token%>', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            password: p1
+                        })
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data);
+                            if (data.status === 'success') {
+                                window.location.assign('/');
+                            } else {
+                                err.innerHTML = data.message;
+                            }
+                        })
+                        .catch(err => console.log(err));
+                } else {
+                    err.innerHTML = 'Passwords do not match';
+                }
+            });
+        </script>
+
+
+        <!-- <script src="/js/app.js"></script>
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script> -->
+        <!-- <script>
+            //    form
+            const form = document.querySelector('#form');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.querySelector('#name').value;
+                const email = document.querySelector('#email').value;
+
+                fetch('/recovery', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name,
+                        email
+                    })
+                }).then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        if (data.status === 'success') {
+                            alert('check your email');
+                            window.location.href = '/login';
+                        } else {
+                            alert('error');
+                        }
+                    })
+                    .catch(err => console.log(err));
+            });
+        </script> -->
+
+</body>
+
+</html>

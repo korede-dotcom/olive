@@ -261,6 +261,7 @@
 
             const err = document.querySelector('.err');
 
+
             const date = document.querySelector(".date");
             const readyforaudition = document.querySelector(".readyforaudition");
             const setDate = date.innerHTML;
@@ -330,7 +331,7 @@
                             }
                         };
                     } else {
-                        alert("Please upload a video file");
+                        err.innerHTML = "Please upload a video";
 
                     }
                 });
@@ -441,6 +442,7 @@
 
                     } else {
                         err.innerHTML = "Please select a date and time";
+
                         // alert("Please select date and time");
                     }
                     // get data from formdata

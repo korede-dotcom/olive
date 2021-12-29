@@ -152,6 +152,8 @@
                 <button class="btn" id="submitBtn" type="submit">SIGN IN</button>
             </form>
 
+            <a href="/recovery" hidden>Forgot Password</a>
+
             <a style="color: #ddd;" class="register" href="/signup">Register on <soan style="color: goldenrod;">GhenGhen
                 </soan> NOW</a>
             <p style="color: goldenrod;">or <span>LOG IN</span> with </p>
@@ -258,14 +260,20 @@
         const form = document.querySelector("#form");
         const btn = document.querySelector(".btn");
         const err = document.querySelector(".err")
+        const phone = document.querySelector("#phone");
+        const password = document.querySelector("#password");
+        let noc = 0;
 
         form.addEventListener("submit", (e) => {
             e.preventDefault()
             btn.disabled = true;
             btn.innerHTML = "Please wait...";
 
+            // fecth three times forgot password
 
-            fetch('login', {
+            // set timeout for fecth three times
+
+            fetch('/login', {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -281,7 +289,19 @@
                         btn.disabled = false;
                         btn.innerHTML = "SIGN IN";
                         err.innerHTML = "Wrong username or password";
+                        localStorage.setItem("numberOftries", noc++)
+                        if (noc >= 3) {
+                            err.innerHTML = "You have exceeded the number of tries";
+                            password.disabled = true;
+                            phone.disabled = true;
+                            btn.disabled = false;
+                            btn.innerHTML = "Reset Password";
+                            btn.addEventListener("click", (e) => {
+                                e.preventDefault();
+                                window.location.href = "/recovery";
+                            })
 
+                        }
                     }
 
                 })

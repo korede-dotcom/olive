@@ -228,7 +228,7 @@ header{
 
 
 .content{
-    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.568);
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -246,6 +246,14 @@ text-transform: uppercase;
 padding: 1em;
 text-align: center;
 color: #ddd;
+
+}
+.content > .content_header {
+   
+    /* border-bottom: goldenrod  1px solid;
+    width: 60%;
+    margin: 0 auto;
+    padding-bottom: 2px; */
 }
 .register_link {
     display: flex;
@@ -717,6 +725,9 @@ gap: 30px;
     justify-content: space-between;
     align-items: center;
     gap: 10px;
+}
+.social_icon img{
+    width: 24px;
 }
 .fade,.hide{
     display: none;
