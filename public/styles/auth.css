@@ -775,6 +775,10 @@ gap: 30px;
 }
 
 @media screen and (max-width:390px){
+    body{
+        background-image: none;
+        background-color: #000;
+    }
     .content_header{
         font-size: 16px;
     }
