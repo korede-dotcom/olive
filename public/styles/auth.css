@@ -775,6 +775,9 @@ gap: 30px;
 }
 
 @media screen and (max-width:390px){
+    .content_header{
+        font-size: 16px;
+    }
     .register_link{
         width: 350px;
         
@@ -795,6 +798,16 @@ gap: 30px;
         width: flex;
          flex: 1;
     }
+    .auditionBox{
+        height: calc(100% - 10px);
+        gap: 10px;
+    }
+    .abox{
+        height: 100%;
+        width: 350px !important;
+        padding: 0px 20px !important;
+    }
+    
 }
     
 
