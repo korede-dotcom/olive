@@ -780,7 +780,13 @@ gap: 30px;
         
     }
     .number img{
-        width: 100px;
+        width: 100%;
+    }
+    .btn{
+        width: 100%;
+    }
+    .styledform img{
+        width: 20px;
     }
 }
     
