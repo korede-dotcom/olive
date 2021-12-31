@@ -788,6 +788,13 @@ gap: 30px;
     .styledform img{
         width: 20px;
     }
+    .lock{
+        flex: 0;
+    }
+    .number > #password{
+        width: flex;
+         flex: 1;
+    }
 }
     
 
