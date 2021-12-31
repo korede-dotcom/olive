@@ -799,13 +799,13 @@ gap: 30px;
          flex: 1;
     }
     .auditionBox{
-        height: calc(100% - 10px);
+        height: calc(100% - 20px);
         gap: 10px;
     }
     .abox{
-        height: 100%;
+        
         width: 350px !important;
-        padding: 0px 20px !important;
+        padding: 0px 20px 5px 20px !important;
     }
     
 }
