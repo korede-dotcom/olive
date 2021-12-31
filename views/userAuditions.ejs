@@ -494,6 +494,9 @@
                             minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
                             secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
                             // day is 0 and time left is less than 24 hours
+                            if (daysLeft === 0) {
+                                timeLeftDisplay.innerHTML = `${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
+                            }
                             if (daysLeft === 0 && hoursLeft === 0) {
                                 timeLeftDisplay.innerHTML = ` ${minutesLeft} minutes, ${secondsLeft} seconds`;
                             }

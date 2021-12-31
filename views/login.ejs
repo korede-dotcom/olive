@@ -21,6 +21,18 @@
 </head>
 
 <body>
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '1372612613159091',
+                autoLogAppEvents: true,
+                xfbml: true,
+                version: 'v12.0'
+            });
+        };
+    </script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
 
     <div class="container">
         <header>
@@ -186,15 +198,15 @@
 
             <footer>
                 <div class="facebook">
-                    <img src="/assest/OLIVE/Ellipse 2.png" />
+                    <img src="/assest/OLIVE/Ellipse 4.png" />
                     <img class="socialicons" src="/assest/OLIVE/brandico_facebook.png" />
                 </div>
                 <div class="google">
-                    <img src="/assest/OLIVE/Ellipse 2.png" />
+                    <img src="/assest/OLIVE/Ellipse 4.png" />
                     <img class="socialicons" src="/assest/OLIVE/flat-color-icons_google.png" />
                 </div>
                 <div class="mail">
-                    <img src="/assest/OLIVE/Ellipse 2.png" />
+                    <img src="/assest/OLIVE/Ellipse 4.png" />
                     <img class="socialicons" src="/assest/OLIVE/clarity_email-outline-badged.png" />
                 </div>
 
@@ -309,6 +321,25 @@
                     }
 
                 })
+
+        })
+    </script>
+    <script>
+        const facebook = document.querySelector(".facebook");
+        facebook.addEventListener("click", (e) => {
+            //   login with facebook
+            e.preventDefault();
+            FB.login(function (response) {
+                if (response.authResponse) {
+                    console.log('Welcome!  Fetching your information.... ');
+                    FB.api('/me', function (response) {
+                        console.log('Good to see you, ' + response.name + '.');
+                    });
+                } else {
+                    console.log('User cancelled login or did not fully authorize.');
+                }
+            });
+
 
         })
     </script>

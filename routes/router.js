@@ -1249,7 +1249,8 @@ router.get("/reset/:token",(req,res)=>{
     const {token} = req.params;
     jwt.verify(token,"secret",(err,decoded)=>{
         if(err){
-            console.log(err)
+            // console.log(err)
+            res.render("error",{"err":"link expired"})
         }else{
             console.log(decoded)
             // set token to session

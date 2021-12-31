@@ -24,8 +24,15 @@
 
 <body class="five-zero-zero bg-orange">
     <div class="five-zero-zero-container">
-        <div class="error-code">500</div>
-        <div class="error-message">Link Error</div>
+        <% if (!err) { %>
+            <div class="error-code">500</div>
+            <div class="error-message">Link Error</div>
+            <% } %>
+                <% if (err) { %>
+                    <div class="error-message">Link Expired</div>
+                    <a class="btn" href="/">Go Home</a>
+                    <% } %>
+
 
     </div>
 
