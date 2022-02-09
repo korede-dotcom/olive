@@ -27,7 +27,16 @@ input::-webkit-inner-spin-button {
   
 }
 
+@media screen and (max-width:390px) {
+   
+}
+
 /* Firefox */
+@media screen and (min-width: 400px) {
+  
+
+    
+
 
 
 * button{
@@ -58,8 +67,22 @@ input[type=datetime-local]::-webkit-inner-spin-button {
     display: none;
 }
 
+
+    body{
+        background: url("/assest/OLIVE/backgroundImage.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        margin: auto 0;
+        font-family: 'lato';
+        font-weight: 300 !important;
+    }
+
+    
+
+
 .container{
-    width: 414px ;
+    width: calc(414px);
     margin: 0 auto ;
     overflow-x: hidden;
     /* border: 1px solid red; */
@@ -773,146 +796,14 @@ gap: 30px;
     width: 100%;
     margin: 0 auto;
 }
-/* media query from 375 t0 400 */
 
-
-@media screen and (max-width:375px) {
-    body{
-        background-image: none;
-        background-color: #000;
-    }
-    .content{
-        width:350px;
-    }
-    .content_header{
-        font-size: 16px;
-    }
-    .register_link{
-        width: 350px;
-        
-    }
-    .number img{
-        width: 100%;
-    }
-    .btn{
-        width: 100%;
-    }
-    .styledform img{
-        width: 20px;
-    }
-    .lock{
-        flex: 0;
-    }
-    .number > #password{
-        width: flex;
-         flex: 1;
-    }
-    .auditionBox{
-        height: calc(100% - 20px);
-        gap: 10px;
-    }
-    .abox{
-        
-        width: 325px !important;
-        padding: 0px 20px 3px 20px !important;
-    }
-    .footer_social{
-        padding: 5px;
-    }
-    .social_icon img{
-        width: 18px;
-    }
-}
-
-@media screen and (width:390px){
-    body{
-        background-image: none;
-        background-color: #000;
-    }
-    .content_header{
-        font-size: 16px;
-    }
-    .register_link{
-        width: 350px;
-        
-    }
-    .number img{
-        width: 100%;
-    }
-    .btn{
-        width: 100%;
-    }
-    .styledform img{
-        width: 20px;
-    }
-    .lock{
-        flex: 0;
-    }
-    .number > #password{
-        width: flex;
-         flex: 1;
-    }
-    .auditionBox{
-        height: calc(100% - 20px);
-        gap: 10px;
-    }
-    .abox{
-        
-        width: 350px !important;
-        padding: 0px 20px 3px 20px !important;
-    }
-    .footer_social{
-        padding: 5px;
-    }
-    .social_icon img{
-        width: 18px;
-    }
-    
-}
-    
-
-/* media query */
 @media screen and (max-width:400px) {
-    .container{
-        width: 380px;
+    body{
+        background-color:red ;
+    }
 
-    }
-    header{
-        width: auto;
-        justify-content: space-around;
-    }
-    .boxs{
-      grid-gap: 15px;
-    }
-    
 }
-@media screen and (max-width:350px) {
-    .container{
-        width: 340px;
 
-    }
-    header{
-        width: auto;
-        justify-content: space-around;
-    }
-    .boxs{
-      grid-gap: 15px;
-    }
+/* media from 375 t0 400 */
 
-    .container{
-        width: 300px;
-    }
-    header{
-        
-        justify-content: space-around;
-        width: 300px;
-        
-    }
-    .boxs{
-        grid-template-columns:1fr;
-      grid-gap: 15px;
-    }
-    .bo > img{
-        width: 130px !important;
-    }
-}
+/* /*  */
