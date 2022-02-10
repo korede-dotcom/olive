@@ -29,6 +29,9 @@ body{
 /*  */
 
 @media screen and (max-width: 650px){
+/* *{
+    font-size: 16px;
+} */
 .wrapper{
     padding-left: 1em;
     padding-right: 1.5em;
@@ -40,6 +43,8 @@ body{
 
     
 }
+
+
 
 .logo{
    grid-column: 1/2;
@@ -66,7 +71,7 @@ body{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 0 10px;
+    padding: 0 5px;
     gap: 10px;
     
 }
@@ -78,6 +83,12 @@ body{
     border-radius: 24px;
     background-color:#88266F;
     transition: 0.3s;
+}
+.links a:nth-of-type(1){
+    color: #fff;
+    background: none;
+    font-family: 'Khand', sans-serif;
+    margin-right: 10px;
 }
 
 .logo img{
@@ -95,7 +106,7 @@ body{
 
 }
 .landingcontent h1{
-    font-size: 2em;
+    font-size: 3em;
     font-weight: 700;
     font-family: 'Khand', sans-serif;
     text-transform: uppercase;
@@ -137,7 +148,7 @@ body{
     color: #fff;
     background: #88266F;
     
-    padding: .5em;
+    padding:5px 30px;
     border-radius: 20px;
     margin-bottom: 10px;
 }
@@ -226,7 +237,7 @@ body{
    bottom: -20px;
 }
 footer{
-    margin-top: 35px;
+    margin-top: 45px;
     grid-column: 1/4;
     grid-row: 8/9;
     background-color: #F2C033;
@@ -238,23 +249,29 @@ footer{
     background: #F2C033;
     margin-top: 30px;
     position: relative; */
+    position: relative;
+
 }
 .querys a{
     color: #fff;
-    padding: .2em;
+    padding:2px 20px;
     border: 1px solid #fff;
     font-size: 25px;
     font-weight: 800;
     font-family: 'Khand', sans-serif;
     transition: 0.3s;
-    /* margin-top: -60px; */
+    /* margin-top: -100px; */
     text-decoration: none;
+    position: absolute;
+    top: -20px;
+    
     
    
 }
 .footerlinks{
     color: #000;
     font-size: 1.2em;
+    margin-top: 20px;
 }
 .footerlinks> div{
     padding: .5em;
