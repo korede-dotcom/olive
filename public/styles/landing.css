@@ -1,5 +1,8 @@
 
-
+:root{
+    --p: #88266F;
+    --y: #F2C033;
+}
 *{
     margin: 0;
     padding: 0;
@@ -185,7 +188,7 @@ body{
 .about h1{
     color: #F2C033;
     font-size: 1.5em;
-    border: 1px solid #fff;
+    border: 1px solid #88266F;
     display: inline-block;
     text-transform: uppercase;
     padding: .5em;
@@ -225,7 +228,7 @@ body{
    
 }
 .benefits-grid > div{
-    border: #fff solid 1px;
+    border: #88266F solid 1px;
     padding: 1em;
 }
 .benefits-grid > div:nth-last-child(1)>img{
@@ -240,7 +243,7 @@ footer{
     margin-top: 45px;
     grid-column: 1/4;
     grid-row: 8/9;
-    background-color: #F2C033;
+    background-color: #88266F;
     /* display: flex;
     justify-content: space-around;
     align-items: center;
@@ -255,7 +258,7 @@ footer{
 .querys a{
     color: #fff;
     padding:2px 20px;
-    border: 1px solid #fff;
+    border: 1px solid #F2C033;
     font-size: 25px;
     font-weight: 800;
     font-family: 'Khand', sans-serif;
@@ -506,7 +509,7 @@ footer{
         font-weight: 00;
         color: #fff;
         text-transform: capitalize;
-        border: 1px solid #fff;
+        border: 1px solid #88266F;
         border-radius: 2px;
         color: #F2C033;
         padding:10px;
@@ -584,15 +587,15 @@ footer{
     footer{
         grid-column: 1/4;
         grid-row: 8/9;
-        background-color: #F2C033;
+        background-color: #88266F;
         /* grid-column: 1/4;
         grid-row: 7/8; */
-        background-color: #F2C033;
+       
         position: relative;
         width: 100%;
     }
     .querys > a{
-        border: 1px solid #fff;
+        border: 1px solid #F2C033;
        
         /* margin-top: 1em;
         margin-bottom: 1em; */
@@ -619,7 +622,7 @@ footer{
         
     }
     .hotline h5{ 
-        color: #000;
+        color: #F2C033;
         text-decoration: underline;
         font-size: 1.2em;
         margin-top: 1.2em;
@@ -627,7 +630,7 @@ footer{
     .pr h5{
         margin-top: 1.2em;
         /* margin-top: 1em; */
-        color: #000;
+        color: #F2C033;
         text-decoration: underline;
         font-size: 1.2em;
     }
@@ -637,7 +640,7 @@ footer{
 
     }
     .headquaters h5{
-        color: #000;
+        color: #F2C033;
     }
     .footerlinks div > a{
         color: #000;

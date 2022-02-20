@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1 user-scalable=0">
+    <title>G-FACTOR </title>
+    <!-- <link rel="stylesheet" href="/styles/auth.css"> -->
+    <link rel="icon" href="/assest/OLIVE/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://www.dafontfree.net/embed/bGF0by1ib2xkJmRhdGEvNDYvbC82MzM2MS9MYXRvLUJvbGQudHRm" rel="stylesheet"
+        type="text/css" />
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;1,900&display=swap" rel="stylesheet"> -->
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" />
+
+    <!-- <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Khand:wght@400;600&family=Mulish:wght@300&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --p: #88266F;
+            --y: #F2C033;
+            --primary-font: font-family: 'Khand', sans-serif;
+            --secondary-font: font-family: 'Mulish', sans-serif;
+        }
+
+        body {
+            background: #000;
+            color: #ddd;
+            font-family: 'Khand', sans-serif;
+            background-image: url("/assest/GODFACTOR/wave.svg");
+            background-repeat: no-repeat;
+            background-position: bottom;
+            background-size: contain;
+        }
+
+        .container {
+            height: 100vh;
+            display: grid;
+            place-items: center;
+            grid-template-columns: 2fr;
+
+        }
+
+
+
+
+
+        /* 
+        
+
+        /* style login */
+        .content {
+            grid-column: 1/3;
+            border: 1px solid #fff;
+            border-radius: 10px;
+            display: grid;
+            grid-template-columns: 1fr;
+            justify-items: center;
+            align-content: center;
+            /* grid-gap: 20px; */
+            padding: 60px;
+
+            /* box-shadow: 0px 0px 10px 0px rgba(241, 237, 98, 0.75); */
+            /* background: url("/assest/GODFACTOR/Screen Shot 2022-02-06 at 10.52.png"); */
+        }
+
+
+
+
+        .number {
+            border: 1px solid #fff;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 1.2rem;
+            font-family: var(--primary-font);
+            color: var(--y);
+            background: #000;
+            outline: none;
+            margin-bottom: 10px;
+
+        }
+
+
+
+        #submitBtn {
+            border: 1px solid #fff;
+            border-radius: 12px;
+            padding: 10px;
+            /* font-size: 1.2rem; */
+            font-family: var(--primary-font);
+            color: #fff;
+            background: var(--p);
+            width: 100%;
+        }
+
+        #submitBtn:hover {
+            background: var(--y);
+            color: #000;
+        }
+
+        .number input {
+            border: none;
+            border-radius: 12px;
+            /* padding: 10px; */
+            font-family: var(--primary-font);
+            color: #fff;
+            background: #000;
+            outline: none;
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        .content_header {
+            font-size: 1.3em;
+        }
+
+        #form {
+            display: grid;
+            grid-template-columns: 1fr;
+
+            grid-gap: 20px;
+
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--y);
+        }
+
+        .lock {
+            height: 20px;
+        }
+
+        .socials {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            width: 50%;
+        }
+
+        .socials>img {
+            border: 1px solid #000;
+            border-radius: 10%;
+            padding: 5px;
+        }
+
+        .styledform img {
+            height: 13px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header style="display: none;">
+            <div class="logo">
+                <img src="/assest/OLIVE/logo.png" alt="">
+            </div>
+            <!-- <div class="icon">
+                <div class="user">
+                    <a href="/profile">
+                        <img src="/assest/OLIVE/Group-1.png" alt="" srcset="">
+                    </a>
+                </div>
+                <a href="/dashboard">
+                    <div class="home">
+                        <img src="/assest/OLIVE/Group.png" alt="" srcset="">
+                    </div>
+                </a>
+            </div> -->
+        </header>
+
+        <section class="largeImg" hidden>
+            <div class="swiper">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper">
+                    <!-- Slides -->
+                    <div class="swiper-slide">
+                        <img src="/assest/OLIVE/woman.png" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/assest/OLIVE/cameraman.png" style="height: 452px; width: 414px;object-fit: cover;" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/assest/OLIVE/sitting.png" style="height: 450px; width: 414px;object-fit: cover;" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/assest/OLIVE/painter.png" style="height: 452px; width: 414px;object-fit: cover;" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img height="452px" width="100%" src="/assest/OLIVE/ankara-nice.jpeg" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/assest/OLIVE/models.png" style="height: 452px; width: 414px;object-fit: cover;" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/assest/OLIVE/makeup.png" style="height: 452px; width: 414px;object-fit: cover;" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/assest/OLIVE/guyandgirl.png"
+                            style="height: 452px; width: 414px;object-fit: cover;" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/assest/OLIVE/videographer.png"
+                            style="height: 452px; width: 414px;object-fit: cover;" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/assest/OLIVE/flowergirl.png" />
+                    </div>
+                    <!-- <div class="swiper-slide">
+                        <img style="height: 452px; width: 414px;object-fit: cover;" src="/assest/OLIVE/guy.png" />
+                    </div> -->
+                </div>
+                <!-- If we need pagination -->
+                <div class="swiper-pagination"></div>
+
+                <!-- If we need navigation buttons -->
+
+                <div class="swiper-button-prev">
+                    <img class="carousel-l" src="/assest/OLIVE/Group 2.png" />
+                </div>
+                <div class="swiper-button-next">
+                    <img class="carousel" src="/assest/OLIVE/Group 2.png" />
+                </div>
+
+                <!-- If we need scrollbar -->
+                <div class="swiper-scrollbar"></div>
+
+                <!-- 
+            <img src="/assest/OLIVE/guy.png" />
+            <img src="/assest/OLIVE/woman.png" />  -->
+            </div>
+            <!--  -->
+        </section>
+        <section class="content link_register">
+            <a href="/">
+                <img src="/assest/OLIVE/logo.png" alt="">
+            </a>
+            <!-- <h4 class="content_header">YOUTH CENTRIC DIGITAL ECOSYSTEM</h4> -->
+            <!-- <p class="content_text">
+                <strong>GhenGhen platform</strong> is a triumvirate and youth-centric digital ecosystem built for
+                creative
+                enthusiasts
+                seeking talent discovery, training, incubation, content production, publicity audience engagement and
+                market nexus to monetize digital contents in music, movies, fashion, and creative expressions.
+            </p> -->
+            <!-- <div class="youtube">
+                <img src="/assest/OLIVE/ladyYoutube.png" alt="" srcset="">
+                <img class="youtubelogo" src="/assest/OLIVE/fontisto_youtube-play.png">
+            </div> -->
+
+
+            <b style="" class="content_header  register_link_header">SIGN UP TO <span
+                    style="color: #88266F;text-transform: uppercase;">g-factor</span> </b>
+            <form class="register_link">
+                <div class="err" style="color:goldenrod;text-align: center;"></div>
+                <div class="number">
+                    <!-- <label for="number">Please enter your phone number</label> -->
+                    <!-- <input type="number" name="username" required> -->
+                    <input id="phone" name="username" type="tel">
+
+                    <!-- <img src="/assest/OLIVE/Line 2.png" alt=""> -->
+                </div>
+                <div class="number">
+                    <!-- <label for="email">Enter your email address </label> -->
+                    <div class="styledform">
+                        <img src="/assest/OLIVE/mail.png" alt="">
+                        <input type="email" name="email" required placeholder="Enter your email address">
+
+                    </div>
+                    <!-- <img src="/assest/OLIVE/Line 2.png" alt=""> -->
+                </div>
+                <div class="number">
+                    <!-- <label for="name">Enter your full name</label> -->
+                    <div class="styledform">
+                        <img src="/assest/OLIVE/name.png" alt="" required>
+                        <input type="text" name="name" placeholder="Enter your full name">
+                    </div>
+                    <!-- <img src="/assest/OLIVE/Line 2.png" alt="" required> -->
+                </div>
+                <div class="number">
+                    <!-- <label for="password">Password</label> -->
+                    <div class="styledform">
+                        <img src="/assest/OLIVE/lock.png" alt="" required>
+                        <input type="password" id="password" required name="password" placeholder="Password">
+                    </div>
+
+                    <!-- <img src="/assest/OLIVE/Line 2.png" alt=""> -->
+                </div>
+                <div class="number">
+                    <!-- <label for="confirm_password">Confirm password</label> -->
+                    <div class="styledform">
+                        <img src="/assest/OLIVE/lock.png" alt="" required>
+                        <input type="password" name="" id="confirm_password" required placeholder="Confirm password">
+                    </div>
+                    <!-- <img src="/assest/OLIVE/Line 2.png" alt=""> -->
+                </div>
+                <!-- <div class="number">
+                <label for="p2">Upload Picture</label>
+                <input type="file" name="logo" id="p2">
+                <img src="/assest/OLIVE/Line 2.png" alt="">
+            </div> -->
+                <button class="btn" id="submitBtn" type="submit">REGISTER</button>
+            </form>
+
+
+            <style>
+                .otp_content {
+                    display: grid;
+                    place-items: center;
+
+                }
+
+                #otpform {
+                    display: grid;
+                    place-items: center;
+                    margin-top: 20px;
+                    color: #F2C033;
+                }
+
+                .otp input {
+                    width: 20px;
+                    height: 40px;
+                    border-radius: 10px;
+                    border: 1px solid #88266F;
+                    padding: 0px 10px;
+                    font-size: 16px;
+                    color: #88266F;
+                    font-weight: bold;
+                    text-align: center;
+                    background-color: #000;
+                }
+
+                .btn {
+                    background-color: #88266F;
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    font-size: 16px;
+                    margin: 4px 2px;
+                    cursor: pointer;
+                    border-radius: 16px;
+                }
+
+                .err {
+                    color: #F2C033 !important;
+                }
+            </style>
+
+            <div class=" otp_content" style="display:none ;">
+                <!-- succes -->
+                <div class="succes" style="display:none; text-align: center;">
+                    <img src="/assest/OLIVE/confirm.png" alt="" style="width: 50px; height: 50px; object-fit: contain;">
+                    <p>
+                        <strong>Success!</strong>
+                    </p>
+                    <p>
+                        <strong>You have successfully registered</strong>
+                    </p>
+                    <p>
+                        <strong>You can now Login</strong>
+                    </p>
+                    <button type="submit" class="btn">Login</button>
+                </div>
+                <!-- <div class="err"></div> -->
+                <form id="otpform">
+                    <h4 class="">Verify your Phone number or Email</h4>
+                    <h5 class="change">Enter your OTP code here</h5>
+                    <br>
+
+                    <div class="otp">
+                        <input type="text" name="one" id="one" maxlength="1" onkeyup="clickEvent(this,'two')">
+                        <input type="text" name="two" id="two" maxlength="1" onkeyup="clickEvent(this,'three')">
+                        <input type="text" name="three" id="three" maxlength="1" onkeyup="clickEvent(this,'four')">
+                        <input type="text" name="four" id="four" maxlength="1" onkeyup="clickEvent(this,'five')">
+                        <input type="text" name="five" id="five" maxlength="1">
+                    </div>
+                    <br>
+
+                    <button type="submit" class="btn">SUBMIT</button>
+
+
+
+                </form>
+
+
+
+            </div>
+
+            <h6 class="resend" hidden>
+                <a href="/login" style="color: goldenrod;">Already a Member Login</a>
+            </h6>
+
+            <footer hidden>
+                <div class="facebook">
+                    <img src="/assest/OLIVE/Ellipse 4.png" />
+                    <img class="socialicons" src="/assest/OLIVE/brandico_facebook.png" />
+                </div>
+                <div class="google">
+                    <img src="/assest/OLIVE/Ellipse 4.png" />
+                    <img class="socialicons" src="/assest/OLIVE/flat-color-icons_google.png" />
+                </div>
+                <div class="mail">
+                    <img src="/assest/OLIVE/Ellipse 4.png" />
+                    <img class="socialicons" src="/assest/OLIVE/clarity_email-outline-badged.png" />
+                </div>
+
+            </footer>
+
+
+
+
+        </section>
+
+
+        <div class="" style="background-color: rgb(0, 0, 0);" hidden>
+            <div class="footer_social">
+                <div>
+                    <p><span style="color: #ddd;">&copy; 2021</span> GhenGhen </p>
+                </div>
+                <div class="social_icon">
+                    <img src="/assest/OLIVE/fb.png" />
+                    <img src="/assest/OLIVE/instagram.png" />
+                    <img src="/assest/OLIVE/twitter.png" />
+                </div>
+            </div>
+            <div class="bt"></div>
+        </div>
+
+
+
+
+        <script>
+
+            var input = document.querySelector("#phone");
+            window.intlTelInput(input, {
+                initialCountry: "NG",
+                autoHideDialCode: false,
+                utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/utils.min.js",
+            });
+
+            input.addEventListener("open:countrydropdown", function (e) {
+                e.target.setAttribute("placeholder", "Select Country");
+                e.target.style.width = "40px !important";
+            });
+
+            // post fecth / create
+            const formed = document.querySelector(".register_link");
+            const submitBtn = document.querySelector("#submitBtn");
+            const password = document.querySelector("#password");
+            const confirm = document.querySelector("#confirm_password");
+            const otp_content = document.querySelector(".otp_content")
+            const otp = document.querySelectorAll(".otp input")
+            const otpform = document.querySelector("#otpform")
+            const err = document.querySelector(".err")
+            const succes = document.querySelector(".succes")
+            const change = document.querySelector(".change")
+            // const continueBtn = document.querySelector(".continue");
+
+
+            formed.addEventListener("submit", (e) => {
+                e.preventDefault();
+
+                if (password.value !== confirm.value) {
+
+                    err.innerHTML = "password does not match"
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = "REGISTER";
+                    return false;
+
+                }
+
+                // password validation
+                if (password.value.length < 8) {
+                    err.innerHTML = "password must be at least 8 characters";
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = "REGISTER";
+                    return false;
+                }
+
+
+
+
+                // validate number with regex
+                if (!input.value.match(/^[0-9]{11}$/)) {
+                    err.innerHTML = "number must be 11 digits";
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = "REGISTER";
+                    return false;
+                }
+
+                // validate email
+                if (formed.email.value.indexOf("@") == -1) {
+                    err.innerHTML = "invalid email";
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = "REGISTER";
+                    return false;
+                }
+
+                submitBtn.innerHTML = "Registering...";
+                submitBtn.disabled = true;
+
+                // location query
+
+
+                const payload = {
+                    "username": input.value,
+                    "email": e.target.email.value,
+                    "password": e.target.password.value,
+                    "name": e.target.name.value,
+
+                };
+                console.log(payload);
+                fetch('/', {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        submitBtn.innerHTML = "REGISTER";
+                        if (data.status === "true") {
+
+                            otp_content.style.display = "flex";
+                            otp.forEach((ot, i) => {
+                                ot.addEventListener("keyup", (e) => {
+                                    if (e.target.value.length === 1) {
+                                        e.target.nextElementSibling.focus();
+                                    }
+                                })
+                            })
+                            formed.style.display = "none"
+                        } else {
+                            submitBtn.innerHTML = "REGISTER";
+                            err.innerHTML = data.error
+                        }
+
+
+                    })
+            })
+
+            otpform.addEventListener("submit", (e) => {
+                e.preventDefault();
+
+                const inputOtp = e.target.one.value.concat(e.target.two.value, e.target.three.value, e.target.four.value, e.target.five.value);
+                console.log(inputOtp)
+
+
+                fetch('/otp', {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        otp: inputOtp
+                    })
+                }).then(res => res.json())
+                    .then(data => {
+                        if (data.status === "success") {
+
+                            // err.innerHTML = "Congratulation! You have successfully registered";
+                            otpform.style.display = "none";
+                            succes.style.display = "block";
+
+                            succes.querySelector(".btn").addEventListener("click", () => {
+                                window.location.href = "/login"
+                            })
+                            // window.location.href = "/login";
+                        }
+                        else {
+                            // alert(data.error)
+                            change.innerHTML = data.error
+                            console.log(data.error)
+                            otp.forEach((ot, i) => {
+                                ot.value = ""
+                            })
+                        }
+
+
+                    })
+
+            })
+
+        </script>
+
+        <%- include ("./partials/footer.ejs") %>

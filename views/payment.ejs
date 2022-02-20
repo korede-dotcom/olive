@@ -1,107 +1,299 @@
-<%- include ("./partials/header.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
 
-    <section class="largeImg">
-        <div class="swiper">
-            <!-- Additional required wrapper -->
-            <div class="swiper-wrapper">
-                <!-- Slides -->
-                <div class="swiper-slide">
-                    <img src="/assest/OLIVE/woman.png" />
-                </div>
-                <div class="swiper-slide">
-                    <img src="/assest/OLIVE/cameraman.png" style="height: 452px; width: 414px;object-fit: cover;" />
-                </div>
-                <div class="swiper-slide">
-                    <img src="/assest/OLIVE/sitting.png" style="height: 450px; width: 414px;object-fit: cover;" />
-                </div>
-                <div class="swiper-slide">
-                    <img src="/assest/OLIVE/painter.png" style="height: 452px; width: 414px;object-fit: cover;" />
-                </div>
-                <div class="swiper-slide">
-                    <img height="452px" width="100%" src="/assest/OLIVE/ankara-nice.jpeg" />
-                </div>
-                <div class="swiper-slide">
-                    <img src="/assest/OLIVE/models.png" style="height: 452px; width: 414px;object-fit: cover;" />
-                </div>
-                <div class="swiper-slide">
-                    <img src="/assest/OLIVE/makeup.png" style="height: 452px; width: 414px;object-fit: cover;" />
-                </div>
-                <div class="swiper-slide">
-                    <img src="/assest/OLIVE/guyandgirl.png" style="height: 452px; width: 414px;object-fit: cover;" />
-                </div>
-                <div class="swiper-slide">
-                    <img src="/assest/OLIVE/videographer.png" style="height: 452px; width: 414px;object-fit: cover;" />
-                </div>
-                <div class="swiper-slide">
-                    <img src="/assest/OLIVE/flowergirl.png" />
-                </div>
-                <!-- <div class="swiper-slide">
-                    <img style="height: 452px; width: 414px;object-fit: cover;" src="/assest/OLIVE/guy.png" />
-                </div> -->
-            </div>
-            <!-- If we need pagination -->
-            <div class="swiper-pagination"></div>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1 user-scalable=0">
+    <title>G-FACTOR </title>
+    <link rel="icon" href="/assest/OLIVE/logo.png">
+    <!-- <link rel=" stylesheet" href="/styles/auth.css"> -->
 
-            <!-- If we need navigation buttons -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
 
-            <div class="swiper-button-prev">
-                <img class="carousel-l" src="/assest/OLIVE/Group 2.png" />
-            </div>
-            <div class="swiper-button-next">
-                <img class="carousel" src="/assest/OLIVE/Group 2.png" />
-            </div>
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;1,900&display=swap" rel="stylesheet"> -->
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+        crossorigin="anonymous"></script>
 
-            <!-- If we need scrollbar -->
-            <div class="swiper-scrollbar"></div>
 
-            <!-- 
-            <img src="/assest/OLIVE/guy.png" />
-            <img src="/assest/OLIVE/woman.png" />  -->
-        </div>
-        <!--  -->
-    </section>
-    <section class="content link_register">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" />
 
-        <div class="CONGRATULATION" style="height: auto;">
-            <br>
-            <br>
-            <br>
-            <img width="50px" height="50px" src="/assest/OLIVE/confirm.png" alt="" srcset="">
-            <h4>CONGRATULATION</h4>
-            <P>Your Registration for <span style="color: green; text-transform: uppercase;">
-                    <%= audition.auditionName %>
-                </span style="color: green;"> audition is successful. Welcome to GhenGhen, a platform where
-                individuals showcase their talent.
-            </P>
-            <div class="await"></div>
+    <!-- <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script> -->
 
-            <button class="btn" onClick="makePayment()">PROCEED TO MAKE PAYMENT</button>
-            <a href="/dashboard">GO TO DASHBOARD </a>
-            <br>
-            <br>
-            <h5>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Khand:wght@400;600&family=Mulish:wght@300&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --p: #88266F;
+            --y: #F2C033;
+            --primary-font: font-family: 'Khand', sans-serif;
+            --secondary-font: font-family: 'Mulish', sans-serif;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Khand', sans-serif;
+            background-image: url("/assest/GODFACTOR/wave.svg");
+            background-repeat: no-repeat;
+            background-position: bottom;
+            background-size: contain;
+            height: 100vh;
+            /* display: grid;
+            place-items: center; */
+
+
+        }
+
+        .container {
+
+
+            border-radius: 20px;
+            display: grid;
+
+
+            grid-template-areas: 'header'
+                'details';
+            /* border: #fff solid 1px; */
+
+        }
+
+        .menubar {
+            width: 20px;
+        }
+
+        header {
+            grid-area: header;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            padding: 10px;
+
+            /* justify-items: space-evenly; */
+
+
+        }
+
+        .logo {
+            grid-column: 1/2;
+            align-self: center;
+        }
+
+        .icon {
+            grid-column: 2/3;
+            align-self: center;
+        }
+
+        .content {
+
+            grid-area: details;
+            display: grid;
+            grid-template-columns: 1fr;
+            place-items: center;
+            padding: 20px;
+            justify-items: space-evenly;
+            /* border: #fff solid 1px;å */
+            border-radius: 20px;
+            border-radius: 1px solid #fff;
+
+
+        }
+
+
+
+        .CONGRATULATION {
+            display: grid;
+            place-items: center;
+            grid-template-columns: 200px;
+            grid-gap: 10px;
+            border: 1px solid #fff;
+            padding: 2em;
+            border-radius: 20px;
+
+
+        }
+
+        .CONGRATULATION h4 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #F2C033;
+            text-align: center;
+            margin-bottom: 10px;
+            padding: 1em;
+
+        }
+
+        .CONGRATULATION p {
+            font-family: 'Mulish', sans-serif;
+            text-align: center;
+
+
+        }
+
+        .images {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            place-items: center;
+            /* width: 50%; */
+
+        }
+
+
+
+
+        .images>img {
+
+            background-color: #fff;
+            padding: 10px;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+
+        #submitBtn {
+            border: 1px solid #fff;
+            border-radius: 12px;
+            padding: 10px;
+
+
+            font-size: 1rem;
+
+
+            font-family: var(--primary-font);
+            color: #fff;
+            background: var(--p);
+        }
+
+        #submitBtn:hover {
+            background: var(--y);
+            color: #000;
+        }
+
+        .dash {
+            color: #F2C033;
+            text-decoration: none;
+        }
+
+        /* /* 
+        @media screen and (min-width:800px) {
+            .CONGRATULATION {
+                grid-template-columns: 200px;
+            }
+
+
+
+        } */
+
+        @media screen and (max-width:400px) {
+            .CONGRATULATION {
+                grid-template-columns: 1fr;
+            }
+
+            #submitBtn {
+                font-size: 16px;
+            }
+
+
+
+        }
+
+        @media screen and (max-width:300px) {
+            .CONGRATULATION {
+                grid-template-columns: 150px;
+            }
+
+            #submitBtn {
+                font-size: 16px;
+            }
+
+
+        }
+
+        @media screen and (max-width:200px) {
+            .CONGRATULATION {
+                grid-template-columns: 150px;
+            }
+
+            #submitBtn {
+                font-size: 16px;
+            }
+
+
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+
+
+        <section class="content link_register">
+            <a href="/dashboard">
+
+                <img src="/assest/OLIVE/logo.png" alt="">
+            </a>
+
+            <div class="CONGRATULATION">
+
+                <div class="images">
+                    <img class="confirm" width=" 50px" height="50px" src="/assest/OLIVE/confirm.png" alt="" srcset="">
+                    <hr style="width: 100%;">
+                    <img width=" 50px" height="50px" src=" <%= audition.auditionLogo %>">
+                </div>
+                <div class="c_text">
+                    <h4>CONGRATULATION</h4>
+                    <P>Your Registration for <span style="color: #88266F; text-transform: uppercase;">
+                            <%= audition.auditionName %>
+                        </span style="color: green;"> audition is successful. Welcome to G-FACTOR, a platform where
+                        individuals showcase their talent.
+                    </P>
+
+                </div>
+                <div class="await"></div>
+
+                <button class="btn" onClick="makePayment()" id="submitBtn">PROCEED TO MAKE PAYMENT</button>
+                <a href="/dashboard" class="dash">GO TO DASHBOARD </a>
+
                 <script src="https://checkout.flutterwave.com/v3.js"></script>
 
-            </h5>
+                </h5>
 
-        </div>
+            </div>
+
+            <!-- svg -->
+            <!-- <div class="svg">
+                <img src="/assest/GODFACTOR/complete.svg" alt="" height="100%">
+            </div> -->
 
 
-    </section>
-
-
-
-    <div class="footer_social">
-        <div>
-            <p><span style="color: #ddd;">&copy; 2021</span> GhenGhen </p>
-        </div>
-        <div class="social_icon">
-            <img src="/assest/OLIVE/fb.png" />
-            <img src="/assest/OLIVE/instagram.png" />
-            <img src="/assest/OLIVE/twitter.png" />
-        </div>
-
+        </section>
     </div>
+
+
+
+    <!-- <div class="footer_social" style="display: none;">
+            <div>
+                <p><span style="color: #ddd;">&copy; 2021</span> GhenGhen </p>
+            </div>
+            <div class="social_icon">
+                <img src="/assest/OLIVE/fb.png" />
+                <img src="/assest/OLIVE/instagram.png" />
+                <img src="/assest/OLIVE/twitter.png" />
+            </div>
+
+        </div> -->
 
     <!-- 
     <form>

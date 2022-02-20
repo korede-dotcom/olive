@@ -109,7 +109,7 @@ router.post("/",(req,res)=>{
                         {
                           "From": {
                             "Email": "koredebada@gmail.com",
-                            "Name": "Ghenghen Team"
+                            "Name": "G-FACTOR Team"
                           },
                           "To": [
                             {
@@ -117,8 +117,8 @@ router.post("/",(req,res)=>{
                               "Name": name
                             }
                           ],
-                          "Subject": "Welcome to Ghenghen",
-                          "TextPart": `Hi ${name}\n,Welcome to Ghenghen your OTP is ${otp} \n Thanks for Joining Ghenghen\n Best regard \n Ghenghen Team`,
+                          "Subject": "Welcome to G-FACTOR",
+                          "TextPart": `Hi ${name}\n,Welcome to G-FACTOR your OTP is ${otp} \n Thanks for Joining G-FACTOR\n Best regard \n G-FACTOR Team`,
                        
                      
                           "HTMLPart": ``,
@@ -136,7 +136,7 @@ router.post("/",(req,res)=>{
 
                          const config = {
                         method: 'get',
-                        url: `https://1960sms.com/api/send/?user=${process.env.textMsgUser}&pass=${process.env.textMsgPass}&to=${username}&from=hello&msg= ${name}your Ghenghen registration OTP:${otp}`,
+                        url: `https://1960sms.com/api/send/?user=${process.env.textMsgUser}&pass=${process.env.textMsgPass}&to=${username}&from=hello&msg= ${name} your G-FACTOR registration OTP:${otp}`,
                         headers: { }
                     };
                     
@@ -164,7 +164,7 @@ router.post("/",(req,res)=>{
 
 
 router.post("/otp",(req,res)=>{
-
+const otp = req.body.otp
     console.log(otp)
 //    const id = globals.get('userId', {protected: true});
     User.findById(req.session.user._id,(err,user)=>{
@@ -172,12 +172,13 @@ router.post("/otp",(req,res)=>{
         if(err){
             res.send({"error":"Error in finding user"})
         }else{
+            console.log(user)
             if(user.otp == otp){
                 // const token = createToken(user._id);
                 // res.cookie("jwt",token,{maxAge:maxAge * 1000});
                req.session.LinkAuthenticated = true;
                 // req.session.user = user;
-                res.status(200).json({"status":"success"});
+                res.send({"status":"success"});
             }else{
                 res.send({"error":"OTP is incorrect"})
             }
@@ -190,7 +191,7 @@ router.post("/otp",(req,res)=>{
 // login
 
 router.get("/signup",(req,res)=>{
-    res.render("auth")
+    res.render("signup")
 })
 router.post("/login",(req,res)=>{
     const {username,password} = req.body
@@ -230,7 +231,7 @@ router.get("/dashboard",Authenticated,(req,res)=>{
 router.get("/digitalauditionplatform",Authenticated,async(req,res)=>{
     try{
         const payments = await Payment.find({user:req.session.user._id})
-        console.log(payments)
+        // console.log(payments)
         const user = await User.findById(req.session.user._id)
         if(payments.length>0){
             Audition.find({_id:{$in:payments.map(payment=>payment.auditionId)}},(err,audition)=>{
@@ -244,7 +245,7 @@ router.get("/digitalauditionplatform",Authenticated,async(req,res)=>{
                             res.render("dap",{auditions,audition,user})
                         }
                     })
-                    // res.render("dap",{audition})
+                   
                 }
             })
                     
@@ -263,38 +264,7 @@ router.get("/digitalauditionplatform",Authenticated,async(req,res)=>{
     }catch(error){
         console.log(error)
     }
-    // find decending order
-    // fina
-    // Audition.find({}).sort({created_at:-1}).exec((err,auditions)=>{
-    //     if(err){
-    //         console.log(err)
-    //     }else{
-    //         // payment by user
-    //         Payment.find({userId:req.session.user._id}).sort({created_at:-1}).exec((err,payments)=>{
-    //             if(err){
-    //                 console.log(err)
-    //             }else{
-                    
-    //                 if(payments.length>0){
-    //                     // find audition by payments.auditionId
-    //                     // find payments.auditionId in audition
 
-    //                     Audition.find({_id:{$in:payments.map(payment=>payment.auditionId)}},(err,audition)=>{
-    //                         if(err){
-    //                             console.log(err)
-    //                         }else{
-    //                             res.render("dap",{auditions,audition,user:req.session.user})
-    //                         }
-    //                     })
-                       
-    //                 }else{
-
-    //                     res.render("dap",{auditions,audition:[],user:req.session.user})
-    //                 }
-    //             }
-    //         })
-    //     }
-    // })
 
     
 })
@@ -379,7 +349,7 @@ router.get("/auditions/:id",Authenticated,(req,res)=>{
                                     console.log(err)
                                 }else{
                                     if(video){
-                                        console.log(video)
+                                        
                                         res.render("userAuditions",{dateSelection:false,video:video,auditions,payments,user:req.session.user})
                                     }else{
                                         res.render("userAuditions",{dateSelection:false,video:false,auditions,payments,user:req.session.user})
@@ -396,25 +366,12 @@ router.get("/auditions/:id",Authenticated,(req,res)=>{
                                         res.render("userAuditions",{video,dateSelection:dateSelection,auditions,payments,user:req.session.user})
                                     }else{
                                         res.render("userAuditions",{video,dateSelection:false,auditions,payments,user:req.session.user})
-                                        // Video.findOne({audition:req.params.id},(err,video)=>{
-                                        //     if(err){
-                                        //         console.log(err)
-                                        //     }else{
-                                        //         if(video){
-                                        //             console.log(video)
-                                        //             res.render("userAuditions",{video,auditions,payments,user:req.session.user})
-                                        //         }else{
-                                        //             res.render("userAuditions",{auditions,payments,user:req.session.user})
-                                        //         }
-                                        //     }
-                                        // })
-                                        // res.render("userAudition",{auditions,payments,user:req.session.user})
+                                       
                                     }
                                 }
                             })
                         }
 
-                                // res.render("audition",{auditions,payments,dateSelection})
                         
                     }
                 })
@@ -425,56 +382,18 @@ router.get("/auditions/:id",Authenticated,(req,res)=>{
         }
     })
 })
-    //         if(payments){
-    //             // find audition from payments by auditionId in
-    //             Audition.findById(req.params.id,(err,audition)=>{
-    //                 if(err){
-    //                     console.log(err)
-    //                     }else{
-    //                         if(audition){
-    //                             res.render("userAudition",{audition})
-    //                             }else{
-    //                                 res.send({"error":"Audition not found"})
-    //                                 }
-    //             ))
-
-
-    //             // Audition.find({_id:{$in:payments.map(payment=>payment.auditionId)}},(err,auditions)=>{
-                    
-    //             //     if(err){
-    //             //         console.log(err)
-    //             //     }else{
-    //             //         if(auditions){
-    //             //             // sort by date
-    //             //           const latest =  auditions.sort((a,b)=>{
-    //             //                 return new Date(b.created_at) - new Date(a.created_at)
-    //             //             })
-    //             //                 res.render("userAuditions",{auditions:latest,user:req.session.user})
-                                
-    //             //         }else{
-    //             //             res.send({"error":"No auditions"})
-    //             //         }
-    //             //     }
-    //             // })
-               
-    // } 
-    //     }
-//     })
-   
-    
-// })
 
 router.post("/digitalauditionplatform",Authenticated,(req,res)=>{
     const {auditionId,user} = req.body
     // push uadition to
-    console.log(auditionId,user)
+    // console.log(auditionId,user)
     try {
         Audition.findById(auditionId,(err,audition)=>{
             if(err){
                 console.log(err)
             }else{
             //   populate audition to user
-            console.log(audition)
+            // console.log(audition)
 
                if(audition){
                    
@@ -529,7 +448,7 @@ router.get("/digitalauditionplatform/:id",Authenticated,(req,res)=>{
 
                 axios(config)
                 .then(function (response) {
-                console.log(JSON.stringify(response.data));
+                // console.log(JSON.stringify(response.data));
                 res.redirect(response.data.data.link)
                 })
                 .catch(function (error) {
@@ -565,7 +484,7 @@ router.post("/check",Authenticated,(req,res)=>{
 
 router.get("/paidaudition",Authenticated,(req,res)=>{
     const {audition,provider,user} = req.query
-    console.log(audition,provider,user)
+    // console.log(audition,provider,user)
     Payment.findOne({user:user},(err,payment)=>{
         if(err){
             console.log("err finding payment ref")
@@ -643,10 +562,10 @@ router.get("/paidaudition",Authenticated,(req,res)=>{
 
 router.post("/paid",Authenticated,async (req,res)=>{
     const {data,user,audition} = req.body;
-   console.log(req.session.user._id)
+//    console.log(req.session.user._id)
    
     const getAuditionDetails = await Audition.findById(audition)
-    console.log(getAuditionDetails)
+    // console.log(getAuditionDetails)
     
     // create payment
     Payment.create({
@@ -731,7 +650,7 @@ router.post("/free",Authenticated,(req,res)=>{
 
 
 router.get("/auditionlink/",(req,res)=>{
-    console.log(req.query.auditionId)
+    // console.log(req.query.auditionId)
     Audition.findById(req.query.auditionId,(err,audition)=>{
         if(err){
             return res.render("error")
@@ -752,7 +671,7 @@ router.get("/auditionlink/",(req,res)=>{
 router.get("/auditionlink/success/",LinkAuthenticated,(req,res)=>{
     const auditionId = req.query.auditionId;
     const user = req.session.user._id;
-    console.log(auditionId)
+    // console.log(auditionId)
     Audition.findById(auditionId,(err,audition)=>{
         if(err){
             return res.render("error")
@@ -943,7 +862,7 @@ router.post("/uploadvideo",Authenticated,videoUpload.single('video'),async(req,r
     try{
         const result = await cloudinary.uploader.upload(req.file.path,{resource_type:"video",overwrite:true,folder:"videos"})
         // create video
-        console.log(result)
+        // console.log(result)
         Video.create({
             user,
             provider,
@@ -1015,7 +934,7 @@ router.post("/dateselection",(req,res)=>{
                         console.log(err)
                     }else{
                         if(dateSelection){
-                            console.log(dateSelection)
+                            // console.log(dateSelection)
                             res.send({"status":"success"})
                         }else{
                             res.send({"status":"error"})
@@ -1027,128 +946,11 @@ router.post("/dateselection",(req,res)=>{
     })
 })
 
-   
-    // res.send({"status":"success"})
-
-    // save url from cloudinary to the database
-    // try{
-    // const url = await cloudinary.uploader.upload(req.file.path) 
-    // console.log(url)
-    // // create new video
-    // Video.create({
-    //     user,
-    //     provider,
-    //     videoUrl:url.url,
-        
-    //     auditionId:audition
-    // },(err,video)=>{
-    //     if(err){
-    //         console.log(err)
-    //     }else{
-    //         if(video){
-    //             res.send({"status":"success"})
-    //         }else{
-    //             res.send({"status":"failed"})
-    //         }
-    //     }
-    // })
-    // }catch(err){
-    //     console.log(err.message)
-    // }
-
-  
-    // remove string from user and audition and replace with object id
-    // const userId = user.replace(/\"/g,"");
-    // const auditionId = audition.replace(/\"/g,"");
-    // const providerId = provider.replace(/\"/g,"");
 
 
-    // check if file 
-    // if(req.file){
-    //     const file = req.file;
-    //     // 
-    // if(req.file.mimetype.split("/")[0] === "video"){
-    //     // upload video to cloudinary
-    //     cloudinary.uploader.upload(file.path,(result)=>{
-    //         if(result){
-    //             // find user and audition and provider
-    //             // create video
-    //             Video.create({
-                    
-    //                 url:result.url,
-                    
-    //             },(err,video)=>{ 
-    //                 if(err){
-    //                     console.log(err)
-    //                 }else{
-    //                     if(video){
-    //                         res.send({"status":"success"})
-    //                         //  delete file from server
-    //                         fs.unlink(file.path,(err)=>{
-    //                             if(err){
-    //                                 console.log(err)
-    //                             }
-    //                         })
-    //                     }else{
-    //                         res.send({"status":"fail"})
-    //                     }
-    //                 }
-    //             })
-    //         }
-    //     })
-    // }else{
-    //     res.send({"status":"fail"})
-    // }
-    // }else{
-    //     res.send({"status":"fail"})
-    // }
-// })
-    // const fileName = `${uuidv4()}.mp4`;
-    // const filePath = `${__dirname}/../../public/uploads/${req.file.filename}`;
-    // const fileStream = fs.createWriteStream(filePath);
-    // fileStream.on('error',(err)=>{
-    //     console.log(err)
-    // })
-    // fileStream.on('finish',()=>{
-    //     // upload to cloudinary
-    //     cloudinary.uploader.upload(filePath,(result)=>{
-    //         if(result){
-    //             // delete file
-    //             fs.unlink(filePath,(err)=>{
-    //                 if(err){
-    //                     console.log(err)
-    //                 }else{
-    //                     // create video
-    //                     Video.create({
-    //                         user,
-    //                         video:result.url,
-    //                         provider,
-    //                         audition
-    //                     },(err,video)=>{
-    //                         if(err){
-    //                             console.log(err)
-    //                         }else{
-    //                             if(video){
-    //                                 res.send({"message":"Video uploaded"})
-    //                             }else{
-    //                                 res.send({"error":"Video not uploaded"})
-    //                             }
-    //                         }
-    //                     })
-    //                 }
-    //             })
-    //         }else{
-    //             res.send({"error":"Video not uploaded"})
-    //         }
-    //     })
-    // })
-    // fileStream.end(file.buffer)
-    // }else{
-    //     res.send({"error":"Invalid file type"})
-    // }
-    // }else{
-    //     res.send({"error":"No file"})
-    // }
+    router.get('/test',(req,res)=>{
+        res.render('test')
+    })
 
 
     router.get("/testemail",(req,res)=>{

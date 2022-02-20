@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>GhenGhen</title>
     <link rel="icon" href="/assest/OLIVE/logo.png">
-    <link rel=" stylesheet" href="styles/auth.css">
+    <!-- <link rel=" stylesheet" href="styles/auth.css"> -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
@@ -18,6 +18,131 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/utils.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Khand:wght@400;600&family=Mulish:wght@300&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --p: #88266F;
+            --y: #F2C033;
+            --primary-font: font-family: 'Khand', sans-serif;
+            --secondary-font: font-family: 'Mulish', sans-serif;
+        }
+
+        body {
+            background: #000;
+            color: #ddd;
+            font-family: 'Khand', sans-serif;
+            background-image: url("/assest/GODFACTOR/wave.svg");
+            background-repeat: no-repeat;
+            background-position: bottom;
+            background-size: contain;
+        }
+
+        .container {
+            height: 100vh;
+            display: grid;
+            place-items: center;
+            grid-template-columns: 2fr;
+
+        }
+
+
+
+        /* 
+        
+
+        /* style login */
+        .content {
+            grid-column: 1/3;
+            border: 1px solid #fff;
+            border-radius: 10px;
+            display: grid;
+            grid-template-columns: 1fr;
+            justify-items: center;
+            align-content: center;
+            /* grid-gap: 20px; */
+            padding: 60px;
+
+            /* box-shadow: 0px 0px 10px 0px rgba(241, 237, 98, 0.75); */
+            /* background: url("/assest/GODFACTOR/Screen Shot 2022-02-06 at 10.52.png"); */
+        }
+
+
+
+
+        .number {
+            border: 1px solid #fff;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 1.2rem;
+            font-family: var(--primary-font);
+            color: var(--y);
+            background: #000;
+            outline: none;
+        }
+
+        #submitBtn {
+            border: 1px solid #fff;
+            border-radius: 12px;
+            padding: 10px;
+            font-size: 1.2rem;
+            font-family: var(--primary-font);
+            color: #fff;
+            background: var(--p);
+        }
+
+        #submitBtn:hover {
+            background: var(--y);
+            color: #000;
+        }
+
+        .number input {
+            border: none;
+            border-radius: 12px;
+
+            font-family: var(--primary-font);
+            color: #fff;
+            background: #000;
+            outline: none;
+        }
+
+        .content_header {
+            font-size: 1.3em;
+        }
+
+        #form {
+            display: grid;
+            grid-template-columns: 1fr;
+
+            grid-gap: 20px;
+
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--y);
+        }
+
+        .lock {
+            height: 20px;
+        }
+
+        .socials {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            width: 50%;
+        }
+
+        .socials>img {
+            border: 1px solid #000;
+            border-radius: 10%;
+            padding: 5px;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -35,11 +160,11 @@
 
 
     <div class="container">
-        <header>
+        <header hidden>
             <div class="logo">
                 <a href="/">
 
-                    <img src="/assest/OLIVE/logo.png" alt="">
+                    <!-- <img src="/assest/OLIVE/logo.png" alt=""> -->
                 </a>
             </div>
             <div class="icon">
@@ -47,7 +172,7 @@
 
             </div>
         </header>
-        <section class="largeImg">
+        <section class="largeImg" style="display: none;">
 
 
             <div class="swiper">
@@ -112,29 +237,38 @@
             <!--  -->
 
         </section>
+
+        <!-- <div class="div">
+
+        </div> -->
+
         <section class="content link_register">
-            <h4 class="content_header">YOUTH CENTRIC DIGITAL ECOSYSTEM</h4>
-            <p class="content_text">
-                <strong>GhenGhen platform</strong> is a triumvirate and youth-centric digital ecosystem built for
+            <a href="/">
+                <img src="/assest/OLIVE/logo.png" alt="">
+            </a>
+            <!-- <h4 class="content_header">YOUTH CENTRIC DIGITAL ECOSYSTEM</h4>
+            <p class="content_text" style="color:#F2C033 ;">
+                <strong style="color:#88266F;">G-FACTOR</strong> is a triumvirate and youth-centric digital ecosystem
+                built for
                 creative enthusiasts seeking talent discovery, training, incubation, content production, publicity,
                 audience engagement and market nexus to monetize digital contents in music, movies, fashion, and
                 creative expressions.
-            </p>
+            </p> -->
             <!-- <div class="youtube">
                 <img src="/assest/OLIVE/ladyYoutube.png" alt="" srcset="">
                 <img class="youtubelogo" src="/assest/OLIVE/fontisto_youtube-play.png">
             </div> -->
 
-            <b style="" class="content_header register_link_header">SIGN IN TO <span
-                    style="color: goldenrod;">GhenGhen</span> </b>
-            <form style="margin-bottom: 20px;" class="register_link" id="form">
+            <b style="" class="content_header  register_link_header">SIGN IN TO <span
+                    style="color: #88266F;text-transform: uppercase;">g-factor</span> </b>
+            <form class="register_link" id="form">
                 <div class="err" style="color:goldenrod;text-align: center;"></div>
                 <div class="number">
                     <!-- <label for="number">Please enter your phone number</label> -->
                     <!-- <input type="number" name="username" required> -->
                     <input id="phone" name="username" type="tel" placeholder="Enter your phone number">
 
-                    <img src="/assest/OLIVE/Line 2.png" alt="">
+                    <!-- <img src="/assest/OLIVE/Line 2.png" alt=""> -->
                 </div>
                 <!-- <div class="number">
                     <label for="email">Enter your email address </label>
@@ -152,7 +286,7 @@
                         <img class="lock" src="/assest/OLIVE/lock.png" alt="" srcset="">
                         <input type="password" id="password" required name="password" placeholder="password">
                     </div>
-                    <img src="/assest/OLIVE/Line 2.png" alt="">
+                    <!-- <img src="/assest/OLIVE/Line 2.png" alt=""> -->
                 </div>
                 <!-- <div class="number">
                     <label for="confirm_password">Confirm password</label>
@@ -168,10 +302,16 @@
             </form>
 
             <a href="/recovery" hidden>Forgot Password</a>
-
-            <a style="color: #ddd;" class="register" href="/signup">Register on <soan style="color: goldenrod;">GhenGhen
+            <br>
+            <a style="color: #ddd;" class="register" href="/signup">Register on <soan style="color: #88266F;">G-FACTOR
                 </soan> NOW</a>
-            <p style="color: goldenrod;">or <span>LOG IN</span> with </p>
+            <p style="color: goldenrod;"> <span>&copy; G-FACTOR</span> 2022 </p>
+            <!-- <p style="color: goldenrod;">or <span>LOG IN</span> with </p> -->
+
+            <div class="socials">
+                <!-- <img src="/assest/GODFACTOR/facebook.png" alt="">
+                <img src="/assest/GODFACTOR/twitter.png" alt=""> -->
+            </div>
 
             <!-- <div class="otp_content">
                 <form id="otp">
@@ -197,24 +337,24 @@
 
 
             <footer>
-                <div class="facebook">
-                    <img src="/assest/OLIVE/Ellipse 4.png" />
-                    <img class="socialicons" src="/assest/OLIVE/brandico_facebook.png" />
-                </div>
-                <div class="google">
-                    <img src="/assest/OLIVE/Ellipse 4.png" />
-                    <img class="socialicons" src="/assest/OLIVE/flat-color-icons_google.png" />
-                </div>
-                <div class="mail">
-                    <img src="/assest/OLIVE/Ellipse 4.png" />
-                    <img class="socialicons" src="/assest/OLIVE/clarity_email-outline-badged.png" />
-                </div>
+                <!-- <div class="facebook"> -->
+                <!-- <img src="/assest/OLIVE/Ellipse 4.png" /> -->
+                <!-- <img class="socialicons" src="/assest/OLIVE/brandico_facebook.png" /> -->
+                <!-- </div> -->
+                <!-- <div class="google"> -->
+                <!-- <img src="/assest/OLIVE/Ellipse 4.png" /> -->
+                <!-- <img class="socialicons" src="/assest/OLIVE/flat-color-icons_google.png" /> -->
+                <!-- </div> -->
+                <!-- <div class="mail"> -->
+                <!-- <img src="/assest/OLIVE/Ellipse 4.png" /> -->
+                <!-- <img class="socialicons" src="/assest/OLIVE/clarity_email-outline-badged.png" />
+                </div> -->
 
             </footer>
 
 
         </section>
-        <div class="" style="background-color: #000;">
+        <div class="footer" style="background-color: #000; display: none;">
 
             <div class="footer_social">
                 <div>
@@ -230,7 +370,7 @@
         </div>
 
 
-        <div class="bottom"></div>
+        <!-- <div class="bottom"></div> -->
     </div>
     <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
     <script>

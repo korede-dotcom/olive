@@ -4,67 +4,195 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1 user-scalable=0">
-    <title>GhenGhen </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>G-FACTOR </title>
     <link rel="icon" href="/assest/OLIVE/logo.png">
-    <link rel=" stylesheet" href="/styles/auth.css">
+    <!-- <link rel=" stylesheet" href="styles/auth.css"> -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://www.dafontfree.net/embed/bGF0by1ib2xkJmRhdGEvNDYvbC82MzM2MS9MYXRvLUJvbGQudHRm" rel="stylesheet"
-        type="text/css" />
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;1,900&display=swap" rel="stylesheet"> -->
-    <script src="https://checkout.flutterwave.com/v3.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
-        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
-        crossorigin="anonymous"></script>
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" />
-
-    <!-- <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script> -->
-
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/utils.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Khand:wght@400;600&family=Mulish:wght@300&display=swap"
+        rel="stylesheet">
     <style>
+        :root {
+            --p: #88266F;
+            --y: #F2C033;
+            --primary-font: font-family: 'Khand', sans-serif;
+            --secondary-font: font-family: 'Mulish', sans-serif;
+        }
+
         body {
-            font-family: lato;
-            font-weight: 300 !important;
+            background: #000;
+            color: #ddd;
+            font-family: 'Khand', sans-serif;
+            background-image: url("/assest/GODFACTOR/wave.svg");
+            background-repeat: no-repeat;
+            background-position: bottom;
+            background-size: contain;
+        }
+
+        .container {
+            height: 100vh;
+            display: grid;
+            place-items: center;
+            grid-template-columns: 2fr;
 
         }
 
-        .content>* {
-            font-family: lato;
-            font-weight: 300 !important;
+
+
+        /* 
+        
+
+        /* style login */
+        .content {
+            grid-column: 1/3;
+            border: 1px solid #fff;
+            border-radius: 10px;
+            display: grid;
+            grid-template-columns: 1fr;
+            justify-items: center;
+            align-content: center;
+            /* grid-gap: 20px; */
+            padding: 60px;
+
+            /* box-shadow: 0px 0px 10px 0px rgba(241, 237, 98, 0.75); */
+            /* background: url("/assest/GODFACTOR/Screen Shot 2022-02-06 at 10.52.png"); */
+        }
+
+
+
+
+        .number {
+            border: 1px solid #fff;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 1.2rem;
+            font-family: var(--primary-font);
+            color: var(--y);
+            background: #000;
+            outline: none;
+        }
+
+        #submitBtn {
+            border: 1px solid #fff;
+            border-radius: 12px;
+            padding: 10px;
+            font-size: 1.2rem;
+            font-family: var(--primary-font);
+            color: #fff;
+            background: var(--p);
+        }
+
+        #submitBtn:hover {
+            background: var(--y);
+            color: #000;
+        }
+
+        .number input {
+            border: none;
+            border-radius: 12px;
+
+            font-family: var(--primary-font);
+            color: #fff;
+            background: #000;
+            outline: none;
+        }
+
+        .content_header {
+            font-size: 1.3em;
+        }
+
+        #form {
+            display: grid;
+            grid-template-columns: 1fr;
+
+            grid-gap: 20px;
+
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--y);
+        }
+
+        .lock {
+            height: 20px;
+        }
+
+        .socials {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            width: 50%;
+        }
+
+        .socials>img {
+            border: 1px solid #000;
+            border-radius: 10%;
+            padding: 5px;
+        }
+
+        form a {
+            text-align: center;
+        }
+
+        form input {
+            width: 100%;
         }
     </style>
+
 </head>
 
 <body>
-    <div class="container" style="height: 100vh; overflow: hidden;">
-        <header style="height: 5vh;">
-            <div class="logo">
-                <a href="/dashboard">
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '1372612613159091',
+                autoLogAppEvents: true,
+                xfbml: true,
+                version: 'v12.0'
+            });
+        };
+    </script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 
-                    <img src="/assest/OLIVE/logo.png" alt="">
+
+    <div class="container">
+        <header hidden>
+            <div class="logo">
+                <a href="/">
+
+                    <!-- <img src="/assest/OLIVE/logo.png" alt=""> -->
                 </a>
             </div>
+            <div class="icon">
 
 
+            </div>
         </header>
 
-        <div class="user-details" style="height: 90vh;">
-            <form action="" enctype="multipart/form-data" id="form">
-                <p style="color: #ddd;text-transform: uppercase;text-align: center;">Password recovery</p>
-                <span class="msg" style="color: goldenrod;">Please provide your name and email </span>
-                <div>
+        <div class="user-details content">
+            <form action="" enctype="multipart/form-data" id="form" class="register_link">
+                <a href="/">
+                    <img src="/assest/OLIVE/logo.png" alt="">
+                </a>
+                <p>Password recovery</p>
+                <span class=" msg" style="color: goldenrod;">Please provide your name and email </span>
+                <div class="number">
 
                     <input type="text" name="name" id="name" placeholder="Enter your name" required>
                 </div>
-                <div>
+                <div class="number">
 
                     <input type="email" name="email" id="email" placeholder="Enter your email" required>
 
@@ -73,13 +201,13 @@
 
 
 
-                <button class="btn" style="">get link</button>
+                <button class="btn" id="submitBtn">get link</button>
 
             </form>
         </div>
 
 
-        <div class="" style="background-color: #000;" style="margin-top: 7px;height: 7vh; ">
+        <div class="" style="background-color: #000;" style="margin-top: 7px;height: 7vh; " hidden>
             <div class="footer_social" style="margin: 0px;padding-bottom: 15px;">
                 <div>
                     <p><span style="color: #ddd;">&copy; 2021</span> GhenGhen </p>

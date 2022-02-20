@@ -1,135 +1,203 @@
-<%- include ("./partials/header.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
 
-    <section class="largeImg">
-        <div class="swiper">
-            <!-- Additional required wrapper -->
-            <div class="swiper-wrapper">
-                <!-- Slides -->
-                <div class="swiper-slide">
-                    <img src="/assest/OLIVE/woman.png" />
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1 user-scalable=0">
+    <title>GhenGhen </title>
+    <link rel="icon" href="/assest/OLIVE/logo.png">
+    <link rel=" stylesheet" href="/styles/auth.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://www.dafontfree.net/embed/bGF0by1ib2xkJmRhdGEvNDYvbC82MzM2MS9MYXRvLUJvbGQudHRm" rel="stylesheet"
+        type="text/css" />
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;1,900&display=swap" rel="stylesheet"> -->
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+        crossorigin="anonymous"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" />
+
+    <!-- <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script> -->
+
+
+
+
+
+</head>
+
+<body>
+    <div class="container">
+        <header style="">
+            <div class="logo">
+                <a href="/dashboard">
+
+                    <img src="/assest/OLIVE/logo.png" alt="">
+                </a>
+            </div>
+            <div class="icon">
+                <div class="user">
+                    <!-- <a href="/profile">
+                        <img class="imgicon" src="/assest/OLIVE/usergold.png" alt="" srcset="">
+                    </a> -->
                 </div>
-                <div class="swiper-slide">
-                    <img src="/assest/OLIVE/cameraman.png" style="height: 452px; width: 414px;object-fit: cover;" />
+                <div style="color: green;" id="nav">
+                    <div class="home">
+                        <img class="menubar" src="/assest/OLIVE/dashboard.png" alt="" srcset="">
+                    </div>
                 </div>
-                <div class="swiper-slide">
-                    <img src="/assest/OLIVE/sitting.png" style="height: 450px; width: 414px;object-fit: cover;" />
-                </div>
-                <div class="swiper-slide">
-                    <img src="/assest/OLIVE/painter.png" style="height: 452px; width: 414px;object-fit: cover;" />
-                </div>
-                <div class="swiper-slide">
-                    <img height="452px" width="100%" src="/assest/OLIVE/ankara-nice.jpeg" />
-                </div>
-                <div class="swiper-slide">
-                    <img src="/assest/OLIVE/models.png" style="height: 452px; width: 414px;object-fit: cover;" />
-                </div>
-                <div class="swiper-slide">
-                    <img src="/assest/OLIVE/makeup.png" style="height: 452px; width: 414px;object-fit: cover;" />
-                </div>
-                <div class="swiper-slide">
-                    <img src="/assest/OLIVE/guyandgirl.png" style="height: 452px; width: 414px;object-fit: cover;" />
-                </div>
-                <div class="swiper-slide">
-                    <img src="/assest/OLIVE/videographer.png" style="height: 452px; width: 414px;object-fit: cover;" />
-                </div>
-                <div class="swiper-slide">
-                    <img src="/assest/OLIVE/flowergirl.png" />
-                </div>
-                <!-- <div class="swiper-slide">
+
+            </div>
+            <div class="navlink">
+                <a href="/dashboard">dasboard</a>|
+                <a href="/digitalauditionplatform">digitalauditionplatform</a>|
+                <a href="/profile">profile</a>|
+                <a href="/logout">logout</a>
+
+            </div>
+        </header>
+
+        <section class="largeImg " style="display:none;">
+            <div class="swiper">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper">
+                    <!-- Slides -->
+                    <div class="swiper-slide">
+                        <img src="/assest/OLIVE/woman.png" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/assest/OLIVE/cameraman.png" style="height: 452px; width: 414px;object-fit: cover;" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/assest/OLIVE/sitting.png" style="height: 450px; width: 414px;object-fit: cover;" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/assest/OLIVE/painter.png" style="height: 452px; width: 414px;object-fit: cover;" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img height="452px" width="100%" src="/assest/OLIVE/ankara-nice.jpeg" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/assest/OLIVE/models.png" style="height: 452px; width: 414px;object-fit: cover;" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/assest/OLIVE/makeup.png" style="height: 452px; width: 414px;object-fit: cover;" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/assest/OLIVE/guyandgirl.png"
+                            style="height: 452px; width: 414px;object-fit: cover;" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/assest/OLIVE/videographer.png"
+                            style="height: 452px; width: 414px;object-fit: cover;" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/assest/OLIVE/flowergirl.png" />
+                    </div>
+                    <!-- <div class="swiper-slide">
                     <img style="height: 452px; width: 414px;object-fit: cover;" src="/assest/OLIVE/guy.png" />
                 </div> -->
-            </div>
-            <!-- If we need pagination -->
-            <div class="swiper-pagination"></div>
+                </div>
+                <!-- If we need pagination -->
+                <div class="swiper-pagination"></div>
 
-            <!-- If we need navigation buttons -->
+                <!-- If we need navigation buttons -->
 
-            <div class="swiper-button-prev">
-                <img class="carousel-l" src="/assest/OLIVE/Group 2.png" />
-            </div>
-            <div class="swiper-button-next">
-                <img class="carousel" src="/assest/OLIVE/Group 2.png" />
-            </div>
+                <div class="swiper-button-prev">
+                    <img class="carousel-l" src="/assest/OLIVE/Group 2.png" />
+                </div>
+                <div class="swiper-button-next">
+                    <img class="carousel" src="/assest/OLIVE/Group 2.png" />
+                </div>
 
-            <!-- If we need scrollbar -->
-            <div class="swiper-scrollbar"></div>
+                <!-- If we need scrollbar -->
+                <div class="swiper-scrollbar"></div>
 
-            <!-- 
+                <!-- 
             <img src="/assest/OLIVE/guy.png" />
             <img src="/assest/OLIVE/woman.png" />  -->
-        </div>
-        <!--  -->
-    </section>
-    <section class="content link_register">
+            </div>
+            <!--  -->
+        </section>
+        <section class="content link_register">
+            <br>
+            <br>
+            <br>
+            <div class="CONGRATULATION">
+                <img width="50px" height="50px" src="/assest/OLIVE/confirm.png" alt="" srcset="">
+                <h4>CONGRATULATION</h4>
+                <P>Your Registration for <span style="color: green;">
+                        <%= audition.auditionName %> audition
+                    </span> is successful. Welcome to G-FACTOR, a platform where individuals showcase their talent.
+                </P>
+                <button class="btn" data-user="<%= user %>" data-audition="<%=audition._id%>">
+                    GO TO AUDITION
+                </button>
+
+                <h5>
+                    <script></script>
+                    <a href="/dashboard">GO TO DASHBOARD</a>
+                </h5>
+
+            </div>
+
+
+        </section>
         <br>
         <br>
         <br>
-        <div class="CONGRATULATION">
-            <img width="50px" height="50px" src="/assest/OLIVE/confirm.png" alt="" srcset="">
-            <h4>CONGRATULATION</h4>
-            <P>Your Registration for <span style="color: green;">
-                    <%= audition.auditionName %> audition
-                </span> is successful. Welcome to GhenGhen, a platform where individuals showcase their talent.
-            </P>
-            <button class="btn" data-user="<%= user %>" data-audition="<%=audition._id%>">
-                GO TO AUDITION
-            </button>
+        <section hidden>
 
-            <h5>
-                <script></script>
-                <a href="/dashboard">GO TO DASHBOARD</a>
-            </h5>
+            <div class="footer" style="background-color: #000;">
 
-        </div>
-
-
-    </section>
-    <br>
-    <br>
-    <br>
-    <section>
-
-        <div class="footer" style="background-color: #000;">
-
-            <div class="footer_social">
-                <div>
-                    <p><span style="color: #ddd;">&copy; 2021</span> GhenGhen </p>
-                </div>
-                <div class="social_icon">
-                    <img src="/assest/OLIVE/fb.png" />
-                    <img src="/assest/OLIVE/instagram.png" />
-                    <img src="/assest/OLIVE/twitter.png" />
+                <div class="footer_social">
+                    <div>
+                        <p><span style="color: #ddd;">&copy; 2021</span> GhenGhen </p>
+                    </div>
+                    <div class="social_icon">
+                        <img src="/assest/OLIVE/fb.png" />
+                        <img src="/assest/OLIVE/instagram.png" />
+                        <img src="/assest/OLIVE/twitter.png" />
+                    </div>
                 </div>
             </div>
-        </div>
 
-    </section>
-    <!-- 
+        </section>
+        <!-- 
     <form>
        
         <button type="button">Pay Now</button>
     </form> -->
 
-    <script>
-        const btn = document.querySelector('.btn');
-        btn.addEventListener('click', () => {
-            window.location.href = `/auditions/${btn.dataset.audition}`;
-        });
+        <script>
+            const btn = document.querySelector('.btn');
+            btn.addEventListener('click', () => {
+                window.location.href = `/auditions/${btn.dataset.audition}`;
+            });
 
-        fetch("/free", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                user: btn.dataset.user,
-                audition: btn.dataset.audition
+            fetch("/free", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    user: btn.dataset.user,
+                    audition: btn.dataset.audition
+                })
+
             })
-
-        })
 
         // free Audition 
 
 
-    </script>
-    <%- include ("./partials/footer.ejs") %>
+        </script>
+        <%- include ("./partials/footer.ejs") %>

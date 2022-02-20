@@ -3,21 +3,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
 
+:root{
+    --p: #88266F;
+    --y: #F2C033;
+    --primary-font: font-family: 'Khand', sans-serif;
+    --secondary-font:    font-family: 'Mulish', sans-serif;
+}
+
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     -ms-overflow-style: none;
-    font-weight: 300 !important;
+    /* font-weight: 300 !important; */
+    font-family: 'Khand', sans-serif;
     
     
 }
 * input{
     font-size: 16px;
 }
+
+* > form > #submitBtn{
+    background: var(--p);
+}
 a{
     text-decoration: none;
-    color: goldenrod;
+    color: var(--p);
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -52,8 +64,8 @@ body{
    background-size: cover;
    background-attachment: fixed;
    margin: auto 0;
-   font-family: 'lato';
-   font-weight: 300 !important;
+   /* font-family: 'lato';
+   font-weight: 300 !important; */
 
 }
 b{
@@ -251,14 +263,16 @@ header{
 
 
 .content{
-    background: rgba(0, 0, 0, 0.568);
+    /* background: rgba(0, 0, 0, 0.568); */
     text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
     padding:0px 20px;
     gap: 20px;
     width: 100%;
+    color: var(--p) !important;
 }
 .content_header{
     font-family: lato;
@@ -426,6 +440,8 @@ color: #ddd;
     font-weight: bolder !important;
     font-family: Arial, Helvetica, sans-serif;
 }
+
+
 
 /* form */
 form option{

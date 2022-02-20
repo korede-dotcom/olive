@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
+const Payment = require("../models/payment");
 const globals = require('node-global-storage');
 const Provider = require("../models/provider");
 
@@ -48,6 +49,19 @@ module.exports.LinkAuthenticated = async (req,res,next)=>{
       res.redirect("/") 
   }
 }
+
+// // check if user is in payment
+// module.exports.checkPayment = async (req,res,next)=>{
+//     // const id = globals.get('id');
+//     const user = await User.findById(req.session.userId);
+//     const payment = await Payment.findOne({user: user._id});
+//     if(payment){
+//         next()
+//     }else{
+//         res.redirect("/payment")
+//     }
+// }
+
 
 
 

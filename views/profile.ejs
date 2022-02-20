@@ -1,161 +1,641 @@
-<%- include ("./partials/header.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
 
-    <section class="profile-img">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1 user-scalable=0">
+    <title>G-FACTOR </title>
+    <link rel="icon" href="/assest/OLIVE/logo.png">
+    <!-- <link rel=" stylesheet" href="/styles/auth.css"> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
 
-        <div class="img-round"
-            style="display: flex;justify-content: center; align-items: center;height: 416px;flex-direction: column; position: relative;">
-            <img id="userImg" width="267px" height="267px" src="/assest/OLIVE/woman.png" alt="upload an image"
-                style="border-radius: 50%;">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;1,900&display=swap" rel="stylesheet"> -->
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+        crossorigin="anonymous"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Khand:wght@400;600&family=Mulish:wght@300&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.2/particles.min.js"></script>
+    <!-- <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script> -->
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'khand', sans-serif;
+            /* background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+
+            color: #ddd;
+
+            /* background-image: url("/assest/GODFACTOR/wave.svg"); */
+            /* background-image: url("/assest/OLIVE/duotone.png"); */
+            /* background-image: url("/assest/OLIVE/patternpad.svg"); */
+            background-repeat: no-repeat;
+            background-position: bottom;
+            background-size: contain;
+            animation: fadein 2s;
+            height: 100vh;
+            overflow-y: scroll;
+        }
+
+        /* keyframe change background image */
+
+        .container {
+            background-color: #27184f;
+
+            height: 100vh;
+            overflow-y: scroll;
+            /* background: #ffffff; */
+            /* border: 1px solid #fff; */
+            /* border-radius: 20px; */
+            /* background-image: url("/assest/GODFACTOR/blob-r.svg"); */
+
+            /* background-image: linear-gradient(to top, #9795f0 0%, #fbc8d4 100%); */
+        }
+
+        .content {
+            background-color: transparent !important;
+            /* height: 50%; */
+
+            /* background-image: url("/assest/GODFACTOR/wave.svg"); */
+        }
+
+
+
+
+
+        header {
+            background-color: inherit !important;
+        }
+
+        .imageOne {
+            height: 100Vh;
+            /* background-image: url("/assest/OLIVE/duotone2.png"); */
+            /* background-image: url("/assest/OLIVE/cool-background.png"); */
+            background-image: url("/assest/OLIVE/duotone9.png");
+            /* animation: change 2s ease 1s 2 forwards; */
+
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            color: #F2C033;
+
+            /* border: #88266F 1px solid; */
+        }
+
+        .onetext {
+            border-bottom: #88266F 4px solid;
+        }
+
+        .onetext h5 {
+            color: #ffffff;
+            font-family: 'Mulish', sans-serif;
+            /* box-shadow: 0px 0px 10px #fcfcfc; */
+        }
+
+        .wrapper {
+            /* background-image: url("/assest/OLIVE/duotone2.png"); */
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+
+
+
+        }
+
+        @keyframes change {
+            0% {
+                background-image: url("/assest/OLIVE/dap2.png");
+            }
+
+            50% {
+                background-image: url("/assest/OLIVE/dap-guitar.png");
+            }
+
+            100% {
+                background-image: url("/assest/OLIVE/dap.png");
+            }
+
+
+
+        }
+
+        .menubar {
+            height: 25px;
+        }
+
+        .boxs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-gap: 2px;
+            /* place-items: center; */
+            /* height: 80vh; */
+            /* color: #f56468; */
+            /* align-content: center; */
+            color: #000;
+            /* height: 90vh; */
+            font-family: 'Mulish', sans-serif;
+            /* border: 1px solid #F2C033; */
+            padding: 1em;
+            /* border: 2px solid #857d9b; */
+            text-align: center;
+            /* align-content: center; */
+
+
+        }
+
+        .boxs a {
+            text-decoration: none;
+        }
+
+
+
+        .box:hover {
+            /* background-color: #F2C033;
+            /* color: #fff; */
+            border: 1px solid #F2C033;
+            align-content: center;
+            /* color: #f56468 !important; */
+            /* background-color: #000; */
+            cursor: pointer;
+
+
+
+        }
+
+        .bo {
+
+
+            /* border: 1px solid #F2C033; */
+            padding: 1em;
+            box-shadow: 3px 2px 1px #27184f;
+
+            cursor: pointer;
+        }
+
+        .bo:hover {
+            /* background-color: #857d9b; */
+            color: #fff;
+            border: 1px solid #F2C033;
+            box-shadow: 3px 2px 1px #27184f;
+            align-content: center;
+            /* color: #f56468 !important; */
+            /* background-color: #000; */
+            cursor: pointer;
+        }
+
+        .box {
+            /* border: 2px solid #88266F; */
+            /* border: 1px solid #857d9b; */
+            grid-gap: 10px;
+            padding: 1em;
+            /* display: grid; */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            border-radius: 10px;
+            /* background-color: #ddd; */
+
+
+
+
+        }
+
+
+        .box h5 {
+            color: #F2C033;
+        }
+
+        .box img {
+            height: 50px;
+            width: 50px;
+
+        }
+
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.1em .4em;
+            height: 10vh;
+            position: relative;
+            /* background-color: #f56468 !important; */
+        }
+
+        .navlink {
+            display: none;
+            /* display: flex; */
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-end;
+            padding: 0 20px;
+            position: absolute;
+            top: 50px;
+            right: 0;
+            width: 100%;
+            height: 80vh;
+            /* margin: auto 0; */
+            color: #000;
+            background-color: #27184f;
+            z-index: 1;
+            /* transition: all 0.5s ease-in; */
+
+
+
+        }
+
+        .navlink a {
+            color: #857d9b;
+            text-decoration: none;
+            font-size: 1.5em;
+            /* border: #F2C033 1px solid; */
+            padding: 1.5em;
+        }
+
+        .navlink a:hover {
+            color: #F2C033;
+        }
+
+        /* .bo {
+            background: linear-gradient(145deg, #790AE9, #53079F);
+            border-radius: 15%;
+            box-shadow: 9.91px 9.91px 15px #5D07B2, -9.91px -9.91px 15px #6F09D6;
+        } */
+        .content h4 {
+            text-align: center;
+            /* border-bottom: 1px solid #F2C033; */
+        }
+
+        @media screen and (max-width: 40em) {
+
+            /* .navlink {
+                display: block;
+            } */
+            body {
+                /* background-image: url("/assest/OLIVE/duotone2.png"); */
+            }
+
+            .wrapper {
+                grid-template-columns: 1fr;
+                height: 100%;
+                /* height: 100vh; */
+            }
+
+            .imageOne {
+                display: none;
+            }
+
+            .content {
+                height: 100%;
+                /* background-image: url("/assest/OLIVE/wave2.svg"); */
+                background-image: url("/assest/OLIVE/dap.png");
+                background-position: bottom;
+                background-size: cover;
+                background-repeat: no-repeat;
+                /* display: grid;
+                padding: 1em;
+                text-align: center !important; */
+
+            }
+
+            .boxs {
+                border: 2px solid #857d9b;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                grid-gap: 10px;
+                border-radius: 16px;
+            }
+
+            .box {
+                /* text-align: center; */
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+
+                height: 100%;
+                border: #27184f 1px solid;
+                border-radius: 20px;
+                /* background-color: #ddd; */
+
+            }
+
+        }
+
+        .shownav {
+            display: flex;
+
+        }
+
+        .auditionText {
+            font-size: 1em;
+            color: #F2C033;
+        }
+
+        .round {
+            border-radius: 50%;
+            height: 80px;
+            width: 80px;
+            object-fit: contain center;
+        }
+
+        .user-details {
+            display: grid;
+            /* grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); */
+            grid-gap: 10px;
+            padding: 1em;
+            /* height: 100%; */
+            place-items: center;
+            /* border: 2px solid #857d9b; */
+            /* border-radius: 10px;
+            background-color: #ddd; */
+            box-shadow: 3px 2px 1px #27184f;
+        }
+
+        .user-details>form {
+            height: 100%;
+        }
+
+        .user-details form input {
+            background-color: #27184f;
+            border: none;
+            padding: 1.5em;
+            font-size: 1em;
+            width: 100%;
+            height: 100%;
+            border: 1px solid #F2C033;
+            border-radius: 5px;
+            padding: 5px;
+            font-size: 1em;
+            color: #F2C033;
+            box-shadow: 3px 2px 1px #27184f;
+            outline: none;
+        }
+
+        .user-details form input:focus {
+            outline: none;
+        }
+
+        .active {
+            color: #F2C033 !important;
+        }
+
+        .btn {
+            margin-top: 10px;
+            background-color: #F2C033;
+            border: none;
+            padding: 5px 1em;
+            font-size: 1em;
+            width: 100%;
+            border-radius: 5px;
+
+        }
+
+        #userImg {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #F2C033;
+            box-shadow: 3px 2px 1px #27184f;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="imageOne">
+            <div class="onetext">
+
+                <h2><span style="color: #88266F;">G</span>-FACTOR</h2>
+                <!-- <h5>Profile</h5> -->
+            </div>
+        </div>
+
+
+
+        <div class="container">
+            <header>
+                <div class="logo">
+                    <a href="/dashboard">
+
+                        <img src="/assest/OLIVE/logo.png" alt="">
+                    </a>
+                </div>
+                <div class="icon">
+                    <div class="user">
+                        <!-- <a href="/profile">
+                        <img class="imgicon" src="/assest/OLIVE/usergold.png" alt="" srcset="">
+                    </a> -->
+                    </div>
+                    <div id="nav">
+                        <div class="home">
+                            <img class="menubar" src="/assest/OLIVE/dashboard.png" alt="" srcset="">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="navlink">
+                    <a href="/dashboard">dasboard</a>
+                    <a href="/digitalauditionplatform">digitalauditionplatform</a>
+                    <a href="/profile" class="active">profile</a>
+                    <a href="/logout">logout</a>
+
+                </div>
+            </header>
+
+            <!-- <section class="profile-img">
+
+                <div class="img-round">
+                    <img id="userImg" width="100px" height="100px" src="/assest/OLIVE/woman.png" alt="upload an image"
+                        style="border-radius: 50%;"> -->
             <!-- <label id="lableid" for="logoupload" hidden>
                 <img id=""
                     src="https://img.icons8.com/ios/50/000000/upload-to-cloud--v1.png" width="30px" height="30px" />
             </label> -->
 
+            <!-- 
+                    <h1>
+                      
+                    </h1>
+                    <h5>Member since
+                    </h5>
+                    <h3></h3>
+                    
+                </div> -->
 
-            <h1>
-                <%=user.name%>
-            </h1>
-            <h5>Member since
-            </h5>
-            <h3></h3>
-            <img id="editBtn" src="/assest/OLIVE/edit.png" width="30px" height="30px" alt="" srcset="">
-
-        </div>
-
-        <div class="user-details">
-            <form action="" enctype="multipart/form-data">
-                <div>
-                    <label for="email">Email</label>
-                    <input type="email" name="email" id="email" readonly value="<%= user.email %> ">
+            <div class="user-details">
+                <div class="image-name">
+                    <img id="userImg" width="180px" height="180px" src="/assest/OLIVE/woman.png" alt="upload an image"
+                        style="border-radius: 50%;">
+                    <h1 style="text-align: center;">
+                        <%=user.name%>
+                            <img id="editBtn" src="/assest/OLIVE/edit.png" width="30px" height="30px" alt="" srcset="">
+                            <h5>Member since
+                            </h5>
+                    </h1>
                 </div>
-                <div>
-                    <label for="number">Phone Number</label>
-                    <input type="text" name="phone" id="number" readonly value="<%=user.username %>">
+                <form action="" enctype="multipart/form-data">
+                    <div>
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email" readonly value="<%= user.email %> ">
+                    </div>
+                    <div>
+                        <label for="number">Phone Number</label>
+                        <input type="text" name="phone" id="number" readonly value="<%=user.username %>">
 
-                </div>
-                <div>
-                    <label id="logoupload" for="logo" style="display: flex;align-items: center; gap: 10px;">
-                        <p>Upload Image</p>
-                        <img id="" src="https://img.icons8.com/ios/50/000000/upload-to-cloud--v1.png" width="30px"
-                            height="30px" />
-                    </label>
-                    <input type="file" name="logo" id="logo" hidden>
-                </div>
-                <div>
-                    <label for="password">Password</label>
-                    <input type="password" name="password" id="password" readonly value="<%= user.password %> ">
-                </div>
-                <div>
-                    <label for="confirm">Confirm Password</label>
-                    <input type="password" name="confirm" id="confirm" readonly value="<%= user.password %> ">
-                </div>
+                    </div>
+                    <div>
+                        <label id="logoupload" for="logo" style="display: flex;align-items: center; gap: 10px;">
+                            <p>Upload Image</p>
+                            <img id="" src="https://img.icons8.com/ios/50/000000/upload-to-cloud--v1.png" width="30px"
+                                height="30px" />
+                        </label>
+                        <input type="file" name="logo" id="logo" hidden>
+                    </div>
+                    <div>
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password" readonly value="<%= user.password %> ">
+                    </div>
+                    <div>
+                        <label for="confirm">Confirm Password</label>
+                        <input type="password" name="confirm" id="confirm" readonly value="<%= user.password %> ">
+                    </div>
 
 
-                <button disabled class="btn" style="opacity: .5;">updateprofile</button>
+                    <button disabled class="btn" id="submitBtn" style="opacity: .5;">updateprofile</button>
 
-            </form>
-        </div>
-
-        <section>
-            <h4 style="text-align: center;"> <a style="color: #ddd;" href="/logout">logout</a></h4>
-            <br>
-
-        </section>
-        <div class="" style="background-color: #000;">
-
-            <div class="footer_social">
-                <div>
-                    <p><span style="color: #ddd;">&copy; 2021</span> GhenGhen </p>
-                </div>
-                <div class="social_icon">
-                    <img src="/assest/OLIVE/fb.png" />
-                    <img src="/assest/OLIVE/instagram.png" />
-                    <img src="/assest/OLIVE/twitter.png" />
-                </div>
+                </form>
             </div>
-            <div class="bt"></div>
-        </div>
 
-        <script>
-            if ('<%= user.Image %>') {
-                const imgSrc = document.querySelector("#userImg")
-                imgSrc.src = "<%=user.Image%>";
-            }
-            const date = '<%= user.created_at %>';
-            const date2 = new Date(date);
-            const date3 = date2.getFullYear();
-            document.querySelector('h5').innerHTML += date3;
+            <section>
+                <h4 style="text-align: center;"> <a style="color: #ddd;" href="/logout">logout</a></h4>
+                <br>
 
-            const btn = document.querySelector('button');
-            const lableid = document.querySelector('#logoupload');
-            lableid.style.display = 'none';
+            </section>
+            <!-- <div class="" style="background-color: #000;">
 
-            const editBtn = document.querySelector('#editBtn');
-            editBtn.addEventListener('click', () => {
-                const email = document.querySelector('#email');
-                const number = document.querySelector('#number');
-                const password = document.querySelector('#password');
-                const confirm = document.querySelector('#confirm');
-                const logo = document.querySelector('#logoupload');
+                <div class="footer_social">
+                    <div>
+                        <p><span style="color: #ddd;">&copy; 2021</span> GhenGhen </p>
+                    </div>
+                    <div class="social_icon">
+                        <img src="/assest/OLIVE/fb.png" />
+                        <img src="/assest/OLIVE/instagram.png" />
+                        <img src="/assest/OLIVE/twitter.png" />
+                    </div>
+                </div>
+                <div class="bt"></div>
+            </div> -->
 
-                confirm.removeAttribute('readonly');
-
-
-                email.removeAttribute('readonly');
-                number.removeAttribute('readonly');
-                password.removeAttribute('readonly');
-                // email.setAttribute('contenteditable', 'true');
-                // number.setAttribute('contenteditable', 'true');
-                // password.setAttribute('contenteditable', 'true');
-
-                lableid.style.display = 'flex';
-
-                btn.removeAttribute('disabled');
-                btn.style.opacity = '1';
-
-
-            })
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                btn.setAttribute('disabled', 'true');
-                btn.innerHTML = 'Updating...';
-                const email = document.querySelector('#email');
-                const number = document.querySelector('#number');
-                const password = document.querySelector('#password');
-                const confirm = document.querySelector('#confirm');
-                const logo = document.querySelector('#logo');
-                if (password.value !== confirm.value) {
-                    alert('password does not match');
-                    return;
+            <script>
+                if ('<%= user.Image %>') {
+                    const imgSrc = document.querySelector("#userImg")
+                    imgSrc.src = "<%=user.Image%>";
                 }
+                const date = '<%= user.created_at %>';
+                const date2 = new Date(date);
+                const date3 = date2.getFullYear();
+                document.querySelector('h5').innerHTML += date3;
 
-                const formData = new FormData();
-                formData.append('email', email.value);
-                formData.append('phone', number.value);
-                formData.append('password', password.value);
-                formData.append('logo', logo.files[0]);
+                const btn = document.querySelector('button');
+                const lableid = document.querySelector('#logoupload');
+                lableid.style.display = 'none';
+
+                const editBtn = document.querySelector('#editBtn');
+                if (editBtn) {
 
 
+                    editBtn.addEventListener('click', () => {
+                        const email = document.querySelector('#email');
+                        const number = document.querySelector('#number');
+                        const password = document.querySelector('#password');
+                        const confirm = document.querySelector('#confirm');
+                        const logo = document.querySelector('#logoupload');
 
-                fetch('/profile/<%=user.id%>', {
-                    method: 'POST',
-                    body: formData
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        console.log(data);
-                        if (data.status === "success") {
-                            btn.innerHTML = 'Updated';
-                            window.location.assign('/profile');
-                        } else {
-                            alert(data.error);
-                        }
+                        confirm.removeAttribute('readonly');
+
+
+                        email.removeAttribute('readonly');
+                        number.removeAttribute('readonly');
+                        password.removeAttribute('readonly');
+                        // email.setAttribute('contenteditable', 'true');
+                        // number.setAttribute('contenteditable', 'true');
+                        // password.setAttribute('contenteditable', 'true');
+
+                        lableid.style.display = 'flex';
+
+                        btn.removeAttribute('disabled');
+                        btn.style.opacity = '1';
+
+
                     })
+                }
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    btn.setAttribute('disabled', 'true');
+                    btn.innerHTML = 'Updating...';
+                    const email = document.querySelector('#email');
+                    const number = document.querySelector('#number');
+                    const password = document.querySelector('#password');
+                    const confirm = document.querySelector('#confirm');
+                    const logo = document.querySelector('#logo');
+                    if (password.value !== confirm.value) {
+                        alert('password does not match');
+                        return;
+                    }
 
-            })
-        </script>
+                    const formData = new FormData();
+                    formData.append('email', email.value.trim());
+                    formData.append('phone', number.value.trim());
+                    formData.append('password', password.value.trim());
+                    formData.append('logo', logo.files[0]);
+
+
+
+                    fetch('/profile/<%=user.id%>', {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data);
+                            if (data.status === "success") {
+                                btn.innerHTML = 'Updated';
+                                window.location.assign('/profile');
+                            } else {
+                                alert(data.error);
+                            }
+                        })
+
+                })
+            </script>
 
 
 
 
-        <%- include ("./partials/footer.ejs") %>
+            <%- include ("./partials/footer.ejs") %>

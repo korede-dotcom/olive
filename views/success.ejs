@@ -1,109 +1,488 @@
-<%- include ("./partials/header.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
 
-    <section class="largeImg">
-        <div class="swiper">
-            <!-- Additional required wrapper -->
-            <div class="swiper-wrapper">
-                <!-- Slides -->
-                <div class="swiper-slide">
-                    <img src="/assest/OLIVE/woman.png" />
-                </div>
-                <div class="swiper-slide">
-                    <img src="/assest/OLIVE/cameraman.png" style="height: 452px; width: 414px;object-fit: cover;" />
-                </div>
-                <div class="swiper-slide">
-                    <img src="/assest/OLIVE/sitting.png" style="height: 450px; width: 414px;object-fit: cover;" />
-                </div>
-                <div class="swiper-slide">
-                    <img src="/assest/OLIVE/painter.png" style="height: 452px; width: 414px;object-fit: cover;" />
-                </div>
-                <div class="swiper-slide">
-                    <img height="452px" width="100%" src="/assest/OLIVE/ankara-nice.jpeg" />
-                </div>
-                <div class="swiper-slide">
-                    <img src="/assest/OLIVE/models.png" style="height: 452px; width: 414px;object-fit: cover;" />
-                </div>
-                <div class="swiper-slide">
-                    <img src="/assest/OLIVE/makeup.png" style="height: 452px; width: 414px;object-fit: cover;" />
-                </div>
-                <div class="swiper-slide">
-                    <img src="/assest/OLIVE/guyandgirl.png" style="height: 452px; width: 414px;object-fit: cover;" />
-                </div>
-                <div class="swiper-slide">
-                    <img src="/assest/OLIVE/videographer.png" style="height: 452px; width: 414px;object-fit: cover;" />
-                </div>
-                <div class="swiper-slide">
-                    <img src="/assest/OLIVE/flowergirl.png" />
-                </div>
-                <!-- <div class="swiper-slide">
-                    <img style="height: 452px; width: 414px;object-fit: cover;" src="/assest/OLIVE/guy.png" />
-                </div> -->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1 user-scalable=0">
+    <title>G-FACTOR </title>
+    <link rel="icon" href="/assest/OLIVE/logo.png">
+    <!-- <link rel=" stylesheet" href="/styles/auth.css"> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;1,900&display=swap" rel="stylesheet"> -->
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+        crossorigin="anonymous"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Khand:wght@400;600&family=Mulish:wght@300&display=swap"
+        rel="stylesheet">
+    <!-- <script src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script> -->
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'khand', sans-serif;
+            /* background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+
+            color: #ddd;
+            font-family: 'Khand', sans-serif;
+            /* background-image: url("/assest/GODFACTOR/wave.svg"); */
+            /* background-image: url("/assest/OLIVE/duotone.png"); */
+            /* background-image: url("/assest/OLIVE/patternpad.svg"); */
+            background-repeat: no-repeat;
+            background-position: bottom;
+            background-size: contain;
+            animation: fadein 2s;
+        }
+
+        /* keyframe change background image */
+
+        .container {
+            background: #27184f;
+            /* border: 1px solid #fff; */
+            /* border-radius: 20px; */
+            /* background-image: url("/assest/GODFACTOR/blob-r.svg"); */
+
+            /* background-image: linear-gradient(to top, #9795f0 0%, #fbc8d4 100%); */
+        }
+
+        .content {
+            background-color: #27184f;
+            /* height: 50%; */
+            /* background-image: url("/assest/GODFACTOR/wave.svg"); */
+        }
+
+
+        .CONGRATULATION {
+            display: grid;
+            place-items: center;
+            grid-template-columns: 1fr;
+            grid-gap: 10px;
+            /* border: 1px solid #fff; */
+            padding: 2em;
+            border-radius: 20px;
+
+
+        }
+
+        .CONGRATULATION h4 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #F2C033;
+            text-align: center;
+            margin-bottom: 10px;
+            padding: 1em;
+
+        }
+
+        .CONGRATULATION p {
+            font-family: 'Mulish', sans-serif;
+            text-align: center;
+
+
+        }
+
+
+        header {
+            background-color: inherit !important;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.1em .8em;
+            height: 10vh;
+            position: relative;
+            /* background-color: #f56468 !important; */
+        }
+
+        .imageOne {
+            height: 100Vh;
+            background-image: url("/assest/GODFACTOR/duotone2.png");
+            /* animation: change 5s ease-in-out 6s 2 forwards; */
+
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            color: #F2C033;
+
+            /* border: #88266F 1px solid; */
+        }
+
+        .onetext {
+            border-bottom: #88266F 4px solid;
+        }
+
+        .onetext h5 {
+            color: #F2C033;
+            font-family: 'Mulish', sans-serif;
+        }
+
+        .wrapper {
+            /* background-image: url("/assest/OLIVE/duotone2.png"); */
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+
+
+
+        }
+
+        @keyframes change {
+            0% {
+                background-image: url("/assest/OLIVE/duotone3.png");
+            }
+
+            25% {
+                background-image: url("/assest/OLIVE/duotone.png");
+            }
+
+            75% {
+                background-image: url("/assest/OLIVE/duotone4.png");
+            }
+
+            100% {
+                background-image: url("/assest/GODFACTOR/duotone2.png");
+
+            }
+        }
+
+        .menubar {
+            height: 25px;
+        }
+
+        .boxs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-gap: 1px;
+            /* place-items: center; */
+            height: 80vh;
+            /* color: #f56468; */
+            /* align-content: center; */
+            color: #F2C033;
+            /* height: 90vh; */
+            font-family: 'Mulish', sans-serif;
+            /* border: 1px solid #F2C033; */
+            padding: 1em;
+
+            text-align: center;
+            /* align-content: center; */
+
+
+        }
+
+        .boxs a {
+            text-decoration: none;
+        }
+
+
+
+        .box:hover {
+            /* background-color: #F2C033;
+            /* color: #fff; */
+            border: 1px solid #F2C033;
+            /* box-shadow: 3px 2px 1px #27184f; */
+            align-content: center;
+            /* color: #f56468 !important; */
+            /* background-color: #000; */
+            cursor: pointer;
+
+
+
+        }
+
+        .box {
+            /* border: 2px solid #88266F; */
+            /* border: 1px solid #857d9b; */
+            grid-gap: 10px;
+            padding: 1em;
+            /* display: grid; */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            border-radius: 10px;
+            /* background-color: #ddd; */
+
+
+
+
+        }
+
+
+        .box h5 {
+            color: #F2C033;
+        }
+
+        .box img {
+            height: 50px;
+            width: 50px;
+
+        }
+
+
+
+
+        .navlink {
+            display: none;
+            /* display: flex; */
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-end;
+            padding: 0 20px;
+            position: absolute;
+            top: 50px;
+            right: 0;
+            width: 100%;
+            height: 80vh;
+            /* margin: auto 0; */
+            color: #000;
+            background-color: #27184f;
+            /* transition: all 0.5s ease-in; */
+
+
+
+        }
+
+        .navlink a {
+            color: #857d9b;
+            text-decoration: none;
+            font-size: 1.5em;
+            /* border: #F2C033 1px solid; */
+            padding: 1.5em;
+        }
+
+        .navlink a:hover {
+            color: #F2C033;
+        }
+
+        @media screen and (max-width: 40em) {
+
+            /* .navlink {
+                display: block;
+            } */
+            body {
+                /* background-image: url("/assest/OLIVE/duotone2.png"); */
+                overflow: hidden;
+            }
+
+            .wrapper {
+                grid-template-columns: 1fr;
+                height: 100%;
+                /* height: 100vh; */
+            }
+
+            .imageOne {
+                display: none;
+            }
+
+            .content {
+                height: 100%;
+                /* background-image: url("/assest/OLIVE/wave2.svg"); */
+                background-image: url("/assest/OLIVE/duotone3.png");
+                background-position: bottom;
+                background-size: cover;
+                background-repeat: no-repeat;
+                display: grid;
+                padding: 1em;
+
+            }
+
+            .boxs {
+                border: 2px solid #857d9b;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                grid-gap: 10px;
+                border-radius: 16px;
+            }
+
+            .box {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+
+                /* height: 100%; */
+                border: #27184f 1px solid;
+                border-radius: 20px;
+                /* background-color: #ddd; */
+
+            }
+
+        }
+
+        @media screen and (max-width:400px) {
+            .CONGRATULATION {
+                grid-template-columns: 1fr;
+            }
+
+            #submitBtn {
+                font-size: 16px;
+            }
+
+
+
+        }
+
+        @media screen and (max-width:300px) {
+            .CONGRATULATION {
+                grid-template-columns: 150px;
+            }
+
+            #submitBtn {
+                font-size: 16px;
+            }
+
+
+        }
+
+        @media screen and (max-width:200px) {
+            .CONGRATULATION {
+                grid-template-columns: 150px;
+            }
+
+            #submitBtn {
+                font-size: 16px;
+            }
+
+
+        }
+
+        #submitBtn {
+            /* border: 1px solid #fff; */
+            border-radius: 16px;
+            border: none;
+            padding: 10px;
+
+
+            font-size: 1rem;
+
+
+            /* font-family: 'Mulish', sans-serif; */
+            color: #fff;
+            background-color: #88266F;
+            text-transform: uppercase;
+        }
+
+        #submitBtn:hover {
+            /* background: var(--y); */
+            color: #27184f;
+            cursor: pointer;
+        }
+
+        .shownav {
+            display: flex;
+
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="imageOne">
+            <div class="onetext">
+
+                <h2><span style="color: #88266F;">G</span>-FACTOR</h2>
+                <h5>Payment Confirm</h5>
             </div>
-            <!-- If we need pagination -->
-            <div class="swiper-pagination"></div>
+        </div>
 
-            <!-- If we need navigation buttons -->
 
-            <div class="swiper-button-prev">
-                <img class="carousel-l" src="/assest/OLIVE/Group 2.png" />
+
+
+        <div class="container">
+            <header>
+                <div class="logo">
+                    <a href="/dashboard">
+
+                        <img src="/assest/OLIVE/logo.png" alt="">
+                    </a>
+                </div>
+                <div class="icon">
+                    <div class="user">
+                        <!-- <a href="/profile">
+                        <img class="imgicon" src="/assest/OLIVE/usergold.png" alt="" srcset="">
+                    </a> -->
+                    </div>
+                    <div id="nav">
+                        <div class="home">
+                            <img class="menubar" src="/assest/OLIVE/dashboard.png" alt="" srcset="">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="navlink">
+                    <a href="/dashboard">dasboard</a>
+                    <a href="/digitalauditionplatform">digitalauditionplatform</a>
+                    <a href="/profile">profile</a>
+                    <a href="/logout">logout</a>
+
+                </div>
+            </header>
+            <section class="content link_register">
+                <div class="CONGRATULATION">
+                    <img width="50px" height="50px" src="/assest/OLIVE/confirm.png" alt="" srcset="">
+                    <h4>CONGRATULATION</h4>
+                    <P>Your Payment is successful.
+                    </P>
+                    <button class="btn" data-id="<%= audition._id %>" id="submitBtn">
+                        GO TO AUDITION
+                    </button>
+                    <h5>
+                        <!-- <script src="https://checkout.flutterwave.com/v3.js"></script> -->
+                        <a href="/dashboard">GO TO DASHBOARD</a>
+                    </h5>
+                </div>
+
+
+            </section>
+
+            <div class="" style="background-color: #000;" hidden>
+
+                <div class="footer_social">
+                    <div>
+                        <p><span style="color: #ddd;">&copy; 2021</span> GhenGhen </p>
+                    </div>
+                    <div class="social_icon">
+                        <img src="/assest/OLIVE/fb.png" />
+                        <img src="/assest/OLIVE/instagram.png" />
+                        <img src="/assest/OLIVE/twitter.png" />
+                    </div>
+                </div>
+
             </div>
-            <div class="swiper-button-next">
-                <img class="carousel" src="/assest/OLIVE/Group 2.png" />
-            </div>
-
-            <!-- If we need scrollbar -->
-            <div class="swiper-scrollbar"></div>
-
             <!-- 
-            <img src="/assest/OLIVE/guy.png" />
-            <img src="/assest/OLIVE/woman.png" />  -->
-        </div>
-        <!--  -->
-    </section>
-    <section class="content link_register">
-        <div class="CONGRATULATION">
-            <img width="50px" height="50px" src="/assest/OLIVE/confirm.png" alt="" srcset="">
-            <h4>CONGRATULATION</h4>
-            <P>Your Payment is successful.
-            </P>
-            <button class="btn" data-id="<%= audition._id %>">
-                GO TO AUDITION
-            </button>
-            <h5>
-                <!-- <script src="https://checkout.flutterwave.com/v3.js"></script> -->
-                <a href="/dashboard">GO TO DASHBOARD</a>
-            </h5>
-        </div>
-
-
-    </section>
-
-    <div class="" style="background-color: #000;">
-
-        <div class="footer_social">
-            <div>
-                <p><span style="color: #ddd;">&copy; 2021</span> GhenGhen </p>
-            </div>
-            <div class="social_icon">
-                <img src="/assest/OLIVE/fb.png" />
-                <img src="/assest/OLIVE/instagram.png" />
-                <img src="/assest/OLIVE/twitter.png" />
-            </div>
-        </div>
-
-    </div>
-    <!-- 
     <form>
        
         <button type="button">Pay Now</button>
     </form> -->
 
-    <script>
-        const btn = document.querySelector('.btn');
-        btn.addEventListener('click', () => {
-            window.location.href = `/auditions/${btn.dataset.id}`;
-        });
+            <script>
+                const btn = document.querySelector('.btn');
+                btn.addEventListener('click', () => {
+                    window.location.href = `/auditions/${btn.dataset.id}`;
+                });
 
 
-    </script>
-    <%- include ("./partials/footer.ejs") %>
+            </script>
+            <%- include ("./partials/footer.ejs") %>
