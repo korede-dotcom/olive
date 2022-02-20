@@ -317,10 +317,11 @@
                 height: 100%;
                 /* background-image: url("/assest/OLIVE/wave2.svg"); */
                 background-image: url("/assest/OLIVE/duotone8.png");
+                object-fit: contain;
                 background-position: bottom;
-                background-size: cover;
+                background-size: cover center;
                 background-repeat: no-repeat;
-                margin-top: 50px;
+                padding-top: 90px;
                 /* display: grid;
                 padding: 1em;
                 text-align: center !important; */
@@ -328,7 +329,7 @@
             }
 
             .boxs {
-                border: 2px solid #857d9b;
+                /* border: 2px solid #857d9b; */
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
                 grid-gap: 10px;
@@ -355,6 +356,10 @@
 
             .navlink {
                 padding: 20px;
+            }
+
+            .bo {
+                box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2) !important;
             }
 
         }
@@ -708,7 +713,7 @@
         const imageOne = document.querySelector('.imageOne');
         const formobile = document.querySelector('.content');
         // check media query for mobile
-        const ImagesArr = ["/assest/OLIVE/duotone2.png", "/assest/OLIVE/duotone5.png", "/assest/OLIVE/duotone3.png", "/assest/OLIVE/duotone6.png", "/assest/OLIVE/duotone7.png", "/assest/OLIVE/duotone4.png", "/assest/OLIVE/duotone8.png", "/assest/OLIVE/duotone9.png", "/assest/OLIVE/duotone10.png"];
+        const ImagesArr = ["/assest/OLIVE/duotone9.png", "/assest/OLIVE/duotone4.png"]
         if (window.matchMedia("(max-width: 40em)").matches) {
 
             setInterval(() => {

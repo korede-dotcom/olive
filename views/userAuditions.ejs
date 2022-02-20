@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1 user-scalable=0">
-    <title>GhenGhen </title>
+    <title>G-FACTOR </title>
     <link rel="icon" href="/assest/OLIVE/logo.png">
     <!-- <link rel=" stylesheet" href="/styles/auth.css"> -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -363,6 +363,10 @@
                 padding: 0;
             }
 
+            .auditiontext {
+                padding-top: 40px;
+            }
+
             .icondate {
                 display: none;
             }
@@ -381,6 +385,14 @@
                 inset: 0;
                 z-index: 1;
                 /* padding: 0.1em .4em; */
+            }
+
+            .auditionBox {
+                /* padding-top: 50px; */
+            }
+
+            .dateicon {
+                padding-bottom: 30px;
             }
 
 
@@ -423,7 +435,7 @@
             box-shadow: 0px 4px 26px rgba(0, 0, 0, 0.15);
             border-radius: 10px;
             display: flex;
-            padding: 10px 1em;
+            /* padding: 10px 1em; */
             /* height: 100%; */
             flex-direction: column;
             justify-content: space-between;
@@ -482,9 +494,9 @@
         }
 
         .textimg {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-            grid-gap: 10px;
+            /* display: grid; */
+            /* grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            grid-gap: 10px; */
             /* flex-direction: column; */
             /* justify-content: space-between;
             align-items: center;
@@ -643,6 +655,7 @@
                         <!-- <a href="/profile">
                         <img class="imgicon" src="/assest/OLIVE/usergold.png" alt="" srcset="">
                     </a> -->
+                        <% user.name %>
                     </div>
                     <div id="nav">
                         <div class="home">
@@ -652,6 +665,7 @@
 
                 </div>
                 <div class="navlink">
+
                     <a href="/profile">profile</a>
                     <a href="/dashboard">dasboard</a>
                     <a href="/digitalauditionplatform">digitalauditionplatform</a>
@@ -671,7 +685,7 @@
                             <% if (auditions) { %>
 
                                 <div class="abox">
-                                    <p class="err"></p>
+
                                     <div class="auditiontext">
 
                                         <div class="textimg">
@@ -736,6 +750,7 @@
                                                     <div class="dateicon">
                                                         <p class="" style="color: #F2C033;text-transform: uppercase;">
                                                             Select date & time for Auditioning</p>
+                                                        <p class="err"></p>
                                                         <label id="forDate" for="dateandtime">
                                                             <img class="icondate" src="/assest/OLIVE/date.png" />
                                                         </label>
@@ -783,6 +798,7 @@
 
                                                             <% if (video) { %>
                                                                 <p>Your video has been uploaded</p>
+                                                                <p class="err"></p>
                                                                 <% } %>
                                                                     <% if (video===false ) { %>
                                                                         <form enctype="multipart/form-data">
