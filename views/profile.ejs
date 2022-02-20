@@ -421,6 +421,12 @@
             border: 2px solid #F2C033;
             box-shadow: 3px 2px 1px #27184f;
         }
+
+        .userName {
+            pointer-events: none;
+            color: #88266F !important;
+            border-radius: 20%;
+        }
     </style>
 
 
@@ -461,6 +467,10 @@
 
                 </div>
                 <div class="navlink">
+                    <a href="#" class="userName">
+
+                        Hi ! <%= user.name %>
+                    </a>
                     <a href="/dashboard">dasboard</a>
                     <a href="/digitalauditionplatform">digitalauditionplatform</a>
                     <a href="/profile" class="active">profile</a>

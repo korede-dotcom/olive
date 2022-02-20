@@ -389,6 +389,12 @@
         .err {
             color: #F2C033 !important;
         }
+
+        .userName {
+            pointer-events: none;
+            color: #88266F !important;
+            border-radius: 20%;
+        }
     </style>
 
 
@@ -428,6 +434,10 @@
 
                 </div>
                 <div class="navlink">
+                    <a href="#" class="userName">
+
+                        Hi ! <%= user.name %>
+                    </a>
                     <a href="/dashboard">dasboard</a>
                     <a href="/digitalauditionplatform" class="active">digitalauditionplatform</a>
                     <a href="/profile">profile</a>

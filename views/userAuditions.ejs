@@ -630,6 +630,13 @@
         .err {
             color: #F2C033 !important;
         }
+
+        .userName {
+            pointer-events: none;
+            color: #88266F;
+            border-radius: 20%;
+            /* background-color: #F2C033; */
+        }
     </style>
 </head>
 
@@ -655,7 +662,7 @@
                         <!-- <a href="/profile">
                         <img class="imgicon" src="/assest/OLIVE/usergold.png" alt="" srcset="">
                     </a> -->
-                        <% user.name %>
+
                     </div>
                     <div id="nav">
                         <div class="home">
@@ -665,7 +672,10 @@
 
                 </div>
                 <div class="navlink">
+                    <a href="#" class="userName">
 
+                        Hi ! <%= user.name %>
+                    </a>
                     <a href="/profile">profile</a>
                     <a href="/dashboard">dasboard</a>
                     <a href="/digitalauditionplatform">digitalauditionplatform</a>

@@ -223,7 +223,8 @@ router.post("/login",(req,res)=>{
 
 
 router.get("/dashboard",Authenticated,(req,res)=>{ 
-    res.render("dashboard")
+    res.render("dashboard",{user:req.session.user})
+    console.log(req.session.user)
 })
 
 

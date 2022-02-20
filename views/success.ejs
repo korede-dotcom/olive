@@ -392,6 +392,12 @@
             display: flex;
 
         }
+
+        .userName {
+            pointer-events: none;
+            color: #88266F;
+            border-radius: 20%;
+        }
     </style>
 
 
@@ -432,6 +438,10 @@
 
                 </div>
                 <div class="navlink">
+                    <a href="#" class="userName">
+
+                        Hi ! <%= user.name %>
+                    </a>
                     <a href="/dashboard">dasboard</a>
                     <a href="/digitalauditionplatform">digitalauditionplatform</a>
                     <a href="/profile">profile</a>
