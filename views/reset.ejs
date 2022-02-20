@@ -141,6 +141,22 @@
             border-radius: 10%;
             padding: 5px;
         }
+
+        form a {
+            text-align: center;
+        }
+
+        form input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #fff;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: var(--primary-font);
+            color: var(--y);
+            background: #000;
+            outline: none;
+        }
     </style>
 
 </head>
@@ -174,10 +190,13 @@
         </header>
 
 
-        <div class="user-details" style="height: 90vh;">
+        <div class="user-details content">
+
+
             <form action="" enctype="multipart/form-data" id="form">
-                <p style="color: #ddd;text-transform: uppercase;text-align: center;">Set New Password</p>
-                <p style="color: goldenrod;text-align: center;" class="err"></p>
+                <img src="/assest/OLIVE/logo.png" alt="">
+                <p>Set New Password</p>
+                <p class="err" style="display: none;"></p>
                 <div>
 
                     <input type="password" name="p1" id="p1" placeholder="Enter your new Password" required>
@@ -191,7 +210,7 @@
 
 
 
-                <button class="btn" style="">Update Password</button>
+                <button class="btn" id="submitBtn" style="">Update Password</button>
 
             </form>
         </div>
@@ -226,6 +245,7 @@
                 const p2 = document.getElementById('p2').value;
                 // pssword length
                 if (p1.length < 8) {
+                    err.style.display = 'block';
                     err.innerHTML = 'Password must be at least 8 characters';
                     btn.innerHTML = 'Update Password';
                     btn.disabled = false;
@@ -247,6 +267,7 @@
                         .then(data => {
                             console.log(data);
                             if (data.status === 'success') {
+                                err.style.display = 'block';
                                 err.innerHTML = 'Password updated successfully';
                                 btn.innerHTML = 'Go to login';
                                 btn.disabled = false;
@@ -256,6 +277,7 @@
                             } else {
                                 p1.value = '';
                                 p2.value = '';
+                                err.style.display = 'block';
                                 err.innerHTML = 'Something went wrong';
                                 btn.innerHTML = 'Update Password';
                                 btn.disabled = false;
@@ -263,6 +285,7 @@
                         })
                         .catch(err => console.log(err));
                 } else {
+                    err.style.display = 'block';
                     err.innerHTML = 'Passwords do not match';
                     btn.innerHTML = 'Update Password';
                     btn.disabled = false;

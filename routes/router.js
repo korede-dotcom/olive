@@ -729,7 +729,7 @@ router.post("/auditionlink",(req,res)=>{
                                 {
                                   "From": {
                                     "Email": "koredebada@gmail.com",
-                                    "Name": "Ghenghen Team"
+                                    "Name": "G-factor Team"
                                   },
                                   "To": [
                                     {
@@ -737,8 +737,8 @@ router.post("/auditionlink",(req,res)=>{
                                       "Name": name
                                     }
                                   ],
-                                  "Subject": "Welcome to Ghenghen",
-                                  "TextPart": `Hi ${name}\n,Welcome to Ghenghen your OTP is ${otp} \n Thanks for Joining Olive\n Best regard \n Ghenghen Team`,
+                                  "Subject": "Welcome to G-factor",
+                                  "TextPart": `Hi ${name}\n,Welcome to G-factor your OTP is ${otp} \n Thanks for Joining Olive\n Best regard \n G-factor Team`,
                                
                              
                                   "HTMLPart": ``,
@@ -756,7 +756,7 @@ router.post("/auditionlink",(req,res)=>{
         
                                  const config = {
                                 method: 'get',
-                                url: `https://1960sms.com/api/send/?user=${process.env.textMsgUser}&pass=${process.env.textMsgPass}&to=${username}&from=hello&msg= ${name}your Ghenghen registration OTP:${otp}`,
+                                url: `https://1960sms.com/api/send/?user=${process.env.textMsgUser}&pass=${process.env.textMsgPass}&to=${username}&from=hello&msg= ${name}your G-factor registration OTP:${otp}`,
                                 headers: { }
                             };
                             
@@ -962,7 +962,7 @@ router.post("/dateselection",(req,res)=>{
             {
               "From": {
                 "Email": "badasulaimon@gmail.com",
-                "Name": "Ghenghen Team"
+                "Name": "G-factor Team"
               },
               "To": [
                 {
@@ -970,8 +970,8 @@ router.post("/dateselection",(req,res)=>{
                   
                 }
               ],
-              "Subject": "Welcome to Ghenghen",
-              "TextPart": `Hi hi \n,Welcome to Ghenghen your OTP is  \n Thanks for Joining Olive\n Best regard \n Ghenghen Team`,
+              "Subject": "Welcome to G-factor",
+              "TextPart": `Hi hi \n,Welcome to G-factor your OTP is  \n Thanks for Joining Olive\n Best regard \n G-factor Team`,
            
          
               "HTMLPart": `
@@ -1002,7 +1002,7 @@ router.get("/logout",(req,res)=>{
 router.get("/recovery",(req,res)=>{
     res.render("recover")
 })
-router.post("/recovery",(req,res)=>{
+router.post("/recovery", async (req,res)=>{
     const {name,email} = req.body;
     User.findOne({email},(err,user)=>{
         // send link to reset user password to mailjet
@@ -1015,23 +1015,25 @@ router.post("/recovery",(req,res)=>{
                 email
             },"secret",{expiresIn:"1h"})
             console.log(token)
-            const link = `http://localhost:1200/reset/${token}`
-            const request = mailjet.post("send", {'version': 'v3.1'})
+            const link = `http://localhost:1200/reset/${token}`;
+           mailjet.post("send", {'version': 'v3.1'})
             .request({
                 "Messages":[
                     {
                         "From": {
                             "Email": "koredebada@gmail.com",
-                            "Name": "Ghenghen Team"
+                            "Name": "G-factor Team"
                         },
                         "To": [
                             {
                                 "Email": email,
-                                "Name": "Ghenghen Team"
+                                "Name": "G-factor Team"
                             }],
                             "Subject": "Reset your Password",
-                            "TextPart": "Reset your password with the link below",
-                            "HTMLPart": `<h3>Reset your password with the link below <a style="background-color:"goldenrod" href=${link}>reset password</a></h3>`,
+                            "TextPart": "Reset your password with the link below \n"+link,
+                            "HTMLPart": `<h3 style="background-color:goldenrod height=400px ;">Reset your password with the link below <a style="background-color:"goldenrod" href=${link}>reset password</a></h3>`,
+                            "CustomID": "AppGettingStartedTest"
+
                         }]
                     }) .then((result) => {
                         res.send({"status":"success"})

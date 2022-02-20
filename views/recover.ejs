@@ -251,6 +251,7 @@
                             // hide inputs
                             document.querySelector('#name').style.display = 'none';
                             document.querySelector('#email').style.display = 'none';
+                            document.querySelectorAll('.number').forEach(el => el.style.display = 'none');
                             msg.innerHTML = `Link to reset your password has been sent to your email`;
                             //    onclick btn to home
                             btn.innerHTML = 'Go to home';
