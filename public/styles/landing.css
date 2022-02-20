@@ -706,21 +706,20 @@ footer{
 
     @media screen and (max-width:40em) {
         body{
-            width: 100vw;
+            /* width: 100vw; */
             overflow-x: hidden;
-            /* background-color: #88266F; 
+            /* /* background-color: #88266F;  */
         }
         .wrapper{
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr;
             padding: 0;
             width: 80vw;
             margin: 0 auto;
         }
-        .landing{
-            margin-top: 40px;
-            /* grid-column-gap: 10px; */
-        }
-        .landingcontent h1{
+        
+        
+       
+        /* .landingcontent h1{
             font-size: 25px;
         }
         .mic{
@@ -739,7 +738,7 @@ footer{
         }
         .center img{
             
-        }
+        } */
         /* .benefits{
             grid-column: 1/4;
         }
