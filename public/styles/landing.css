@@ -36,13 +36,14 @@ body{
     font-size: 16px;
 }
 .wrapper{
-    padding-left: 1em;
-    padding-right: 1.5em;
+    /* padding-left: 1em;
+    padding-right: 1.5em; */
     
     background: linear-gradient(to right,#000,bottom #F2C033);
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    /* display: grid; */
+    /* grid-template-columns: repeat(2, 1fr); */
     font-family: 'Khand', sans-serif;
+    position: relative;
 
     
 }
@@ -71,11 +72,16 @@ body{
 }
 .links{
     grid-column: 2/3;
+    grid-row: 1/2;
     display: flex;
     justify-content: space-around;
     align-items: center;
     padding: 0 5px;
     gap: 10px;
+    position: absolute;
+    top: 20px;
+    right: 0;
+    z-index: 1;
     
 }
 .links a{
@@ -120,15 +126,20 @@ body{
     font-size: 14px;
     font-family: 'Mulish', sans-serif;
 }
+.powered{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr)) !important;
+    grid-gap: 5px;
+}
 .powered img{
     height: 30px;
-    width: 60px;
+    width: 50px;
     object-fit: contain;
 }
-.powered{
+/* .powered{
     display: flex;
 
-}
+} */
 .mic{
    
     display:none;
@@ -694,7 +705,7 @@ footer{
             margin: 0 auto;
         }
         .call h1{
-            font-size: 30px;
+            font-size: 20px;
         }
         
     }
@@ -705,25 +716,30 @@ footer{
     } */
 
     @media screen and (max-width:40em) {
+        *{
+            font-size: 12px;
+        }
+       
         body{
             /* width: 100vw; */
             overflow-x: hidden;
             /* /* background-color: #88266F;  */
         }
         .wrapper{
-            grid-template-columns: 1fr 1fr 1fr;
-            padding: 0;
-            width: 80vw;
+            width: 90vw;
             margin: 0 auto;
+            padding-left: 0px !important;
+            padding-right: 0px !important;
         }
-        
-        
-       
-        /* .landingcontent h1{
-            font-size: 25px;
+        .landing{
+            margin-top: 40px;
+            /* grid-column-gap: 10px; */
+        }
+        .landingcontent h1{
+            /* font-size: 25px; */
         }
         .mic{
-            justify-self: end;
+            /* justify-self: end; */
         }
         .powered{
            
@@ -736,9 +752,9 @@ footer{
             height: 40px;
             
         }
-        .center img{
-            
-        } */
+        .cimg{
+           width: 100%;
+        }
         /* .benefits{
             grid-column: 1/4;
         }
