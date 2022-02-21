@@ -23,6 +23,7 @@ const path = require("path")
 const Video = require("../models/videos")
 const DateSelection = require("../models/DateSelection")
 const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
 
 
 
@@ -224,7 +225,7 @@ router.post("/login",(req,res)=>{
 
 router.get("/dashboard",Authenticated,(req,res)=>{ 
     res.render("dashboard",{user:req.session.user})
-    console.log(req.session.user)
+   
 })
 
 
@@ -332,11 +333,22 @@ router.post("/profile/:id",Authenticated,upload.single('logo'),async(req,res)=>{
 
 router.get("/auditions/:id",Authenticated,(req,res)=>{
     // find user in Payment collection    
+    const id = req.params.id
+    // id to ObjectId
+    const auditionId = mongoose.Types.ObjectId(id)
+    
     let video = ""
     let dateSelection;
-    Payment.find({user:req.session.user._id},(err,payments)=>{
+    // $ auditionId by ObjectId in Payment collection
+
+    // aggregation auditionId in
+
+    Payment.findOne({user:req.session.user._id,auditionId:auditionId},(err,payments)=>{
+
+        console.log(payments)
         if(err){
             console.log(err)
+            res.redirect("/digitalauditionplatform")
         }else{
             if(payments){
                             // find audition from payments by auditionId in

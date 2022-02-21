@@ -267,17 +267,17 @@ footer{
 
 }
 .querys a{
-    color: #fff;
+    color: #F2C033;
     padding:2px 20px;
-    border: 1px solid #F2C033;
+    /* border: 1px solid #F2C033; */
     font-size: 25px;
-    font-weight: 800;
+    /* font-weight: 800; */
     font-family: 'Khand', sans-serif;
     transition: 0.3s;
     /* margin-top: -100px; */
     text-decoration: none;
-    position: absolute;
-    top: -20px;
+    /* position: absolute; */
+    /* top: -20px; */
     
     
    
