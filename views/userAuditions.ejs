@@ -818,7 +818,10 @@
 
 
                                                             <% if (video) { %>
-                                                                <p class="isvideo">Your video has been uploaded</p>
+                                                                <p class="isvideo"
+                                                                    style="color: #F2C033;text-align: center;padding: 5px;">
+                                                                    Your
+                                                                    video has been uploaded</p>
                                                                 <!-- <p class="verr"></p> -->
                                                                 <% } %>
                                                                     <% if (video===false ) { %>
@@ -901,9 +904,7 @@
 
         </div>
         <script>
-            let v = <%=video%>;
 
-            console.log(JSON.stringify(v););
 
             let err = document.querySelector('.err');
             let verr = document.querySelector('.verr');
