@@ -778,9 +778,8 @@
                                                         <div class="selectdd">
 
                                                             <input name="date" id="dateandtime" type="date"
-                                                                min="<%=auditions.auditionStartDate%>"
-                                                                max="<%=auditions.auditionEndDate%>"
-                                                                placeholder="Select Day">
+                                                                min="<%=auditions.auditionStartDate%> "
+                                                                max="<%=auditions.auditionEndDate%> ">
                                                             <p>
                                                                 <select name="time" id="time">
                                                                     <option value="">Time</option>
@@ -1011,23 +1010,23 @@
             const infotext = document.querySelector(".infotext");
 
 
-            if (fordateandtime) {
-                fordateandtime.addEventListener("click", (e) => {
-                    // toggle class
-                    infotext.classList.toggle("hide");
-                    dateSelection.classList.toggle("active");
-                    // e.target.classList.toggle("active");
-                });
+            // if (fordateandtime) {
+            //     fordateandtime.addEventListener("click", (e) => {
+            //         // toggle class
+            //         infotext.classList.toggle("hide");
+            //         dateSelection.classList.toggle("active");
+            //         // e.target.classList.toggle("active");
+            //     });
 
-            }
-            if (infotext) {
-                infotext.addEventListener("click", (e) => {
-                    // toggle class
-                    infotext.classList.toggle("hide");
-                    dateSelection.classList.toggle("active");
-                    // e.target.classList.toggle("active");
-                });
-            }
+            // }
+            // if (infotext) {
+            //     infotext.addEventListener("click", (e) => {
+            //         // toggle class
+            //         infotext.classList.toggle("hide");
+            //         dateSelection.classList.toggle("active");
+            //         // e.target.classList.toggle("active");
+            //     });
+            // }
 
             if (dateSelection) {
                 dateSelection.addEventListener("submit", (e) => {
