@@ -289,46 +289,88 @@ router.get("/profile",Authenticated,(req,res)=>{
 
 router.post("/profile/:id",Authenticated,upload.single('logo'),async(req,res)=>{
     const {username,password,email} = req.body
-    
-    const id = req.params.id
+
+    // if req.file is undefined then it means no file is uploaded
     if(req.file){
-        const result = await cloudinary.uploader.upload(req.file.path) 
-
+        const logo = req.file.filename
         try {
-            const user = await User.findByIdAndUpdate(id,{username,password,email,Image:result.secure_url},{new:true})
+            const user = await User.findById(req.params.id)
             if(user){
+                if(user.logo){
+                    fs.unlink(`./public/uploads/${user.logo}`,(err)=>{
+                        if(err){
+                            console.log(err)
+                        }
+                    })
+                }
+                user.logo = logo
+                user.username = username
+                user.password = password
+                user.email = email
+                user.save()
                 res.status(200).json({"status":"success"})
+                // res.send({"status":"success"})
+                // res.redirect("/profile")
+
+            }else{
+                res.send({"error":"User not found"})
             }
         } catch (error) {
-            res.send({"error":"Error in updating profile"})
             console.log(error)
         }
-    }
-    else{
+    }else{
         try {
-            const user = await User.findByIdAndUpdate(id,{username,password,email},{new:true})
+            const user = await User.findById(req.params.id)
             if(user){
+                user.username = username
+                user.password = password
+                user.email = email
+                user.save()
                 res.status(200).json({"status":"success"})
-                // unlink the file
-                fs.unlinkSync(req.file.path)
-
+                // res.send({"status":"success"})
+                // res.redirect("/profile")
+            }else{
+                res.send({"error":"User not found"})
             }
         } catch (error) {
-            res.send({"error":"Error in updating profile"})
+            res.send({"error":"cannot update user"})
             console.log(error)
 
         }
     }
-
-    // await  User.findByIdAndUpdate(id,{username,password,email,Image:result.secure_url},(err,user)=>{
-    //     if(err){
-    //         res.send({"error":"Error in updating profile"})
-    //     }else{
-    //         req.session.user = user
-    //         res.send({"status":"success"})
-    //     }
-    // })
 })
+
+    
+//     const id = req.params.id
+//     if(req.file){
+//         const result = await cloudinary.uploader.upload(req.file.path) 
+
+//         try {
+//             const user = await User.findByIdAndUpdate(id,{username,password,email,Image:result.secure_url},{new:true})
+//             if(user){
+//                 res.send({"status":"success"})
+//             }
+//         } catch (error) {
+//             res.send({"error":"Error in updating profile"})
+//             console.log(error)
+//         }
+//     }
+//     else{
+//         try {
+//             const user = await User.findByIdAndUpdate(id,{username,password,email},{new:true})
+//             if(user){
+//                 res.send({"status":"details updated"})
+//                 // unlink the file
+//                 fs.unlinkSync(req.file.path)
+
+//             }
+//         } catch (error) {
+//             res.send({"error":"Error in updating profile"})
+//             console.log(error)
+
+//         }
+//     }
+// })
 
 
 router.get("/auditions/:id",Authenticated,(req,res)=>{
@@ -345,7 +387,7 @@ router.get("/auditions/:id",Authenticated,(req,res)=>{
 
     Payment.findOne({user:req.session.user._id,auditionId:auditionId},(err,payments)=>{
 
-        console.log(payments)
+        // console.log(payments)
         if(err){
             console.log(err)
             res.redirect("/digitalauditionplatform")
@@ -362,6 +404,7 @@ router.get("/auditions/:id",Authenticated,(req,res)=>{
                                     console.log(err)
                                 }else{
                                     if(video){
+                                        // console.log(video)
                                         
                                         res.render("userAuditions",{dateSelection:false,video:video,auditions,payments,user:req.session.user})
                                     }else{

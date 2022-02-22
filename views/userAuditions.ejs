@@ -515,21 +515,21 @@
             object-fit: contain;
         }
 
-        .uploadbtn:hover {
+        .uploadbtn {
             background-color: #F2C033;
             color: #27184f !important;
             padding: 5px 1em;
             border-radius: 5px;
         }
 
-        .uploadbtn {
-            background-color: #27184f;
+        .uploadbtn:hover {
+            background-color: #88266F;
             color: #F2C033 !important;
         }
 
         .dateicon {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             grid-gap: 10px;
             place-content: center;
         }
@@ -675,9 +675,9 @@
 
                         Hi ! <%= user.name %>
                     </a>
-                    <a href="/profile">profile</a>
-                    <a href="/dashboard">dasboard</a>
+                    <a href="/dashboard">home</a>
                     <a href="/digitalauditionplatform">digitalauditionplatform</a>
+                    <a href="/profile">profile</a>
                     <a href="/logout">logout</a>
 
                 </div>
@@ -729,8 +729,10 @@
                                             <%= auditions.auditionStartDate %> - <%= auditions.auditionEndDate %>
                                         </p>
                                     </div>
-                                    <div class="abox_content">
-                                        <img width="20px" src="/assest/OLIVE/videoicon.png" />
+                                    <div class="abox_content ">
+                                        <label for="upload" style="cursor: pointer;">
+                                            <img width="20px" src="/assest/OLIVE/videoicon.png" />
+                                        </label>
                                         <p>
                                             <% if (auditions.auditionPattern===1) { %>
 
@@ -739,7 +741,17 @@
                                                 <% } %>
 
                                                     <% if (auditions.auditionPattern===0) { %>
-                                                        Upload
+
+                                                        <form enctype="multipart/form-data" class="vidform">
+                                                            <input type="file" name="upload" id="upload" hidden>
+
+                                                            <label for="upload" style="cursor: pointer;">
+                                                                <a class="uploadbtn" data-audition="<%=auditions._id%>"
+                                                                    data-provider='<%=auditions.provider%>'
+                                                                    data-user="<%=user._id%>">Upload
+                                                                    1Minute video</a>
+                                                            </label>
+                                                        </form>
                                                         <% } %>
 
 
@@ -806,11 +818,12 @@
 
 
                                                             <% if (video) { %>
-                                                                <p>Your video has been uploaded</p>
-                                                                <p class="err"></p>
+                                                                <p class="isvideo">Your video has been uploaded</p>
+                                                                <!-- <p class="verr"></p> -->
                                                                 <% } %>
                                                                     <% if (video===false ) { %>
-                                                                        <form enctype="multipart/form-data">
+                                                                        No videos uploaded
+                                                                        <!-- <form enctype="multipart/form-data">
                                                                             <input type="file" name="upload" id="upload"
                                                                                 hidden>
 
@@ -823,7 +836,7 @@
                                                                                     data-user="<%=user._id%>">Upload
                                                                                     1Minute video</a>
                                                                             </label>
-                                                                        </form>
+                                                                        </form> -->
 
                                                                         <% } else {%>
 
@@ -888,8 +901,12 @@
 
         </div>
         <script>
+            let v = <%=video%>;
 
-            const err = document.querySelector('.err');
+            console.log(JSON.stringify(v););
+
+            let err = document.querySelector('.err');
+            let verr = document.querySelector('.verr');
 
 
             const date = document.querySelector(".date");
@@ -904,7 +921,8 @@
             const upload = document.querySelector("#upload");
             const uploadform = document.querySelector("#form");
             const btn = document.querySelector(".btn");
-            const uploadbtn = document.querySelector(".uploadbtn");
+            let uploadbtn = document.querySelector(".uploadbtn");
+
 
             // video duration check
             if (upload) {
@@ -916,9 +934,10 @@
                         video.src = URL.createObjectURL(file);
                         video.onloadedmetadata = () => {
                             const duration = video.duration;
-                            if (duration > 60) {
-                                err.innerHTML = "Video duration should be 1 minute or less";
-                                err.style.color = "goldenrod";
+                            if (duration > 61) {
+                                verr.innerHTML = "Video duration should be 1 minute or less";
+                                // verr.style.color = "goldenrod";
+                                console.log("Video duration should be 1 minute or less");
                                 return false
                             } else {
                                 uploadbtn.innerHTML = "Uploading Please wait... ";
@@ -944,9 +963,10 @@
                                     .then((res) => res.json())
                                     .then((data) => {
                                         console.log(data);
+                                        window.location.reload();
                                         if (data.status === "success") {
                                             err.innerHTML = "video uploaded";
-                                            window.location.reload();
+                                            // window.location.reload();
                                             // uploadform.reset();
                                             uploadbtn.innerHTML = "Uploaded";
                                         } else {
@@ -965,6 +985,12 @@
 
                     }
                 });
+            }
+            const isvideo = document.querySelector(".isvideo");
+            if (isvideo) {
+                const vidform = document.querySelector(".vidform");
+                vidform.parentElement.style.display = "none";
+
             }
             const fordateandtime = document.querySelector("#fordateandtime");
             const dateSelection = document.querySelector("#dateSelection");
@@ -1154,7 +1180,7 @@
 
 
         </script>
-        <script>
+        <!-- <script>
             const home = document.querySelector('.home');
             const navlink = document.querySelector('.navlink');
             home.addEventListener('click', () => {
@@ -1171,7 +1197,7 @@
 
 
 
-        </script>
+        </script> -->
         <script>
             const imageOne = document.querySelector('.imageOne');
             const ImagesArr = ["/assest/OLIVE/duotone4.png", "/assest/OLIVE/duotone5.png", "/assest/OLIVE/duotone3.png", "/assest/OLIVE/duotone6.png", "/assest/OLIVE/duotone7.png", "/assest/OLIVE/duotone8.png", "/assest/OLIVE/duotone9.png", "/assest/OLIVE/duotone10.png"];

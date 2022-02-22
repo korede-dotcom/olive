@@ -471,7 +471,7 @@
 
                         Hi ! <%= user.name %>
                     </a>
-                    <a href="/dashboard">dasboard</a>
+                    <a href="/dashboard">home</a>
                     <a href="/digitalauditionplatform">digitalauditionplatform</a>
                     <a href="/profile" class="active">profile</a>
                     <a href="/logout">logout</a>
@@ -501,8 +501,10 @@
 
             <div class="user-details">
                 <div class="image-name">
-                    <img id="userImg" width="180px" height="180px" src="/assest/OLIVE/woman.png" alt="upload an image"
-                        style="border-radius: 50%;">
+                    <label id="logoupload" for="logo">
+                        <img id="userImg" width="180px" height="180px" src="/assest/OLIVE/woman.png"
+                            alt="upload an image" style="border-radius: 50%;">
+                    </label>
                     <h1 style="text-align: center;">
                         <%=user.name%>
                             <img id="editBtn" src="/assest/OLIVE/edit.png" width="30px" height="30px" alt="" srcset="">
@@ -521,11 +523,11 @@
 
                     </div>
                     <div>
-                        <label id="logoupload" for="logo" style="display: flex;align-items: center; gap: 10px;">
+                        <!-- <label id="logoupload" for="logo" style="display: flex;align-items: center; gap: 10px;">
                             <p>Upload Image</p>
                             <img id="" src="https://img.icons8.com/ios/50/000000/upload-to-cloud--v1.png" width="30px"
                                 height="30px" />
-                        </label>
+                        </label> -->
                         <input type="file" name="logo" id="logo" hidden>
                     </div>
                     <div>
@@ -541,6 +543,7 @@
                     <button disabled class="btn" id="submitBtn" style="opacity: .5;">updateprofile</button>
 
                 </form>
+                <div class="err"></div>
             </div>
 
             <section>
@@ -575,7 +578,10 @@
 
                 const btn = document.querySelector('button');
                 const lableid = document.querySelector('#logoupload');
-                lableid.style.display = 'none';
+                const changeLogo = document.querySelector('#logo');
+                const err = document.querySelector('.err');
+
+                // lableid.style.display = 'none';
 
                 const editBtn = document.querySelector('#editBtn');
                 if (editBtn) {
@@ -606,6 +612,56 @@
 
                     })
                 }
+
+                changeLogo.addEventListener('change', (e) => {
+                    e.preventDefault();
+                    const file = e.target.files[0];
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const imgSrc = document.querySelector("#userImg")
+                        imgSrc.src = e.target.result;
+                    }
+                    reader.readAsDataURL(file);
+
+                    btn.setAttribute('disabled', 'true');
+                    btn.innerHTML = 'Updating...';
+                    const email = document.querySelector('#email');
+                    const number = document.querySelector('#number');
+                    const password = document.querySelector('#password');
+                    const confirm = document.querySelector('#confirm');
+                    const logo = document.querySelector('#logo');
+                    if (password.value !== confirm.value) {
+                        // alert('password does not match');
+                        err.innerHTML = 'password does not match';
+                        return;
+                    }
+
+                    const formData = new FormData();
+                    formData.append('email', email.value.trim());
+                    formData.append('username', number.value.trim());
+                    formData.append('password', password.value.trim());
+                    formData.append('logo', logo.files[0]);
+
+
+                    fetch('/profile/<%=user.id%>', {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data);
+                            if (data.status === "success") {
+                                btn.innerHTML = 'Updated';
+                                window.location.assign('/profile');
+                            } else {
+                                // alert(data.error);
+                                err.innerHTML = data.error;
+                            }
+                        })
+
+
+                })
+
                 btn.addEventListener('click', (e) => {
                     e.preventDefault();
                     btn.setAttribute('disabled', 'true');
@@ -616,13 +672,14 @@
                     const confirm = document.querySelector('#confirm');
                     const logo = document.querySelector('#logo');
                     if (password.value !== confirm.value) {
-                        alert('password does not match');
+                        // alert('password does not match');
+                        err.innerHTML = 'password does not match';
                         return;
                     }
 
                     const formData = new FormData();
                     formData.append('email', email.value.trim());
-                    formData.append('phone', number.value.trim());
+                    formData.append('username', number.value.trim());
                     formData.append('password', password.value.trim());
                     formData.append('logo', logo.files[0]);
 
@@ -639,7 +696,8 @@
                                 btn.innerHTML = 'Updated';
                                 window.location.assign('/profile');
                             } else {
-                                alert(data.error);
+                                // alert(data.error);
+                                err.innerHTML = data.error;
                             }
                         })
 
