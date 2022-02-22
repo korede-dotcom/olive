@@ -1005,33 +1005,12 @@
             const formatStartDateString = formatStartDate.toDateString();
             const formatEndDateString = formatEndDate.toDateString();
             formatDate.innerHTML = `${formatStartDateString} - ${formatEndDateString}`;
-            if (dbDate) {
-                // format dbDate
-                // const formatDate = document.querySelector(".date").textContent;
-                // const formatStartDate = new Date('<%=auditions.auditionStartDate%>')
-                // const formatEndDate = new Date('<%=auditions.auditionStartDate %>')
-                // // remove time and ser to date
-                // const formatStartDateString = formatStartDate.toDateString();
-                // const formatEndDateString = formatEndDate.toDateString();
-                // formatDate.innerHTML = `${formatStartDateString} - ${formatEndDateString}`;
 
-
-            }
 
 
             const infotext = document.querySelector(".infotext");
 
-            // Array.from(dateSelection.children).forEach((item) => {
-            //     item.addEventListener("click", (e) => {
-            //         const date = e.target.innerHTML;
-            //         const month = date.slice(0, 2);
-            //         const day = date.slice(3, 5);
-            //         const year = date.slice(6, 10);
-            //         const time = date.slice(11, 16);
-            //         const dateandtime = `${month}/${day}/${year} ${time}`;
-            //         fordateandtime.innerHTML = dateandtime;
-            //         infotext.innerHTML = "";
-            //     });
+
             if (fordateandtime) {
                 fordateandtime.addEventListener("click", (e) => {
                     // toggle class
