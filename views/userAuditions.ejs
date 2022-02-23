@@ -18,6 +18,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
         integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
         crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
@@ -779,7 +780,8 @@
 
                                                             <input name="date" id="dateandtime" type="date"
                                                                 min="<%=auditions.auditionStartDate%>"
-                                                                max="<%=auditions.auditionEndDate%>">
+                                                                max="<%=auditions.auditionEndDate%>"
+                                                                placeholder="Select Day">
                                                             <p>
                                                                 <select name="time" id="time">
                                                                     <option value="">Time</option>
@@ -807,7 +809,7 @@
                                                     <p class="dbDate">
                                                     </p>
                                                     <a class="readyforaudition" target="_blank"
-                                                        href="https://streamyard.com/bdcf3gipmu">Go
+                                                        href="https://studio.restream.io/guest/bDBaNllXa7srZaCHW01LjKxavz4ynEU">Go
                                                         to
                                                         Audition</a>
                                                     <%}%>
@@ -902,6 +904,8 @@
             </div>
 
         </div>
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
         <script>
 
 
@@ -992,6 +996,18 @@
                 vidform.parentElement.style.display = "none";
 
             }
+
+
+            // calculate date left to audition by
+
+            // const ff = flatpickr("#dateandtime", {
+            //     minDate: '<%=auditions.auditionStartDate%>',
+            //     maxDate: '<%=auditions.auditionEndDate%>'
+            // });
+            // console.log(ff)
+
+
+
             const fordateandtime = document.querySelector("#fordateandtime");
             const dateSelection = document.querySelector("#dateSelection");
             const selection = document.querySelector("#selection");
@@ -1004,29 +1020,50 @@
             const formatStartDateString = formatStartDate.toDateString();
             const formatEndDateString = formatEndDate.toDateString();
             formatDate.innerHTML = `${formatStartDateString} - ${formatEndDateString}`;
+            if (dbDate) {
+                // format dbDate
+                // const formatDate = document.querySelector(".date").textContent;
+                // const formatStartDate = new Date('<%=auditions.auditionStartDate%>')
+                // const formatEndDate = new Date('<%=auditions.auditionStartDate %>')
+                // // remove time and ser to date
+                // const formatStartDateString = formatStartDate.toDateString();
+                // const formatEndDateString = formatEndDate.toDateString();
+                // formatDate.innerHTML = `${formatStartDateString} - ${formatEndDateString}`;
 
+
+            }
 
 
             const infotext = document.querySelector(".infotext");
 
-
-            // if (fordateandtime) {
-            //     fordateandtime.addEventListener("click", (e) => {
-            //         // toggle class
-            //         infotext.classList.toggle("hide");
-            //         dateSelection.classList.toggle("active");
-            //         // e.target.classList.toggle("active");
+            // Array.from(dateSelection.children).forEach((item) => {
+            //     item.addEventListener("click", (e) => {
+            //         const date = e.target.innerHTML;
+            //         const month = date.slice(0, 2);
+            //         const day = date.slice(3, 5);
+            //         const year = date.slice(6, 10);
+            //         const time = date.slice(11, 16);
+            //         const dateandtime = `${month}/${day}/${year} ${time}`;
+            //         fordateandtime.innerHTML = dateandtime;
+            //         infotext.innerHTML = "";
             //     });
+            if (fordateandtime) {
+                fordateandtime.addEventListener("click", (e) => {
+                    // toggle class
+                    infotext.classList.toggle("hide");
+                    dateSelection.classList.toggle("active");
+                    // e.target.classList.toggle("active");
+                });
 
-            // }
-            // if (infotext) {
-            //     infotext.addEventListener("click", (e) => {
-            //         // toggle class
-            //         infotext.classList.toggle("hide");
-            //         dateSelection.classList.toggle("active");
-            //         // e.target.classList.toggle("active");
-            //     });
-            // }
+            }
+            if (infotext) {
+                infotext.addEventListener("click", (e) => {
+                    // toggle class
+                    infotext.classList.toggle("hide");
+                    dateSelection.classList.toggle("active");
+                    // e.target.classList.toggle("active");
+                });
+            }
 
             if (dateSelection) {
                 dateSelection.addEventListener("submit", (e) => {
@@ -1053,10 +1090,10 @@
                         fetch("/dateselection", {
                             method: "POST",
                             headers: {
-                                "Content-Type": "application/json",
+                                "Content-Type": "application/json"
                             },
                             body: JSON.stringify(payload)
-                        }).then((res) => res.json())
+                        }).then(res => res.json())
                             .then(data => {
                                 console.log(data);
                                 if (data.status === "success") {
@@ -1177,7 +1214,7 @@
 
 
         </script> -->
-        <script>
+        <!-- <script>
             const imageOne = document.querySelector('.imageOne');
             const ImagesArr = ["/assest/OLIVE/duotone4.png", "/assest/OLIVE/duotone5.png", "/assest/OLIVE/duotone3.png", "/assest/OLIVE/duotone6.png", "/assest/OLIVE/duotone7.png", "/assest/OLIVE/duotone8.png", "/assest/OLIVE/duotone9.png", "/assest/OLIVE/duotone10.png"];
 
@@ -1190,6 +1227,6 @@
 
 
             }, 5000);
-        </script>
+        </script> -->
 
         <%- include("./partials/footer.ejs") %>
