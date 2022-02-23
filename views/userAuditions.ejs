@@ -1185,6 +1185,104 @@
                 }
 
 
+                // make dateSelection form work on submit
+                if (dateSelection) {
+                    dateSelection.addEventListener("submit", (e) => {
+                        e.preventDefault();
+                        // const dateTimeLeft = new Date(dateTime).toLocaleString();
+                        // console.log(dateTime);
+                        if (dateSelection.date.value && dateSelection.time.value) {
+                            const date = dateSelection.date.value
+                            const time = dateSelection.time.value
+
+                            const dateTime = `${date}:${time}`
+
+                            const selectedDateAndTime = new Date(dateTime);
+                            // const currentDateAndTime = new Date().getTime();
+                            // const timeLeft = selectedDateAndTime - currentDateAndTime;
+                            // console.log(timeLeft);
+                            // post to server
+                            let payload = {
+                                date: selectedDateAndTime,
+                                user: "<%=user._id%>",
+                                provider: "<%=auditions.provider%>",
+                                audition: "<%=auditions._id%>"
+                            }
+                            fetch("/dateselection", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify(payload)
+                            }).then(res => res.json())
+                                .then(data => {
+                                    console.log(data);
+                                    if (data.status === "success") {
+                                        err.innerHTML = "Date and time selected";
+                                        // setInterval for time left
+                                        let timeLeftDisplay = document.querySelector(".timeLeft");
+                                        let dbDate = '<%=dateSelection.date%>'
+                                        let date = new Date(dbDate);
+                                        let currentDate = new Date();
+                                        date = date.getTime();
+                                        currentDate = currentDate.getTime();
+                                        // calculate time left
+                                        let timeLeft = date - currentDate;
+                                        // get days left if timeLeft > 24 hours
+                                        let daysLeft = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                                        // get hours left if timeLeft > 1 day
+                                        let hoursLeft = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                        // get minutes left if timeLeft > 1 hour
+                                        let minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                                        // get seconds left if timeLeft > 1 minute
+                                        let secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                                        // display time left
+                                        timeLeftDisplay.innerHTML = `${daysLeft} days, ${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
+                                        setInterval(() => {
+
+                                            timeLeftDisplay.innerHTML = `${daysLeft} days, ${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
+                                            timeLeft -= 1000;
+                                            daysLeft = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                                            hoursLeft = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                            minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                                            secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                                            // day is 0 and time left is less than 24 hours
+                                            if (daysLeft === 0) {
+                                                timeLeftDisplay.innerHTML = `${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
+                                            }
+                                            if (daysLeft === 0 && hoursLeft === 0) {
+                                                timeLeftDisplay.innerHTML = ` ${minutesLeft} minutes, ${secondsLeft} seconds`;
+                                            }
+                                            if (daysLeft === 0 && hoursLeft === 0 && minutesLeft === 0 && secondsLeft === 0) {
+                                                // display ready for audition
+                                                readyforaudition.style.display = "block";
+                                                // hide date selection
+                                                dateSelection.style.display = "none";
+                                                // hide time selection
+                                                // timeSelection.style.display = "none";
+                                                // // hide date and time selection
+                                                // dateTimeSelection.style.display = "none";
+                                                // // hide date and time selection
+                                                // dateTimeSelection.style.display = "none";
+                                            }
+                                        }, 1000);
+                                    } else {
+                                        err.innerHTML = "Date and time not selected";
+                                    }
+                                })
+
+                            window.location.reload();
+                        } else if (data.status === "limit") {
+                            err.innerHTML = "Date and time already selected";
+                        }
+                        else {
+                            err.innerHTML = "error selecting date and time";
+
+                        }
+                    })
+                }
+
+
 
                 // get date from formatDate
 
@@ -1214,7 +1312,7 @@
 
 
         </script> -->
-        <!-- <script>
+        <script>
             const imageOne = document.querySelector('.imageOne');
             const ImagesArr = ["/assest/OLIVE/duotone4.png", "/assest/OLIVE/duotone5.png", "/assest/OLIVE/duotone3.png", "/assest/OLIVE/duotone6.png", "/assest/OLIVE/duotone7.png", "/assest/OLIVE/duotone8.png", "/assest/OLIVE/duotone9.png", "/assest/OLIVE/duotone10.png"];
 
@@ -1227,6 +1325,6 @@
 
 
             }, 5000);
-        </script> -->
+        </script>
 
         <%- include("./partials/footer.ejs") %>
