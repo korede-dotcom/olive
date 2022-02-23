@@ -417,7 +417,11 @@ router.get("/auditions/:id",Authenticated,(req,res)=>{
                                 if(err){
                                     console.log(err)
                                 }else{
-                                    if(dateSelection){
+                                    // convert dateSelection.adution to string and compare with id
+
+                                    // console.log(dateSelection.audition.toString() === id)
+                                    if(dateSelection.audition.toString() === id){
+
                                        
                                         res.render("userAuditions",{video,dateSelection:dateSelection,auditions,payments,user:req.session.user})
                                     }else{

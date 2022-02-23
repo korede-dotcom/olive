@@ -1327,4 +1327,26 @@
             }, 5000);
         </script>
 
-        <%- include("./partials/footer.ejs") %>
+    </div>
+    <!-- <script src="/js/app.js"></script> -->
+
+    <script>
+        const home = document.querySelector('.home');
+        if (home) {
+            const navlink = document.querySelector('.navlink');
+            home.addEventListener('click', () => {
+                navlink.classList.toggle('shownav');
+                if (navlink.classList.contains('shownav')) {
+                    home.querySelector("img").src = '/assest/OLIVE/close.png';
+                } else {
+                    home.querySelector("img").src = '/assest/OLIVE/dashboard.png';
+                }
+            });
+
+        }
+
+
+    </script>
+</body>
+
+</html>

@@ -11,7 +11,7 @@ const DateSelectionSchema = new Schema({
         required: true
     },
     user: {
-        type: mongoose.Schema.Types.ObjectId,
+         type: mongoose.Types.ObjectId,
         ref: 'User',
         required: true,
         unique: true
@@ -21,12 +21,12 @@ const DateSelectionSchema = new Schema({
         required: true
     },
     audition: {
-        type: mongoose.Schema.Types.ObjectId,
+         type: mongoose.Types.ObjectId,
         ref: 'Audition',
         required: true
     },
     provider: {
-        type: mongoose.Schema.Types.ObjectId,
+         type: mongoose.Types.ObjectId,
         ref: 'Provider',
         required: true
     }
