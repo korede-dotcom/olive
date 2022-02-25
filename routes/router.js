@@ -395,6 +395,7 @@ router.get("/auditions/:id",Authenticated,(req,res)=>{
             if(payments){
                             // find audition from payments by auditionId in
                 Audition.findById(req.params.id,(err,auditions)=>{
+    
                     if(err){
                         console.log(err)
                     }else{
@@ -413,15 +414,13 @@ router.get("/auditions/:id",Authenticated,(req,res)=>{
                                 }
                             })   
                         }else{
-                            DateSelection.findOne({user:req.session.user},(err,dateSelection)=>{
+                            DateSelection.findOne({user:req.session.user,audition:id},(err,dateSelection)=>{
+                                console.log(dateSelection)
                                 if(err){
                                     console.log(err)
                                 }else{
-                                    // convert dateSelection.adution to string and compare with id
-
-                                    // console.log(dateSelection.audition.toString() === id)
-                                    if(dateSelection.audition.toString() === id){
-
+                                    if(dateSelection!==null && dateSelection.audition.toString() === id){ 
+                                        
                                        
                                         res.render("userAuditions",{video,dateSelection:dateSelection,auditions,payments,user:req.session.user})
                                     }else{
@@ -983,6 +982,8 @@ router.post("/dateselection",(req,res)=>{
             if(result.length === 100){
                 res.send({"status":"limit"})
             }else{
+                // make user create multiple date selection
+                
                 DateSelection.create({
                     user,
                     provider,

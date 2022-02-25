@@ -8,6 +8,7 @@
                     <h2>
                         CREATE AUDITION
                         <small>Fill Audition Details</small>
+                        <p class="err" style="color: red !important;"></p>
                     </h2>
                     <!-- <button type="button" onClick="payWithRave()">Pay Now</button> -->
                 </div>
@@ -30,6 +31,15 @@
                                         <div class="form-line">
                                             <input type="text" class="form-control" placeholder="audition description"
                                                 name="auditionDescription">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <b>Live Audition Link </b>
+                                    <div class="input-group">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control"
+                                                placeholder="live audition link: http://streamyard.com" name="livelink">
                                         </div>
                                     </div>
                                 </div>
@@ -120,6 +130,7 @@
         const provider = document.querySelector(".provider");
         const auditionBtn = document.querySelector("#auditionBtn");
         const logo = document.querySelector("input[name='auditionLogo']");
+        const err = document.querySelector(".err");
         // check if the file is an image
 
         // check if logo is uploaded
@@ -137,19 +148,25 @@
             e.preventDefault();
 
             if (provider.auditionName.value === "") {
-                alert("Please enter a valid audition name");
+                err.innerHTML = "Please enter a valid audition name";
                 provider.auditionName.focus();
                 return false;
             }
             if (provider.auditionStartDate.value > provider.auditionEndDate.value) {
-                alert("Audition start date cannot be after end date");
+                err.innerHTML = "Audition start date cannot be after end date";
                 provider.auditionStartDate.value = "";
                 provider.auditionEndDate.value = "";
                 return false;
 
             }
+            if (provider.livelink.value === "") {
+                err.innerHTML = "Please enter a valid live audition link";
+                provider.livelink.focus();
+                return false;
+            }
+
             if (provider.auditionLogo.value == "") {
-                alert("Please upload a valid image file (jpg/png)");
+                err.innerHTML = "Please upload a valid image file (jpg/png)";
                 provider.auditionLogo.value = "";
 
                 provider.auditionLogo.focus();
@@ -170,6 +187,7 @@
             formdata.append("auditionPattern", e.target.auditionPattern.value);
             formdata.append("auditionName", e.target.auditionName.value);
             formdata.append("auditionCount", parseInt(e.target.auditionCount.value));
+            formdata.append("livelink", e.target.livelink.value);
 
             var requestOptions = {
                 method: 'POST',
@@ -182,11 +200,11 @@
                 .then(result => {
                     if (result.status === "true") {
                         auditionBtn.innerHTML = "Success";
-                        // alert("Audition Created Successfully");
+                        // err.innerHTML = "Audition Created Successfully");
                         window.location.href = "/provider/dashboard";
                     } else {
                         auditionBtn.disabled = false;
-                        alert("Audition Creation Failed please upload a logo");
+                        err.innerHTML = "Audition Creation Failed please upload a logo";
                         auditionBtn.innerHTML = "SUBMIT";
                     }
                 })

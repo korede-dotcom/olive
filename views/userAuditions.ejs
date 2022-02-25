@@ -767,7 +767,7 @@
                                                     id="fordateandtime" /> -->
                                                 <!-- <p class="infotext">Select date & time for Auditioning</p> -->
                                                 <form id="dateSelection" class="fade">
-                                                    <div class="timeLeft"></div>
+                                                    <!-- <div class="timeLeft"></div> -->
 
                                                     <div class="dateicon">
                                                         <p class="" style="color: #F2C033;text-transform: uppercase;">
@@ -780,8 +780,7 @@
 
                                                             <input name="date" id="dateandtime" type="date"
                                                                 min="<%=auditions.auditionStartDate%>"
-                                                                max="<%=auditions.auditionEndDate%>"
-                                                                placeholder="Select Day">
+                                                                max="<%=auditions.auditionEndDate%>">
                                                             <p>
                                                                 <select name="time" id="time">
                                                                     <option value="">Time</option>
@@ -1014,8 +1013,12 @@
             const dateandtime = document.querySelector("#dateandtime");
             const dbDate = document.querySelector("#dbDate");
             const formatDate = document.querySelector(".date")
+            const checkA = document.querySelector("#checkA")
             const formatStartDate = new Date('<%=auditions.auditionStartDate%>')
             const formatEndDate = new Date('<%=auditions.auditionEndDate %>')
+            console.log(formatDate)
+            console.log(formatEndDate)
+
             // remove time and ser to date
             const formatStartDateString = formatStartDate.toDateString();
             const formatEndDateString = formatEndDate.toDateString();
@@ -1047,240 +1050,324 @@
             //         fordateandtime.innerHTML = dateandtime;
             //         infotext.innerHTML = "";
             //     });
-            if (fordateandtime) {
-                fordateandtime.addEventListener("click", (e) => {
-                    // toggle class
-                    infotext.classList.toggle("hide");
-                    dateSelection.classList.toggle("active");
-                    // e.target.classList.toggle("active");
-                });
+            // if (fordateandtime) {
+            //     fordateandtime.addEventListener("click", (e) => {
+            //         // toggle class
+            //         infotext.classList.toggle("hide");
+            //         dateSelection.classList.toggle("active");
+            //         // e.target.classList.toggle("active");
+            //     });
 
-            }
-            if (infotext) {
-                infotext.addEventListener("click", (e) => {
-                    // toggle class
-                    infotext.classList.toggle("hide");
-                    dateSelection.classList.toggle("active");
-                    // e.target.classList.toggle("active");
-                });
-            }
+            // }
+            // if (infotext) {
+            //     infotext.addEventListener("click", (e) => {
+            //         // toggle class
+            //         infotext.classList.toggle("hide");
+            //         dateSelection.classList.toggle("active");
+            //         // e.target.classList.toggle("active");
+            //     });
+            // }
 
             if (dateSelection) {
                 dateSelection.addEventListener("submit", (e) => {
+                    // check if date is selected
                     e.preventDefault();
-                    // const dateTimeLeft = new Date(dateTime).toLocaleString();
-                    // console.log(dateTime);
-                    if (dateSelection.date.value && dateSelection.time.value) {
-                        const date = dateSelection.date.value
-                        const time = dateSelection.time.value
-
-                        const dateTime = `${date}:${time}`
-
-                        const selectedDateAndTime = new Date(dateTime);
-                        // const currentDateAndTime = new Date().getTime();
-                        // const timeLeft = selectedDateAndTime - currentDateAndTime;
-                        // console.log(timeLeft);
-                        // post to server
-                        let payload = {
-                            date: selectedDateAndTime,
-                            user: "<%=user._id%>",
-                            provider: "<%=auditions.provider%>",
-                            audition: "<%=auditions._id%>"
-                        }
-                        fetch("/dateselection", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify(payload)
-                        }).then(res => res.json())
-                            .then(data => {
-                                console.log(data);
-                                if (data.status === "success") {
-                                    err.innerHTML = "Date and time selected";
-                                    window.location.reload();
-                                } else if (data.status === "limit") {
-                                    err.innerHTML = "Date and time already selected";
-                                }
-                                else {
-                                    err.innerHTML = "error selecting date and time";
-
-                                }
-                            })
-
-
-                        // display time left
-                        let timeLeftDisplay = document.querySelector(".timeLeft");
-
-                    } else {
-                        err.innerHTML = "Please select a date and time";
-
-                        // alert("Please select date and time");
+                    if (e.target.querySelector("input[type=date]").value === "" || e.target.querySelector("input[type=time]").value === "") {
+                        infotext.innerHTML = "Please select a date";
+                        return false;
                     }
-                    // get data from formdata
-
-                })
-
-            } else {
-                let readyforaudition = document.querySelector(".readyforaudition");
-                let timeLeftDisplay = document.querySelector(".timeLeft");
-                const timedetails = document.querySelector(".timedetails");
-                let dbDate = '<%=dateSelection.date%>'
-                let date = new Date(dbDate);
-                let currentDate = new Date();
-                date = date.getTime();
-                currentDate = currentDate.getTime();
-                console.log(date);
-                console.log(currentDate);
-
-                // if
-
-                if (currentDate >= date) {
-                    readyforaudition.style.display = "block";
-                    timeLeftDisplay.innerHTML = "";
-                    timedetails.innerHTML = "Your audition link is available";
-                }
-                else {
-                    if (readyforaudition) {
-                        readyforaudition.style.display = "none";
-
-                        // readyforaudition.style.display = "none";
-
-                        let timeLeft = date - currentDate;
-                        // get days left if timeLeft > 24 hours
-                        let daysLeft = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-                        // get hours left if timeLeft > 1 day
-                        let hoursLeft = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                        // get minutes left if timeLeft > 1 hour
-                        let minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-                        // get seconds left if timeLeft > 1 minute
-                        let secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
-                        // display time left
-                        // timeLeftDisplay.innerHTML = `${daysLeft} days, ${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
-                        setInterval(() => {
-
-                            timeLeftDisplay.innerHTML = `${daysLeft} days, ${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
-                            timeLeft -= 1000;
-                            daysLeft = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-                            hoursLeft = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                            minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-                            secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
-                            // day is 0 and time left is less than 24 hours
-                            if (daysLeft === 0) {
-                                timeLeftDisplay.innerHTML = `${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
-                            }
-                            if (daysLeft === 0 && hoursLeft === 0) {
-                                timeLeftDisplay.innerHTML = ` ${minutesLeft} minutes, ${secondsLeft} seconds`;
-                            }
-                            if (daysLeft === 0 && hoursLeft === 0 && minutesLeft === 0 && secondsLeft === 0) {
+                    checkA.innerHTML = "Please wait...";
+                    const date = new Date(e.target.querySelector("input[type=date]").value);
+                    const time = e.target.querySelector("#time").value;
+                    console.log(date, time)
+                    const dateandtime = `${date.getMonth() + 1} ${date.getDate()} ${date.getFullYear()} ${time}`;
 
 
-
-                                clearInterval(timeLeftDisplay);
-
-
-                            }
-                        }, 1000);
+                    let payload = {
+                        date: dateandtime,
+                        user: "<%=user._id%>",
+                        provider: "<%=auditions.provider%>",
+                        audition: "<%=auditions._id%>"
                     }
-                }
+                    fetch("/dateselection", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(payload)
+                    })
+                        .then((res) => res.json())
+                        .then((data) => {
+                            console.log(data);
+                            dateSelection.reset();
+                            if (data.status === "success") {
+                                checkA.innerHTML = "Date set";
+                                window.location.reload();
+                            } else {
+                                err.innerHTML = "error setting date";
+                            }
+
+
+                        })
+                });
+            }
+
+
+            if ("<%=dateSelection.date%>") {
+                // dateSelection.parentElement.style.display = "none";
+                readyforaudition.style.display = "none";
+                setInterval(() => {
+                    const gap = new Date("<%=dateSelection.date%>").getTime() - new Date().getTime()
+                    //create a count down
+                    const count = document.querySelector(".timeLeft");
+
+                    const now = new Date().getTime()
+
+                    const days = Math.floor(gap / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minute = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((gap % (1000 * 60)) / 1000);
+                    const timeLeft = `${days}d ${hours}h ${minute}m ${seconds}s`;
+                    count.innerHTML = timeLeft;
+                    console.log(timeLeft)
+                    if (gap < 0) {
+
+                        clearInterval();
+                        readyforaudition.style.display = "block";
+                        // count.innerHTML = "";
+                        // timeLeft.innerHTML = "Audition has ended";
+                    }
+                    // console.log(timeLeft)
+                    // console.log(distance)
+                }, 1000);
+            }
+
+
+
+
+
+
+
+
+            // if (dateSelection) {
+            //     dateSelection.addEventListener("submit", (e) => {
+            //         e.preventDefault();
+            //         checkA.innerHTML = "Please wait...";
+            //         // const dateTimeLeft = new Date(dateTime).toLocaleString();
+            //         // console.log(dateTime);
+            //         if (dateSelection.date.value && dateSelection.time.value) {
+            //             const date = dateSelection.date.value
+            //             const time = dateSelection.time.value
+
+            //             const dateTime = `${date}:${time}`
+
+            //             const selectedDateAndTime = new Date(dateTime);
+            //             // const currentDateAndTime = new Date().getTime();
+            //             // const timeLeft = selectedDateAndTime - currentDateAndTime;
+            //             // console.log(timeLeft);
+            //             // post to server
+            //             let payload = {
+            //                 date: selectedDateAndTime,
+            //                 user: "<%=user._id%>",
+            //                 provider: "<%=auditions.provider%>",
+            //                 audition: "<%=auditions._id%>"
+            //             }
+            //             fetch("/dateselection", {
+            //                 method: "POST",
+            //                 headers: {
+            //                     "Content-Type": "application/json"
+            //                 },
+            //                 body: JSON.stringify(payload)
+            //             }).then(res => res.json())
+            //                 .then(data => {
+            //                     console.log(data);
+            //                     if (data.status === "success") {
+            //                         err.innerHTML = "Date and time selected";
+            //                         checkA.innerHTML = "Selected";
+            //                         window.location.reload();
+            //                     } else if (data.status === "limit") {
+            //                         err.innerHTML = "Date and time already selected";
+            //                     }
+            //                     else {
+            //                         err.innerHTML = "error selecting date and time";
+
+            //                     }
+            //                 })
+
+
+            //             // display time left
+            //             let timeLeftDisplay = document.querySelector(".timeLeft");
+
+            //         } else {
+            //             err.innerHTML = "Please select a date and time";
+
+            //             // alert("Please select date and time");
+            //         }
+            //         // get data from formdata
+
+            //     })
+
+            // } else {
+            //     let readyforaudition = document.querySelector(".readyforaudition");
+            //     let timeLeftDisplay = document.querySelector(".timeLeft");
+            //     const timedetails = document.querySelector(".timedetails");
+            //     let dbDate = '<%=dateSelection.date%>'
+            //     let date = new Date(dbDate);
+            //     let currentDate = new Date();
+            //     date = date.getTime();
+            //     currentDate = currentDate.getTime();
+            //     console.log(date);
+            //     console.log(currentDate);
+
+            //     // if
+
+            //     if (currentDate >= date) {
+            //         readyforaudition.style.display = "block";
+            //         timeLeftDisplay.innerHTML = "";
+            //         timedetails.innerHTML = "Your audition link is available";
+            //     }
+            //     else {
+            //         if (readyforaudition) {
+            //             readyforaudition.style.display = "none";
+
+            //             // readyforaudition.style.display = "none";
+
+            //             let timeLeft = date - currentDate;
+            //             // get days left if timeLeft > 24 hours
+            //             let daysLeft = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            //             // get hours left if timeLeft > 1 day
+            //             let hoursLeft = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            //             // get minutes left if timeLeft > 1 hour
+            //             let minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            //             // get seconds left if timeLeft > 1 minute
+            //             let secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            //             // display time left
+            //             // timeLeftDisplay.innerHTML = `${daysLeft} days, ${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
+            //             setInterval(() => {
+
+            //                 timeLeftDisplay.innerHTML = `${daysLeft} days, ${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
+            //                 timeLeft -= 1000;
+            //                 daysLeft = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            //                 hoursLeft = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            //                 minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            //                 secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            //                 // day is 0 and time left is less than 24 hours
+            //                 if (daysLeft === 0) {
+            //                     timeLeftDisplay.innerHTML = `${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
+            //                 }
+            //                 if (daysLeft === 0 && hoursLeft === 0) {
+            //                     timeLeftDisplay.innerHTML = ` ${minutesLeft} minutes, ${secondsLeft} seconds`;
+            //                 }
+            //                 if (daysLeft === 0 && hoursLeft === 0 && minutesLeft === 0 && secondsLeft === 0) {
+
+
+
+            //                     clearInterval(timeLeftDisplay);
+
+
+            //                 }
+            //             }, 1000);
+            //         }
+            //     }
 
 
                 // make dateSelection form work on submit
-                if (dateSelection) {
-                    dateSelection.addEventListener("submit", (e) => {
-                        e.preventDefault();
-                        // const dateTimeLeft = new Date(dateTime).toLocaleString();
-                        // console.log(dateTime);
-                        if (dateSelection.date.value && dateSelection.time.value) {
-                            const date = dateSelection.date.value
-                            const time = dateSelection.time.value
+                // if (dateSelection) {
+                //     dateSelection.addEventListener("submit", (e) => {
+                //         e.preventDefault();
+                //         // const dateTimeLeft = new Date(dateTime).toLocaleString();
+                //         // console.log(dateTime);
+                //         if (dateSelection.date.value && dateSelection.time.value) {
+                //             const date = dateSelection.date.value
+                //             const time = dateSelection.time.value
+                //             console.log(date, ":", time)
 
-                            const dateTime = `${date}:${time}`
+                //             const dateTime = `${date}:${time}`
 
-                            const selectedDateAndTime = new Date(dateTime);
-                            // const currentDateAndTime = new Date().getTime();
-                            // const timeLeft = selectedDateAndTime - currentDateAndTime;
-                            // console.log(timeLeft);
-                            // post to server
-                            let payload = {
-                                date: selectedDateAndTime,
-                                user: "<%=user._id%>",
-                                provider: "<%=auditions.provider%>",
-                                audition: "<%=auditions._id%>"
-                            }
-                            fetch("/dateselection", {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json"
-                                },
-                                body: JSON.stringify(payload)
-                            }).then(res => res.json())
-                                .then(data => {
-                                    console.log(data);
-                                    if (data.status === "success") {
-                                        err.innerHTML = "Date and time selected";
-                                        // setInterval for time left
-                                        let timeLeftDisplay = document.querySelector(".timeLeft");
-                                        let dbDate = '<%=dateSelection.date%>'
-                                        let date = new Date(dbDate);
-                                        let currentDate = new Date();
-                                        date = date.getTime();
-                                        currentDate = currentDate.getTime();
-                                        // calculate time left
-                                        let timeLeft = date - currentDate;
-                                        // get days left if timeLeft > 24 hours
-                                        let daysLeft = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-                                        // get hours left if timeLeft > 1 day
-                                        let hoursLeft = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                                        // get minutes left if timeLeft > 1 hour
-                                        let minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-                                        // get seconds left if timeLeft > 1 minute
-                                        let secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
-                                        // display time left
-                                        timeLeftDisplay.innerHTML = `${daysLeft} days, ${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
-                                        setInterval(() => {
+                //             const selectedDateAndTime = new Date(dateTime);
+                //             // const currentDateAndTime = new Date().getTime();
+                //             // const timeLeft = selectedDateAndTime - currentDateAndTime;
+                //             // console.log(timeLeft);
+                //             // post to server
+                //             let payload = {
+                //                 date: selectedDateAndTime,
+                //                 user: "<%=user._id%>",
+                //                 provider: "<%=auditions.provider%>",
+                //                 audition: "<%=auditions._id%>"
+                //             }
+                //             fetch("/dateselection", {
+                //                 method: "POST",
+                //                 headers: {
+                //                     "Content-Type": "application/json"
+                //                 },
+                //                 body: JSON.stringify(payload)
+                //             }).then(res => res.json())
+                //                 .then(data => {
+                //                     console.log(data);
+                //                     if (data.status === "success") {
+                //                         err.innerHTML = "Date and time selected";
+                //                         // setInterval for time left
+                //                         let timeLeftDisplay = document.querySelector(".timeLeft");
+                //                         let dbDate = '<%=dateSelection.date%>'
+                //                         let date = new Date(dbDate);
+                //                         let currentDate = new Date();
+                //                         date = date.getTime();
+                //                         currentDate = currentDate.getTime();
+                //                         // calculate time left
+                //                         let timeLeft = date - currentDate;
+                //                         // get days left if timeLeft > 24 hours
+                //                         let daysLeft = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                //                         // get hours left if timeLeft > 1 day
+                //                         let hoursLeft = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                //                         // get minutes left if timeLeft > 1 hour
+                //                         let minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                //                         // get seconds left if timeLeft > 1 minute
+                //                         let secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                //                         // display time left
+                //                         timeLeftDisplay.innerHTML = `${daysLeft} days, ${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
+                //                         setInterval(() => {
 
-                                            timeLeftDisplay.innerHTML = `${daysLeft} days, ${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
-                                            timeLeft -= 1000;
-                                            daysLeft = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-                                            hoursLeft = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                                            minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-                                            secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
-                                            // day is 0 and time left is less than 24 hours
-                                            if (daysLeft === 0) {
-                                                timeLeftDisplay.innerHTML = `${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
-                                            }
-                                            if (daysLeft === 0 && hoursLeft === 0) {
-                                                timeLeftDisplay.innerHTML = ` ${minutesLeft} minutes, ${secondsLeft} seconds`;
-                                            }
-                                            if (daysLeft === 0 && hoursLeft === 0 && minutesLeft === 0 && secondsLeft === 0) {
-                                                // display ready for audition
-                                                readyforaudition.style.display = "block";
-                                                // hide date selection
-                                                dateSelection.style.display = "none";
-                                                // hide time selection
-                                                // timeSelection.style.display = "none";
-                                                // // hide date and time selection
-                                                // dateTimeSelection.style.display = "none";
-                                                // // hide date and time selection
-                                                // dateTimeSelection.style.display = "none";
-                                            }
-                                        }, 1000);
-                                    } else {
-                                        err.innerHTML = "Date and time not selected";
-                                    }
-                                })
+                //                             timeLeftDisplay.innerHTML = `${daysLeft} days, ${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
+                //                             timeLeft -= 1000;
+                //                             daysLeft = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                //                             hoursLeft = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                //                             minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                //                             secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                //                             // day is 0 and time left is less than 24 hours
+                //                             if (daysLeft === 0) {
+                //                                 timeLeftDisplay.innerHTML = `${hoursLeft} hours, ${minutesLeft} minutes, ${secondsLeft} seconds`;
+                //                             }
+                //                             if (daysLeft === 0 && hoursLeft === 0) {
+                //                                 timeLeftDisplay.innerHTML = ` ${minutesLeft} minutes, ${secondsLeft} seconds`;
+                //                             }
+                //                             if (daysLeft === 0 && hoursLeft === 0 && minutesLeft === 0 && secondsLeft === 0) {
+                //                                 // display ready for audition
+                //                                 readyforaudition.style.display = "block";
+                //                                 // hide date selection
+                //                                 dateSelection.style.display = "none";
+                //                                 // hide time selection
+                //                                 // timeSelection.style.display = "none";
+                //                                 // // hide date and time selection
+                //                                 // dateTimeSelection.style.display = "none";
+                //                                 // // hide date and time selection
+                //                                 // dateTimeSelection.style.display = "none";
+                //                             }
+                //                         }, 1000);
+                //                     } else {
+                //                         err.innerHTML = "Date and time not selected";
+                //                     }
+                //                 })
 
-                            window.location.reload();
-                        } else if (data.status === "limit") {
-                            err.innerHTML = "Date and time already selected";
-                        }
-                        else {
-                            err.innerHTML = "error selecting date and time";
+                //             window.location.reload();
+                //         } else if (data.status === "limit") {
+                //             err.innerHTML = "Date and time already selected";
+                //         }
+                //         else {
+                //             err.innerHTML = "error selecting date and time";
 
-                        }
-                    })
-                }
+                //         }
+                //     })
+                // }
 
 
 
@@ -1290,28 +1377,11 @@
 
 
 
-            }
+            // }
 
 
         </script>
-        <!-- <script>
-            const home = document.querySelector('.home');
-            const navlink = document.querySelector('.navlink');
-            home.addEventListener('click', () => {
-                navlink.classList.toggle('shownav');
-                if (navlink.classList.contains('shownav')) {
-                    home.querySelector("img").src = '/assest/OLIVE/close.png';
-                } else {
-                    home.querySelector("img").src = '/assest/OLIVE/dashboard.png';
-                }
 
-
-            });
-
-
-
-
-        </script> -->
         <script>
             const imageOne = document.querySelector('.imageOne');
             const ImagesArr = ["/assest/OLIVE/duotone4.png", "/assest/OLIVE/duotone5.png", "/assest/OLIVE/duotone3.png", "/assest/OLIVE/duotone6.png", "/assest/OLIVE/duotone7.png", "/assest/OLIVE/duotone8.png", "/assest/OLIVE/duotone9.png", "/assest/OLIVE/duotone10.png"];
@@ -1328,7 +1398,7 @@
         </script>
 
     </div>
-    <!-- <script src="/js/app.js"></script> -->
+
 
     <script>
         const home = document.querySelector('.home');
