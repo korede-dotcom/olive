@@ -1127,7 +1127,7 @@
                     const hours = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                     const minute = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
                     const seconds = Math.floor((gap % (1000 * 60)) / 1000);
-                    const timeLeft = `${days}days ${hours}hours ${minute}minutes ${seconds}seconds`;
+                    const timeLeft = `${days}:days ${hours}:hours ${minute}:minutes ${seconds}:seconds`;
                     count.innerHTML = timeLeft;
                     console.log(timeLeft)
                     if (gap < 0) {
