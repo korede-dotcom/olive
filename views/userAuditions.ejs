@@ -303,6 +303,9 @@
         }
 
         @media screen and (max-width: 40em) {
+            #dateandtime::-webkit-calendar-picker-indicator {
+                display: none;
+            }
 
             /* .navlink {
                 display: block;
@@ -780,7 +783,7 @@
 
                                                             <input name="date" id="dateandtime" type="date"
                                                                 min="<%=auditions.auditionStartDate%>"
-                                                                max="<%=auditions.auditionEndDate%>">
+                                                                max="<%=auditions.auditionEndDate%>" placeholder="Date">
                                                             <p>
                                                                 <select name="time" id="time">
                                                                     <option value="">Time</option>
