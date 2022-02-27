@@ -18,6 +18,13 @@ img{
     width: 100%;
 }
 
+footer h5{
+    color: #F2C033;
+    text-decoration: underline;
+}
+footer a{
+    color: #000;
+}
 
 
 body{
@@ -30,6 +37,20 @@ body{
 }
 
 /*  */
+
+.hi{
+    margin-top: 15px;
+}
+.whatsapp_link{
+    display: flex;
+    align-items: center;
+}
+footer img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: contain;
+}
 
 @media screen and (max-width: 650px){
 *{
@@ -264,12 +285,13 @@ footer{
     margin-top: 30px;
     position: relative; */
     position: relative;
+    padding: 10px;
 
 }
 .querys a{
-    color: #F2C033;
+    color: #F2C033 ;
     padding:2px 20px;
-    /* border: 1px solid #F2C033; */
+    border: 1px solid #F2C033;
     font-size: 25px;
     /* font-weight: 800; */
     font-family: 'Khand', sans-serif;
@@ -282,6 +304,7 @@ footer{
     
    
 }
+
 .footerlinks{
     color: #000;
     font-size: 1.2em;
@@ -606,6 +629,7 @@ footer{
        
         position: relative;
         width: 100%;
+        padding: 10px;
     }
     .querys > a{
         border: 1px solid #F2C033;
@@ -761,6 +785,18 @@ footer{
             font-family: 'Mulish', sans-serif;
             font-weight: bolder;
             font-size:13px ;
+        }
+        footer{
+          font-weight: 800;
+        }
+        footer img{
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            object-fit: contain;
+        }
+        footer > div:nth-of-type(2) > div{
+            padding-bottom: 10px;
         }
         
         
