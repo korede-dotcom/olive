@@ -797,7 +797,19 @@ footer{
         }
         footer > div:nth-of-type(2) > div{
             padding-bottom: 10px;
+            
         }
+        footer > div:nth-of-type(2) > div > a{
+            font-size: 18px !important;
+            font-weight: bolder;
+        }
+        footer > div:nth-of-type(2) > div > a:hover{
+            color: #F2C033;
+        }
+        footer > div:nth-of-type(2) > div > a:active{
+            color: #F2C033;
+        }
+        
         
         
 
