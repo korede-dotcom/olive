@@ -963,7 +963,7 @@ router.post("/dateselection",(req,res)=>{
             console.log(err)
         }else{
             console.log(dateSelection.length)
-            if(dateSelection.length === 1 ){
+            if(dateSelection.length === 100 ){
                 res.send({"status":"limit reached for this date and time please select another date"})
             }else{
                 DateSelection.create({
