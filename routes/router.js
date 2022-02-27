@@ -954,48 +954,29 @@ router.post("/uploadvideo",Authenticated,videoUpload.single('video'),async(req,r
 
 router.post("/dateselection",(req,res)=>{
     const {date,user,audition,provider} = req.body;
-    console.log(req.body)
-    // aggregrate dateSelection limit to 100
-    DateSelection.aggregate([
-        {
-            $match:{
-                date,
-            }
-        },
-        {
-            $group:{
-                _id:{
-                    user:"$user",
-                    provider:"$provider",
-                    audition:"$audition"
-                },
-                count:{
-                    $sum:1
-                }
-            }
-        }
-    ],(err,result)=>{
+    // convert date to mongodb 
+
+     const selectedDate = new Date(date).toISOString();
+    //  find match date in DateSelection
+    DateSelection.find({date:selectedDate},(err,dateSelection)=>{
         if(err){
             console.log(err)
         }else{
-            console.log(result)
-            if(result.length === 100){
-                res.send({"status":"limit"})
+            console.log(dateSelection.length)
+            if(dateSelection.length === 1 ){
+                res.send({"status":"limit reached for this date and time please select another date"})
             }else{
-                // make user create multiple date selection
-                
                 DateSelection.create({
-                    user,
+                    user:req.session.user._id,
                     provider,
+                    date:selectedDate,
                     audition,
-                    date,
-                    selected:"true"
+                    selected:true
                 },(err,dateSelection)=>{
                     if(err){
                         console.log(err)
                     }else{
                         if(dateSelection){
-                            // console.log(dateSelection)
                             res.send({"status":"success"})
                         }else{
                             res.send({"status":"error"})
@@ -1006,6 +987,101 @@ router.post("/dateselection",(req,res)=>{
         }
     })
 })
+
+    
+    
+//     DateSelection.aggregate([
+//         {
+//             $match:{
+//                 date,
+//                 user,
+//                 audition,
+//                 provider
+//             }
+//         },
+//         {
+//             $limit:1
+//         }
+//     ],(err,dateSelection)=>{
+//         if(err){
+//             console.log(err)
+//         }else{
+//             if(dateSelection.length > 0){
+//                 res.send({"status":"already"})
+//             }else{
+//                 DateSelection.create({
+//                     date,
+//                     user,
+//                     audition,
+//                     provider,
+//                     selected:true
+//                 },(err,dateSelection)=>{
+//                     console.log(dateSelection)
+//                     if(err){
+//                         console.log(err)
+//                     }else{
+//                         if(dateSelection){
+//                             res.send({"status":"success"})
+//                         }else{
+//                             res.send({"status":"error"})
+//                         }
+//                     }
+//                 })
+//             }
+//         }
+//     })
+// })
+
+    // DateSelection.aggregate([
+    //     {
+    //         $match:{
+    //             date,
+    //         }
+    //     },
+    //     {
+    //         $group:{
+    //             _id:{
+    //                 user:"$user",
+    //                 provider:"$provider",
+    //                 audition:"$audition"
+    //             },
+    //             count:{
+    //                 $sum:1
+    //             }
+    //         }
+    //     }
+    // ],(err,result)=>{
+    //     if(err){
+    //         console.log(err)
+    //     }else{
+    //         console.log(result.length)
+    //         if(result.length === 1){
+    //             res.send({"status":"limit reached for this date"})
+    //         }else{
+    //             // make user create multiple date selection
+                
+    //             DateSelection.create({
+    //                 user,
+    //                 provider,
+    //                 audition,
+    //                 date,
+    //                 selected:"true"
+    //             },(err,dateSelection)=>{
+    //                 if(err){
+    //                     console.log(err)
+    //                 }else{
+    //                     if(dateSelection){
+    //                         // console.log(dateSelection)
+    //                         res.send({"status":"success"})
+    //                     }else{
+    //                         res.send({"status":"error"})
+    //                     }
+    //                 }
+    //             })
+    //         }
+    //     }
+    // })
+
 
 
 
