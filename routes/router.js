@@ -415,7 +415,7 @@ router.get("/auditions/:id",Authenticated,(req,res)=>{
                             })   
                         }else{
                             DateSelection.findOne({user:req.session.user,audition:id},(err,dateSelection)=>{
-                                console.log(dateSelection)
+                                // console.log(dateSelection)
                                 if(err){
                                     console.log(err)
                                 }else{

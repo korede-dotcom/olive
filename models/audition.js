@@ -21,6 +21,10 @@ const auditionSchema = new mongoose.Schema([{
         required: true
         
     },
+    LiveAuditionLink:{
+        type: String,
+        required: true
+    },
     roleId:{
         type: String,
         required: true

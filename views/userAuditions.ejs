@@ -1073,9 +1073,10 @@
                 dateSelection.addEventListener("submit", (e) => {
                     // check if date is selected
                     e.preventDefault();
-                    if (e.target.querySelector("input[type=date]").value === "" || e.target.querySelector("input[type=time]").value === "") {
-                        infotext.innerHTML = "Please select a date";
+                    if (e.target.querySelector("input[type=date]").value == "" || e.target.querySelector("#time").value == "") {
+                        err.innerHTML = "Please select a date";
                         return false;
+                        checkA.innerHTML = "submit";
                     }
                     checkA.innerHTML = "Please wait...";
                     const date = new Date(e.target.querySelector("input[type=date]").value);
@@ -1133,7 +1134,8 @@
                     console.log(timeLeft)
                     if (gap < 0) {
 
-                        clearInterval();
+                        // stop countdown
+                        count.innerHTML = " ";
                         readyforaudition.style.display = "block";
                         // count.innerHTML = "";
                         // timeLeft.innerHTML = "Audition has ended";
@@ -1142,6 +1144,8 @@
                     // console.log(distance)
                 }, 1000);
             }
+
+
 
 
 
