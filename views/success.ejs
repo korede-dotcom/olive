@@ -295,12 +295,13 @@
             }
 
             .content {
-                height: 100%;
+                height: 100vh;
                 /* background-image: url("/assest/OLIVE/wave2.svg"); */
                 background-image: url("/assest/OLIVE/duotone3.png");
                 background-position: bottom;
                 background-size: cover;
                 background-repeat: no-repeat;
+                object-fit: cover;
                 display: grid;
                 padding: 1em;
 
@@ -403,6 +404,7 @@
         .imgs {
             display: flex;
             justify-content: space-around;
+            gap: 10px;
 
         }
 
@@ -410,6 +412,8 @@
             width: 50px;
             height: 50px;
             object-fit: contain;
+            border-radius: 50%;
+            border: 1px solid #88266F;
         }
     </style>
 
@@ -466,17 +470,19 @@
                 <div class="CONGRATULATION">
                     <div class="imgs">
                         <img width="50px" height="50px" src="/assest/OLIVE/confirm.png" alt="" srcset="">
+                        <hr>
                         <img src="<%=audition.auditionLogo%> " alt="" srcset="">
                     </div>
                     <h4>CONGRATULATION</h4>
                     <P>Your Payment is successful.
                     </P>
-                    <button class="btn" data-id="<%= audition._id %>" id="submitBtn">
-                        GO TO AUDITION
-                    </button>
+                    <!-- <button class="btn" data-id="<%= audition._id %>" id="submitBtn"> -->
+                    <a class="btn" href="/auditions/<%=audition._id%>">GO TO AUDITION</a>
+
+                    <!-- </button> -->
                     <h5>
                         <!-- <script src="https://checkout.flutterwave.com/v3.js"></script> -->
-                        <a href="/dashboard">GO TO DASHBOARD</a>
+                        <a href="/dashboard">Home</a>
                     </h5>
                 </div>
 
@@ -504,10 +510,10 @@
     </form> -->
 
             <script>
-                const btn = document.querySelector('.btn');
-                btn.addEventListener('click', () => {
-                    window.location.href = `/auditions/${btn.dataset.id}`;
-                });
+                // const btn = document.querySelector('.btn');
+                // btn.addEventListener('click', () => {
+                //     window.location.href = `/auditions/${btn.dataset.id}`;
+                // });
 
 
             </script>
