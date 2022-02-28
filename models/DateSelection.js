@@ -22,7 +22,8 @@ const DateSelectionSchema = new Schema({
     },
     audition: {
          type: mongoose.Types.ObjectId,
-        required: true
+        required: true,
+        unique: true
     },
     provider: {
          type: mongoose.Types.ObjectId,

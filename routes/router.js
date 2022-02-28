@@ -524,20 +524,22 @@ router.get("/digitalauditionplatform/:id",Authenticated,(req,res)=>{
     })
 })
 
-router.post("/check",Authenticated,(req,res)=>{
+router.post("/check",Authenticated,async(req,res)=>{
     const {id} = req.body;
-    Audition.findById(id,(err,audition)=>{
+    Audition.findOne({id},(err,audition)=>{
         if(err){
             res.send({"status":"error"})
         }else{
-            if(audition.auditionCharges > 0){
+            if(audition.auditionCharges === 1){
                 res.send({"status":"paid"})
             }else{
                 res.send({"status":audition._id})
             }
         }
     })
+
 })
+
 
 
 
