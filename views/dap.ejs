@@ -570,89 +570,87 @@
                 }).then(res => res.json())
                     .then(data => {
                         console.log(data);
-                        if (!)
-                            if (data.status === "paid") {
-                                function makePayment() {
+                        if (data.status === "paid") {
+                            function makePayment() {
 
-                                    FlutterwaveCheckout({
-                                        public_key: "FLWPUBK_TEST-ee16b8429467881fb5912f6e31e72a52-X",
-                                        tx_ref: `${id}${Date.now()}`,
-                                        amount: price,
-                                        currency: "NGN",
-                                        country: "NG",
-                                        payment_options: " ",
-                                        // redirect_url: // specified redirect URL
-                                        //     `http://localhost:1200/paidaudition?audition=${id}&provider=${provider}&user=${user_id}`,
-                                        meta: {
-                                            consumer_id: 23,
-                                            consumer_mac: "92a3-912ba-1192a",
-                                        },
-                                        customer: {
-                                            email: "<%=user.email%>",
-                                            phone_number: "<%= user.username %>",
-                                            name: "G-FACTOR Live tution",
-                                        },
-                                        callback: function (datas) {
-                                            fetch("/paid", {
-                                                method: "POST",
-                                                headers: {
-                                                    "Content-Type": "application/json",
-                                                },
-                                                body: JSON.stringify({
-                                                    data: datas,
-                                                    user: '<%=user._id%>',
-                                                    audition: id,
-
-
-                                                })
-                                            }).then(res => res.json())
-                                                .then(data => {
-                                                    console.log(data);
-                                                    if (data.status) {
-                                                        window.location.assign(`/payment/success`
-                                                        );
-                                                    } else {
-                                                        window.location.assign("/digitalauditionplatform")
-                                                    }
-                                                })
-                                        },
-                                        onclose: function () {
-                                            window.location.assign("/digitalauditionplatform")
-                                        },
-                                        customizations: {
-                                            title: "GhenGhen Live",
-                                            description: "G-FACTOR tution for <%=auditions.auditionName%>",
-                                            logo: logo,
-                                        },
-                                    });
-                                }
-
-                                makePayment()
-                            }
-
-                            else {
-                                // post all details to the server
-                                fetch("/free", {
-                                    method: "POST",
-                                    headers: {
-                                        "Content-Type": "application/json",
+                                FlutterwaveCheckout({
+                                    public_key: "FLWPUBK_TEST-ee16b8429467881fb5912f6e31e72a52-X",
+                                    tx_ref: `${id}${Date.now()}`,
+                                    amount: price,
+                                    currency: "NGN",
+                                    country: "NG",
+                                    payment_options: " ",
+                                    // redirect_url: // specified redirect URL
+                                    //     `http://localhost:1200/paidaudition?audition=${id}&provider=${provider}&user=${user_id}`,
+                                    meta: {
+                                        consumer_id: 23,
+                                        consumer_mac: "92a3-912ba-1192a",
                                     },
-                                    body: JSON.stringify({
-                                        user: '<%=user._id%>',
-                                        audition: id,
-                                    })
-                                }).then(res => res.json())
-                                    .then(data => {
-                                        console.log(data);
-                                        if (data.status === id) {
-                                            window.location.assign(`
-                                        /auditions/${data.status}`
-                                            );
-                                        } else {
-                                            window.location.assign("/digitalauditionplatform")
-                                        }
-                                    })
+                                    customer: {
+                                        email: "<%=user.email%>",
+                                        phone_number: "<%= user.username %>",
+                                        name: "G-FACTOR Live tution",
+                                    },
+                                    callback: function (datas) {
+                                        fetch("/paid", {
+                                            method: "POST",
+                                            headers: {
+                                                "Content-Type": "application/json",
+                                            },
+                                            body: JSON.stringify({
+                                                data: datas,
+                                                user: '<%=user._id%>',
+                                                audition: id,
+
+
+                                            })
+                                        }).then(res => res.json())
+                                            .then(data => {
+                                                console.log(data);
+                                                if (data.status) {
+                                                    window.location.assign(`/payment/success`
+                                                    );
+                                                } else {
+                                                    window.location.assign("/digitalauditionplatform")
+                                                }
+                                            })
+                                    },
+                                    onclose: function () {
+                                        window.location.assign("/digitalauditionplatform")
+                                    },
+                                    customizations: {
+                                        title: "GhenGhen Live",
+                                        description: "G-FACTOR tution for <%=auditions.auditionName%>",
+                                        logo: logo,
+                                    },
+                                });
                             }
+
+                            makePayment()
+                        }
+                        else {
+                            // post all details to the server
+                            fetch("/free", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                                body: JSON.stringify({
+                                    user: '<%=user._id%>',
+                                    audition: id,
+                                })
+                            }).then(res => res.json())
+                                .then(data => {
+                                    console.log(data);
+                                    if (data.status) {
+                                        window.location.assign(`
+                                        /auditions/${data.status}`
+                                        );
+                                    } else {
+                                        window.location.assign("/digitalauditionplatform")
+                                    }
+                                })
+                        }
                     })
 
 
