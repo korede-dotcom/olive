@@ -527,13 +527,14 @@ router.get("/digitalauditionplatform/:id",Authenticated,(req,res)=>{
 router.post("/check",Authenticated,async(req,res)=>{
     const {id} = req.body;
     Audition.findOne({id},(err,audition)=>{
+        
         if(err){
             res.send({"status":"error"})
         }else{
             if(audition.auditionCharges === 1){
                 res.send({"status":"paid"})
             }else{
-                res.send({"status":audition._id})
+                res.send({"status":false})
             }
         }
     })

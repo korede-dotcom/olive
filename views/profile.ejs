@@ -540,7 +540,7 @@
                     </div>
 
 
-                    <button disabled class="btn" id="submitBtn" style="opacity: .5;">updateprofile</button>
+                    <button disabled class="btn" id="submitBtn" style="opacity: .5;">Update Profile</button>
 
                 </form>
                 <div class="err"></div>
@@ -633,6 +633,7 @@
                     if (password.value !== confirm.value) {
                         // alert('password does not match');
                         err.innerHTML = 'password does not match';
+                        btn.innerHTML = "Update Profile"
                         return;
                     }
 
@@ -674,6 +675,7 @@
                     if (password.value !== confirm.value) {
                         // alert('password does not match');
                         err.innerHTML = 'password does not match';
+                        btn.innerHTML = "Update Profile"
                         return;
                     }
 
@@ -698,6 +700,7 @@
                             } else {
                                 // alert(data.error);
                                 err.innerHTML = data.error;
+                                btn.innerHTML = "Update Profile"
                             }
                         })
 
