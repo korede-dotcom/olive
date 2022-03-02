@@ -321,8 +321,12 @@
 
                 font-size: 1em;
                 z-index: 1;
+                text-align: center;
             }
 
+            input[type='date']:empty:focus:after {
+                content: "";
+            }
 
             .wrapper {
                 grid-template-columns: 1fr;
