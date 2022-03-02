@@ -44,6 +44,16 @@
             display: none;
         }
 
+        input[type='date']:empty:after {
+            content: attr(placeholder);
+            color: #F2C033;
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-size: 1em;
+            z-index: 1;
+        }
+
         body {
             font-family: 'khand', sans-serif;
             /* background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
@@ -1124,13 +1134,7 @@
 
 
     </script>
-    <script>
-        var textbox = document.getElementById('#dateandtime')
-        textbox.onfocus = function (event) {
-            this.type = 'date';
-            this.focus();
-        }
-    </script>
+
 </body>
 
 </html>
