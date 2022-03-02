@@ -44,10 +44,7 @@
             display: none;
         }
 
-        input[type='date']:after {
-            color: #000000;
-            content: attr(placeholder);
-        }
+
 
         body {
             font-family: 'khand', sans-serif;
@@ -316,6 +313,16 @@
             body {
                 /* background-image: url("/assest/OLIVE/duotone2.png"); */
                 color: #000 !important;
+            }
+
+            input[type='date']:empty:after {
+                content: attr(placeholder);
+                color: #F2C033;
+                position: absolute;
+                top: 0;
+                left: 0;
+                font-size: 1em;
+                z-index: 1;
             }
 
 
