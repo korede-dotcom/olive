@@ -790,9 +790,12 @@
 
                                                             <input name="date" id="dateandtime" type="date"
                                                                 min="<%=auditions.auditionStartDate%>"
-                                                                max="<%=auditions.auditionEndDate%>" placeholder="Date">
+                                                                max="<%=auditions.auditionEndDate%>" placeholder="Date"
+                                                                required onfocus="(this.type='date')"
+                                                                onmouseover="(this.type = 'date')"
+                                                                onblur="(this.value ? this.type = 'date' : this.type = 'text')">
                                                             <p>
-                                                                <select name="time" id="time">
+                                                                <select name="time" id="time" required>
                                                                     <option value="">Time</option>
                                                                     <option value="9:00">9:00 am - 11:00 am</option>
                                                                     <option value="14:00">2:00 pm - 4:00 pm</option>
