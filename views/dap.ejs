@@ -552,17 +552,18 @@
             element.addEventListener("click", (e) => {
                 const parent = e.target.parentElement;
                 // console.log(parent)
-                // const id = parent.querySelector('.audition').getAttribute("data-id");
-                // const provider = parent.querySelector('.audition').getAttribute("data-provider");
-                // const logo = parent.querySelector('img').getAttribute("src");
+                const id = parent.querySelector('.audition').getAttribute("data-id");
+                const provider = parent.querySelector('.audition').getAttribute("data-provider");
+                const logo = parent.querySelector('img').getAttribute("src");
                 const price = parent.querySelector('.audition').getAttribute("data-price");
-                console.log(price)
+                // console.log(price)
 
 
 
 
 
-                if (e.target.parent.querySelector('.audition').getAttribute("data-price") > 0) {
+                if (e.target.parentElement.querySelector('.audition').getAttribute("data-price") > 0) {
+
                     fetch("/check", {
                         method: "POST",
                         headers: {
@@ -612,7 +613,7 @@
                                                 .then(data => {
                                                     console.log(data);
                                                     if (data.status) {
-                                                        window.location.assign(`/payment/success`);
+                                                        window.location.assign(`/payment/success/${id}`);
                                                     } else {
                                                         window.location.assign("/digitalauditionplatform")
                                                     }
@@ -622,7 +623,7 @@
                                             window.location.assign("/digitalauditionplatform")
                                         },
                                         customizations: {
-                                            title: "GhenGhen Live",
+                                            title: "G-FACTOR",
                                             description: "G-FACTOR tution for <%=auditions.auditionName%>",
                                             logo: logo,
                                         },
@@ -630,8 +631,9 @@
                                 }
 
                                 makePayment()
+                            } else {
+                                window.location.assign("/digitalauditionplatform")
                             }
-
                             // else {
                             //     // post all details to the server
                             //     fetch("/free", {
@@ -662,6 +664,7 @@
 
                 }
             });
+
         });
 
         const myaudition = document.querySelectorAll("#myaudition");

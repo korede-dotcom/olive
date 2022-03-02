@@ -651,13 +651,13 @@ router.post("/paid",Authenticated,async (req,res)=>{
 
 })
 
-router.get("/payment/success",Authenticated,(req,res)=>{
-    Payment.findOne({user:req.session.user._id},(err,payment)=>{
+router.get("/payment/success/:id",Authenticated,(req,res)=>{
+    Payment.findOne({auditionId:req.params.id},(err,payment)=>{
         if(err){
             console.log(err)
         }else{
             if(payment){
-                Audition.findById(payment.auditionId,(err,audition)=>{
+                Audition.findById(req.params.id,(err,audition)=>{
                     if(err){
                         console.log(err)
                     }else{

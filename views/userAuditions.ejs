@@ -397,6 +397,10 @@
                 padding-bottom: 30px;
             }
 
+            .readyforaudition {
+                margin-bottom: 10px;
+            }
+
 
 
         }
@@ -616,15 +620,19 @@
             transition: color 1.5s;
         } */
 
-        .timeLeft {
+        .timeLeft,
+        .readyforaudition {
             background-color: #F2C033;
             font-size: 1.2em;
             font-weight: 400;
-            color: #27184f;
+            color: #27184f !important;
             padding: 5px 1em;
             border-radius: 5px;
-            text-align: center;
+            text-align: center !important;
+            text-decoration: none;
+
         }
+
 
         form {
             width: 100%;
@@ -1064,12 +1072,13 @@
                     }
 
                     if (gap < 0) {
+                        document.querySelector(".timedetails").style.display = "none";
 
                         // stop countdown
                         count.innerHTML = " ";
                         readyforaudition.style.display = "block";
                         // count.innerHTML = "";
-                        // timeLeft.innerHTML = "Audition has ended";
+                        document.querySelector(".timeLeft").style.display = "none";
                     }
                     // console.log(timeLeft)
                     // console.log(distance)

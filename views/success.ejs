@@ -98,6 +98,28 @@
 
         }
 
+        .CONGRATULATION>a {
+            /* font-size: 1.5em; */
+            background-color: #F2C033;
+            padding: 10px;
+            border-radius: 5px;
+            color: #27184f;
+            text-decoration: none;
+        }
+
+        .CONGRATULATION>a:hover {
+            background-color: #88266F;
+            color: #F2C033;
+        }
+
+        .CONGRATULATION h5>a {
+            font-size: 1em;
+            color: #F2C033;
+            /* padding: 10px; */
+            border-radius: 5px;
+            background-color: none !important;
+            text-decoration: none;
+        }
 
         header {
             background-color: inherit !important;
@@ -328,6 +350,43 @@
 
             }
 
+            .CONGRATULATION {
+                height: 50vh !important;
+            }
+
+            .CONGRATULATION>a {
+                /* font-size: 1em; */
+                background-color: #F2C033;
+                padding: 5px;
+                border-radius: 5px;
+                color: #27184f;
+                text-decoration: none;
+            }
+
+            .CONGRATULATION h5>a {
+                font-size: 1em;
+                color: #F2C033;
+                /* padding: 10px; */
+                border-radius: 5px;
+                background-color: none !important;
+                text-decoration: none;
+            }
+
+            /* .CONGRATULATION a:nth-of-type(2) {
+                font-size: 1.5em;
+                color: #F2C033;
+                padding: 10px;
+                border-radius: 5px;
+
+                text-decoration: none;
+            } */
+
+            .btn {
+                font-size: 16px;
+            }
+
+
+
         }
 
         @media screen and (max-width:400px) {
@@ -427,7 +486,7 @@
             <div class="onetext">
 
                 <h2><span style="color: #88266F;">G</span>-FACTOR</h2>
-                <h5>Payment Confirm</h5>
+                <h5>Payment Confirmed</h5>
             </div>
         </div>
 
@@ -478,7 +537,7 @@
                     <P>Your Payment is successful.
                     </P>
                     <!-- <button class="btn" data-id="<%= audition._id %>" id="submitBtn"> -->
-                    <a class="btn" href="/auditions/<%=audition._id%>">GO TO AUDITION</a>
+                    <a class="btn" href="/auditions/<%=audition._id%>">see what's next</a>
 
                     <!-- </button> -->
                     <h5>
