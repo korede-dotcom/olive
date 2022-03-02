@@ -791,9 +791,7 @@
                                                             <input name="date" id="dateandtime" type="date"
                                                                 min="<%=auditions.auditionStartDate%>"
                                                                 max="<%=auditions.auditionEndDate%>" placeholder="Date"
-                                                                required onfocus="(this.type='date')"
-                                                                onmouseover="(this.type = 'date')"
-                                                                onblur="(this.value ? this.type = 'date' : this.type = 'text')">
+                                                                required>
                                                             <p>
                                                                 <select name="time" id="time" required>
                                                                     <option value="">Time</option>
@@ -1125,6 +1123,13 @@
         }
 
 
+    </script>
+    <script>
+        var textbox = document.getElementById('#dateandtime')
+        textbox.onfocus = function (event) {
+            this.type = 'date';
+            this.focus();
+        }
     </script>
 </body>
 
