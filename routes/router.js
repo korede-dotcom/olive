@@ -24,6 +24,7 @@ const Video = require("../models/videos")
 const DateSelection = require("../models/DateSelection")
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
+const os = require("os")
 
 
 
@@ -72,6 +73,31 @@ router.get("/login",(req,res)=>{
 
 router.get("/",(req,res)=>{
     res.render('landing')
+})
+
+router.get("/myos",(req,res)=>{
+    res.status(200).json({
+        ip:req.ip,
+        status:"success",
+        message:"test",
+        conn:req.is('connection')
+        os:os.networkInterfaces(),
+        test:os.platform() === 'darwin' ? 'mac' : os.platform(),
+        // get ip address
+        ip:os.networkInterfaces().en0[1].address,
+        // get mac address
+        mac:os.networkInterfaces().en0[1].mac,
+        // get type of network
+        type:os.networkInterfaces().en0[1].type,
+        // get type of connection
+        connection:os.networkInterfaces().en0[1].connection,
+        test6:req.get('user-agent'),
+        conn:req.is('connection'),
+        test:req.secure,
+        test2:req.protocol,
+})
+    
+    
 })
 
 
