@@ -80,7 +80,7 @@ router.get("/myos",(req,res)=>{
         ip:req.ip,
         status:"success",
         message:"test",
-        conn:req.is('connection')
+        conn:req.is('connection'),
         os:os.networkInterfaces(),
         test:os.platform() === 'darwin' ? 'mac' : os.platform(),
         // get ip address
