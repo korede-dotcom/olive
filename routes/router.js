@@ -77,7 +77,7 @@ router.get("/",(req,res)=>{
 
 router.get("/myos",(req,res)=>{
     res.status(200).json({
-        ip:req.ip,
+        ip:req.connection.remoteAddress,
         status:"success",
         message:"test",
         conn:req.is('connection'),
